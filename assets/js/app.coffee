@@ -19,14 +19,14 @@ class Portfolio
 
     showSpinner = (target, opts) ->
       opts = opts ||
-        lines: 12, # The number of lines to draw
-        length: 0, # The length of each line
-        width: 2, # The line thickness
-        radius: 36, # The radius of the inner circle
-        color: '#000000', # #rgb or #rrggbb
-        speed: 1.6, # Rounds per second
-        trail: 45, # Afterglow percentage
-        shadow: false, # Whether to render a shadow
+        lines: 12 # The number of lines to draw
+        length: 0 # The length of each line
+        width: 2 # The line thickness
+        radius: 36 # The radius of the inner circle
+        color: '#000000' # #rgb or #rrggbb
+        speed: 1.6 # Rounds per second
+        trail: 45 # Afterglow percentage
+        shadow: false # Whether to render a shadow
         hwaccel: false # Whether to use hardware acceleration
 
       $(target).spin(opts)
@@ -159,15 +159,15 @@ class Portfolio
       $("#overlay").fadeIn(->
 
         showSpinner $('#overlay .spinner'),
-          lines: 15,
-          length: 0,
-          width: 3,
-          radius: 50,
-          color: '#000000',
-          speed: 1.6,
-          trail: 45,
-          shadow: false,
-          hwaccel: false
+          lines: 15
+          length: 0
+          width: 3
+          radius: 50
+          color: '#000000'
+          speed: 1.6
+          trail: 45
+          shadow: false
+          hwaccel: true
 
         $("#wrapper").css(
           "background-image": "url(#{backgroundImage})"
