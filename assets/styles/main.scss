@@ -28,31 +28,13 @@ main {
 
     .spinner
     {
-      color: #fff;
-      font-family: "helvetica";
-      font-size: 25px;
+      margin: -85px 0px 0px -85px;
+      width: 170px;
       height: 170px;
       left: 50%;
-      margin: 0 0 0 -100px;
-      opacity: 0.7;
-      padding: 15px;
+      top: 50%;
       position: absolute;
-      text-align: center;
-      top: 150px;
-      width: 170px;
       display: inline-block;
-
-      .spin {
-        width: 170px;
-        height: 170px;
-        margin: 0px;
-        padding: 0px;
-        display: inline-block;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        z-index: 1;
-      }
     }
   }
 

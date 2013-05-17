@@ -707,17 +707,17 @@ body {
   font-size: 1em;
   font-family: 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
   background-color: #ffffff; }
-  body #logo-preload {
+  body .logo-preload {
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0px;
     left: 0px;
     z-index: 0; }
-    body #logo-preload img {
+    body .logo-preload img {
       width: 50px;
       height: 50px;
-      margin: -50px 0px 0px -50px;
+      margin: -25px 0px 0px -25px;
       left: 50%;
       top: 50%;
       position: relative; }
@@ -1191,29 +1191,13 @@ main {
     max-height: 100%;
     display: none; }
     main #overlay .spinner {
-      color: #fff;
-      font-family: "helvetica";
-      font-size: 25px;
+      margin: -85px 0px 0px -85px;
+      width: 170px;
       height: 170px;
       left: 50%;
-      margin: 0 0 0 -100px;
-      opacity: 0.7;
-      padding: 15px;
+      top: 50%;
       position: absolute;
-      text-align: center;
-      top: 150px;
-      width: 170px;
       display: inline-block; }
-      main #overlay .spinner .spin {
-        width: 170px;
-        height: 170px;
-        margin: 0px;
-        padding: 0px;
-        display: inline-block;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        z-index: 1; }
   main .hover-caption {
     padding: 20px 20px 0px 20px;
     width: auto;

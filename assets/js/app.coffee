@@ -29,7 +29,7 @@ class Portfolio
         shadow: false, # Whether to render a shadow
         hwaccel: false # Whether to use hardware acceleration
 
-      spinner = new Spinner(opts).spin(target)
+      $(target).spin(opts)
 
 
     # Modernizr SVG backup
@@ -154,13 +154,15 @@ class Portfolio
       $(".theme-container li").removeClass 'active'
       $(".theme-container li:eq(#{rand})").addClass 'active'
 
+
+
       $("#overlay").fadeIn(->
 
-        showSpinner $('#overlay .spinner .spin'),
-          lines: 12,
+        showSpinner $('#overlay .spinner'),
+          lines: 15,
           length: 0,
           width: 3,
-          radius: 30,
+          radius: 50,
           color: '#000000',
           speed: 1.6,
           trail: 45,
@@ -175,8 +177,6 @@ class Portfolio
         setTimeout (=>
           $("#overlay").fadeOut()
         ), 500
-
-
       )
 
 
