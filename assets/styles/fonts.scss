@@ -1,0 +1,275 @@
+// Portfolio Icons
+
+@font-face {
+  font-family: 'Portfolio-Icons';
+  src:url('/fonts/Portfolio-Icons.eot');
+  src:url('/fonts/Portfolio-Icons.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/Portfolio-Icons.woff') format('woff'),
+    url('/fonts/Portfolio-Icons.ttf') format('truetype'),
+    url('/fonts/Portfolio-Icons.svg#Portfolio-Icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+  font-family: 'Portfolio-Icons';
+  content: attr(data-icon);
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="icon-portfolio"] {
+*/
+.icon-portfolio-dribbble, .icon-portfolio-edit, .icon-portfolio-eye, .icon-portfolio-home, .icon-portfolio-favorite, .icon-portfolio-gear, .icon-portfolio-github, .icon-portfolio-linkedin, .icon-portfolio-twitter, .icon-portfolio-user, .icon-portfolio-cosmic, .icon-portfolio-spaceship, .icon-portfolio-info, .icon-portfolio-stack, .icon-portfolio-contact, .icon-portfolio-list, .icon-portfolio-stack3d, .icon-portfolio-tropics, .icon-portfolio-info-script, .icon-portfolio-behance, .icon-portfolio-laptop, .icon-portfolio-pencil, .icon-portfolio-screen, .icon-portfolio-user, .icon-portfolio-accessibility, .icon-portfolio-heart, .icon-portfolio-heart-2, .icon-portfolio-close, .icon-portfolio-shuffle, .icon-portfolio-loop, .icon-portfolio-ampersand, .icon-portfolio-code, .icon-portfolio-th, .icon-portfolio-th-list, .icon-portfolio-th-large, .icon-portfolio-remove-sign, .icon-portfolio-minus-sign, .icon-portfolio-plus-sign, .icon-portfolio-ok-sign, .icon-portfolio-chevron-right, .icon-portfolio-chevron-left, .icon-portfolio-calendar, .icon-portfolio-cog, .icon-portfolio-feed, .icon-portfolio-phone, .icon-portfolio-user-2, .icon-portfolio-globe, .icon-portfolio-envelope-alt, .icon-portfolio-email, .icon-portfolio-refresh, .icon-portfolio-loop, .icon-portfolio-locked, .icon-portfolio-unlocked {
+  font-family: 'Portfolio-Icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+.icon-portfolio-dribbble:before {
+  content: "\e000";
+}
+.icon-portfolio-edit:before {
+  content: "\e001";
+}
+.icon-portfolio-eye:before {
+  content: "\e002";
+}
+.icon-portfolio-home:before {
+  content: "\e003";
+}
+.icon-portfolio-favorite:before {
+  content: "\e004";
+}
+.icon-portfolio-gear:before {
+  content: "\e005";
+}
+.icon-portfolio-github:before {
+  content: "\e006";
+}
+.icon-portfolio-linkedin:before {
+  content: "\e007";
+}
+.icon-portfolio-twitter:before {
+  content: "\e008";
+}
+.icon-portfolio-user:before {
+  content: "\e009";
+}
+.icon-portfolio-cosmic:before {
+  content: "\e00a";
+}
+.icon-portfolio-spaceship:before {
+  content: "\e00b";
+}
+.icon-portfolio-info:before {
+  content: "\e00c";
+}
+.icon-portfolio-stack:before {
+  content: "\e00d";
+}
+.icon-portfolio-contact:before {
+  content: "\e00e";
+}
+.icon-portfolio-list:before {
+  content: "\e00f";
+}
+.icon-portfolio-stack3d:before {
+  content: "\e010";
+}
+.icon-portfolio-tropics:before {
+  content: "\e011";
+}
+.icon-portfolio-info-script:before {
+  content: "\e012";
+}
+.icon-portfolio-behance:before {
+  content: "\e013";
+}
+.icon-portfolio-laptop:before {
+  content: "\e014";
+}
+
+.icon-portfolio-pencil:before {
+  content: "\e015";
+}
+.icon-portfolio-screen:before {
+  content: "\e016";
+}
+.icon-portfolio-user:before {
+  content: "\e017";
+}
+.icon-portfolio-accessibility:before {
+  content: "\e018";
+}
+.icon-portfolio-heart:before {
+  content: "\e019";
+}
+.icon-portfolio-heart-2:before {
+  content: "\e01a";
+}
+.icon-portfolio-close:before {
+  content: "\e01b";
+}
+.icon-portfolio-shuffle:before {
+  content: "\e01c";
+}
+.icon-portfolio-loop:before {
+  content: "\e01d";
+}
+.icon-portfolio-ampersand:before {
+  content: "\e01e";
+}
+.icon-portfolio-code:before {
+  content: "\e01f";
+}
+.icon-portfolio-th:before {
+  content: "\f00a";
+}
+.icon-portfolio-th-list:before {
+  content: "\f00b";
+}
+.icon-portfolio-th-large:before {
+  content: "\f009";
+}
+.icon-portfolio-remove-sign:before {
+  content: "\f057";
+}
+.icon-portfolio-minus-sign:before {
+  content: "\f056";
+}
+.icon-portfolio-plus-sign:before {
+  content: "\f055";
+}
+.icon-portfolio-ok-sign:before {
+  content: "\f058";
+}
+.icon-portfolio-chevron-right:before {
+  content: "\f054";
+}
+.icon-portfolio-chevron-left:before {
+  content: "\f053";
+}
+.icon-portfolio-calendar:before {
+  content: "\f073";
+}
+.icon-portfolio-cog:before {
+  content: "\e020";
+}
+.icon-portfolio-feed:before {
+  content: "\e021";
+}
+.icon-portfolio-phone:before {
+  content: "\e022";
+}
+.icon-portfolio-user-2:before {
+  content: "\e023";
+}
+.icon-portfolio-globe:before {
+  content: "\e024";
+}
+.icon-portfolio-envelope-alt:before {
+  content: "\f0e0";
+}
+.icon-portfolio-email:before {
+  content: "\e025";
+}
+.icon-portfolio-refresh:before {
+  content: "\e026";
+}
+.icon-portfolio-loop:before {
+  content: "\e027";
+}
+.icon-portfolio-locked:before {
+  content: "\e028";
+}
+.icon-portfolio-unlocked:before {
+  content: "\e029";
+}
+
+// Proxima Nova Font
+
+@font-face {
+    font-family: 'ProximaNovaBlack';
+    src: url('/fonts/proximanova-black-webfont.eot');
+    src: url('/fonts/proximanova-black-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/proximanova-black-webfont.woff') format('woff'),
+         url('/fonts/proximanova-black-webfont.ttf') format('truetype'),
+         url('/fonts/proximanova-black-webfont.svg#proxima_novablack') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ProximaNovaBold';
+    src: url('/fonts/proximanova-bold-webfont.eot');
+    src: url('/fonts/proximanova-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/proximanova-bold-webfont.woff') format('woff'),
+         url('/fonts/proximanova-bold-webfont.ttf') format('truetype'),
+         url('/fonts/proximanova-bold-webfont.svg#proxima_nova_rgbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ProximaNovaExtrabold';
+    src: url('/fonts/proximanova-extrabold-webfont.eot');
+    src: url('/fonts/proximanova-extrabold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/proximanova-extrabold-webfont.woff') format('woff'),
+         url('/fonts/proximanova-extrabold-webfont.ttf') format('truetype'),
+         url('/fonts/proximanova-extrabold-webfont.svg#proxima_novaextrabold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ProximaNovaLight';
+    src: url('/fonts/proximanova-light-webfont.eot');
+    src: url('/fonts/proximanova-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/proximanova-light-webfont.woff') format('woff'),
+         url('/fonts/proximanova-light-webfont.ttf') format('truetype'),
+         url('/fonts/proximanova-light-webfont.svg#proxima_novalight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ProximaNovaRegular';
+    src: url('/fonts/proximanova-regular-webfont.eot');
+    src: url('/fonts/proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/proximanova-regular-webfont.woff') format('woff'),
+         url('/fonts/proximanova-regular-webfont.ttf') format('truetype'),
+         url('/fonts/proximanova-regular-webfont.svg#proxima_nova_rgregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ProximaNovaSemibold';
+    src: url('/fonts/proximanova-semibold-webfont.eot');
+    src: url('/fonts/proximanova-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/proximanova-semibold-webfont.woff') format('woff'),
+         url('/fonts/proximanova-semibold-webfont.ttf') format('truetype'),
+         url('/fonts/proximanova-semibold-webfont.svg#proxima_novasemibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}

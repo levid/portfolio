@@ -1,0 +1,292 @@
+/* Mixins and Supportive Variables */
+$path: "/images/";
+
+@mixin background($imgpath, $repeat: no-repeat, $position: left top, $color: transparent) {
+  background: {
+    color: $color;
+    image: url($imgpath);
+    position: $position;
+    repeat: $repeat;
+  }
+}
+
+@mixin font-face($fontpath, $font-family: 'Helvetica Neue', $font-weight: 400) {
+  @font-face {
+    font-family: $font-family;
+    src: url($fontpath);
+    font-weight:$font-weight;
+  }
+}
+
+@mixin font-size($size, $line-height: 18px) {
+  font-size: $size;
+  line-height: ceil($size / $line-height) * $line-height;
+}
+
+@mixin animation($name, $length:1000ms, $ease:ease, $delay:0ms, $iteration:1, $alternate:normal, $fillmode:both, $backface:hidden) {
+  -webkit-animation-name: $name;
+  -webkit-animation-duration:$length;
+  -webkit-animation-iteration-count: $iteration;
+  -webkit-animation-timing-function: $ease;
+  -webkit-animation-delay: $delay;
+  -webkit-animation-direction: $alternate;
+  -webkit-animation-fill-mode: $fillmode;
+  -webkit-backface-visibility: $backface;
+
+  -moz-animation-name: $name;
+  -moz-animation-duration:$length;
+  -moz-animation-iteration-count: $iteration;
+  -moz-animation-timing-function: $ease;
+  -moz-animation-delay: $delay;
+  -moz-animation-direction: $alternate;
+  -moz-animation-fill-mode: $fillmode;
+
+  -ms-animation-name: $name;
+  -ms-animation-duration:$length;
+  -ms-animation-iteration-count: $iteration;
+  -ms-animation-timing-function: $ease;
+  -ms-animation-delay: $delay;
+  -ms-animation-direction: $alternate;
+  -ms-animation-fill-mode: $fillmode;
+  -ms-backface-visibility: $backface;
+
+  -o-animation-name: $name;
+  -o-animation-duration:$length;
+  -o-animation-iteration-count: $iteration;
+  -o-animation-timing-function: $ease;
+  -o-animation-delay: $delay;
+  -o-animation-direction: $alternate;
+  -o-animation-fill-mode: $fillmode;
+  -o-backface-visibility: $backface;
+
+  animation-name: $name;
+  animation-duration:$length;
+  animation-iteration-count: $iteration;
+  animation-timing-function: $ease;
+  animation-delay: $delay;
+  animation-direction: $alternate;
+  animation-fill-mode: $fillmode;
+  backface-visibility: $backface;
+  // enables hardware acceleration
+  -webkit-transform: translateZ(0);
+  -moz-animation: translateZ(0);
+  -ms-animation: translateZ(0);
+  -o-animation: translateZ(0);
+  animation: translateZ(0);
+}
+
+// background-size
+@mixin background-size ($val: 100% 100%)
+{
+  -webkit-background-size: $val;
+  -moz-background-size: $val;
+  -o-background-size: $val;
+  background-size: $val;
+  behavior: url(pie/PIE.htc); // This enables CSS3 in IE 6-9
+}
+
+@mixin transform-rotate ($val: -90deg)
+{
+  -webkit-transform: rotate($val);
+  -moz-transform: rotate($val);
+  -o-transform: rotate($val);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=$val); //For IE support
+}
+
+@mixin transform-scale ($val: scale(0.2, 0,2))
+{
+  transform: $val;
+  -ms-transform: $val; /* IE 9 */
+  -webkit-transform: $val; /* Safari and Chrome */
+  -o-transform: $val; /* Opera */
+  -moz-transform: $val; /* Firefox */
+}
+
+@mixin filter ($val: grayscale(100%))
+{
+  filter: $val;
+  -ms-filter: $val; /* IE 9 */
+  -webkit-filter: $val; /* Safari and Chrome */
+  -o-filter: $val; /* Opera */
+  -moz-filter: $val; /* Firefox */
+}
+
+// transition
+@mixin transition ($val: none)
+{
+  -moz-transition: $val;
+  -webkit-transition: $val;
+  -ms-transition: $val;
+  -o-transition: $val;
+  transition: $val;
+  behavior: url(pie/PIE.htc); // This enables CSS3 in IE 6-9
+}
+
+// box-shadow
+@mixin box-shadow ($val: none)
+{
+  -webkit-box-shadow: $val;
+  -moz-box-shadow: $val;
+  -o-box-shadow: $val;
+  box-shadow: $val;
+}
+
+// box-flex
+@mixin box-flex ($val: none)
+{
+  -moz-box-flex: $val;
+  -webkit-box-flex: $val;
+  -ms-box-flex: $val;
+  -moz-box-flex: $val;
+  box-flex: $val;
+}
+
+// box-sizing
+@mixin box-sizing ($val: none)
+{
+  -ms-box-sizing: $val;
+  -webkit-box-sizing: $val;
+  -moz-box-sizing: $val;
+  box-sizing: $val;
+}
+
+// box-orient
+@mixin box-orient ($val: none)
+{
+  moz-box-orient: $val;
+  -webkit-box-orient: $val;
+  -ms-box-orient: $val;
+  box-orient: $val;
+}
+
+// box-align
+@mixin box-align ($val: none)
+{
+  -moz-box-align: $val;
+  -webkit-box-align: $val;
+  -ms-box-align: $val;
+  box-align: $val;
+}
+
+// box-pack
+@mixin box-pack ($val: none)
+{
+  -moz-box-box-pack: $val;
+  -webkit-box-pack: $val;
+  -ms-box-pack: $val;
+  box-pack: $val;
+}
+
+// user-select
+@mixin user-select ($val: none)
+{
+  -moz-user-select: $val;
+  -khtml-user-select: $val;
+  -webkit-user-select: $val;
+  -ms-user-select: $val;
+  user-select: $val;
+}
+
+// display-box
+@mixin display-box ()
+{
+  display: -webkit-box;
+  display: -khtml-box;
+  display: -ms-box;
+  display: -moz-box;
+  display: box;
+  width: -moz-available;
+}
+
+// border-radius
+@mixin border-radius ($val: none)
+{
+  -webkit-border-radius: $val;
+  -khtml-border-radius: $val;
+  -moz-border-radius: $val;
+  -ms-border-radius: $val;
+  -o-border-radius: $val;
+  border-radius: $val;
+  behavior: url(pie/PIE.htc); // This enables CSS3 in IE 6-9
+}
+
+@mixin border-radius-important ($val: none)
+{
+  -webkit-border-radius: $val !important;
+  -khtml-border-radius: $val !important;
+  -moz-border-radius: $val !important;
+  -ms-border-radius: $val !important;
+  -o-border-radius: $val !important;
+  border-radius: $val !important;
+}
+
+// background-clip
+@mixin background-clip ($val: none)
+{
+  -webkit-background-clip: $val;
+  -moz-background-clip: $val;
+  background-clip: $val;
+}
+
+// transition
+@mixin transition ($val: none)
+{
+  -webkit-transition: $val;
+  -moz-transition: $val;
+  -ms-transition: $val;
+  -o-transition: $val;
+  transition: $val;
+  behavior: url(pie/PIE.htc); // This enables CSS3 in IE 6-9
+}
+
+// opacity
+@mixin opacity ($val: 100)
+{
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  filter: alpha(opacity = $val);
+  -khtml-opacity: $val / 100;
+  -moz-opacity: $val / 100;
+  opacity: $val / 100;
+  behavior: url(pie/PIE.htc); // This enables CSS3 in IE 6-9
+}
+
+@mixin grey-box {
+  border: 1px solid $grey-border;
+  @include border-radius(3px);
+  @include box-shadow(0 1px 2px #c5c5c5);
+  background-color: $grey;
+  padding: 20px;
+}
+
+// background-gradient
+// Relys on ie-hex-str sass function in config/initializers
+@mixin background-gradient ($top, $bottom, $fallback: transparent) {
+  background: $fallback !important;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($top), to($bottom))  !important;
+  background-image: -webkit-linear-gradient($top, $bottom)  !important;
+  background-image: -moz-linear-gradient(center top, $top 0%, $bottom 100%)  !important;
+  background-image: -moz-gradient(center top, $top 0%, $bottom 100%)  !important;
+  background-image: -o-linear-gradient(top, $top 0%, $bottom 100%) !important;
+  background-image: -ms-linear-gradient(top, $top 0%, $bottom 100%) !important;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#{$top}', endColorstr='#{$bottom}');";
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#{$top}', endColorstr='#{$bottom}');
+  zoom: 1 !important;
+}
+
+// vetical gradient
+@mixin vertical-gradient($start, $end) {
+  background-color: $start;
+  background-image: -moz-linear-gradient(top, $start, $end);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, $start), color-stop(1, $end));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$start}', EndColorStr='#{$end}');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$start}', EndColorStr='#{$end}')";
+}
+
+// horizontal gradient
+@mixin horizontal-gradient($start, $end) {
+  background-color: $start;
+  background-image: -moz-linear-gradient(left, $start, $end);
+  background-image: -webkit-gradient(linear, left top, right top, color-stop(0, $start), color-stop(1, $end));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$start}', endColorStr='#{$end}', gradientType=1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$start}', endColorStr='#{$end}', gradientType=1)";
+}

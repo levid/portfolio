@@ -1,0 +1,75 @@
+%script{:id => "views/home.html", :type => "text/ng-template"}
+  .lens-flare
+    %img{:src => 'images/lens-flare.png'}
+  %section.home-nav
+    .logo-block
+      .logo
+        %a{:href => '#'}
+          %img{:src => '/images/logo-header-small.svg', :width => '42', :height => '42'}
+      .name
+        Isaac T. Wooten
+      .divider
+      .position
+        %span Designer
+        %span.ampersand
+          %i.icon-portfolio-ampersand
+        %span Developer
+    %ul.nav
+      %li.large
+        %a{:href => '#'} Design
+      %li.large
+        %a{:href => '#'} Identity
+      %li.large
+        %a{:href => '#'} Code
+      %li.large
+        %a{:href => '#'} Web
+      / %li.spacer
+      %li.filter-by
+        %a{:href => '#'}
+          .hex
+            %span.all All
+      %li.small
+        %a{:href => '#'} About
+      %li.small
+        %a{:href => '#'} Contact
+      %li.small
+        %a{:href => '#'} Clients
+      %li.small
+        %a{:href => '#'} CV
+
+    .theme-block
+      .thumbnail
+        %img{:src => ''}
+      .arrow
+        %a{:href => '#'}
+
+  .theme-container
+    %a{:href => '#'}
+      .text
+        %i.icon-portfolio-shuffle
+      .hexagon.hexagon
+        .hexagon-in1
+          .hexagon-in2
+            %ul
+              %li.active
+                %img{:src => 'images/themes/ocean-rocks-thumb.jpg', :"data-background" => 'images/themes/ocean-rocks.jpg', :"data-position" => 'bottom left'}
+              %li
+                %img{:src => 'images/themes/bees-thumb.jpg', :"data-background" => 'images/themes/bees.jpg', :"data-position" => 'bottom left'}
+              %li
+                %img{:src => 'images/themes/autumn-leaves-thumb.jpg', :"data-background" => 'images/themes/autumn-leaves.jpg', :"data-position" => 'top left'}
+              %li
+                %img{:src => 'images/themes/autumn-leaves2-thumb.jpg', :"data-background" => 'images/themes/autumn-leaves2.jpg', :"data-position" => 'top left'}
+              %li
+                %img{:src => 'images/themes/dark-wood-thumb.jpg', :"data-background" => 'images/themes/dark-wood.jpg', :"data-position" => 'bottom left'}
+              %li
+                %img{:src => 'images/themes/ladybug-thumb.jpg', :"data-background" => 'images/themes/ladybug.jpg', :"data-position" => 'top left'}
+              %li
+                %img{:src => 'images/themes/ocean-cliff-thumb.jpg', :"data-background" => 'images/themes/ocean-cliff.jpg', :"data-position" => 'top left'}
+              %li
+                %img{:src => 'images/themes/open-road-thumb.jpg', :"data-background" => 'images/themes/open-road.jpg', :"data-position" => 'bottom left'}
+              %li
+                %img{:src => 'images/themes/summer-sky-thumb.jpg', :"data-background" => 'images/themes/summer-sky.jpg', :"data-position" => 'bottom left'}
+              %li
+                %img{:src => 'images/themes/grass-thumb.jpg', :"data-background" => 'images/themes/grass.jpg', :"data-position" => 'bottom left'}
+
+      .title Swap Theme

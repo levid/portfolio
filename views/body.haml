@@ -1,0 +1,14 @@
+%main{:"data-ng-controller" => "MainCtrl"}
+
+  #overlay
+    .spinner
+      .spin
+    #logo-preload
+      %img{:src => "images/logo-footer.svg"}
+
+  <%- partial('audio') %>
+  <%- partial('sidebar') %>
+
+  %section.content{:"ng-view" => ''}
+
+  .push

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In  -->
+<!DOCTYPE svg [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.2" baseProfile="tiny"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="41px" height="41px" viewBox="0 0 41 41" overflow="visible" xml:space="preserve">
+<defs>
+</defs>
+<circle cx="20.355" cy="20.355" r="20.355"/>
+<polygon fill="#648D95" points="12.552,23.017 9.032,17.156 12.552,11.296 16.07,17.156 "/>
+<polygon fill="#648D95" points="16.454,29.415 12.934,23.555 16.454,17.694 19.973,23.555 "/>
+<polygon fill="#F36E46" points="24.259,29.415 20.738,23.555 24.259,17.694 27.777,23.555 "/>
+<polygon fill="#FBC1B0" points="20.356,23.017 16.837,17.156 20.356,11.296 23.875,17.156 "/>
+<polygon fill="#F36E46" points="28.16,23.017 24.64,17.156 28.16,11.296 31.68,17.156 "/>
+</svg>
