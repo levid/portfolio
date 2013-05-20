@@ -1,13 +1,14 @@
 'use strict'
 
 # Socket service
-Application.Services.factory "$socket", ["$rootScope", "User", ($rootScope, User) ->
+Application.Services.factory "$socket", ["$rootScope", "$location", "User", ($rootScope, $location, User) ->
 
   # $socket listeners
   # ================
 
   port = 1336
-  $socket = io.connect("http://localhost:#{port}")
+  host = 'http://isaac.levid.com'
+  $socket = io.connect("#{host}:#{port}")
   # $socket.setMaxListeners(0)
 
   $socket.on "connect", (stream) ->
