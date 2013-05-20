@@ -20,10 +20,42 @@ angular.module('application', ['ngResource', 'application.filters', 'application
 
     $routeProvider.
       when('/', {
+        redirectTo: '/home'
+      }).
+      when('/home', {
         templateUrl: 'views/home.html'
       }).
       when('/design', {
-        templateUrl: 'views/design.html'
+        templateUrl: 'views/design.html',
+        controller: 'WorkController'
+      }).
+      when('/identity', {
+        templateUrl: 'views/identity.html',
+        controller: 'WorkController'
+      }).
+      when('/code', {
+        templateUrl: 'views/code.html',
+        controller: 'WorkController'
+      }).
+      when('/web', {
+        templateUrl: 'views/web.html',
+        controller: 'WorkController'
+      }).
+      when('/all', {
+        templateUrl: 'views/all.html',
+        controller: 'WorkController'
+      }).
+      when('/about', {
+        templateUrl: 'views/about.html'
+      }).
+      when('/contact', {
+        templateUrl: 'views/contact.html'
+      }).
+      when('/clients', {
+        templateUrl: 'views/clients.html'
+      }).
+      when('/cv', {
+        templateUrl: 'views/cv.html'
       }).
       when('/view1', {
         templateUrl: 'views/partials/partial1.html'
@@ -73,11 +105,19 @@ angular.module('application', ['ngResource', 'application.filters', 'application
       });
 
   }]).run(function($rootScope, $route){
+
+    $rootScope.$on('$routeChangeStart', function(nextRoute, currentRoute) {
+      window.portfolio.showLoadingScreen();
+    });
     // Bind the `$routeChangeSuccess` event on the rootScope, so that we dont need to bind in individual controllers.
     $rootScope.$on('$routeChangeSuccess', function(currentRoute, previousRoute) {
       // This will set the custom property that we have defined while configuring the routes.
       if($route.current.action && $route.current.action.length > 0){
         $rootScope.action = $route.current.action;
       }
+
+      setTimeout((function() {
+        window.portfolio.hideLoadingScreen();
+      }), 500);
     });
 });

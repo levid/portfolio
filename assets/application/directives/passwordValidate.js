@@ -1,5 +1,7 @@
 Application.Directives.directive('passwordValidate', function() {
   return {
+    restrict: 'E',
+    replace: true,
     require: 'ngModel',
     link: function(scope, elm, attrs, ctrl) {
       ctrl.$parsers.unshift(function(viewValue) {

@@ -1,5 +1,16 @@
 <script id='views/design.html' type='text/ng-template'>
-  <section class='content'>
-    Design
+  <section class='sub design' ng-controller='WorkController'>
+    <div class='innerContent'>
+      <div ng-include='' src="'views/partials/user-header.html'"></div>
+      <div class='thumbnails' ng-init='getThumbnails(projects)'>
+        <div ng-repeat='project in projects | orderBy:name:descending | filter:category'>
+          <!-- .thumb -->
+          <!-- %img{:src => "project.thumbnail_image"} -->
+          <div class='thumb' ng-repeat='image in getThumbnails(project.images) '>
+            <img src='images/{{image}}' />
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </script>

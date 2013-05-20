@@ -5,7 +5,8 @@ module.exports = function (req,res,ok) {
 
   // User is allowed, proceed to controller
   if (req.session.authenticated) {
-    return ok();
+    // return ok();
+    next();
   }
 
   // User is not allowed

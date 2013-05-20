@@ -1,7 +1,7 @@
 module.exports = {
 
 	// Name of the application (used as default <title>)
-	appName: "Sails Application",
+	appName: "Isaac T. Wooten - UI/UX/Code Portfolio 2013",
 
 	// Port this Sails application will live on
 	port: 1337,

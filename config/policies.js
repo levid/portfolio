@@ -16,6 +16,10 @@ module.exports.policies = {
     '*' : 'authenticated'
   },
 
+  workController: {
+    '*' : 'authenticated'
+  },
+
   sessionController : {
     '*' : true
   }
