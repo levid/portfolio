@@ -42,6 +42,6 @@ module.exports.adapters = {
 
   mongoProd: {
     module   : 'sails-mongo',
-    url      : 'MONGOHQ_URL: mongodb://' + process.env.MONGOHQ_USERNAME + ':' + process.env.MONGOHQ_PASSWORD + '@hatch.mongohq.com:10034/app15795196.portfolio'
+    url      : 'mongodb://' + process.env.MONGOHQ_USERNAME + ':' + process.env.MONGOHQ_PASSWORD + '@hatch.mongohq.com:10034/app15795196.portfolio'
   }
 };
