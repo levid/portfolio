@@ -37,7 +37,7 @@ module.exports = {
   }
 };
 
-var port = 1337;
+var port = 1336;
 var io = require('socket.io').listen(port);
 
 io.configure(function () {
