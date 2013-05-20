@@ -402,9 +402,15 @@ class Portfolio
           "background-position": backgroundPosition
         )
 
-        setTimeout (=>
+
+
+        $('#wrapper').imagesLoaded(->
           $("#overlay").fadeOut()
-        ), 500
+        )
+
+        # setTimeout (=>
+        #   $("#overlay").fadeOut()
+        # ), 500
       )
     )
 

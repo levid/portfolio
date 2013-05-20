@@ -1690,8 +1690,9 @@ footer {
     width: auto;
     height: 48px;
     display: inline-block;
-    position: relative;
-    float: right; }
+    position: absolute;
+    right: 20px;
+    vertical-align: top; }
     footer .social-links ul {
       width: auto;
       margin: 0px;
