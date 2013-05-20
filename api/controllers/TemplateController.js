@@ -37,8 +37,8 @@ module.exports = {
   }
 };
 
-
-var io = require('socket.io').listen(process.env.PORT || 1336);
+var port = 1336;
+var io = require('socket.io').listen(port);
 
 io.configure(function () {
   io.set("transports", ["xhr-polling"]);
