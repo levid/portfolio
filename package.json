@@ -1,7 +1,7 @@
 {
     "name": "isaac-portfolio-2013",
     "private": true,
-    "version": "0.0.0-8",
+    "version": "0.0.0-1",
     "description": "a Sails application",
     "dependencies": {
         "sails": "0.8.895",
