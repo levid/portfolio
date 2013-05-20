@@ -28,7 +28,6 @@ Application.Controllers.controller "WorkController", ["$rootScope", "$scope", "$
     #   since it is a public static method
     #
     index: ($scope, path) ->
-      console.log "#{$rootScope.action} action called"
       $scope.projects = Work.query((success) ->
         console.log success
       , (error) ->

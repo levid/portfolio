@@ -4,6 +4,9 @@
 
       %div{:"ng-include" => '', :src => "'views/partials/user-header.html'"}
 
+      %div{:"data-ng-hide" => "projects && projects.length > 0", :class => "error"}
+        No images found for this category.
+
       .thumbnails{:"ng-init" => "getThumbnails(projects)"}
         %div{:"ng-repeat" => "project in projects | orderBy:name:descending | filter:category"}
           / .thumb

@@ -2,6 +2,9 @@
   <section class='sub design' ng-controller='WorkController'>
     <div class='innerContent'>
       <div ng-include='' src="'views/partials/user-header.html'"></div>
+      <div class='error' data-ng-hide='projects &amp;&amp; projects.length &gt; 0'>
+        No images found for this category.
+      </div>
       <div class='thumbnails' ng-init='getThumbnails(projects)'>
         <div ng-repeat='project in projects | orderBy:name:descending | filter:category'>
           <!-- .thumb -->
