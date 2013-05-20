@@ -18,7 +18,7 @@ class Portfolio
     Portfolio.hideLoadingSpinner = => @hideLoadingSpinner
 
     $(document).ready =>
-      @showLoadingScreen()
+      # @showLoadingScreen()
       @enableAudio()
       @initSidebar()
       @initShareButtons()
