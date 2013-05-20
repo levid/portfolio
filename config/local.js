@@ -7,4 +7,4 @@
 // For example, to use port 80 on the local machine, override the `port` config
 
 module.exports.port = process.env.PORT || 1337;
-module.exports.environment = 'production';
+// module.exports.environment = 'production';
