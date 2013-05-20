@@ -37,8 +37,15 @@ module.exports = {
   }
 };
 
-var io = require('socket.io').listen(1336);
-io.setMaxListeners(0);
+
+var io = require('socket.io').listen(process.env.PORT || 1336);
+
+io.configure(function () {
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 10);
+  io.set("maxListeners", 0);
+});
+
 io.sockets.on('connection', function (socket) {
   var numberOfSockets = Object.keys(io.connected).length;
   socket.emit('connectedUsers', { count: numberOfSockets });
