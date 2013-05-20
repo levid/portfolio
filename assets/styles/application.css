@@ -1692,6 +1692,7 @@ footer {
     display: inline-block;
     position: absolute;
     right: 20px;
+    top: 30px;
     vertical-align: top; }
     footer .social-links ul {
       width: auto;
