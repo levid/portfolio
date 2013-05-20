@@ -7,8 +7,8 @@ Application.Services.factory "$socket", ["$rootScope", "$location", "User", ($ro
   # ================
 
   port = 1336
-  host = 'http://isaac.levid.com'
-  $socket = io.connect("#{host}:#{port}")
+  host = "http://localhost:#{port}"
+  $socket = io.connect(port)
   # $socket.setMaxListeners(0)
 
   $socket.on "connect", (stream) ->
