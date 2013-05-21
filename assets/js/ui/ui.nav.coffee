@@ -34,7 +34,8 @@ class Nav extends Portfolio.UI
     @allLink          = @options.allLink          or "section.content ul.nav li.filter-by a"
     @lensFlareEnabled = @options.lensFlareEnabled or "true"
 
-    @init()
+    $(document).ready =>
+      @init()
 
     # return this to make this class chainable
     this
