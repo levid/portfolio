@@ -21,7 +21,11 @@ class Portfolio
   constructor: (@options) ->
     # Extend default options to include passed in arguments
     @options = $.extend({}, this.opts, @options)
+    @init()
 
+    this
+
+  init: () ->
     $(document).ready =>
       @imageGrid = new $UI.ImageGrid()
       $UI.initGlobalUI()
@@ -34,8 +38,6 @@ class Portfolio
       @nav = new $UI.Nav(
         lensFlareEnabled: "true"
       ).init()
-
-    this
 
   initAfterViewContentLoaded: (path) ->
     # navbarHeight = if $('section.content .innerContent')[0].scrollHeight > $('nav.sidebar-nav').height() then $('section.content .innerContent')[0].scrollHeight else $('nav.sidebar-nav').height()
