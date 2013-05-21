@@ -86,11 +86,15 @@ main#main {
       }
 
       ul.nav {
+        width: auto;
         margin: 30px 0 0 0;
         padding: 0px;
         list-style: none;
+        display: inline-block;
 
         li {
+          width: auto;
+          display: block;
 
           &.large {
             min-width: 392px;

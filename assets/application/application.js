@@ -141,7 +141,7 @@ angular.module('application', ['ngResource', 'application.filters', 'application
   }]).run(function($rootScope, $route){
 
     $rootScope.$on('$routeChangeStart', function(nextRoute, currentRoute) {
-      window.Portfolio.showLoadingScreen();
+      $UI.showLoadingScreen();
     });
     // Bind the `$routeChangeSuccess` event on the rootScope, so that we dont need to bind in individual controllers.
     $rootScope.$on('$routeChangeSuccess', function(currentRoute, previousRoute) {
@@ -151,7 +151,7 @@ angular.module('application', ['ngResource', 'application.filters', 'application
       }
 
       setTimeout((function() {
-        window.Portfolio.hideLoadingScreen();
+        $UI.hideLoadingScreen();
       }), 500);
     });
 });
