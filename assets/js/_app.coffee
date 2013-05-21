@@ -28,6 +28,9 @@ class Portfolio
   init: () ->
     $(document).ready =>
       @imageGrid = new $UI.ImageGrid()
+      @nav = new $UI.Nav(
+        lensFlareEnabled: "true"
+      ).init()
       $UI.initGlobalUI()
 
       $('section.content .innerContent').css minHeight: $(document).innerHeight()
@@ -35,9 +38,6 @@ class Portfolio
     $(window).load =>
       $UI.hideLoadingScreen()
       @imageGrid.buildGrid()
-      @nav = new $UI.Nav(
-        lensFlareEnabled: "true"
-      ).init()
 
   initAfterViewContentLoaded: (path) ->
     # navbarHeight = if $('section.content .innerContent')[0].scrollHeight > $('nav.sidebar-nav').height() then $('section.content .innerContent')[0].scrollHeight else $('nav.sidebar-nav').height()
