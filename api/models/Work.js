@@ -35,7 +35,7 @@ module.exports = {
 		},
 
 
-		web_address: {
+		url: {
 			type: 'STRING'
 		},
 
@@ -45,19 +45,13 @@ module.exports = {
 		},
 
 
-		thumbnail_image: {
-			type: 'STRING'
-		},
-
-
-		large_image: {
-			type: 'STRING'
-		},
-
     images: {
-      thumbnails: [],
-      large_images: []
+      type: 'ARRAY',
+      preview: {type: 'ARRAY'},
+      thumbnails: {type: 'ARRAY'},
+      large: {type: 'ARRAY'}
     },
+
 
 		date: {
 			type: 'DATE'

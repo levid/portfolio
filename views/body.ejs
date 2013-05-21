@@ -1,15 +1,17 @@
 <main id='main' ng-controller='MainCtrl'>
-  <div id='loading'>
-    <div class='spinner'></div>
-  </div>
-  <div id='overlay'>
-    <div class='spinner'></div>
-    <div class='logo-preload'>
-      <img src='images/logo-footer.svg' />
-    </div>
-  </div>
-  <%- partial('audio') %>
-  <%- partial('sidebar') %>
-  <section class='content' ng-view=''></section>
-  <div class='push'></div>
+<div id='loading'>
+<div class='spinner'></div>
+</div>
+<div id='overlay'>
+<div class='spinner'></div>
+<div class='logo-preload'>
+<img src='images/logo-footer.svg'>
+</div>
+</div>
+<div id='audio-container'>
+<%- partial('audio') %>
+</div>
+<%- partial('sidebar') %>
+<section class='content' ng-view=''></section>
+<div class='push'></div>
 </main>

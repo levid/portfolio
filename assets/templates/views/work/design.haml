@@ -1,0 +1,33 @@
+%script{:type => "text/ng-template", :id => "views/work/design.html"}
+  %section.sub.design
+    .innerContent
+
+      %div{:"ng-include" => '', :src => "'views/partials/user-header.html'"}
+
+      %div{:"data-ng-hide" => "projects && projects.length > 0", :class => "error"}
+        No images found for this category.
+
+      .thumbnails
+        %div{:"ng-repeat" => "project in projects | orderBy:name:descending | filter:category"}
+          .thumb{:"ng-repeat" => "thumbnail in getThumbnails(project.images)"}
+            .info-container
+              %h1
+                {{project.name}}
+              .block
+                %h4 Url
+                %p {{project.url}}
+              .block
+                %h4 Tags
+                %ul
+                  %li{:"ng-repeat" => "tag in getTags(project.tags)"}
+                    %a.tag{:href => '#'} {{tag}}
+              .block
+                %h4 Date
+                %p {{project.date}}
+              %a.btn.btn-info{:"ng-href" => "/#/work/design/show/{{project.id}}"}
+                %i.icon-portfolio-magnify
+                Info
+              %a.btn.btn-info{:"ng-href" => "{{project.url}}"}
+                %i.icon-portfolio-visit
+                Visit
+            %img{:src => "images/{{thumbnail}}"}

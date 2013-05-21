@@ -1,0 +1,46 @@
+<script id='views/work/design/show.html' type='text/ng-template'>
+  <section class='sub design show view'>
+    <div class='innerContent'>
+      <div ng-include='' src="'views/partials/user-header.html'"></div>
+      <div class='info-container'>
+        <h1>{{project.name}}</h1>
+        <div>
+          <fieldset>
+            <legend>Project Information</legend>
+            <div class='block'>
+              <h4>Url</h4>
+              <p>{{project.url}}</p>
+            </div>
+            <div class='block'>
+              <h4>Tags</h4>
+              <ul>
+                <li ng-repeat='tag in getTags(project.tags)'>
+                  <a class='tag' ng-href='#'>{{tag}}</a>
+                </li>
+              </ul>
+            </div>
+            <div class='block'>
+              <h4>Date</h4>
+              <p>{{project.date}}</p>
+            </div>
+            <div class='block'>
+              <h4>Description</h4>
+              <p>{{project.description}}</p>
+            </div>
+            <div class='block'>
+              <a class='btn btn-info' ng-href='{{project.url}}'>
+                <i class='icon-portfolio-visit'></i>
+                Visit
+              </a>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class='thumbnails'>
+        <div class='thumb' ng-repeat='image in getLargeImages(project.images)'>
+          <img src='images/{{image}}' />
+        </div>
+      </div>
+    </div>
+  </section>
+</script>

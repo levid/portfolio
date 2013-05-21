@@ -1,10 +1,10 @@
-<div class='hover-caption'>
+<div class='hover-caption' data-object='hover-caption'>
   Design
 </div>
 <nav class='sidebar-nav'>
   <ul class='nav' ng-controller='NavbarController'>
     <li class='home'>
-      <a ng-class="{'active':getClass('/home')}" ng-href='/#/home'>
+      <a ng-class="{'active':getClass('/home')}" ng-href='#/home'>
         <div class='icon'>
           <i class='icon-portfolio-cosmic'></i>
         </div>
@@ -14,7 +14,7 @@
       </a>
     </li>
     <li class='design'>
-      <a ng-class="{'active':getClass('/design')}" ng-href='/#/design'>
+      <a ng-class="{'active':getClass('/work/design')}" ng-href='#/work/design'>
         <div class='icon'>
           <i class='icon-portfolio-edit'></i>
         </div>
@@ -25,12 +25,12 @@
       <ul class='sub-nav'>
         <h4>Design Work</h4>
         <li>
-          <a href='#'>Client Name</a>
+          <a ng-href='#'>Client Name</a>
         </li>
       </ul>
     </li>
     <li class='identity'>
-      <a ng-class="{'active':getClass('/identity')}" ng-href='/#/identity'>
+      <a ng-class="{'active':getClass('/work/identity')}" ng-href='#/work/identity'>
         <div class='icon'>
           <i class='icon-portfolio-eye'></i>
         </div>
@@ -40,7 +40,7 @@
       </a>
     </li>
     <li class='code'>
-      <a ng-class="{'active':getClass('/code')}" ng-href='/#/code'>
+      <a ng-class="{'active':getClass('/work/code')}" ng-href='#/work/code'>
         <div class='icon'>
           <i class='icon-portfolio-code'></i>
         </div>
@@ -50,7 +50,7 @@
       </a>
     </li>
     <li class='web'>
-      <a ng-class="{'active':getClass('/web')}" ng-href='/#/web'>
+      <a ng-class="{'active':getClass('/work/web')}" ng-href='#/work/web'>
         <div class='icon'>
           <i class='icon-portfolio-globe'></i>
         </div>
@@ -60,7 +60,7 @@
       </a>
     </li>
     <li class='about'>
-      <a ng-class="{'active':getClass('/about')}" ng-href='/#/about'>
+      <a ng-class="{'active':getClass('/about')}" ng-href='#/about'>
         <div class='icon'>
           <i class='icon-portfolio-info-script'></i>
         </div>
@@ -70,7 +70,7 @@
       </a>
     </li>
     <li class='contact'>
-      <a ng-class="{'active':getClass('/contact')}" ng-href='/#/contact'>
+      <a ng-class="{'active':getClass('/contact')}" ng-href='#/contact'>
         <div class='icon'>
           <i class='icon-portfolio-email'></i>
         </div>
@@ -80,7 +80,7 @@
       </a>
     </li>
     <li class='clients'>
-      <a ng-class="{'active':getClass('/clients')}" ng-href='/#/clients'>
+      <a ng-class="{'active':getClass('/clients')}" ng-href='#/clients'>
         <div class='icon'>
           <i class='icon-portfolio-heart-2'></i>
         </div>
@@ -90,7 +90,7 @@
       </a>
     </li>
     <li class='cv'>
-      <a ng-class="{'active':getClass('/cv')}" ng-href='/#/cv'>
+      <a ng-class="{'active':getClass('/cv')}" ng-href='#/cv'>
         <div class='icon'>
           <i class='icon-portfolio-tropics'></i>
         </div>
@@ -100,7 +100,7 @@
       </a>
     </li>
     <div class='lock'>
-      <a data-behavior='toggle-lock' href='#'>
+      <a data-behavior='toggle-lock' ng-href='#'>
         <div class='locked'>
           <i class='icon-portfolio-locked'></i>
         </div>
@@ -113,7 +113,7 @@
   <nav class='slide-menu'>
     <ul>
       <li>
-        <a href='#'></a>
+        <a ng-href='#'></a>
       </li>
     </ul>
   </nav>

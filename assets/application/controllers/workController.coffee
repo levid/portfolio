@@ -14,10 +14,11 @@ Application.Controllers.controller "WorkController", ["$rootScope", "$scope", "$
     constructor: () ->
       @initScopedMethods()
 
-      path = $location.path().substr(1, $location.path().length)
-
-      if path is 'design'
-        @index($scope, path)
+      if $rootScope.customParams
+        if $rootScope.customParams.action == 'index'
+          @index($scope, $rootScope.customParams)
+        else if $rootScope.customParams.action == 'show'
+          @show($scope)
 
 
     #### The index action
@@ -27,22 +28,12 @@ Application.Controllers.controller "WorkController", ["$rootScope", "$scope", "$
     # - The $scope object must be passed in to the method
     #   since it is a public static method
     #
-    index: ($scope, path) ->
+    index: ($scope, params) ->
       $scope.projects = Work.query((success) ->
         console.log success
       , (error) ->
         console.log error
       )
-
-    # index: ($scope, path) ->
-    #   console.log "#{$rootScope.action} action called"
-    #   $scope.projects = Work.findAll({ category: path}
-    #   , (success) ->
-    #     console.log success
-    #   , (error) ->
-    #     console.log error
-    #   )
-
 
     #### The new action
     #
@@ -52,7 +43,7 @@ Application.Controllers.controller "WorkController", ["$rootScope", "$scope", "$
     #   since it is a public static method
     #
     new: ($scope) ->
-      console.log "#{$rootScope.action} action called"
+      console.log "#{$rootScope.customParams.action} action called"
       # $scope.user = Work.get(
       #   action: "new"
       # , (resource) ->
@@ -70,9 +61,9 @@ Application.Controllers.controller "WorkController", ["$rootScope", "$scope", "$
     #   since it is a public static method
     #
     edit: ($scope) ->
-      console.log "#{$rootScope.action} action called"
+      console.log "#{$rootScope.customParams.action} action called"
       if $routeParams.id
-        $scope.user = Work.get(
+        $scope.project = Work.get(
           id: $routeParams.id
           action: "edit"
         , (success) ->
@@ -89,9 +80,9 @@ Application.Controllers.controller "WorkController", ["$rootScope", "$scope", "$
     #   since it is a public static method
     #
     show: ($scope) ->
-      console.log "#{$rootScope.action} action called"
+      console.log "#{$rootScope.customParams.action} action called"
       if $routeParams.id
-        $scope.user = Work.get(
+        $scope.project = Work.get(
           id: $routeParams.id
         , (success) ->
           console.log success
@@ -116,9 +107,9 @@ Application.Controllers.controller "WorkController", ["$rootScope", "$scope", "$
       $scope.showMessage = ->
         $scope.message && $scope.message.length
 
-      $scope.getWork = (user) ->
-        user = Work.get user
-        user
+      $scope.getWork = (project) ->
+        project = Work.get project
+        project
 
       $scope.setOrder = (orderby) ->
         if orderby is $scope.orderby
@@ -130,60 +121,69 @@ Application.Controllers.controller "WorkController", ["$rootScope", "$scope", "$
 
       $scope.getThumbnails = (data) ->
         images = []
-        if data.indexOf("[") > -1
+        if data
           images = $.parseJSON(data)
-        else
-          images.push(data)
+          return images.thumbnails
+        false
 
-        $scope.images = images
+      $scope.getLargeImages = (data) ->
+        images = []
+        if data
+          images = $.parseJSON(data)
+          return images.large
+        false
+
+      $scope.getTags = (data) ->
+        tags = []
+        if data
+          tags = $.parseJSON(data)
+          return tags
+        false
 
       $scope.addWork = ->
         user = new Work
           name:     $scope.inputData.name     if $scope.inputData.name.length
-          email:    $scope.inputData.email    if $scope.inputData.email.length
-          password: $scope.inputData.password if $scope.inputData.password.length
 
-        Work.save(user,
+        Work.save(project,
           success = (data, status, headers, config) ->
-            $scope.message  = "New user added!"
+            $scope.message  = "New project added!"
             $scope.status   = 200
-            $socket.emit "addWork", data # Broadcast to connected subscribers that a user has been added
+            $socket.emit "addWork", data # Broadcast to connected subscribers that a project has been added
             $location.path('/projects') # Redirect to projects index
           , error = (data, status, headers, config) ->
             $scope.message  = data.errors
             $scope.status   = status
         )
 
-      $scope.updateWork = (user) ->
-        user = {
-          id:       $scope.user.id
-          name:     $scope.user.name
-          email:    $scope.user.email
-          password: $scope.inputData.password
+      $scope.updateWork = (project) ->
+        project = {
+          id:       $scope.project.id
+          name:     $scope.project.name
+          # add additional fields from model
         }
 
-        Work.update($scope.user,
+        Work.update($scope.project,
           success = (data, status, headers, config) ->
             $scope.message  = "Work updated!"
             $scope.status   = 200
-            $socket.emit "updateWork", data # Broadcast to connected subscribers that a user has been updated
+            $socket.emit "updateWork", data # Broadcast to connected subscribers that a project has been updated
             $location.path('/projects') # Redirect to projects index
-            $rootScope.user = data
+            $rootScope.project = data
 
           , error = (data, status, headers, config) ->
             $scope.message  = data.errors
             $scope.status   = status
         )
 
-      $scope.deleteWork = (user) ->
+      $scope.deleteWork = (project) ->
         r = confirm("Are you sure?");
         if r is true
           Work.delete(
-            id: user.id
+            id: project.id
           , (success) ->
             console.log success
-            $scope.projects = _.difference($scope.projects, user)
-            $socket.emit "deleteWork", user # Broadcast to connected subscribers that a user has been deleted
+            $scope.projects = _.difference($scope.projects, project)
+            $socket.emit "deleteWork", project # Broadcast to connected subscribers that a project has been deleted
           , (error) ->
             console.log error
           )

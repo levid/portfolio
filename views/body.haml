@@ -8,7 +8,9 @@
     .logo-preload
       %img{:src => "images/logo-footer.svg"}
 
-  <%- partial('audio') %>
+  #audio-container
+    <%- partial('audio') %>
+
   <%- partial('sidebar') %>
 
   %section.content{:"ng-view" => ''}

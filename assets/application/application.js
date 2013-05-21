@@ -25,25 +25,49 @@ angular.module('application', ['ngResource', 'application.filters', 'application
       when('/home', {
         templateUrl: 'views/home.html'
       }).
-      when('/design', {
-        templateUrl: 'views/design.html',
-        controller: 'WorkController'
+      when('/work/design', {
+        templateUrl: 'views/work/design.html',
+        controller: 'WorkController',
+        customParams: {
+          action: 'index',
+          category: 'design'
+        }
       }).
-      when('/identity', {
-        templateUrl: 'views/identity.html',
-        controller: 'WorkController'
+      when('/work/design/show/:id', {
+        templateUrl: 'views/work/design/show.html',
+        controller: 'WorkController',
+        customParams: {
+          action: 'show',
+          category: 'design'
+        }
       }).
-      when('/code', {
-        templateUrl: 'views/code.html',
-        controller: 'WorkController'
+      when('/work/identity', {
+        templateUrl: 'views/work/identity.html',
+        controller: 'WorkController',
+        customParams: {
+          action: 'index'
+        }
       }).
-      when('/web', {
-        templateUrl: 'views/web.html',
-        controller: 'WorkController'
+      when('/work/code', {
+        templateUrl: 'views/work/code.html',
+        controller: 'WorkController',
+        customParams: {
+          action: 'index'
+        }
       }).
-      when('/all', {
-        templateUrl: 'views/all.html',
-        controller: 'WorkController'
+      when('/work/web', {
+        templateUrl: 'views/work/web.html',
+        controller: 'WorkController',
+        customParams: {
+          action: 'index'
+        }
+      }).
+      when('/work', {
+        templateUrl: 'views/work/all.html',
+        controller: 'WorkController',
+        customParams: {
+          action: 'index'
+        }
       }).
       when('/about', {
         templateUrl: 'views/about.html'
@@ -77,27 +101,37 @@ angular.module('application', ['ngResource', 'application.filters', 'application
       when('/users', {
         templateUrl: 'views/users/index.html',
         controller: 'UsersController.index',
-        action: 'index' // optional action for CRUD methods
+        customParams: {
+          action: 'index'
+        }
       }).
       when('/users/new', {
         templateUrl: 'views/users/new.html',
         controller: 'UsersController.new',
-        action: 'new' // optional action for CRUD methods
+        customParams: {
+          action: 'new'
+        }
       }).
       when('/users/show/:id', {
         templateUrl: 'views/users/show.html',
         controller: 'UsersController.show',
-        action: 'show' // optional action for CRUD methods
+        customParams: {
+          action: 'show'
+        }
       }).
       when('/users/edit/:id', {
         templateUrl: 'views/users/edit.html',
         controller: 'UsersController.edit',
-        action: 'edit' // optional action for CRUD methods
+        customParams: {
+          action: 'edit'
+        }
       }).
       when('/users/delete/:id', {
         templateUrl: 'views/users/index.html',
         controller: 'UsersController.delete',
-        action: 'delete' // optional action for CRUD methods
+        customParams: {
+          action: 'index'
+        }
       }).
       otherwise({
         templateUrl: 'views/error404.html'
@@ -107,17 +141,17 @@ angular.module('application', ['ngResource', 'application.filters', 'application
   }]).run(function($rootScope, $route){
 
     $rootScope.$on('$routeChangeStart', function(nextRoute, currentRoute) {
-      window.portfolio.showLoadingScreen();
+      window.Portfolio.showLoadingScreen();
     });
     // Bind the `$routeChangeSuccess` event on the rootScope, so that we dont need to bind in individual controllers.
     $rootScope.$on('$routeChangeSuccess', function(currentRoute, previousRoute) {
       // This will set the custom property that we have defined while configuring the routes.
-      if($route.current.action && $route.current.action.length > 0){
-        $rootScope.action = $route.current.action;
+      if( (typeof $route.current.customParams == "object") && ($route.current.customParams !== null) ){
+        $rootScope.customParams = $route.current.customParams;
       }
 
       setTimeout((function() {
-        window.portfolio.hideLoadingScreen();
+        window.Portfolio.hideLoadingScreen();
       }), 500);
     });
 });

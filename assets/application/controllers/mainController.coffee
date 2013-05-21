@@ -8,7 +8,7 @@ class MainCtrl
       $scope.$on '$viewContentLoaded', =>
         # Detect when view content has been loaded and re-initalize jQuery events
         path = $location.path().substr(1, $location.path().length)
-        $scope.portfolio = window.portfolio
+        $scope.portfolio = Portfolio
         $scope.portfolio.initAfterViewContentLoaded(path)
     ]
 

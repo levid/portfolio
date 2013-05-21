@@ -1,7 +1,17 @@
+#### The Application class serving as the base class
+#
+# This class can be accessed via ** window.Portfolio **
+#
+# ** Additional Classes: **
+#
+# - UI
+# - UI.Sidebar
+# - UI.Theme
+# - UI.Audio
+# - UI.Utils
+#
 class Portfolio
-  opts:
-    locked: false
-    clone:  undefined
+  opts: {}
 
   #### The constructor for the Portfolio class
   #
@@ -20,17 +30,23 @@ class Portfolio
     $(document).ready =>
       # @showLoadingScreen()
       @enableAudio()
-      @initSidebar()
       @initShareButtons()
       @enableLargeRollovers()
       @enableSmallRollovers()
-      @enableLockToggle()
       @enableThemes()
+
+      $UI.initGlobalUI()
+
+      @sidebar = new $UI.Sidebar(
+        sidebarNavEl:    "nav.sidebar-nav"
+        sidebarNavLinks: "nav.sidebar-nav ul.nav li a"
+      )
 
       $('section.content .innerContent').css
         minHeight: $(document).innerHeight()
 
     $(window).load =>
+
       @hideLoadingScreen()
       @initIsotope()
 
@@ -39,173 +55,50 @@ class Portfolio
         $("img[src*=\"svg\"]").attr "src", ->
           $(this).attr("src").replace ".svg", ".png"
 
-  initSidebar: () ->
-    $(document).on('mouseenter', "nav.sidebar-nav ul.nav li a", (e) =>
-      ypos = $(e.target).parents('li').find('a').position().top
-      text = $(e.target).parents('li').find('.text').text().replace(/\s+/g, "")
-      @clone = $('.hover-caption').clone().prependTo('main')
-      @clone.text(text)
+    this
 
-      if $(e.target).parents('li').find('a').attr('class') is 'active' then @clone.addClass 'active'
 
-      @clone.css(
-        top: ypos
-      ).stop().animate(
-        left: 76
-        opacity: 1
-      ,
-        duration: 200
-        easing: 'easeOutQuint'
-      )
-
-    ).on('mouseleave', "nav.sidebar-nav ul.nav li a", (e) =>
-      @clone.fadeOut('slow').remove() if @clone
-    )
-
-    $(document).on('mouseenter', 'nav.sidebar-nav', (e) =>
-      @openSidebar()
-
-    ).on('mouseleave', 'nav.sidebar-nav', (e) =>
-      @closeSidebar()
-    )
-
-  openSidebar: () ->
-    if @options.locked is false
-      $('section.content .innerContent').stop().animate
-        left: "0px"
-      ,
-        duration: 500
-        easing: 'easeOutQuint'
-
-      $('nav.sidebar-nav').stop().animate
-        left: "0px"
-      ,
-        duration: 500
-        easing: 'easeOutQuint'
-        complete: () =>
-
-      $('.lock').fadeIn()
-
-  closeSidebar: () ->
-    if @options.locked is false
-      $('section.content .innerContent').stop().animate
-        left: "-50px"
-      ,
-        duration: 500
-        easing: 'easeOutQuint'
-
-      $('nav.sidebar-nav').stop().animate
-        left: "-55px"
-      ,
-        duration: 500
-        easing: 'easeOutQuint'
-        complete: =>
-
-      $('.lock').fadeOut()
 
   initIsotope: (callback) ->
     callback = callback or ->
-    container = $('.thumbnails')
-    margin = 70
 
-    windowWidth = $(window).width()
-    windowHeight = $(window).height()
-    containerWidth = windowWidth - margin
-
-    cols1 = containerWidth
-    cols2 = containerWidth / 2
-    cols3 = containerWidth / 3
-
-    if cols2 > 600
-      cols = cols3
-    else if cols2 < 300
-      cols = cols1
-    else
-      cols = cols2
-
-    container.css width: containerWidth
-    if container.find('.thumb').length is 1
-      $(".thumb, .thumb img").css width: containerWidth - 0.5
-    else if container.find('.thumb').length is 2
-      $(".thumb").css width: (containerWidth / 2)
-      $(".thumb img").css width: (containerWidth / 2)
-    else
-      $(".thumb").css width: cols - 0.5
-
-    container.imagesLoaded ->
-      container.isotope
-        itemSelector: '.thumb'
-        animationEngine: 'jquery'
-        layoutMode: 'masonry'
-        # masonry:
-        #   columnWidth: 5
-        #   gutterWidth: 5
-
-      callback()
-
-    $(window).resize ->
-      windowWidth = $(window).width()
-      windowHeight = $(window).height()
-      containerWidthResized = windowWidth * 0.9 - margin
-      containerWidth = windowWidth - margin
-
-      cols1 = containerWidth
-      cols2 = containerWidth / 2
-      cols3 = containerWidth / 3
-
-      console.log cols1 + " - " + cols2 + " - " + cols3
+    calc = () =>
+      container       = $('.thumbnails')
+      margin          = 70
+      windowWidth     = $(window).width()
+      windowHeight    = $(window).height()
+      containerWidth  = windowWidth - margin
+      cols1           = containerWidth
+      cols2           = containerWidth / 2
+      cols3           = containerWidth / 3
 
       if cols2 > 600
-        console.log "cols3"
         cols = cols3
       else if cols2 < 300
-        console.log "cols1"
         cols = cols1
       else
-        console.log "cols2"
         cols = cols2
-
-      console.log cols
 
       container.css width: containerWidth
       if container.find('.thumb').length is 1
         $(".thumb, .thumb img").css width: containerWidth - 0.5
       else if container.find('.thumb').length is 2
-        $(".thumb").css width: (containerWidth / 2)
-        $(".thumb img").css width: (containerWidth / 2)
+        $(".thumb, .thumb img").css width: (containerWidth / 2)
       else
         $(".thumb").css width: cols - 0.5
 
-      container.imagesLoaded ->
+      container.imagesLoaded(->
         container.isotope
           itemSelector: '.thumb'
           animationEngine: 'jquery'
           layoutMode: 'masonry'
-          # masonry:
-          #   columnWidth: 5
-          #   gutterWidth: 5
-          # getSortData:
-          #   brand: ($elem) ->
-          #     isBrand = $elem.hasClass("brand")
-          #     (if not isBrand then " " else "")
 
-          #   web: ($elem) ->
-          #     isWeb = $elem.hasClass("web")
-          #     (if not isWeb then " " else "")
+        callback()
+      )
 
-          #   graphic: ($elem) ->
-          #     isGraphic = $elem.hasClass("graphic")
-          #     (if not isGraphic then " " else "")
-
-          #   strategy: ($elem) ->
-          #     isStrategy = $elem.hasClass("strategy")
-          #     (if not isStrategy then " " else "")
-
-          #   int: ($elem) ->
-          #     isInt = $elem.hasClass("int")
-          #     (if not isInt then " " else "")
-
-
+    $(window).resize ->
+      calc()
+    calc()
 
   showLoadingScreen: () ->
     $("#overlay").show()
@@ -241,11 +134,6 @@ class Portfolio
     $('#loading').fadeOut(=>
       @hideSpinner $('#loading .spinner')
     )
-
-  lockSidebar: () ->
-    $("a[data-behavior='toggle-lock']").addClass 'active'
-    @options.locked = true
-    @openSidebar()
 
   initShareButtons: () ->
     $(document).on('mouseenter', '.made-with a', (e) ->
@@ -340,7 +228,7 @@ class Portfolio
     # only clone if more than one needed
     # save reference
     $('nav.sidebar-nav ul.nav li a').each((i) ->
-      $("#whoosh").clone().attr("id", "whoosh-" + i).appendTo $(this).parent()  unless i is 0
+      $("#whoosh").clone().attr("id", "whoosh-" + i).appendTo $("#audio-container")  unless i is 0
       $(this).data "whoosh", i
     )
 
@@ -354,7 +242,7 @@ class Portfolio
     # only clone if more than one needed
     # save reference
     $('.social-links a').each((i) ->
-      $("#click").clone().attr("id", "click-" + i).appendTo $(this).parent()  unless i is 0
+      $("#click").clone().attr("id", "click-" + i).appendTo $("#audio-container")  unless i is 0
       $(this).data "click", i
     )
 
@@ -363,16 +251,6 @@ class Portfolio
     )
     $("#click").attr "id", "click-0" # get first one into naming convention
 
-
-  enableLockToggle: () ->
-    $(document).on('click', "[data-behavior='toggle-lock']", (e) =>
-      e.preventDefault()
-      $(e.target).parents('a').toggleClass 'active'
-      if @options.locked is true
-        @options.locked = false
-      else
-        @options.locked= true
-    )
 
   enableThemes: () ->
     $(document).on('click', "[data-behavior='toggle-theme']", (e) =>
@@ -470,7 +348,7 @@ class Portfolio
     # save reference
     # Append to "main" DOM element in case view is reloaded
     $('section.content ul.nav li:not(.filter-by) a').each((i) ->
-      $("#rollover").clone().attr("id", "rollover-" + i).appendTo $('main') unless i is 0
+      $("#rollover").clone().attr("id", "rollover-" + i).appendTo $('#audio-container') unless i is 0
       $(this).data "rollover", i
     ).hover((e) ->
       audioEl = $("#rollover-" + $(this).data("rollover"))[0]
@@ -478,7 +356,7 @@ class Portfolio
     )
     $("#rollover").attr "id", "rollover-0" # get first one into naming convention
 
-    navbarHeight = if $('section.content .innerContent')[0].scrollHeight > $('nav.sidebar-nav').height() then $('section.content .innerContent')[0].scrollHeight else $('nav.sidebar-nav').height()
+    # navbarHeight = if $('section.content .innerContent')[0].scrollHeight > $('nav.sidebar-nav').height() then $('section.content .innerContent')[0].scrollHeight else $('nav.sidebar-nav').height()
 
     setTimeout (=>
       @initIsotope(->
@@ -486,8 +364,7 @@ class Portfolio
       )
     ), 500
 
-    if path is 'design'
-      @lockSidebar()
+    $.publish('initAfterViewContentLoaded.Portfolio', path)
 
     # $(window).resize =>
     #   # $('nav.sidebar-nav').css height: navbarHeight
@@ -498,20 +375,4 @@ class Portfolio
 
 
 
-window.portfolio = new Portfolio()
-
-$.fn.spin = (opts) ->
-  @each ->
-    $this = $(this)
-    data  = $(this).data()
-    if data.spinner
-      data.spinner.stop()
-      delete data.spinner
-    if opts isnt false
-      data.spinner = new Spinner($.extend(
-        color: $(this).css("color")
-      , opts)).spin(this)
-    if opts is 'stop'
-      data.spinner.stop()
-      delete data.spinner
-  this
+window.Portfolio = new Portfolio()

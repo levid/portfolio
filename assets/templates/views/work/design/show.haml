@@ -1,0 +1,32 @@
+%script{:id => "views/work/design/show.html", :type => "text/ng-template"}
+  %section.sub.design.show.view
+    .innerContent
+      %div{:"ng-include" => '', :src => "'views/partials/user-header.html'"}
+
+      .info-container
+        %h1 {{project.name}}
+        %div
+          %fieldset
+            %legend Project Information
+            .block
+              %h4 Url
+              %p {{project.url}}
+            .block
+              %h4 Tags
+              %ul
+                %li{:"ng-repeat" => "tag in getTags(project.tags)"}
+                  %a.tag{:"ng-href" => '#'} {{tag}}
+            .block
+              %h4 Date
+              %p {{project.date}}
+            .block
+              %h4 Description
+              %p {{project.description}}
+            .block
+              %a.btn.btn-info{:"ng-href" => "{{project.url}}"}
+                %i.icon-portfolio-visit
+                Visit
+
+      .thumbnails
+        .thumb{:"ng-repeat" => "image in getLargeImages(project.images)"}
+          %img{:src => "images/{{image}}"}
