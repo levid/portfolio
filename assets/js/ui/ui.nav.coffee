@@ -34,15 +34,10 @@ class Nav extends Portfolio.UI
     @allLink          = @options.allLink          or "section.content ul.nav li.filter-by a"
     @lensFlareEnabled = @options.lensFlareEnabled or "true"
 
-    $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
+    @init()
 
     # return this to make this class chainable
     this
-
-  initAfterViewContentLoadedProxy: () ->
-    # Skip the first argument (event object) but log the other args.
-    (_, path) =>
-      @init()
 
   init: () ->
     @initShareButtons()
