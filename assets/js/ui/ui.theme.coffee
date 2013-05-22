@@ -31,13 +31,10 @@ class Theme extends Portfolio.UI
   getNewTheme: () ->
     rand = () =>
       $UI.Utils.getRandomNumberBetween(0, themes.length)
-
     themes   = @themeContainerEL.find('li')
     active   = @themeContainerEL.find('li.active').index()
     newTheme = rand()
     newtheme = if newTheme isnt active then newTheme else rand()
-
-    console.log "new: " + newTheme + " | prev: " + active
     newTheme
 
   changeTheme: (options) ->
@@ -54,7 +51,6 @@ class Theme extends Portfolio.UI
   swapBackgroundImage: () ->
     backgroundImage    = @themeContainerEL.find("li.active img").data('background')
     backgroundPosition = @themeContainerEL.find("li.active img").data('position') or 'bottom left'
-
     @wrapper.css
       backgroundImage:    "url(#{backgroundImage})"
       backgroundPosition: backgroundPosition
@@ -84,17 +80,12 @@ class Theme extends Portfolio.UI
 
       @wrapper.imagesLoaded(=>
         @overlayEl.fadeOut()
-
-
       )
     )
 
   enableThemes: () ->
-    @changeTheme
-      overlay: "false"
-
+    @swapPreviewImage()
     @themeContainerEL.fadeIn('slow')
-
     $UI.showSpinner @previewSpinnerEl.find('.spinner'),
       lines: 12
       length: 0
@@ -105,7 +96,6 @@ class Theme extends Portfolio.UI
       trail: 45
       shadow: false
       hwaccel: false
-
 
     $(document).on('click', @toggleButtonEl, (e) =>
       e.preventDefault()
