@@ -141,7 +141,7 @@ class Sidebar extends Portfolio.UI
         $(@innerContentEl).css width: $(window).width() - $(@sidebarNavEl).width()
         options =
           difference: $(window).width() - $(@innerContentEl).width()
-          margin: 10
+          margin: -1
 
         $.publish('resize.Portfolio', options)
         @slideMenuOpen = true
@@ -186,7 +186,12 @@ class Sidebar extends Portfolio.UI
             left: "-50px"
           )
 
+      $(@innerContentEl).css width: $(window).width()
+      options =
+        difference: 5
+        margin: 0
 
+      $.publish('resize.Portfolio', options)
 
   close: () ->
     if @locked is false and @slideMenuOpen is false
@@ -197,7 +202,7 @@ class Sidebar extends Portfolio.UI
         easing: 'easeInOutQuint'
 
       $(@innerContentEl).find('.thumbnails').stop().animate
-        left: 22
+        left: "0px"
       ,
         duration: 500
         easing: 'easeInOutQuint'
@@ -217,6 +222,13 @@ class Sidebar extends Portfolio.UI
           $(@lockEl).fadeOut('slow').css(
             left: "-50px"
           )
+
+      $(@innerContentEl).css width: $(window).width()
+      options =
+        difference: 0
+        margin: 5
+
+      $.publish('resize.Portfolio', options)
 
 
   lock: () ->
