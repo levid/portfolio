@@ -46,6 +46,21 @@ class Sidebar extends Portfolio.UI
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
       @open()
+
+      if @slideMenuOpen is true
+        $(@innerContentEl).css width: $(window).width() - $(@sidebarNavEl).width()
+        options =
+          difference: $(window).width() - $(@innerContentEl).width()
+          margin: -1
+
+        $.publish('resize.Portfolio', options)
+      else
+        $(@innerContentEl).css width: $(window).width()
+        options =
+          difference: 5
+          margin: 0
+
+      $.publish('resize.Portfolio', options)
       # if (path.indexOf("work") >= 0) then @lock() else @unlock()
 
   initSidebar: () ->
