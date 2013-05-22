@@ -9,14 +9,14 @@
       %img{:src => "images/logo-footer.svg"}
 
   #audio-toggle
-    %a.on{:href => '#', :data => {:behavior => 'toggle-audio-state'}}
+    %a.on.audio-tooltip{:href => '#', :data => {:behavior => 'toggle-audio-state'}}
       .on-state
         %i.icon-portfolio-volume-medium
       .off-state
         %i.icon-portfolio-volume-mute
 
   .theme-container
-    %a{:href => '#', :data => {:behavior => 'toggle-theme'}}
+    %a.theme-tooltip{:href => '#', :data => {:behavior => 'toggle-theme'}}
       .text
         %i.icon-portfolio-shuffle
       .loading
@@ -45,6 +45,18 @@
                 %img{:src => 'images/themes/summer-sky-thumb.jpg', :"data-background" => 'images/themes/summer-sky.jpg', :"data-position" => 'bottom left'}
               %li
                 %img{:src => 'images/themes/grass-thumb.jpg', :"data-background" => 'images/themes/grass.jpg', :"data-position" => 'bottom left'}
+              %li
+                %img{:src => 'images/themes/frozen-north-thumb.jpg', :"data-background" => 'images/themes/frozen-north.jpg', :"data-position" => 'top left'}
+              %li
+                %img{:src => 'images/themes/space-thumb.jpg', :"data-background" => 'images/themes/space.jpg', :"data-position" => 'top right'}
+              %li
+                %img{:src => 'images/themes/tree-thumb.jpg', :"data-background" => 'images/themes/tree.jpg', :"data-position" => 'top left'}
+              %li
+                %img{:src => 'images/themes/purple-flower-thumb.jpg', :"data-background" => 'images/themes/purple-flower.jpg', :"data-position" => 'top left'}
+              %li
+                %img{:src => 'images/themes/dark-mountain-thumb.jpg', :"data-background" => 'images/themes/dark-mountain.jpg', :"data-position" => 'top left'}
+              %li
+                %img{:src => 'images/themes/tree-leaves-thumb.jpg', :"data-background" => 'images/themes/tree-leaves.jpg', :"data-position" => 'top right'}
 
       .title Swap Theme
   #audio-container

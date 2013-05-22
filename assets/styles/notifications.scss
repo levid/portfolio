@@ -6,7 +6,7 @@
 
   .jGrowl-notification {
     z-index: 900;
-    @include border-radius(10px);
+    @include border-radius(0px);
 
 
     .jGrowl-message {

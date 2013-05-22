@@ -39,9 +39,11 @@ class Theme extends Portfolio.UI
         @themeContainerEl.fadeIn('slow')
 
   getNewTheme: () ->
+    themes   = @themeContainerEl.find('li')
+
     rand = () =>
       $UI.Utils.getRandomNumberBetween(0, themes.length)
-    themes   = @themeContainerEl.find('li')
+
     active   = @themeContainerEl.find('li.active').index()
     newTheme = rand()
     newtheme = if newTheme isnt active then newTheme else rand()

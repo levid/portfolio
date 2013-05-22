@@ -197,8 +197,8 @@ nav.sidebar-nav {
           display: none;
         }
 
-        &.active, &:hover {
-          color: #ffffff;
+        &:hover {
+          color: rgba(255,255,255, 0.8);
           background-color: rgba(56, 61, 63, 0.7);
 
           i {
@@ -207,7 +207,11 @@ nav.sidebar-nav {
         }
 
         &.active {
+          color: #ffffff;
           background-color: #ff6e42;
+          i {
+            position: relative;
+          }
         }
 
         &.highlight {

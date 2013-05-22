@@ -85,7 +85,7 @@
     display: inline-block;
     position: absolute;
 
-    @include background($path + 'dark-pattern.png', repeat, bottom left, transparent);
+    // @include background($path + 'dark-pattern.png', repeat, bottom left, transparent);
     @include box-shadow(inset 0px 0px 10px 0px rgba(0, 0, 0, 0.3));
     top: 0px;
     bottom: 0px;
@@ -93,7 +93,7 @@
     right: 0px;
 
     &.dark {
-      background-color: rgba(0,0,0, 0.6);
+      background-color: rgba(0,0,0, 0.7);
     }
 
     #loading {
@@ -194,7 +194,7 @@
       margin: 0px auto;
       text-align: center;
       cursor: pointer;
-      @include transition(all .2s linear);
+      @include transition(all .1s linear);
 
       a {
         padding: 6px 0px 0px 3px;
@@ -202,13 +202,13 @@
         width: 40px;
         height: 40px;
         display: inline-block;
-        color: #343435;
-        @include transition(all .2s linear);
+        color: lighten(#343435, 30%);
+        @include transition(all .1s linear);
         background-color: #ffffff;
-        @include border-radius(0px 0px 0px 4px);
+        // @include border-radius(0px 0px 0px 4px);
 
         &:hover {
-          color: #000000;
+          color: #343435;
           background-color: #ffffff;
         }
 
@@ -326,14 +326,16 @@
           list-style: none;
 
           li {
+            width: 69px;
+            height: 79px;
             display: none;
+            overflow: hidden;
 
             &.active {
               display: inline-block;
             }
 
             img {
-              width: 69px;
               height: 79px;
               @include transition(all .1s linear);
             }
