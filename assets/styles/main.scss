@@ -85,7 +85,7 @@
     display: inline-block;
     position: absolute;
 
-    // @include background($path + 'dark-pattern.png', repeat, bottom left, transparent);
+    @include background($path + 'dark-pattern.png', repeat, bottom left, transparent);
     @include box-shadow(inset 0px 0px 10px 0px rgba(0, 0, 0, 0.3));
     top: 0px;
     bottom: 0px;
