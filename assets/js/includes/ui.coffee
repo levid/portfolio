@@ -61,7 +61,9 @@ class UI extends Portfolio
         sidebarNavLinks: "nav.sidebar-nav ul.nav li a"
       )
 
-      $UI.Constants.sidebarScroller = new $UI.Scroller("[data-behavior='scrollable']")
+      $UI.Constants.menuScroller = new $UI.Scroller("[data-behavior='scrollable']")
+
+      $UI.Constants.scrollNav = new $UI.ScrollSidebar("nav.sidebar-nav ul.nav")
 
       $UI.Constants.audio = new $UI.Audio(
         config:

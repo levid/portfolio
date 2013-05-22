@@ -93,7 +93,7 @@ nav.sidebar-nav {
 
     ul {
       width: 230px;
-      margin: 0px;
+      margin: 10px 0px 0px 0px;
       padding: 10px 10px 10px 20px;
       list-style: none;
       max-height: 400px;
@@ -155,6 +155,7 @@ nav.sidebar-nav {
 
       &:first-child {
         // margin: 50px 0 0 0;
+        border-top: 1px solid rgba(129, 129, 129, 0.3);
       }
 
       &.design {
