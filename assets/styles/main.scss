@@ -96,6 +96,10 @@
     left: 0px;
     right: 0px;
 
+    &.dark {
+      background-color: rgba(0,0,0, 0.6);
+    }
+
     #loading {
       margin: -80px 0px 0px -20px;
       width: 40px;
