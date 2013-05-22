@@ -70,10 +70,6 @@
       .theme-container {
         top: 20px;
       }
-
-      #audio-toggle {
-        top: 40px;
-      }
     }
   }
 
@@ -191,8 +187,8 @@
       height: auto;
       display: inline-block;
       position: absolute;
-      top: 60px;
-      right: 45px;
+      top: 0px;
+      right: 0px;
       float: right;
       z-index: 500;
       margin: 0px auto;
@@ -201,19 +197,19 @@
       @include transition(all .2s linear);
 
       a {
-        padding: 9px 10px 10px 10px;
+        padding: 6px 0px 0px 3px;
         margin: 0px auto;
         width: 40px;
         height: 40px;
         display: inline-block;
-        color: #ffffff;
-        background-color: rgba(255,255,255, 0.3);
-        @include border-radius(50px);
+        color: #343435;
         @include transition(all .2s linear);
+        background-color: #ffffff;
+        @include border-radius(0px 0px 0px 4px);
 
         &:hover {
-          background-color: rgba(255,255,255, 0.9);
           color: #000000;
+          background-color: #ffffff;
         }
 
         &.on {
@@ -246,7 +242,7 @@
       // @include border-radius(50px);
       position: absolute;
       top: 40px;
-      right: 110px;
+      right: 70px;
       float: right;
       z-index: 500;
       @include transition(all .2s linear);
