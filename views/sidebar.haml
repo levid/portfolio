@@ -1,7 +1,62 @@
 .hover-caption{:data => {:object => 'hover-caption'}}
   Design
-%nav.sidebar-nav
-  %ul.nav{:"ng-controller" => "NavbarController"}
+%nav.sidebar-nav{:"ng-controller" => "NavbarController"}
+  .content-menu
+    %h4 Clients
+    %ul{:data => {:behavior => 'scrollable'}}
+      %li
+        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} DUB LEDS
+      %li
+        %a{:href => '#'} Flingo.tv
+      %li
+        %a{:href => '#'} Gaikai.com
+      %li
+        %a{:href => '#'} Coca-Cola
+      %li
+        %a{:href => '#'} Nintendo
+      %li
+        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} GigSpark.com
+      %li
+        %a{:href => '#'} Samsung
+      %li
+        %a{:href => '#'} Magento
+      %li
+        %a{:href => '#'} MySpace.com
+      %li
+        %a{:href => '#'} AKTA
+      %li
+        %a{:href => '#'} SocialCrunch
+      %li
+        %a{:href => '#'} SocialVision
+      %li
+        %a{:href => '#'} Vosges Chocolate
+      %li
+        %a{:href => '#'} Metagenics
+      %li
+        %a{:href => '#'} MOD X
+      %li
+        %a{:href => '#'} Pawngo.com
+      %li
+        %a{:href => '#'} TopGolf.com
+      %li
+        %a{:href => '#'} Kaleo Software
+      %li
+        %a{:href => '#'} CBD Marketing
+      %li
+        %a{:href => '#'} Levid.com
+  .lock
+    %a{:"ng-href" => '#', :data => {:behavior => 'toggle-lock'}}
+      .locked
+        %i.icon-portfolio-locked
+      .unlocked
+        %i.icon-portfolio-unlocked
+  %ul.nav
+    %li.menu
+      %a{:href => '#', :data => {:behavior => 'toggle-menu'}}
+        .icon
+          %i.icon-portfolio-list
+        .text
+          Menu
     %li.home
       %a{:"ng-href" => '#/home', :"ng-class" => "{'active':getClass('/home')}"}
         .icon
@@ -60,12 +115,6 @@
           %i.icon-portfolio-tropics
         .text
           CV
-    .lock
-      %a{:"ng-href" => '#', :data => {:behavior => 'toggle-lock'}}
-        .locked
-          %i.icon-portfolio-locked
-        .unlocked
-          %i.icon-portfolio-unlocked
   %nav.slide-menu
     %ul
       %li

@@ -48,7 +48,7 @@ class Nav extends Portfolio.UI
     @shuffleLetters()
 
   initShareButtons: () ->
-    $(document).on 'mouseenter', '.made-with a', (e) ->
+    $(document).on 'mouseenter', @madeWithLinks, (e) ->
       $(this).parents('p').find('a').each (index) ->
         $(this).css opacity: 0.6
       $(this).css opacity: 1

@@ -36,6 +36,19 @@ class UI extends Portfolio
     @loadingEl        = @options.loadingEl        or "#loading"
 
     window.$UI = this
+    $UI.Constants = {}
+
+    $(document).ready =>
+      @showSpinner $(@overlaySpinnerEl),
+        lines: 15
+        length: 0
+        width: 3
+        radius: 50
+        color: '#000000'
+        speed: 1.6
+        trail: 45
+        shadow: false
+        hwaccel: true
 
     this # allows for method chaining
 
@@ -43,12 +56,14 @@ class UI extends Portfolio
   initGlobalUI: (options) ->
     # Methods to enable functionality upon initialization
     $(document).ready =>
-      @sidebar = new $UI.Sidebar(
+      $UI.Constants.sidebar = new $UI.Sidebar(
         sidebarNavEl:    "nav.sidebar-nav"
         sidebarNavLinks: "nav.sidebar-nav ul.nav li a"
       )
 
-      @audio = new $UI.Audio(
+      $UI.Constants.sidebarScroller = new $UI.Scroller("[data-behavior='scrollable']")
+
+      $UI.Constants.audio = new $UI.Audio(
         config:
           sidebarNav:
             el:       "nav.sidebar-nav"
@@ -63,7 +78,11 @@ class UI extends Portfolio
             links:    ".social-links a"
             soundId:  "click"
       )
-      @audio.enableAudio()
+      $UI.Constants.audio.enableAudio()
+
+      $(window).load =>
+        $UI.Constants.theme = new $UI.Theme()
+        $UI.Constants.theme.enableThemes()
 
   showLoadingScreen: () ->
     $(@overlayEl).show()
@@ -79,8 +98,9 @@ class UI extends Portfolio
       hwaccel: true
 
   hideLoadingScreen: () ->
-    $(@overlayEl).fadeOut()
-    @hideSpinner $(@overlaySpinnerEl)
+    $(@overlayEl).fadeOut(=>
+      @hideSpinner $(@overlaySpinnerEl)
+    )
 
   showLoadingSpinner: (target) ->
     $(@loadingEl).fadeIn()

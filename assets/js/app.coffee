@@ -27,25 +27,43 @@ class Portfolio
 
   init: () ->
     $(document).ready =>
-      @imageGrid = new $UI.ImageGrid()
+      $UI.Constants.imageGrid = new $UI.ImageGrid()
       $UI.initGlobalUI()
 
       $('section.content .innerContent').css minHeight: $(document).innerHeight()
+      $("[data-behavior='scrollable']").css maxHeight: ($(window).height() - 250)
+
+      $(".tooltips").tooltip
+        container: 'body'
+        placement: 'right'
+
+    $(window).resize =>
+      $('section.content .innerContent').css minHeight: $(document).innerHeight()
+      $("[data-behavior='scrollable']").css maxHeight: ($(window).height() - 250)
+      $("[data-behavior='scrollable']").mCustomScrollbar("update")
 
     $(window).load =>
       $UI.hideLoadingScreen()
-      @imageGrid.buildGrid()
-      @nav = new $UI.Nav(
+      $UI.Constants.imageGrid.buildGrid()
+      $UI.Constants.nav = new $UI.Nav(
         lensFlareEnabled: "true"
       ).init()
 
   initAfterViewContentLoaded: (path) ->
     # navbarHeight = if $('section.content .innerContent')[0].scrollHeight > $('nav.sidebar-nav').height() then $('section.content .innerContent')[0].scrollHeight else $('nav.sidebar-nav').height()
+
+    if path isnt "home"
+      $("#wrapper").addClass 'sub'
+      $("#main").addClass 'dark'
+    else
+      $("#wrapper").removeClass 'sub'
+      $("#main").removeClass 'dark'
+
     $("#wrapper").waitForImages (=>
       console.log "All images have loaded."
 
       $UI.hideLoadingScreen()
-      @imageGrid.buildGrid(->
+      $UI.Constants.imageGrid.buildGrid(->
         $('.thumbnails').isotope( 'shuffle' )
       )
 

@@ -37,47 +37,47 @@ module.exports = {
   }
 };
 
-var port = 1336;
-var io = require('socket.io').listen(port);
+// var port = 1336;
+// var io = require('socket.io').listen(port);
 
-io.configure(function () {
-  io.set("transports", ["xhr-polling"]);
-  io.set("polling duration", 10);
-  io.set("maxListeners", 0);
-});
+// io.configure(function () {
+//   io.set("transports", ["xhr-polling"]);
+//   io.set("polling duration", 10);
+//   io.set("maxListeners", 0);
+// });
 
-io.sockets.on('connection', function (socket) {
-  var numberOfSockets = Object.keys(io.connected).length;
-  socket.emit('connectedUsers', { count: numberOfSockets });
-  socket.broadcast.emit('connectedUsers', { count: numberOfSockets });
+// io.sockets.on('connection', function (socket) {
+//   var numberOfSockets = Object.keys(io.connected).length;
+//   socket.emit('connectedUsers', { count: numberOfSockets });
+//   socket.broadcast.emit('connectedUsers', { count: numberOfSockets });
 
-  socket.emit('news', { hello: 'world' });
-  socket.emit('init', { data: 'what' });
-  socket.on('my other event', function (data) {
-    console.log("serverEventData: " + data);
-  });
+//   socket.emit('news', { hello: 'world' });
+//   socket.emit('init', { data: 'what' });
+//   socket.on('my other event', function (data) {
+//     console.log("serverEventData: " + data);
+//   });
 
-  socket.on('deleteUser', function(user){
-    console.log("onUserDeleted broadcasted");
-    socket.broadcast.emit('onUserDeleted', user);
-  });
+//   socket.on('deleteUser', function(user){
+//     console.log("onUserDeleted broadcasted");
+//     socket.broadcast.emit('onUserDeleted', user);
+//   });
 
-  socket.on('addUser', function(user){
-    console.log("onUserAdded broadcasted");
-    socket.broadcast.emit('onUserAdded', user);
-  });
+//   socket.on('addUser', function(user){
+//     console.log("onUserAdded broadcasted");
+//     socket.broadcast.emit('onUserAdded', user);
+//   });
 
-  socket.on('updateUser', function(user){
-    console.log("onUserUpdated broadcasted");
-    socket.broadcast.emit('onUserUpdated', user);
-  });
+//   socket.on('updateUser', function(user){
+//     console.log("onUserUpdated broadcasted");
+//     socket.broadcast.emit('onUserUpdated', user);
+//   });
 
-  socket.on('disconnect', function () {
-    socket.emit('connectedUsers', { count: numberOfSockets-1 });
-    socket.broadcast.emit('connectedUsers', { count: numberOfSockets-1 });
-  });
+//   socket.on('disconnect', function () {
+//     socket.emit('connectedUsers', { count: numberOfSockets-1 });
+//     socket.broadcast.emit('connectedUsers', { count: numberOfSockets-1 });
+//   });
 
-  socket.removeListener("connect", function(){});
-  socket.removeListener("deleteUser", function(){});
-  socket.removeListener("addUser", function(){});
-});
+//   socket.removeListener("connect", function(){});
+//   socket.removeListener("deleteUser", function(){});
+//   socket.removeListener("addUser", function(){});
+// });

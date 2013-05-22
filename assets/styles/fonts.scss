@@ -29,7 +29,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-portfolio"] {
 */
-.icon-portfolio-dribbble, .icon-portfolio-edit, .icon-portfolio-eye, .icon-portfolio-home, .icon-portfolio-favorite, .icon-portfolio-gear, .icon-portfolio-github, .icon-portfolio-linkedin, .icon-portfolio-twitter, .icon-portfolio-user, .icon-portfolio-cosmic, .icon-portfolio-spaceship, .icon-portfolio-info, .icon-portfolio-stack, .icon-portfolio-contact, .icon-portfolio-list, .icon-portfolio-stack3d, .icon-portfolio-tropics, .icon-portfolio-info-script, .icon-portfolio-behance, .icon-portfolio-laptop, .icon-portfolio-pencil, .icon-portfolio-screen, .icon-portfolio-user, .icon-portfolio-accessibility, .icon-portfolio-heart, .icon-portfolio-heart-2, .icon-portfolio-close, .icon-portfolio-shuffle, .icon-portfolio-loop, .icon-portfolio-ampersand, .icon-portfolio-code, .icon-portfolio-th, .icon-portfolio-th-list, .icon-portfolio-th-large, .icon-portfolio-remove-sign, .icon-portfolio-minus-sign, .icon-portfolio-plus-sign, .icon-portfolio-ok-sign, .icon-portfolio-chevron-right, .icon-portfolio-chevron-left, .icon-portfolio-calendar, .icon-portfolio-cog, .icon-portfolio-feed, .icon-portfolio-phone, .icon-portfolio-user-2, .icon-portfolio-globe, .icon-portfolio-envelope-alt, .icon-portfolio-email, .icon-portfolio-refresh, .icon-portfolio-loop, .icon-portfolio-locked, .icon-portfolio-unlocked {
+.icon-portfolio-dribbble, .icon-portfolio-edit, .icon-portfolio-eye, .icon-portfolio-home, .icon-portfolio-favorite, .icon-portfolio-gear, .icon-portfolio-github, .icon-portfolio-linkedin, .icon-portfolio-twitter, .icon-portfolio-user, .icon-portfolio-cosmic, .icon-portfolio-spaceship, .icon-portfolio-info, .icon-portfolio-stack, .icon-portfolio-contact, .icon-portfolio-list, .icon-portfolio-stack3d, .icon-portfolio-tropics, .icon-portfolio-info-script, .icon-portfolio-behance, .icon-portfolio-laptop, .icon-portfolio-pencil, .icon-portfolio-screen, .icon-portfolio-user, .icon-portfolio-accessibility, .icon-portfolio-heart, .icon-portfolio-heart-2, .icon-portfolio-close, .icon-portfolio-shuffle, .icon-portfolio-loop, .icon-portfolio-ampersand, .icon-portfolio-code, .icon-portfolio-th, .icon-portfolio-th-list, .icon-portfolio-th-large, .icon-portfolio-remove-sign, .icon-portfolio-minus-sign, .icon-portfolio-plus-sign, .icon-portfolio-ok-sign, .icon-portfolio-chevron-right, .icon-portfolio-chevron-left, .icon-portfolio-calendar, .icon-portfolio-cog, .icon-portfolio-feed, .icon-portfolio-phone, .icon-portfolio-user-2, .icon-portfolio-globe, .icon-portfolio-envelope-alt, .icon-portfolio-email, .icon-portfolio-refresh, .icon-portfolio-loop, .icon-portfolio-locked, .icon-portfolio-unlocked, .icon-portfolio-volume-mute, .icon-portfolio-volume-medium {
   font-family: 'Portfolio-Icons';
   speak: none;
   font-style: normal;
@@ -102,7 +102,6 @@ you can use the generic selector below, but it's slower:
 .icon-portfolio-laptop:before {
   content: "\e014";
 }
-
 .icon-portfolio-pencil:before {
   content: "\e015";
 }
@@ -198,6 +197,12 @@ you can use the generic selector below, but it's slower:
 }
 .icon-portfolio-unlocked:before {
   content: "\e029";
+}
+.icon-portfolio-volume-mute:before {
+  content: "\e02a";
+}
+.icon-portfolio-volume-medium:before {
+  content: "\e02b";
 }
 
 // Proxima Nova Font

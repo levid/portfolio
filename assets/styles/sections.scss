@@ -1,4 +1,8 @@
 main#main {
+  &.sub {
+    background-color: rgba(0,0,0, 0.4) !important;
+  }
+
   section.content {
     margin: 0px;
     padding: 0px 0px 0px 0px;
@@ -17,11 +21,10 @@ main#main {
       top: 0px;
       left: 10px;
       display: none;
-      z-index: 1;
+      z-index: 0;
     }
 
     .innerContent {
-
       padding: 0px 0px 0px 0px;
       width: 100%;
       height: auto !important;
@@ -105,7 +108,7 @@ main#main {
             display: block;
             cursor: pointer;
             position: relative;
-            z-index: 11;
+            z-index: 1;
 
             a {
               width: auto;
@@ -150,7 +153,7 @@ main#main {
             display: block;
             cursor: pointer;
             position: relative;
-            z-index: 11;
+            z-index: 1;
 
             a {
               width: auto;
@@ -177,7 +180,6 @@ main#main {
     vertical-align: top;
 
     .innerContent {
-      background-color: rgba(0,0,0, 0.4);
 
       .user-header {
         width: 100%;

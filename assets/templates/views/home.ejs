@@ -1,53 +1,53 @@
 <script id='views/home.html' type='text/ng-template'>
-  <section class='home'>
-    <div class='innerContent'>
-      <div ng-include='' src="'views/partials/user-header.html'"></div>
-      <div ng-include='' src="'views/partials/theme-container.html'"></div>
-      <ul class='nav'>
-        <li class='large'>
-          <a data-target='design' ng-href='#/work/design'>Design</a>
-        </li>
-        <li class='large'>
-          <a data-target='identity' ng-href='#/work/identity'>Identity</a>
-        </li>
-        <li class='large'>
-          <a data-target='code' ng-href='#/work/code'>Code</a>
-        </li>
-        <li class='large'>
-          <a data-target='web' ng-href='#/work/web'>Web</a>
-        </li>
-        <!-- %li.spacer -->
-        <li class='filter-by'>
-          <a ng-href='#/work'>
-            <div class='hex'>
-              <span class='all'>All</span>
-            </div>
-          </a>
-        </li>
-        <li class='small'>
-          <a data-target='about' ng-href='#/about'>About</a>
-        </li>
-        <li class='small'>
-          <a data-target='contact' ng-href='#/contact'>Contact</a>
-        </li>
-        <li class='small'>
-          <a data-target='clients' ng-href='#/clients'>Clients</a>
-        </li>
-        <li class='small'>
-          <a data-target='cv' ng-href='#/cv'>CV</a>
-        </li>
-      </ul>
-      <div class='theme-block'>
-        <div class='thumbnail'>
-          <img src='' />
-        </div>
-        <div class='arrow'>
-          <a ng-href='#'></a>
-        </div>
-      </div>
-    </div>
-    <div class='lens-flare'>
-      <img src='images/lens-flare.png' />
-    </div>
-  </section>
+<section class='home'>
+<!-- %div{:"ng-include" => '', :src => "'views/partials/theme-container.html'"} -->
+<div class='innerContent'>
+<div ng-include='' src="'views/partials/user-header.html'"></div>
+<ul class='nav'>
+<li class='large'>
+<a data-target='design' ng-href='#/work/design'>Design</a>
+</li>
+<li class='large'>
+<a data-target='identity' ng-href='#/work/identity'>Identity</a>
+</li>
+<li class='large'>
+<a data-target='code' ng-href='#/work/code'>Code</a>
+</li>
+<li class='large'>
+<a data-target='web' ng-href='#/work/web'>Web</a>
+</li>
+<!-- %li.spacer -->
+<li class='filter-by'>
+<a ng-href='#/work'>
+<div class='hex'>
+<span class='all'>All</span>
+</div>
+</a>
+</li>
+<li class='small'>
+<a data-target='about' ng-href='#/about'>About</a>
+</li>
+<li class='small'>
+<a data-target='contact' ng-href='#/contact'>Contact</a>
+</li>
+<li class='small'>
+<a data-target='clients' ng-href='#/clients'>Clients</a>
+</li>
+<li class='small'>
+<a data-target='cv' ng-href='#/cv'>CV</a>
+</li>
+</ul>
+<div class='theme-block'>
+<div class='thumbnail'>
+<img src=''>
+</div>
+<div class='arrow'>
+<a ng-href='#'></a>
+</div>
+</div>
+</div>
+<div class='lens-flare'>
+<img src='images/lens-flare.png'>
+</div>
+</section>
 </script>

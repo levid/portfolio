@@ -1,120 +1,195 @@
 <div class='hover-caption' data-object='hover-caption'>
-  Design
+Design
 </div>
-<nav class='sidebar-nav'>
-  <ul class='nav' ng-controller='NavbarController'>
-    <li class='home'>
-      <a ng-class="{'active':getClass('/home')}" ng-href='#/home'>
-        <div class='icon'>
-          <i class='icon-portfolio-cosmic'></i>
-        </div>
-        <div class='text'>
-          Home
-        </div>
-      </a>
-    </li>
-    <li class='design'>
-      <a ng-class="{'active':getClass('/work/design')}" ng-href='#/work/design'>
-        <div class='icon'>
-          <i class='icon-portfolio-edit'></i>
-        </div>
-        <div class='text'>
-          Design
-        </div>
-      </a>
-      <ul class='sub-nav'>
-        <h4>Design Work</h4>
-        <li>
-          <a ng-href='#'>Client Name</a>
-        </li>
-      </ul>
-    </li>
-    <li class='identity'>
-      <a ng-class="{'active':getClass('/work/identity')}" ng-href='#/work/identity'>
-        <div class='icon'>
-          <i class='icon-portfolio-eye'></i>
-        </div>
-        <div class='text'>
-          Identity
-        </div>
-      </a>
-    </li>
-    <li class='code'>
-      <a ng-class="{'active':getClass('/work/code')}" ng-href='#/work/code'>
-        <div class='icon'>
-          <i class='icon-portfolio-code'></i>
-        </div>
-        <div class='text'>
-          Code
-        </div>
-      </a>
-    </li>
-    <li class='web'>
-      <a ng-class="{'active':getClass('/work/web')}" ng-href='#/work/web'>
-        <div class='icon'>
-          <i class='icon-portfolio-globe'></i>
-        </div>
-        <div class='text'>
-          Web
-        </div>
-      </a>
-    </li>
-    <li class='about'>
-      <a ng-class="{'active':getClass('/about')}" ng-href='#/about'>
-        <div class='icon'>
-          <i class='icon-portfolio-info-script'></i>
-        </div>
-        <div class='text'>
-          About
-        </div>
-      </a>
-    </li>
-    <li class='contact'>
-      <a ng-class="{'active':getClass('/contact')}" ng-href='#/contact'>
-        <div class='icon'>
-          <i class='icon-portfolio-email'></i>
-        </div>
-        <div class='text'>
-          Contact
-        </div>
-      </a>
-    </li>
-    <li class='clients'>
-      <a ng-class="{'active':getClass('/clients')}" ng-href='#/clients'>
-        <div class='icon'>
-          <i class='icon-portfolio-heart-2'></i>
-        </div>
-        <div class='text'>
-          Clients
-        </div>
-      </a>
-    </li>
-    <li class='cv'>
-      <a ng-class="{'active':getClass('/cv')}" ng-href='#/cv'>
-        <div class='icon'>
-          <i class='icon-portfolio-tropics'></i>
-        </div>
-        <div class='text'>
-          CV
-        </div>
-      </a>
-    </li>
-    <div class='lock'>
-      <a data-behavior='toggle-lock' ng-href='#'>
-        <div class='locked'>
-          <i class='icon-portfolio-locked'></i>
-        </div>
-        <div class='unlocked'>
-          <i class='icon-portfolio-unlocked'></i>
-        </div>
-      </a>
-    </div>
-  </ul>
-  <nav class='slide-menu'>
-    <ul>
-      <li>
-        <a ng-href='#'></a>
-      </li>
-    </ul>
-  </nav>
+<nav class='sidebar-nav' ng-controller='NavbarController'>
+<div class='content-menu'>
+<h4>Clients</h4>
+<ul data-behavior='scrollable'>
+<li>
+<a class='tooltips' data-toggle='tooltip' href='#' title='2012'>DUB LEDS</a>
+</li>
+<li>
+<a href='#'>Flingo.tv</a>
+</li>
+<li>
+<a href='#'>Gaikai.com</a>
+</li>
+<li>
+<a href='#'>Coca-Cola</a>
+</li>
+<li>
+<a href='#'>Nintendo</a>
+</li>
+<li>
+<a class='tooltips' data-toggle='tooltip' href='#' title='2010'>GigSpark.com</a>
+</li>
+<li>
+<a href='#'>Samsung</a>
+</li>
+<li>
+<a href='#'>Magento</a>
+</li>
+<li>
+<a href='#'>MySpace.com</a>
+</li>
+<li>
+<a href='#'>AKTA</a>
+</li>
+<li>
+<a href='#'>SocialCrunch</a>
+</li>
+<li>
+<a href='#'>SocialVision</a>
+</li>
+<li>
+<a href='#'>Vosges Chocolate</a>
+</li>
+<li>
+<a href='#'>Metagenics</a>
+</li>
+<li>
+<a href='#'>MOD X</a>
+</li>
+<li>
+<a href='#'>Pawngo.com</a>
+</li>
+<li>
+<a href='#'>TopGolf.com</a>
+</li>
+<li>
+<a href='#'>Kaleo Software</a>
+</li>
+<li>
+<a href='#'>CBD Marketing</a>
+</li>
+<li>
+<a href='#'>Levid.com</a>
+</li>
+</ul>
+</div>
+<div class='lock'>
+<a data-behavior='toggle-lock' ng-href='#'>
+<div class='locked'>
+<i class='icon-portfolio-locked'></i>
+</div>
+<div class='unlocked'>
+<i class='icon-portfolio-unlocked'></i>
+</div>
+</a>
+</div>
+<ul class='nav'>
+<li class='menu'>
+<a data-behavior='toggle-menu' href='#'>
+<div class='icon'>
+<i class='icon-portfolio-list'></i>
+</div>
+<div class='text'>
+Menu
+</div>
+</a>
+</li>
+<li class='home'>
+<a ng-class="{'active':getClass('/home')}" ng-href='#/home'>
+<div class='icon'>
+<i class='icon-portfolio-cosmic'></i>
+</div>
+<div class='text'>
+Home
+</div>
+</a>
+</li>
+<li class='design'>
+<a ng-class="{'active':getClass('/work/design')}" ng-href='#/work/design'>
+<div class='icon'>
+<i class='icon-portfolio-edit'></i>
+</div>
+<div class='text'>
+Design
+</div>
+</a>
+<ul class='sub-nav'>
+<h4>Design Work</h4>
+<li>
+<a ng-href='#'>Client Name</a>
+</li>
+</ul>
+</li>
+<li class='identity'>
+<a ng-class="{'active':getClass('/work/identity')}" ng-href='#/work/identity'>
+<div class='icon'>
+<i class='icon-portfolio-eye'></i>
+</div>
+<div class='text'>
+Identity
+</div>
+</a>
+</li>
+<li class='code'>
+<a ng-class="{'active':getClass('/work/code')}" ng-href='#/work/code'>
+<div class='icon'>
+<i class='icon-portfolio-code'></i>
+</div>
+<div class='text'>
+Code
+</div>
+</a>
+</li>
+<li class='web'>
+<a ng-class="{'active':getClass('/work/web')}" ng-href='#/work/web'>
+<div class='icon'>
+<i class='icon-portfolio-globe'></i>
+</div>
+<div class='text'>
+Web
+</div>
+</a>
+</li>
+<li class='about'>
+<a ng-class="{'active':getClass('/about')}" ng-href='#/about'>
+<div class='icon'>
+<i class='icon-portfolio-info-script'></i>
+</div>
+<div class='text'>
+About
+</div>
+</a>
+</li>
+<li class='contact'>
+<a ng-class="{'active':getClass('/contact')}" ng-href='#/contact'>
+<div class='icon'>
+<i class='icon-portfolio-email'></i>
+</div>
+<div class='text'>
+Contact
+</div>
+</a>
+</li>
+<li class='clients'>
+<a ng-class="{'active':getClass('/clients')}" ng-href='#/clients'>
+<div class='icon'>
+<i class='icon-portfolio-heart-2'></i>
+</div>
+<div class='text'>
+Clients
+</div>
+</a>
+</li>
+<li class='cv'>
+<a ng-class="{'active':getClass('/cv')}" ng-href='#/cv'>
+<div class='icon'>
+<i class='icon-portfolio-tropics'></i>
+</div>
+<div class='text'>
+CV
+</div>
+</a>
+</li>
+</ul>
+<nav class='slide-menu'>
+<ul>
+<li>
+<a ng-href='#'></a>
+</li>
+</ul>
+</nav>
 </nav>

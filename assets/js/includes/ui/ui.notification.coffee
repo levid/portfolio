@@ -5,7 +5,8 @@
 # - This class extends the Portfolio.UI class
 #
 class Notification extends Portfolio.UI
-  opts: {}
+  opts:
+    defaultConfig: undefined
 
   #### The constructor for the Notification class
   #

@@ -12,17 +12,33 @@ class ImageGrid extends Portfolio.UI
   # - The options object that is used by the class for configuration purposes (optional)
   #
   constructor: (@options) ->
+    # Extend default options to include passed in arguments
+    @options = $.extend({}, this.opts, @options)
+
+    $.subscribe('resize.Portfolio', @initAfterViewContentLoadedProxy('resize.Portfolio'))
+
     # return this to make this class chainable
     this
 
-  buildGrid: (callback) ->
-    callback = callback or ->
+  initAfterViewContentLoadedProxy: () ->
+    # Skip the first argument (event object) but log the other args.
+    (_, options) =>
+      difference  = options.difference
+      margin      = options.margin
+      @buildGrid(->
+        $('.thumbnails').isotope( 'reLayout' )
+      , difference, margin)
+
+  buildGrid: (callback, difference, newMargin) ->
+    difference  = difference or 0
+    newMargin   = newMargin or undefined
+    callback    = callback or ->
 
     calc = () =>
-      @containerEl     = $('.thumbnails')
-      @thumbContainer  = $('.thumb')
-      margin          = 70
-      windowWidth     = $(window).width()
+      @containerEl    = $('.thumbnails')
+      @thumbContainer = $('.thumb')
+      margin          = newMargin or 70
+      windowWidth     = $(window).width() - difference
       windowHeight    = $(window).height()
       containerWidth  = windowWidth - margin
       cols1           = containerWidth

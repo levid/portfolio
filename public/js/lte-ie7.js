@@ -58,7 +58,9 @@ window.onload = function() {
 			'icon-portfoliorefresh' : '&#xe026;',
 			'icon-portfolioloop-2' : '&#xe027;',
 			'icon-portfoliolocked' : '&#xe028;',
-			'icon-portfoliounlocked' : '&#xe029;'
+			'icon-portfoliounlocked' : '&#xe029;',
+			'icon-portfoliovolume-mute' : '&#xe02a;',
+			'icon-portfoliovolume-medium' : '&#xe02b;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;

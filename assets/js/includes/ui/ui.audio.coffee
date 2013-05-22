@@ -22,6 +22,8 @@ class Audio extends Portfolio.UI
     @audioEnabled       = @options.audioEnabled     or false
     @audioContainerEl   = @options.audioContainerEl or "#audio-container"
 
+    @initAudioToggleButton()
+
     $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
 
     # return this to make this class chainable
@@ -30,15 +32,34 @@ class Audio extends Portfolio.UI
   initAfterViewContentLoadedProxy: () ->
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
-      @enableAudio()
+      if @audioEnabled is true
+        @assignSounds()
+
+  getAudioEnabled: () ->
+    return @audioEnabled
 
   enableAudio: () ->
     @audioEnabled = true
     @assignSounds()
-    # @enableLargeRollovers()
 
   disableAudio: () ->
     @audioEnabled = false
+
+  initAudioToggleButton: () ->
+    $(document).on('click', "[data-behavior='toggle-audio-state']", (e) =>
+      e.preventDefault()
+      if @audioEnabled is true then @audioState().off() else @audioState().on()
+    )
+
+  audioState: () ->
+    on: () =>
+      $.publish 'event.Portfolio', message: "Audio enabled"
+      $("a[data-behavior='toggle-audio-state']").removeClass('off').addClass('on')
+      @audioEnabled = true
+    off: () =>
+      $.publish 'event.Portfolio', message: "Audio disabled"
+      $("a[data-behavior='toggle-audio-state']").removeClass('on').addClass('off')
+      @audioEnabled = false
 
   assignSounds: () ->
     if @audioEnabled is true
@@ -50,10 +71,16 @@ class Audio extends Portfolio.UI
         $(v.links).each((i) ->
           $("##{v.soundId}").clone().attr("id", "#{v.soundId}-" + i).appendTo(self.audioContainerEl) unless i is 0
           $(this).data "#{v.soundId}", i
-        ).hover((e) ->
-          $("##{v.soundId}-" + $(this).data("#{v.soundId}"))[0].play()
         )
+
+        $(document).on 'mouseenter', v.links, (e) ->
+          if self.audioEnabled is true
+            sound = $("##{v.soundId}-" + $(this).data("#{v.soundId}"))[0]
+            sound.play() if sound
         $("##{v.soundId}").attr "id", "#{v.soundId}-0" # get first one into naming convention
+
+  playSound: (target) ->
+    $(target)[0].play() if $(target)[0]
 
 # Assign this class to the Portfolio Namespace
 Portfolio.UI.Audio = Audio
