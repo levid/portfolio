@@ -146,11 +146,11 @@ nav.sidebar-nav {
     display: inline-block;
     position: relative;
     z-index: 2;
-    // border-right: 1px solid rgba(129, 129, 129, 0.3);
+    border-left: 1px solid rgba(129, 129, 129, 0.3);
 
     li {
       width: 100%;
-      border-bottom: 1px dotted rgba(129, 129, 129, 0.5);
+      border-bottom: 1px solid rgba(129, 129, 129, 0.3);
       display: inline-block;
 
       &:first-child {

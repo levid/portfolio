@@ -125,7 +125,7 @@ body {
   background-color: #000000;
   position: relative;
   @include transition(all .1s ease-in-out);
-  z-index: 50;
+  z-index: 0;
 
   &:hover {
     background-color: rgba(0,0,0,0.5);
