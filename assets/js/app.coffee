@@ -42,11 +42,22 @@ class Portfolio
   initAfterViewContentLoaded: (path) ->
     # navbarHeight = if $('section.content .innerContent')[0].scrollHeight > $('nav.sidebar-nav').height() then $('section.content .innerContent')[0].scrollHeight else $('nav.sidebar-nav').height()
 
-    setTimeout (=>
+    $("#wrapper").waitForImages (=>
+      console.log "All images have loaded."
+      $UI.hideLoadingScreen()
       @imageGrid.buildGrid(->
         $('.thumbnails').isotope( 'shuffle' )
       )
-    ), 500
+    ),((loaded, count, success) ->
+      console.log loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
+      $(this).addClass "loaded"
+    ),true
+
+    # setTimeout (=>
+    #   @imageGrid.buildGrid(->
+    #     $('.thumbnails').isotope( 'shuffle' )
+    #   )
+    # ), 500
 
     $.publish('initAfterViewContentLoaded.Portfolio', path)
 

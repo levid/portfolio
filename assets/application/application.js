@@ -150,8 +150,8 @@ angular.module('application', ['ngResource', 'application.filters', 'application
         $rootScope.customParams = $route.current.customParams;
       }
 
-      setTimeout((function() {
-        $UI.hideLoadingScreen();
-      }), 500);
+      // setTimeout((function() {
+      //   $UI.hideLoadingScreen();
+      // }), 500);
     });
 });
