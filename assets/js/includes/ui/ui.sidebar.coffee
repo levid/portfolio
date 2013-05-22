@@ -67,7 +67,13 @@ class Sidebar extends Portfolio.UI
     $(document).on('click', "[data-behavior='toggle-lock']", (e) =>
       e.preventDefault()
       $(e.target).parents('a').toggleClass 'active'
-      @locked = if @locked is true then false else true
+
+      if @locked is true
+        $.publish 'event.Portfolio', message: "Sidebar unlocked"
+        @unlock()
+      else
+        $.publish 'event.Portfolio', message: "Sidebar locked"
+        @lock()
     )
 
   open: () ->

@@ -50,7 +50,7 @@ class Audio extends Portfolio.UI
         $(v.links).each((i) ->
           $("##{v.soundId}").clone().attr("id", "#{v.soundId}-" + i).appendTo(self.audioContainerEl) unless i is 0
           $(this).data "#{v.soundId}", i
-        ).mouseenter((e) ->
+        ).hover((e) ->
           $("##{v.soundId}-" + $(this).data("#{v.soundId}"))[0].play()
         )
         $("##{v.soundId}").attr "id", "#{v.soundId}-0" # get first one into naming convention

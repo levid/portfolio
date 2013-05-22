@@ -41,24 +41,37 @@ class Portfolio
 
   initAfterViewContentLoaded: (path) ->
     # navbarHeight = if $('section.content .innerContent')[0].scrollHeight > $('nav.sidebar-nav').height() then $('section.content .innerContent')[0].scrollHeight else $('nav.sidebar-nav').height()
-
     $("#wrapper").waitForImages (=>
       console.log "All images have loaded."
+
       $UI.hideLoadingScreen()
       @imageGrid.buildGrid(->
         $('.thumbnails').isotope( 'shuffle' )
       )
+
+      $.publish('initAfterViewContentLoaded.Portfolio', path)
+      # $.publish 'event.Portfolio',
+      #   type:       "notification"
+      #   statusCode: "200"
+      #   message:    "All images have loaded."
+      #   options:
+      #     position: "bottom-right"
+      #     closer:   "false"
+      #     group:    "success"
+
     ),((loaded, count, success) ->
       console.log loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
       $(this).addClass "loaded"
-    ),true
 
-    # setTimeout (=>
-    #   @imageGrid.buildGrid(->
-    #     $('.thumbnails').isotope( 'shuffle' )
-    #   )
-    # ), 500
+      # $.publish 'event.Portfolio',
+      #   type:       "notification"
+      #   statusCode: "200"
+      #   message:    loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
+      #   options:
+      #     position: "bottom-right"
+      #     closer:   "false"
+      #     group:    "success"
 
-    $.publish('initAfterViewContentLoaded.Portfolio', path)
+    ), true
 
 window.Portfolio = new Portfolio()

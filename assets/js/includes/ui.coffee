@@ -65,10 +65,6 @@ class UI extends Portfolio
       )
       @audio.enableAudio()
 
-    $(window).load =>
-      @theme = new $UI.Theme()
-      @theme.enableThemes()
-
   showLoadingScreen: () ->
     $(@overlayEl).show()
     @showSpinner $(@overlaySpinnerEl),

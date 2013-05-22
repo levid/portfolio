@@ -25,8 +25,18 @@ class Theme extends Portfolio.UI
     @wrapper            = @options.wrapper          or $("#wrapper")
     @toggleButtonEl     = @options.toggleButtonEl   or "[data-behavior='toggle-theme']"
     @previewSpinnerEl   = @options.previewSpinnerEl or $(".theme-container .loading")
+
+    $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
+
     # return this to make this class chainable
     this
+
+  initAfterViewContentLoadedProxy: () ->
+    # Skip the first argument (event object) but log the other args.
+    (_, path) =>
+      if path.indexOf("home") >= 0
+        @themeContainerEL = $(".theme-container")
+        @enableThemes()
 
   getNewTheme: () ->
     rand = () =>
@@ -49,15 +59,22 @@ class Theme extends Portfolio.UI
       @showOverlay(theme)
 
   swapBackgroundImage: (callback) ->
+    console.log "test"
     callback           = callback or ->
     backgroundImage    = @themeContainerEL.find("li.active img").data('background')
     backgroundPosition = @themeContainerEL.find("li.active img").data('position') or 'bottom left'
+
+    message = backgroundImage.toString().split('/')
+    message = message[message.length-1]
+    $.publish 'event.Portfolio',
+      header: "Current Theme"
+      message: message
+
     @wrapper.css(
       backgroundImage:    "url(#{backgroundImage})"
       backgroundPosition: backgroundPosition
     ).waitForImages (->
       callback()
-      # This *does* work
     ), $.noop, true
 
   swapPreviewImage: () ->
@@ -87,8 +104,8 @@ class Theme extends Portfolio.UI
     )
 
   enableThemes: () ->
-    @swapPreviewImage()
     @themeContainerEL.fadeIn('slow')
+    @swapPreviewImage()
     $UI.showSpinner @previewSpinnerEl.find('.spinner'),
       lines: 12
       length: 0
@@ -108,4 +125,4 @@ class Theme extends Portfolio.UI
     )
 
 # Assign this class to the Portfolio Namespace
-Portfolio.UI.Theme = Theme
+Portfolio.UI.Theme = new Theme()
