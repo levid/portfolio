@@ -39,21 +39,26 @@ class Theme extends Portfolio.UI
 
   changeTheme: (options) ->
     options = options or {}
-    theme = @getNewTheme()
+    theme   = @getNewTheme()
     if options.overlay is "false"
       @themeContainerEL.find('li').removeClass 'active'
       @themeContainerEL.find("li:eq(#{theme})").addClass 'active'
-      @swapBackgroundImage(theme)
+      @swapBackgroundImage()
       @swapPreviewImage()
     else
       @showOverlay(theme)
 
-  swapBackgroundImage: () ->
+  swapBackgroundImage: (callback) ->
+    callback           = callback or ->
     backgroundImage    = @themeContainerEL.find("li.active img").data('background')
     backgroundPosition = @themeContainerEL.find("li.active img").data('position') or 'bottom left'
-    @wrapper.css
+    @wrapper.css(
       backgroundImage:    "url(#{backgroundImage})"
       backgroundPosition: backgroundPosition
+    ).waitForImages (->
+      callback()
+      # This *does* work
+    ), $.noop, true
 
   swapPreviewImage: () ->
     newTheme = @getNewTheme()
@@ -73,13 +78,11 @@ class Theme extends Portfolio.UI
         shadow: false
         hwaccel: true
 
-      @swapBackgroundImage(theme)
-      @swapPreviewImage()
-      @previewSpinnerEl.hide()
-      $(@toggleButtonEl).find('.text').show()
-
-      @wrapper.imagesLoaded(=>
+      @swapBackgroundImage(=>
         @overlayEl.fadeOut()
+        @swapPreviewImage()
+        @previewSpinnerEl.hide()
+        $(@toggleButtonEl).find('.text').show()
       )
     )
 
