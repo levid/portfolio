@@ -2,48 +2,48 @@
   Design
 %nav.sidebar-nav{:"ng-controller" => "NavbarController"}
   .content-menu
-    %h4 All Projects
+    %h4 All Clients
     %ul{:data => {:behavior => 'scrollable'}}
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} DUB LEDS
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2011"} Flingo.tv
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Gaikai.com
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Coca-Cola
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2007"} Nintendo
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2011"} GigSpark.com
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Samsung
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Magento
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} MySpace.com
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} AKTA
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} SocialCrunch
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} SocialVision
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Vosges Chocolate
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Metagenics
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} MOD X
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Pawngo.com
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} TopGolf.com
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Kaleo Software
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} CBD Marketing
-      %li
-        %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Levid.com
+      %li{:"data-ng-repeat" => "client in clients"}
+        %a.tooltips{:href => '#'} {{client.name}}
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2011"} Flingo.tv
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Gaikai.com
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Coca-Cola
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2007"} Nintendo
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2011"} GigSpark.com
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Samsung
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Magento
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} MySpace.com
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} AKTA
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} SocialCrunch
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} SocialVision
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Vosges Chocolate
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Metagenics
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} MOD X
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Pawngo.com
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} TopGolf.com
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Kaleo Software
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} CBD Marketing
+      / %li
+      /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Levid.com
   .lock
     %a{:"ng-href" => '#', :data => {:behavior => 'toggle-lock'}}
       .locked
@@ -115,6 +115,12 @@
           %i.icon-portfolio-tropics
         .text
           CV
+    %li.top
+      %a{:href => '#', :data => {:behavior => 'scroll-top'}}
+        .icon
+          %i.icon-portfolio-arrow-up
+        .text
+          Top
   %nav.slide-menu
     %ul
       %li

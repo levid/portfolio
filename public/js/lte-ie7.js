@@ -60,7 +60,15 @@ window.onload = function() {
 			'icon-portfoliolocked' : '&#xe028;',
 			'icon-portfoliounlocked' : '&#xe029;',
 			'icon-portfoliovolume-mute' : '&#xe02a;',
-			'icon-portfoliovolume-medium' : '&#xe02b;'
+			'icon-portfoliovolume-medium' : '&#xe02b;',
+			'icon-portfolioiconmonstr-resize-2-icon' : '&#xe02c;',
+			'icon-portfoliocheckmark' : '&#xe02d;',
+			'icon-portfolioiconmonstr-magnifier-icon' : '&#xe02e;',
+			'icon-portfolioarrow-up' : '&#xe02f;',
+			'icon-portfolioarrow-down' : '&#xe030;',
+			'icon-portfolioarrow-left' : '&#xe031;',
+			'icon-portfolioarrow-right' : '&#xe032;',
+			'icon-portfolioremove' : '&#xf00d;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;

@@ -23,56 +23,78 @@ class ImageGrid extends Portfolio.UI
   initAfterViewContentLoadedProxy: () ->
     # Skip the first argument (event object) but log the other args.
     (_, options) =>
-      difference  = options.difference
-      margin      = options.margin
-      @buildGrid(->
-        $('.thumbnails').isotope( 'reLayout' )
-      , difference, margin)
+      @resizeTo = setTimeout(=>
+        @buildGrid options, =>
+          $('.thumbnails').isotope('reLayout')
+          clearTimeout @resizeTo
+      , 500)
 
-  buildGrid: (callback, difference, newMargin) ->
-    difference  = difference or 0
-    newMargin   = newMargin or undefined
-    callback    = callback or ->
+  buildGrid: (options, callback) ->
+    callback          = callback or ->
+    if options
+      widthDifference = options.widthDifference
+      rightMargin     = options.rightMargin
+      path            = $UI.Constants?.actionPath
+    else
+      widthDifference = 0
+      rightMargin     = 70
 
     calc = () =>
       @containerEl    = $('.thumbnails')
       @thumbContainer = $('.thumb')
-      margin          = newMargin or 70
-      windowWidth     = $(window).width() - difference
+      windowWidth     = $(window).width() - widthDifference
       windowHeight    = $(window).height()
-      containerWidth  = windowWidth - margin
+      containerWidth  = windowWidth - rightMargin
       cols1           = containerWidth
       cols2           = containerWidth / 2
       cols3           = containerWidth / 3
 
-      cols = if cols2 > 600 then cols3 else if cols2 < 300 then cols1 else cols2
+      # console.log "cols1: #{cols1} - cols2: #{cols2} - cols3: #{cols3}"
 
-      @containerEl.css width: containerWidth
+      if cols2 > 600
+        cols = cols3
+      else if cols2 < 400
+        cols = cols1
+      else
+        cols = cols2
 
+      @containerEl.css width: $(window).width()
       if @containerEl.find('.thumb').length is 1
         @thumbContainer.css width: containerWidth - 0.5
         @thumbContainer.find('img').css width: containerWidth - 0.5
-      else if @containerEl.find('.thumb').length is 2
+      else if @containerEl.find('.thumb').length is 2 or path is 'show'
         @thumbContainer.css width: (containerWidth / 2)
         @thumbContainer.find('img').css width: (containerWidth / 2)
       else
         @thumbContainer.css width: cols - 0.5
+        @thumbContainer.find('img').css width: cols - 0.5
 
-      @containerEl.imagesLoaded(=>
+      @containerEl.imagesLoaded =>
         @containerEl.isotope
           itemSelector: '.thumb'
-          animationEngine: 'jquery'
+          animationEngine: 'best-available'
           layoutMode: 'masonry'
+          resizeContainer: true
+          resizable: true
+          transformsEnabled: true
+          animationOptions:
+           duration: 500
+           easing: 'easeInOutQuint'
+           queue: false
 
-        callback()
-      )
+        # $(@containerEl).show()
+
+      # $.extend $.Isotope::,
+      #   _customModeReset: ->
+      #   _customModeLayout: ($elems) ->
+      #   _customModeGetContainerSize: ->
+      #   _customModeResizeChanged: ->
+      #     console.log "TEST"
+      #     # callback()
 
     $(window).resize ->
       calc()
     calc()
-
-
-
 
 # Assign this class to the Portfolio Namespace
 Portfolio.UI.ImageGrid = ImageGrid

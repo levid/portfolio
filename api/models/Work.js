@@ -20,42 +20,29 @@ module.exports = {
 		},
 
 
-		category: {
+		image_ids: {
 			type: 'STRING'
 		},
 
 
-		tags: {
+		tag_ids: {
 			type: 'ARRAY'
 		},
 
 
-		client: {
+		client_id: {
 			type: 'STRING'
 		},
 
 
-		url: {
+		project_ids: {
 			type: 'STRING'
 		},
 
 
-		description: {
+		category_ids: {
 			type: 'STRING'
-		},
-
-
-    images: {
-      type: 'ARRAY',
-      preview: {type: 'ARRAY'},
-      thumbnails: {type: 'ARRAY'},
-      large: {type: 'ARRAY'}
-    },
-
-
-		date: {
-			type: 'DATE'
 		}
-	}
 
+	}
 };

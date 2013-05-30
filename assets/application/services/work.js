@@ -1,4 +1,4 @@
-  'use strict'
+'use strict'
 
 Application.Services.service("workService", ["ngResource"]).factory("Work", function ($resource) {
   // We need to add an update method

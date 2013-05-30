@@ -1,0 +1,179 @@
+/*
+  * the setup class is is where you define the transition code and where
+    you define any initialization styles for your animation.
+
+  * the start class is where the animation occurs. So setup any of the
+    styles that you wish to animate. Also note that you must include both
+    classes together so that the animation styles are not conflicting with
+    the setup styles (this avoids any CSS-specificity issues).
+*/
+.mycss-animation-setup {
+  -webkit-transition:1s linear all;
+  -moz-transition:1s linear all;
+  -o-transition:1s linear all;
+  transition:1s linear all; /* future proof */
+}
+.mycss-animation-setup.mycss-animation-start {
+}
+
+
+.custom-enter-setup,
+.custom-leave-setup,
+.custom-move-setup {
+  -webkit-transition: 1s linear all;
+  -moz-transition: 1s linear all;
+  -o-transition: 1s linear all;
+  transition: 1s linear all;
+  opacity: 0;
+}
+
+.custom-enter-setup {
+  opacity:0;
+}
+.custom-enter-setup.custom-enter-start {
+  opacity:1;
+}
+
+.custom-leave-setup {
+  opacity:1;
+}
+.custom-leave-setup.custom-leave-start {
+  opacity:1;
+}
+
+.custom-move-setup {
+  opacity:0.5;
+}
+.custom-move-setup.custom-move-start {
+  opacity:1;
+}
+
+
+/*
+  * Thank you to VisionMedia Move.js (https://github.com/visionmedia/move.js/)
+    for the easing code!
+*/
+.animation-with-easing {
+
+  /* linear animation */
+  transition-timing-function: linear;
+
+  /* in easing animation */
+  transition-timing-function: ease-in;
+
+  /* in-out easing animation */
+  transition-timing-function: ease-in-out;
+
+  /* ease-in-quad easing animation */
+  transition-timing-function: cubic-bezier(0.550, 0.085, 0.680, 0.530);
+
+  /* ease-in-transition-timing-function: cubic easing animation */
+  transition-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+
+  /* ease-in-out-quart easing animation */
+  transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000);
+
+  /* ease-in-out-back easing animation */
+  transition-timing-function: cubic-bezier(0.680, -0.550, 0.265, 1.550);
+
+  /* view the Github link for more CSS easing animations */
+}
+
+
+
+.enter-animation-setup, .leave-animation-setup,
+.move-animation-setup, .show-animation-setup,
+.hide-animation-setup {
+  -webkit-transition:all linear 1s;
+  -moz-transition:all linear 1s;
+  -o-transition:all linear 1s;
+  transition:all linear 1s;
+}
+
+.enter-animation-setup { }
+.enter-animation-setup.enter-animation-start { }
+
+.leave-animation-setup { }
+.leave-animation-setup.leave-animation-start { }
+
+.move-animation-setup { }
+.move-animation-setup.move-animation-start { }
+
+.show-animation-setup { }
+.show-animation-setup.show-animation-start { }
+
+.hide-animation-setup { }
+.hide-animation-setup.hide-animation-start { }
+
+
+// nav.sidebar-nav {
+//   &.animate-sidebar-menu-open {
+//     left: 0px;
+
+//     .content-menu {
+//       left: 7px;
+//     }
+//   }
+
+//   &.animate-sidebar-open {
+//     left: -230px;
+//     // -webkit-transform: translate3d(-230px, 0px, 0px);
+
+//     .content-menu {
+//       left: -300px;
+//       // -webkit-transform: translate3d(-300px, 0px, 0px);
+//     }
+//   }
+
+//   &.animate-sidebar-closed {
+//     left: -287px;
+
+//     .content-menu {
+//       left: -300px;
+//     }
+//   }
+// }
+
+.isotope,
+.isotope .isotope-item {
+  /* change duration value to whatever you like */
+  -webkit-transition-duration: 0.3s;
+     -moz-transition-duration: 0.3s;
+      -ms-transition-duration: 0.3s;
+       -o-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+
+  -webkit-transition-timing-function: ease-out;
+  -moz-transition-timing-function: ease-out;
+  -ms-transition-timing-function: ease-out;
+  -o-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+     -moz-transition-property:    -moz-transform, opacity;
+      -ms-transition-property:     -ms-transform, opacity;
+       -o-transition-property:      -o-transform, opacity;
+          transition-property:         transform, opacity;
+}
+
+/**** disabling Isotope CSS3 transitions ****/
+
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+  -webkit-transition-duration: 0s;
+     -moz-transition-duration: 0s;
+      -ms-transition-duration: 0s;
+       -o-transition-duration: 0s;
+          transition-duration: 0s;
+}

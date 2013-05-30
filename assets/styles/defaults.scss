@@ -17,6 +17,7 @@ a:visited
 {
     white-space: normal;
     background: none;
+    color: #ffffff;
 }
 a, button, i
 {
@@ -71,6 +72,20 @@ body {
   }
 }
 
+.display-inline-block {
+  display: inline-block;
+}
+
+.custom-enter-setup,
+.custom-leave-setup,
+.custom-move-setup {
+  -webkit-transition: 1s linear all;
+  -moz-transition: 1s linear all;
+  -o-transition: 1s linear all;
+  transition: 1s linear all;
+  position:relative;
+}
+
 .push {
   height: 120px;
   position: relative;
@@ -107,51 +122,51 @@ body {
   font-size: 0.8em;
 }
 
-.hex:before {
-  content: "";
-  width: 0; height: 0;
-  border-bottom: 30px solid rgba(0,0,0,0.7);
-  border-left: 52px solid transparent;
-  border-right: 52px solid transparent;
-  position: absolute;
-  top: -30px;
-  @include transition(all .1s ease-in-out);
-}
+// .hex:before {
+//   content: "";
+//   width: 0; height: 0;
+//   border-bottom: 30px solid rgba(0,0,0,0.7);
+//   border-left: 52px solid transparent;
+//   border-right: 52px solid transparent;
+//   position: absolute;
+//   top: -30px;
+//   @include transition(all .1s ease-in-out);
+// }
 
-.hex {
-  width: 104px;
-  height: 60px;
-  background-color: rgba(0,0,0,0.7);
-  position: relative;
-  @include transition(all .1s ease-in-out);
-  z-index: 0;
+// .hex {
+//   width: 104px;
+//   height: 60px;
+//   background-color: rgba(0,0,0,0.7);
+//   position: relative;
+//   @include transition(all .1s ease-in-out);
+//   z-index: 0;
 
-  &:hover {
-    // background-color: rgba(0,0,0,0.7);
-    @include transform-scale(scale(.9));
-    @include opacity(70);
-    color: #ccc;
+//   &:hover {
+//     // background-color: rgba(0,0,0,0.7);
+//     @include transform-scale(scale(.9));
+//     @include opacity(70);
+//     color: #ccc;
 
-    &:before {
-      // border-bottom: 30px solid rgba(0,0,0,0.7);
-    }
+//     &:before {
+//       // border-bottom: 30px solid rgba(0,0,0,0.7);
+//     }
 
-    &:after {
-      // border-top: 30px solid rgba(0,0,0,0.7);
-    }
-  }
-}
+//     &:after {
+//       // border-top: 30px solid rgba(0,0,0,0.7);
+//     }
+//   }
+// }
 
-.hex:after {
-  content: "";
-  width: 0;
-  position: absolute;
-  bottom: -30px;
-  border-top: 30px solid rgba(0,0,0,0.7);
-  border-left: 52px solid transparent;
-  border-right: 52px solid transparent;
-  @include transition(all .1s ease-in-out);
-}
+// .hex:after {
+//   content: "";
+//   width: 0;
+//   position: absolute;
+//   bottom: -30px;
+//   border-top: 30px solid rgba(0,0,0,0.7);
+//   border-left: 52px solid transparent;
+//   border-right: 52px solid transparent;
+//   @include transition(all .1s ease-in-out);
+// }
 
 
 @-webkit-keyframes rotating {
@@ -171,36 +186,29 @@ body {
 .hexagon {
   overflow: hidden;
   visibility: hidden;
-  -webkit-transform: rotate(120deg);
-     -moz-transform: rotate(120deg);
-       -o-transform: rotate(120deg);
-          transform: rotate(120deg);
+  @include transform-rotate(120deg);
   cursor: pointer;
 }
 .hexagon-in1 {
   overflow: hidden;
   width: 100%;
   height: 100%;
-  -webkit-transform: rotate(-60deg);
-     -moz-transform: rotate(-60deg);
-       -o-transform: rotate(-60deg);
-          transform: rotate(-60deg);
+  @include transform-rotate(-60deg);
 }
 .hexagon-in2 {
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
   background-position: 50%;
-  @include background($path + 'themes/ocean-rocks.jpg', no-repeat, top left, #000000);
+  background-color: #000000;
+  // @include background($path + 'themes/ocean-rocks.jpg', no-repeat, top left, #000000);
   @include background-size(100% 100%);
   visibility: visible;
-  -webkit-transform: rotate(-60deg);
-     -moz-transform: rotate(-60deg);
-       -o-transform: rotate(-60deg);
-          transform: rotate(-60deg);
+  @include transform-rotate(-60deg);
 }
 .hexagon-in2:hover {
-  @include background($path + 'themes/ocean-rocks.jpg', no-repeat, top left, #000000);
+  background-color: #000000;
+  // @include background($path + 'themes/ocean-rocks.jpg', no-repeat, top left, #000000);
   @include background-size(100% 100%);
 }
 
@@ -211,5 +219,37 @@ body {
   position: absolute;
   z-index: 2;
   @include box-shadow(inset 0px 0px 10px 0px #ffffff);
+}
+
+a {
+  &.btn {
+    &.btn-orange {
+      padding: 10px 10px 8px 10px;
+      background-color: #ff6e42;
+
+      &:hover {
+        color: #ffffff;
+        background-color: #000000;
+
+        i {
+          color: #ffffff;
+        }
+      }
+    }
+
+    &.btn-teal {
+      padding: 10px 10px 8px 10px;
+      background-color: #668f97;
+
+      &:hover {
+        color: #ffffff;
+        background-color: #000000;
+
+        i {
+          color: #ffffff;
+        }
+      }
+    }
+  }
 }
 

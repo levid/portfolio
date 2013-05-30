@@ -82,7 +82,6 @@ $path: "/images/";
   -moz-background-size: $val;
   -o-background-size: $val;
   background-size: $val;
-  behavior: url(pie/PIE.htc); // This enables CSS3 in IE 6-9
 }
 
 @mixin transform-rotate ($val: -90deg)
@@ -119,7 +118,6 @@ $path: "/images/";
   -ms-transition: $val;
   -o-transition: $val;
   transition: $val;
-  behavior: url(pie/PIE.htc); // This enables CSS3 in IE 6-9
 }
 
 // box-shadow
@@ -207,7 +205,6 @@ $path: "/images/";
   -ms-border-radius: $val;
   -o-border-radius: $val;
   border-radius: $val;
-  behavior: url(pie/PIE.htc); // This enables CSS3 in IE 6-9
 }
 
 @mixin border-radius-important ($val: none)
@@ -236,7 +233,6 @@ $path: "/images/";
   -ms-transition: $val;
   -o-transition: $val;
   transition: $val;
-  behavior: url(pie/PIE.htc); // This enables CSS3 in IE 6-9
 }
 
 // opacity
@@ -247,7 +243,6 @@ $path: "/images/";
   -khtml-opacity: $val / 100;
   -moz-opacity: $val / 100;
   opacity: $val / 100;
-  behavior: url(pie/PIE.htc); // This enables CSS3 in IE 6-9
 }
 
 @mixin grey-box {

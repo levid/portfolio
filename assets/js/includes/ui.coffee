@@ -61,11 +61,8 @@ class UI extends Portfolio
         sidebarNavLinks: "nav.sidebar-nav ul.nav li a"
       )
 
-      $UI.Constants.menuScroller = new $UI.Scroller("[data-behavior='scrollable']")
-
-      $UI.Constants.scrollNav = new $UI.ScrollSidebar("nav.sidebar-nav ul.nav")
-
-      $UI.Constants.audio = new $UI.Audio(
+      $UI.Constants.scrollNav     = new $UI.ScrollSidebar("nav.sidebar-nav ul.nav")
+      $UI.Constants.audio         = new $UI.Audio(
         config:
           sidebarNav:
             el:       "nav.sidebar-nav"
@@ -82,9 +79,10 @@ class UI extends Portfolio
       )
       $UI.Constants.audio.enableAudio()
 
-      $(window).load =>
-        $UI.Constants.theme = new $UI.Theme()
-        $UI.Constants.theme.enableThemes()
+    $(window).load =>
+      $UI.Constants.theme = new $UI.Theme()
+      $UI.Constants.theme.enableThemes()
+      $UI.Constants.menuScroller  = new $UI.Scroller("[data-behavior='scrollable']")
 
   showLoadingScreen: () ->
     $(@overlayEl).show()
@@ -100,9 +98,13 @@ class UI extends Portfolio
       hwaccel: true
 
   hideLoadingScreen: () ->
-    $(@overlayEl).fadeOut(=>
-      @hideSpinner $(@overlaySpinnerEl)
-    )
+    @fadeIt = setTimeout(=>
+      $(@overlayEl).fadeOut(500, =>
+        @hideSpinner $(@overlaySpinnerEl)
+        clearTimeout @fadeIt
+        # $.publish 'event.Portfolio', message: "Loading Complete"
+      )
+    , 500)
 
   showLoadingSpinner: (target) ->
     $(@loadingEl).fadeIn()
@@ -138,6 +140,13 @@ class UI extends Portfolio
 
   hideSpinner: (target) ->
     $(target).spin('stop')
+
+  scrollTop: () ->
+    $("#main").animate
+      scrollTop: 0
+    ,
+      duration: 1000
+      easing: 'easeInOutQuint'
 
   zoomOut: () ->
     console.log "zoom out"

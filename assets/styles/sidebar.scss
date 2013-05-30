@@ -4,14 +4,15 @@ nav.sidebar-nav {
   height: 100%;
   min-height: 100%;
   background-color: #000000;
-  display: table-cell;
+  display: inline-block;
   vertical-align: top;
-  position: relative;
+  position: absolute;
   z-index: 10;
   top: 0px;
   bottom: 0px;
   left: -300px;
   text-align: right;
+  // @include transition(left 300ms ease-in-out);
 
   .lock {
     width: auto;
@@ -79,6 +80,7 @@ nav.sidebar-nav {
     top: 0px;
     text-align: left;
     z-index: 500;
+    // @include transition(left 300ms ease-in-out);
 
     h4 {
       margin: 0px;
@@ -96,7 +98,6 @@ nav.sidebar-nav {
       margin: 10px 0px 0px 0px;
       padding: 10px 10px 10px 20px;
       list-style: none;
-      max-height: 400px;
 
       li {
         color: #ff6e42;
@@ -142,11 +143,12 @@ nav.sidebar-nav {
     margin: 0px;
     padding: 0px;
     width: 70px;
-    height: inherit;
+    height: auto;
     display: inline-block;
     position: relative;
     z-index: 2;
     border-left: 1px solid rgba(129, 129, 129, 0.3);
+    background-color: #000000;
 
     li {
       width: 100%;
@@ -179,6 +181,12 @@ nav.sidebar-nav {
       &.contact, &.clients {
         a {
           font-size: 1.3em;
+        }
+      }
+
+      &.top {
+        a {
+          color: rgba(255,255,255, 0.8);
         }
       }
 

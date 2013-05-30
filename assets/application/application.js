@@ -27,15 +27,15 @@ angular.module('application', ['ngResource', 'application.filters', 'application
       }).
       when('/work/design', {
         templateUrl: 'views/work/design.html',
-        controller: 'WorkController',
+        controller: 'ProjectController',
         customParams: {
           action: 'index',
           category: 'design'
         }
       }).
-      when('/work/design/show/:id', {
+      when('/work/design/project/:slug', {
         templateUrl: 'views/work/design/show.html',
-        controller: 'WorkController',
+        controller: 'ProjectController',
         customParams: {
           action: 'show',
           category: 'design'

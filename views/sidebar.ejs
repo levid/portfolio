@@ -3,68 +3,49 @@ Design
 </div>
 <nav class='sidebar-nav' ng-controller='NavbarController'>
 <div class='content-menu'>
-<h4>All Projects</h4>
+<h4>All Clients</h4>
 <ul data-behavior='scrollable'>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2012'>DUB LEDS</a>
+<li data-ng-repeat='client in clients'>
+<a class='tooltips' href='#'>{{client.name}}</a>
 </li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2011'>Flingo.tv</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2012'>Gaikai.com</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2013'>Coca-Cola</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2007'>Nintendo</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2011'>GigSpark.com</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2012'>Samsung</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2012'>Magento</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2012'>MySpace.com</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2012'>AKTA</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2013'>SocialCrunch</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2010'>SocialVision</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2010'>Vosges Chocolate</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2010'>Metagenics</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2010'>MOD X</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2010'>Pawngo.com</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2010'>TopGolf.com</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2013'>Kaleo Software</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2010'>CBD Marketing</a>
-</li>
-<li>
-<a class='tooltips' data-toggle='tooltip' href='#' title='2013'>Levid.com</a>
-</li>
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2011"} Flingo.tv -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Gaikai.com -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Coca-Cola -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2007"} Nintendo -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2011"} GigSpark.com -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Samsung -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Magento -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} MySpace.com -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} AKTA -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} SocialCrunch -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} SocialVision -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Vosges Chocolate -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Metagenics -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} MOD X -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Pawngo.com -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} TopGolf.com -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Kaleo Software -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} CBD Marketing -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Levid.com -->
 </ul>
 </div>
 <div class='lock'>
@@ -181,6 +162,16 @@ Clients
 </div>
 <div class='text'>
 CV
+</div>
+</a>
+</li>
+<li class='top'>
+<a data-behavior='scroll-top' href='#'>
+<div class='icon'>
+<i class='icon-portfolio-arrow-up'></i>
+</div>
+<div class='text'>
+Top
 </div>
 </a>
 </li>

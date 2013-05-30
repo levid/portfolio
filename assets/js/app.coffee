@@ -11,7 +11,10 @@
 # - UI.Utils
 #
 class Portfolio
-  opts: {}
+  opts:
+    wrapper:        undefined
+    innerContentEl: undefined
+    sidebarNavEl:   undefined
 
   #### The constructor for the Portfolio class
   #
@@ -20,7 +23,11 @@ class Portfolio
   #
   constructor: (@options) ->
     # Extend default options to include passed in arguments
-    @options = $.extend({}, this.opts, @options)
+    @options        = $.extend({}, this.opts, @options)
+    @wrapper        = @options.wrapper or "#wrapper"
+    @main           = @options.main or "#main"
+    @sidebarNavEl   = @options.sidebarNavEl or "nav.sidebar-nav"
+    @innerContentEl = @options.innerContentEl or "section.content .innerContent"
     @init()
 
     this
@@ -30,17 +37,15 @@ class Portfolio
       $UI.Constants.imageGrid = new $UI.ImageGrid()
       $UI.initGlobalUI()
 
-      $('section.content .innerContent').css minHeight: $(document).innerHeight()
-      $("[data-behavior='scrollable']").css maxHeight: ($(window).height() - 250)
-
-      $(".tooltips").tooltip
-        container: 'body'
-        placement: 'right'
+      $(@innerContentEl).css minHeight: $(document).innerHeight()
+      $("[data-behavior='scroll-top']").hide()
+      $(document).on 'click', "[data-behavior='scroll-top']", (e) =>
+        e.preventDefault()
+        $UI.scrollTop()
 
     $(window).resize =>
-      $('section.content .innerContent').css minHeight: $(document).innerHeight()
-      $("[data-behavior='scrollable']").css maxHeight: ($(window).height() - 250)
-      $("[data-behavior='scrollable']").mCustomScrollbar("update")
+      $(@innerContentEl).css width: $(window).width()
+      $(@innerContentEl).css minHeight: $(document).innerHeight()
 
     $(window).load =>
       $UI.hideLoadingScreen()
@@ -49,47 +54,57 @@ class Portfolio
         lensFlareEnabled: "true"
       ).init()
 
+      $("[data-behavior='scrollable']").css height: ($(window).height() - 250)
+      $(".tooltips").tooltip
+        container: 'body'
+        placement: 'right'
+
+
+      $(document).on 'mouseenter', ".user-header .logo a img", (e) ->
+        $(this).attr('src', 'images/logo-header-small-light.svg').hide().stop().fadeIn()
+
+      $(document).on 'mouseleave', ".user-header .logo a img", (e) ->
+        $(this).attr('src', 'images/logo-header-small.svg').hide().stop().fadeIn()
+
+
+
+      # $(document).on 'mouseenter', ".thumbnails .image", (e) ->
+      #   e.preventDefault()
+      #   $(this).find(".info-container").show()
+
+      # $(document).on 'mouseleave', ".thumbnails .image", (e) ->
+      #   e.preventDefault()
+      #   $(this).find(".info-container").hide()
+
+
+    $(@main).on 'scroll', (e) ->
+      if $(this).scrollTop() > 100
+        $("[data-behavior='scroll-top']").fadeIn()
+      else
+        $("[data-behavior='scroll-top']").fadeOut()
+
   initAfterViewContentLoaded: (path) ->
-    # navbarHeight = if $('section.content .innerContent')[0].scrollHeight > $('nav.sidebar-nav').height() then $('section.content .innerContent')[0].scrollHeight else $('nav.sidebar-nav').height()
+    $UI.scrollTop()
 
     if path isnt "home"
-      $("#wrapper").addClass 'sub'
-      $("#main").addClass 'dark'
+      $(@wrapper).addClass 'sub'
+      $(@main).addClass 'dark'
     else
-      $("#wrapper").removeClass 'sub'
-      $("#main").removeClass 'dark'
+      $(@wrapper).removeClass 'sub'
+      $(@main).removeClass 'dark'
 
-    $("#wrapper").waitForImages (=>
-      console.log "All images have loaded."
-
-      $UI.hideLoadingScreen()
-      $UI.Constants.imageGrid.buildGrid(->
-        $('.thumbnails').isotope( 'shuffle' )
-      )
-
+    $(@wrapper).waitForImages (=>
+      # if $('.thumbnails').length
+      #   $UI.Constants.imageGrid.buildGrid({}, ->
+      #     $('.thumbnails').isotope('shuffle')
+      #   )
       $.publish('initAfterViewContentLoaded.Portfolio', path)
-      # $.publish 'event.Portfolio',
-      #   type:       "notification"
-      #   statusCode: "200"
-      #   message:    "All images have loaded."
-      #   options:
-      #     position: "bottom-right"
-      #     closer:   "false"
-      #     group:    "success"
+      $UI.hideLoadingScreen()
+      console.log "All images have loaded."
 
     ),((loaded, count, success) ->
       console.log loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
       $(this).addClass "loaded"
-
-      # $.publish 'event.Portfolio',
-      #   type:       "notification"
-      #   statusCode: "200"
-      #   message:    loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
-      #   options:
-      #     position: "bottom-right"
-      #     closer:   "false"
-      #     group:    "success"
-
     ), true
 
 window.Portfolio = new Portfolio()

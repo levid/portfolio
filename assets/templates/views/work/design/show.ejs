@@ -1,46 +1,68 @@
 <script id='views/work/design/show.html' type='text/ng-template'>
-  <section class='sub design show view'>
-    <div class='innerContent'>
-      <div ng-include='' src="'views/partials/user-header.html'"></div>
-      <div class='info-container'>
-        <h1>{{project.name}}</h1>
-        <div>
-          <fieldset>
-            <legend>Project Information</legend>
-            <div class='block'>
-              <h4>Url</h4>
-              <p>{{project.url}}</p>
-            </div>
-            <div class='block'>
-              <h4>Tags</h4>
-              <ul>
-                <li ng-repeat='tag in getTags(project.tags)'>
-                  <a class='tag' ng-href='#'>{{tag}}</a>
-                </li>
-              </ul>
-            </div>
-            <div class='block'>
-              <h4>Date</h4>
-              <p>{{project.date}}</p>
-            </div>
-            <div class='block'>
-              <h4>Description</h4>
-              <p>{{project.description}}</p>
-            </div>
-            <div class='block'>
-              <a class='btn btn-info' ng-href='{{project.url}}'>
-                <i class='icon-portfolio-visit'></i>
-                Visit
-              </a>
-            </div>
-          </fieldset>
-        </div>
-      </div>
-      <div class='thumbnails'>
-        <div class='thumb' ng-repeat='image in getLargeImages(project.images)'>
-          <img src='images/{{image}}' />
-        </div>
-      </div>
-    </div>
-  </section>
+<section class='sub design show view'>
+<div class='innerContent'>
+<div ng-include='' src="'views/partials/user-header.html'"></div>
+<div class='info-container'>
+<div class='content'>
+<h3>{{project.name}}</h3>
+<div class='block'>
+<table>
+<tr>
+<td>Url</td>
+<td>
+<a ng-href='{{project.url}}'>{{project.url || 'N/A'}}</a>
+</td>
+</tr>
+<tr>
+<td>Year</td>
+<td>
+<div>{{project.date | date:'yyyy' || 'N/A'}}</div>
+</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>
+<div>{{project.description || 'N/A'}}</div>
+</td>
+</tr>
+</table>
+</div>
+<a class='btn btn-back' ng-href='/#/work/design/'>
+<i class='icon-portfolio-arrow-left'></i>
+Back
+</a>
+<!-- .block -->
+<!-- %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}"} -->
+<!-- %i.icon-portfolio-resize -->
+<!-- Website -->
+</div>
+</div>
+<div class='thumbnails'>
+<div ng-repeat='image in project.image_paths'>
+<div ng-repeat='(key, val) in image'>
+<div ng-switch='' on='key'>
+<div class='thumb' ng-switch-when='logo_large'>
+<img ng-src='images/portfolio_images/{{image.id}}/{{val}}'>
+</div>
+<div class='thumb' ng-switch-when='composite_image_desktop'>
+<img ng-src='images/portfolio_images/{{image.id}}/{{val}}'>
+</div>
+<div class='thumb' ng-switch-when='composite_image_laptop'>
+<img ng-src='images/portfolio_images/{{image.id}}/{{val}}'>
+</div>
+<div class='thumb' ng-switch-when='composite_image_tablet'>
+<img ng-src='images/portfolio_images/{{image.id}}/{{val}}'>
+</div>
+<div class='thumb' ng-switch-when='large_image'>
+<img ng-src='images/portfolio_images/{{image.id}}/{{val}}'>
+</div>
+<div class='thumb' ng-switch-when='screenshot_large'>
+<img ng-src='images/screenshots/{{image.id}}/{{val}}'>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 </script>

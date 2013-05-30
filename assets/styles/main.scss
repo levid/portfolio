@@ -115,15 +115,15 @@
     }
 
     #overlay {
-      top: 0px;
-      left: 0px;
-      right: 0px;
+      top: 8px;
+      left: 8px;
+      right: 8px;
       bottom: 120px;
       z-index: 500;
-      position: absolute;
+      position: fixed;
       background-color: #f7f5ed;
       height: auto;
-      width: 100%;
+      width: auto;
       max-height: 100%;
       display: block;
 

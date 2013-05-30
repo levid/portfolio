@@ -1,45 +1,69 @@
 <script id='views/work/design.html' type='text/ng-template'>
 <section class='sub design'>
 <div class='innerContent'>
-<div ng-include='' src="'views/partials/user-header.html'"></div>
+<div data-ng-include='' src="'views/partials/user-header.html'"></div>
 <div class='error' data-ng-hide='projects &amp;&amp; projects.length &gt; 0'>
 No images found for this category.
 </div>
-<div class='thumbnails'>
-<div ng-repeat='project in projects | orderBy:name:descending | filter:category'>
-<div class='thumb' ng-repeat='thumbnail in getThumbnails(project.images)'>
+<div class='thumbnails' ng-init='projectThumbs = projects'>
+<div data-ng-repeat='project in projectThumbs | orderBy:name:descending | filter:category'>
+<div ng-repeat='(key, val) in project.image_paths'>
+<div ng-switch='' on='key'>
+<div class='thumb' ng-switch-when='large_image'>
+<div class='image'>
 <div class='info-container'>
-<h1>
-{{project.name}}
-</h1>
+<div class='content'>
+<h3>{{project.name}}</h3>
 <div class='block'>
-<h4>Url</h4>
-<p>{{project.url}}</p>
+<table>
+<tr>
+<td>Url</td>
+<td>
+<a ng-href='{{project.url}}'>{{project.url || 'N/A'}}</a>
+</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>
+<div>{{(project.tags).join(', ') || 'N/A'}}</div>
+</td>
+</tr>
+<tr>
+<td>Categories</td>
+<td>
+<div>{{(project.categories).join(', ') || 'N/A'}}</div>
+</td>
+</tr>
+<tr>
+<td>Year</td>
+<td>
+<div>{{project.date | date:'yyyy' || 'N/A'}}</div>
+</td>
+</tr>
+</table>
 </div>
 <div class='block'>
-<h4>Tags</h4>
-<ul>
-<li ng-repeat='tag in getTags(project.tags)'>
-<a class='tag' href='#'>{{tag}}</a>
-</li>
-</ul>
-</div>
-<div class='block'>
-<h4>Date</h4>
-<p>{{project.date}}</p>
-</div>
-<a class='btn btn-info' ng-href='/#/work/design/show/{{project.id}}'>
-<i class='icon-portfolio-magnify'></i>
-Info
+<a class='btn btn-orange' data-ng-href='/#/work/design/project/{{project.slug}}'>
+<i class='icon-portfolio-magnifier'></i>
+View Project
 </a>
-<a class='btn btn-info' ng-href='{{project.url}}'>
-<i class='icon-portfolio-visit'></i>
-Visit
+<a class='btn btn-teal' data-ng-href='{{project.url}}'>
+<i class='icon-portfolio-resize'></i>
+Website
 </a>
 </div>
-<img src='images/{{thumbnail}}'>
 </div>
 </div>
+<img ng-src='images/portfolio_images/{{project.image_paths.id}}/{{val}}'>
+</div>
+</div>
+<!-- %div{:"ng-switch-when" => "composite_image_laptop"} -->
+<!-- %img{:"ng-src" => "images/portfolio_images/{{val}}"} -->
+</div>
+</div>
+</div>
+<!-- .thumb{:"ng-repeat" => "item in photos.items"} -->
+<!-- %img{:"ng-src" => "{{ item.media.m }}"} -->
 </div>
 </div>
 </section>

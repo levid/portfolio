@@ -4,29 +4,45 @@
       %div{:"ng-include" => '', :src => "'views/partials/user-header.html'"}
 
       .info-container
-        %h1 {{project.name}}
-        %div
-          %fieldset
-            %legend Project Information
-            .block
-              %h4 Url
-              %p {{project.url}}
-            .block
-              %h4 Tags
-              %ul
-                %li{:"ng-repeat" => "tag in getTags(project.tags)"}
-                  %a.tag{:"ng-href" => '#'} {{tag}}
-            .block
-              %h4 Date
-              %p {{project.date}}
-            .block
-              %h4 Description
-              %p {{project.description}}
-            .block
-              %a.btn.btn-info{:"ng-href" => "{{project.url}}"}
-                %i.icon-portfolio-visit
-                Visit
+        .content
+          %h3 {{project.name}}
 
+          .block
+            %table
+              %tr
+                %td Url
+                %td
+                  %a{:"ng-href" => "{{project.url}}"} {{project.url || 'N/A'}}
+
+              %tr
+                %td Year
+                %td
+                  %div {{project.date | date:'yyyy' || 'N/A'}}
+
+              %tr
+                %td Description
+                %td
+                  %div {{project.description || 'N/A'}}
+          %a.btn.btn-back{:"ng-href" => '/#/work/design/'}
+            %i.icon-portfolio-arrow-left
+            Back
+          / .block
+          /   %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}"}
+          /     %i.icon-portfolio-resize
+          /     Website
       .thumbnails
-        .thumb{:"ng-repeat" => "image in getLargeImages(project.images)"}
-          %img{:src => "images/{{image}}"}
+        %div{:"ng-repeat" => "image in project.image_paths"}
+          %div{:"ng-repeat" => "(key, val) in image"}
+            %div{:"ng-switch" => '', :on => "key"}
+              .thumb{:"ng-switch-when" => "logo_large"}
+                %img{:"ng-src" => "images/portfolio_images/{{image.id}}/{{val}}"}
+              .thumb{:"ng-switch-when" => "composite_image_desktop"}
+                %img{:"ng-src" => "images/portfolio_images/{{image.id}}/{{val}}"}
+              .thumb{:"ng-switch-when" => "composite_image_laptop"}
+                %img{:"ng-src" => "images/portfolio_images/{{image.id}}/{{val}}"}
+              .thumb{:"ng-switch-when" => "composite_image_tablet"}
+                %img{:"ng-src" => "images/portfolio_images/{{image.id}}/{{val}}"}
+              .thumb{:"ng-switch-when" => "large_image"}
+                %img{:"ng-src" => "images/portfolio_images/{{image.id}}/{{val}}"}
+              .thumb{:"ng-switch-when" => "screenshot_large"}
+                %img{:"ng-src" => "images/screenshots/{{image.id}}/{{val}}"}

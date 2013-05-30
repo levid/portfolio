@@ -39,8 +39,12 @@ class ScrollSidebar extends Portfolio.UI
 
   startListeners: () ->
     action = () =>
-
+      checkIfBottomReached = () =>
+        if ($("section.content .innerContent")[0].scrollHeight - $("section.content .innerContent").scrollTop() + "px") is $("section.content .innerContent").css('height')
+          return true
+        false
       measureAndMove = () =>
+        # if checkIfBottomReached() is false
         @setPosition($("#main").scrollTop() + @options.offsets[@move])
       clearTimeout(@setPositionTimer)
       @setPositionTimer = setTimeout(measureAndMove, 150)

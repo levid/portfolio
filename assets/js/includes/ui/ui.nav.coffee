@@ -84,9 +84,6 @@ class Nav extends Portfolio.UI
       if @lensFlareEnabled is "true"
         $(@lensFlareEl).hide()
 
-  hideLensFlare: (target) ->
-    if @lensFlareEnabled is "true" then $(@lensFlareEl).hide()
-
   largeButtons: () =>
     $(document).on('mouseenter', @homeNavLinks, (e) =>
       @lensFlare($(e.target)).show()
@@ -101,7 +98,10 @@ class Nav extends Portfolio.UI
       @highlightLeftNav($(e.target).data('target')).show()
 
     ).on('mouseleave', @homeNavLinks,  (e) =>
-      @lensFlare($(e.target)).hide()
+      @lensFlare().hide()
+      @lensFlareTimer = setTimeout(=>
+        $(@lensFlareEl).stop().fadeOut()
+      , 8000)
 
       $(e.target).parents('ul').find('li.large a').each (index) ->
         $(this).css opacity: 1

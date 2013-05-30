@@ -55,29 +55,29 @@ module.exports.routes = {
 	// Additionally, unless you override them, new controllers will have
 	// create(), find(), findAll(), update(), and destroy() actions,
 	// and routes will exist for them as follows:
-	/*
+
 
 	// Standard RESTful routing
 	// (if index is not defined, findAll will be used)
-	'get /user': {
-		controller	: 'user',
-		action		: 'index'
-	}
-	'get /user/:id': {
-		controller	: 'user',
-		action		: 'find'
-	}
-	'post /user': {
-		controller	: 'user',
-		action		: 'create'
-	}
-	'put /user/:id': {
-		controller	: 'user',
-		action		: 'update'
-	}
-	'delete /user/:id': {
-		controller	: 'user',
-		action		: 'destroy'
-	}
-	*/
+	// 'get /project': {
+	// 	controller	: 'project',
+	// 	action		: 'index'
+	// }
+	// 'get /user/:id': {
+	// 	controller	: 'user',
+	// 	action		: 'find'
+	// }
+	// 'post /user': {
+	// 	controller	: 'user',
+	// 	action		: 'create'
+	// }
+	// 'put /user/:id': {
+	// 	controller	: 'user',
+	// 	action		: 'update'
+	// }
+	// 'delete /user/:id': {
+	// 	controller	: 'user',
+	// 	action		: 'destroy'
+	// }
+
 };

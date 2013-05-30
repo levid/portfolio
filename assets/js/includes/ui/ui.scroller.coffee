@@ -17,7 +17,15 @@ class Scroller extends Portfolio.UI
   constructor: (@container) ->
     @init(@container)
     @initScroller(@container)
-    this
+
+    $(window).on "resize", =>
+      clearTimeout resizeTo if resizeTo
+      resizeTo = setTimeout(->
+        $(this).trigger "resizeEnd"
+      , 500)
+
+    $(window).on "resizeEnd", =>
+      @resizeEnd(container)
 
     # $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
 
@@ -37,7 +45,6 @@ class Scroller extends Portfolio.UI
       else
         $(this).css('height', $(container).css('min-height'))
 
-
   initScroller: (container) ->
     $(container).mCustomScrollbar
       set_width: false #optional element width: boolean, pixels, percentage
@@ -46,9 +53,10 @@ class Scroller extends Portfolio.UI
       scrollInertia: 550 #scrolling inertia: integer (milliseconds)
       scrollEasing: "easeOutCirc" #scrolling easing: string
       mouseWheel: true #mousewheel support and velocity: boolean, "auto", integer
+      velocity: 100
       autoDraggerLength: true #auto-adjust scrollbar dragger length: boolean
       theme: 'light-thin'
-      normalizeMouseWheelDelta: true
+      # normalizeMouseWheelDelta: true
       scrollButtons: #scroll buttons
         enable: false #scroll buttons support: boolean
         scrollType: "continuous" #scroll buttons scrolling type: "continuous", "pixels"
@@ -67,7 +75,16 @@ class Scroller extends Portfolio.UI
 
         onTotalScrollOffset: 0 #bottom reached offset: integer (pixels)
 
-
+  #### Resize End
+  #
+  # This method is fired if the window is resized or
+  # the device orientation changes
+  #
+  resizeEnd: (container) ->
+    $(container).stop().animate
+      height: $(window).height() - 250
+    , 500, ->
+      $(container).mCustomScrollbar("update")
 
 
 # Assign this class to the Portfolio Namespace
