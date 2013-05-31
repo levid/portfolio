@@ -68,7 +68,15 @@ window.onload = function() {
 			'icon-portfolioarrow-down' : '&#xe030;',
 			'icon-portfolioarrow-left' : '&#xe031;',
 			'icon-portfolioarrow-right' : '&#xe032;',
-			'icon-portfolioremove' : '&#xf00d;'
+			'icon-portfolioremove' : '&#xf00d;',
+			'icon-portfoliogrid' : '&#xe033;',
+			'icon-portfoliogrid-2' : '&#xe034;',
+			'icon-portfolioshare' : '&#xe035;',
+			'icon-portfoliogithub-sign' : '&#xf092;',
+			'icon-portfoliofullscreen' : '&#xf0b2;',
+			'icon-portfoliostack' : '&#xe036;',
+			'icon-portfoliocog-2' : '&#xe037;',
+			'icon-portfoliosigma' : '&#xe038;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;

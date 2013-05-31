@@ -5,15 +5,63 @@
 <div class='error' data-ng-hide='projects &amp;&amp; projects.length &gt; 0'>
 No images found for this category.
 </div>
-<div class='thumbnails' ng-init='projectThumbs = projects'>
-<div data-ng-repeat='project in projectThumbs | orderBy:name:descending | filter:category'>
-<div ng-repeat='(key, val) in project.image_paths'>
-<div ng-switch='' on='key'>
-<div class='thumb' ng-switch-when='large_image'>
-<div class='image'>
 <div class='info-container'>
 <div class='content'>
+<h3>Design</h3>
+<div class='sort-by' data-option-key='sortBy'>
+<a data-option-value='strategy' href='#sortBy=strategy'>
+strategy
+</a>
+<a data-option-value='brand' href='#sortBy=brand'>
+brand
+</a>
+<a data-option-value='web' href='#sortBy=web'>
+web
+</a>
+<a data-option-value='graphic' href='#sortBy=graphic'>
+graphic
+</a>
+<a class='active' data-option-value='All' href='#sortBy=all'>
+All
+</a>
+</div>
+<!-- .block -->
+<!-- %table -->
+<!-- %tr -->
+<!-- %td Url -->
+<!-- %td -->
+<!-- %a{:"ng-href" => "{{project.url}}"} {{project.url || 'N/A'}} -->
+<!-- %tr -->
+<!-- %td Year -->
+<!-- %td -->
+<!-- %div {{project.date | date:'yyyy' || 'N/A'}} -->
+<!-- %tr -->
+<!-- %td Description -->
+<!-- %td -->
+<!-- %div {{project.description || 'N/A'}} -->
+<div class='buttons'>
+<a class='btn btn-back' ng-click='goBack()' ng-href=''>
+<i class='icon-portfolio-arrow-left'></i>
+<!-- Back -->
+</a>
+<!-- .block -->
+<!-- %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}"} -->
+<!-- %i.icon-portfolio-resize -->
+<!-- Website -->
+</div>
+</div>
+</div>
+<div class='thumbnails' ng-init='projectThumbs = projects'>
+<div data-ng-repeat='project in projectThumbs | orderBy:name:descending | filter:category'>
+<div ng-repeat='image in project.image_paths'>
+<div ng-repeat='(key, val) in image' ng-switch='' on='key'>
+<div class='thumb' ng-switch-when='preview_image'>
+<div class='image' ng-click="go('/work/design/project/'+project.slug)">
+<div class='project-details-container'>
+<div class='content'>
 <h3>{{project.name}}</h3>
+<!-- .block -->
+<!-- %p {{project.description}} -->
 <div class='block'>
 <table>
 <tr>
@@ -22,12 +70,10 @@ No images found for this category.
 <a ng-href='{{project.url}}'>{{project.url || 'N/A'}}</a>
 </td>
 </tr>
-<tr>
-<td>Tags</td>
-<td>
-<div>{{(project.tags).join(', ') || 'N/A'}}</div>
-</td>
-</tr>
+<!-- %tr -->
+<!-- %td Tags -->
+<!-- %td -->
+<!-- %div {{(project.tags).join(', ') || 'N/A'}} -->
 <tr>
 <td>Categories</td>
 <td>
@@ -45,25 +91,25 @@ No images found for this category.
 <div class='block'>
 <a class='btn btn-orange' data-ng-href='/#/work/design/project/{{project.slug}}'>
 <i class='icon-portfolio-magnifier'></i>
-View Project
+Details
 </a>
 <a class='btn btn-teal' data-ng-href='{{project.url}}'>
 <i class='icon-portfolio-resize'></i>
-Website
+<!-- Website -->
 </a>
 </div>
 </div>
 </div>
-<img ng-src='images/portfolio_images/{{project.image_paths.id}}/{{val}}'>
+<img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}'>
 </div>
 </div>
 <!-- %div{:"ng-switch-when" => "composite_image_laptop"} -->
 <!-- %img{:"ng-src" => "images/portfolio_images/{{val}}"} -->
 </div>
 </div>
-</div>
 <!-- .thumb{:"ng-repeat" => "item in photos.items"} -->
 <!-- %img{:"ng-src" => "{{ item.media.m }}"} -->
+</div>
 </div>
 </div>
 </section>

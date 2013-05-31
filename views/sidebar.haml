@@ -4,8 +4,104 @@
   .content-menu
     %h4 All Clients
     %ul{:data => {:behavior => 'scrollable'}}
-      %li{:"data-ng-repeat" => "client in clients"}
-        %a.tooltips{:href => '#'} {{client.name}}
+      %li{:"data-ng-repeat" => "project in projectsNavMenu", :"ng-class" => "{'active':getSlug(project.slug)}"}
+        %a.tooltips{:"data-ng-href" => "/#/work/all/project/{{project.slug}}"} {{project.name}}
+      / %li{:"data-ng-repeat" => "project in projectsNavMenu", :"ng-class" => "{'active':getSlug(project.slug)}"}
+      /   %a.tooltips{:"data-ng-href" => "/#/work/all/project/{{project.slug}}", :"data-toggle" => "tooltip", :title => "{{project.date | date:'yyyy'}}"} {{project.name}}
+
+  .lock
+    %a{:"ng-href" => '#', :data => {:behavior => 'toggle-lock'}}
+      .locked
+        %i.icon-portfolio-locked
+      .unlocked
+        %i.icon-portfolio-unlocked
+  .settings
+    %a{:"ng-href" => '#', :data => {:behavior => 'toggle-lock'}}
+      %i.icon-portfolio-cog-2
+  %ul.nav
+    %li.menu
+      %a{:href => '#', :data => {:behavior => 'toggle-menu'}}
+        .icon
+          %i.icon-portfolio-list
+        .text
+          Menu
+    %li.home
+      %a{:"ng-href" => '#/home', :"ng-class" => "{'active':getClass('/home')}"}
+        .icon
+          %i.icon-portfolio-cosmic
+        .text
+          Home
+    %li.design
+      %a{:"ng-href" => '#/work/design', :"ng-class" => "{'active':getClass('/work/design'), 'highlight':getClass('/work/all')}"}
+        .icon
+          %i.icon-portfolio-edit
+        .text
+          Design
+      %ul.sub-nav
+        %h4 Design Work
+        %li
+          %a{:"ng-href" => '#'} Client Name
+    %li.identity
+      %a{:"ng-href" => '#/work/identity', :"ng-class" => "{'active':getClass('/work/identity'), 'highlight':getClass('/work/all')}"}
+        .icon
+          %i.icon-portfolio-eye
+        .text
+          Identity
+    %li.code
+      %a{:"ng-href" => '#/work/code', :"ng-class" => "{'active':getClass('/work/code'), 'highlight':getClass('/work/all')}"}
+        .icon
+          %i.icon-portfolio-code
+        .text
+          Code
+    %li.web
+      %a{:"ng-href" => '#/work/web', :"ng-class" => "{'active':getClass('/work/web'), 'highlight':getClass('/work/all')}"}
+        .icon
+          %i.icon-portfolio-globe
+        .text
+          Web
+    %li.all
+      %a{:"ng-href" => '#/work/all', :"ng-class" => "{'active':getClass('/work/all')}"}
+        .icon
+          %i.icon-portfolio-stack
+        .text
+          Everything
+    %li.about
+      %a{:"ng-href" => '#/about', :"ng-class" => "{'active':getClass('/about')}"}
+        .icon
+          %i.icon-portfolio-info-script
+        .text
+          About
+    %li.contact
+      %a{:"ng-href" => '#/contact', :"ng-class" => "{'active':getClass('/contact')}"}
+        .icon
+          %i.icon-portfolio-email
+        .text
+          Contact
+    %li.clients
+      %a{:"ng-href" => '#/clients', :"ng-class" => "{'active':getClass('/clients')}"}
+        .icon
+          %i.icon-portfolio-heart-2
+        .text
+          Clients
+    %li.cv
+      %a{:"ng-href" => '#/cv', :"ng-class" => "{'active':getClass('/cv')}"}
+        .icon
+          %i.icon-portfolio-tropics
+        .text
+          CV
+    %li.top
+      %a{:href => '#', :data => {:behavior => 'scroll-top'}}
+        .icon
+          %i.icon-portfolio-arrow-up
+        .text
+          Top
+  %nav.slide-menu
+    %ul
+      %li
+        %a{:"ng-href" => '#'}
+
+
+
       / %li
       /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2011"} Flingo.tv
       / %li
@@ -44,84 +140,3 @@
       /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} CBD Marketing
       / %li
       /   %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Levid.com
-  .lock
-    %a{:"ng-href" => '#', :data => {:behavior => 'toggle-lock'}}
-      .locked
-        %i.icon-portfolio-locked
-      .unlocked
-        %i.icon-portfolio-unlocked
-  %ul.nav
-    %li.menu
-      %a{:href => '#', :data => {:behavior => 'toggle-menu'}}
-        .icon
-          %i.icon-portfolio-list
-        .text
-          Menu
-    %li.home
-      %a{:"ng-href" => '#/home', :"ng-class" => "{'active':getClass('/home')}"}
-        .icon
-          %i.icon-portfolio-cosmic
-        .text
-          Home
-    %li.design
-      %a{:"ng-href" => '#/work/design', :"ng-class" => "{'active':getClass('/work/design')}"}
-        .icon
-          %i.icon-portfolio-edit
-        .text
-          Design
-      %ul.sub-nav
-        %h4 Design Work
-        %li
-          %a{:"ng-href" => '#'} Client Name
-    %li.identity
-      %a{:"ng-href" => '#/work/identity', :"ng-class" => "{'active':getClass('/work/identity')}"}
-        .icon
-          %i.icon-portfolio-eye
-        .text
-          Identity
-    %li.code
-      %a{:"ng-href" => '#/work/code', :"ng-class" => "{'active':getClass('/work/code')}"}
-        .icon
-          %i.icon-portfolio-code
-        .text
-          Code
-    %li.web
-      %a{:"ng-href" => '#/work/web', :"ng-class" => "{'active':getClass('/work/web')}"}
-        .icon
-          %i.icon-portfolio-globe
-        .text
-          Web
-    %li.about
-      %a{:"ng-href" => '#/about', :"ng-class" => "{'active':getClass('/about')}"}
-        .icon
-          %i.icon-portfolio-info-script
-        .text
-          About
-    %li.contact
-      %a{:"ng-href" => '#/contact', :"ng-class" => "{'active':getClass('/contact')}"}
-        .icon
-          %i.icon-portfolio-email
-        .text
-          Contact
-    %li.clients
-      %a{:"ng-href" => '#/clients', :"ng-class" => "{'active':getClass('/clients')}"}
-        .icon
-          %i.icon-portfolio-heart-2
-        .text
-          Clients
-    %li.cv
-      %a{:"ng-href" => '#/cv', :"ng-class" => "{'active':getClass('/cv')}"}
-        .icon
-          %i.icon-portfolio-tropics
-        .text
-          CV
-    %li.top
-      %a{:href => '#', :data => {:behavior => 'scroll-top'}}
-        .icon
-          %i.icon-portfolio-arrow-up
-        .text
-          Top
-  %nav.slide-menu
-    %ul
-      %li
-        %a{:"ng-href" => '#'}

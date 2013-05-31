@@ -5,47 +5,11 @@ Design
 <div class='content-menu'>
 <h4>All Clients</h4>
 <ul data-behavior='scrollable'>
-<li data-ng-repeat='client in clients'>
-<a class='tooltips' href='#'>{{client.name}}</a>
+<li data-ng-repeat='project in projectsNavMenu' ng-class="{'active':getSlug(project.slug)}">
+<a class='tooltips' data-ng-href='/#/work/all/project/{{project.slug}}'>{{project.name}}</a>
 </li>
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2011"} Flingo.tv -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Gaikai.com -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Coca-Cola -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2007"} Nintendo -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2011"} GigSpark.com -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Samsung -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Magento -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} MySpace.com -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} AKTA -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} SocialCrunch -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} SocialVision -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Vosges Chocolate -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Metagenics -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} MOD X -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Pawngo.com -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} TopGolf.com -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Kaleo Software -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} CBD Marketing -->
-<!-- %li -->
-<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Levid.com -->
+<!-- %li{:"data-ng-repeat" => "project in projectsNavMenu", :"ng-class" => "{'active':getSlug(project.slug)}"} -->
+<!-- %a.tooltips{:"data-ng-href" => "/#/work/all/project/{{project.slug}}", :"data-toggle" => "tooltip", :title => "{{project.date | date:'yyyy'}}"} {{project.name}} -->
 </ul>
 </div>
 <div class='lock'>
@@ -56,6 +20,11 @@ Design
 <div class='unlocked'>
 <i class='icon-portfolio-unlocked'></i>
 </div>
+</a>
+</div>
+<div class='settings'>
+<a data-behavior='toggle-lock' ng-href='#'>
+<i class='icon-portfolio-cog-2'></i>
 </a>
 </div>
 <ul class='nav'>
@@ -80,7 +49,7 @@ Home
 </a>
 </li>
 <li class='design'>
-<a ng-class="{'active':getClass('/work/design')}" ng-href='#/work/design'>
+<a ng-class="{'active':getClass('/work/design'), 'highlight':getClass('/work/all')}" ng-href='#/work/design'>
 <div class='icon'>
 <i class='icon-portfolio-edit'></i>
 </div>
@@ -96,7 +65,7 @@ Design
 </ul>
 </li>
 <li class='identity'>
-<a ng-class="{'active':getClass('/work/identity')}" ng-href='#/work/identity'>
+<a ng-class="{'active':getClass('/work/identity'), 'highlight':getClass('/work/all')}" ng-href='#/work/identity'>
 <div class='icon'>
 <i class='icon-portfolio-eye'></i>
 </div>
@@ -106,7 +75,7 @@ Identity
 </a>
 </li>
 <li class='code'>
-<a ng-class="{'active':getClass('/work/code')}" ng-href='#/work/code'>
+<a ng-class="{'active':getClass('/work/code'), 'highlight':getClass('/work/all')}" ng-href='#/work/code'>
 <div class='icon'>
 <i class='icon-portfolio-code'></i>
 </div>
@@ -116,12 +85,22 @@ Code
 </a>
 </li>
 <li class='web'>
-<a ng-class="{'active':getClass('/work/web')}" ng-href='#/work/web'>
+<a ng-class="{'active':getClass('/work/web'), 'highlight':getClass('/work/all')}" ng-href='#/work/web'>
 <div class='icon'>
 <i class='icon-portfolio-globe'></i>
 </div>
 <div class='text'>
 Web
+</div>
+</a>
+</li>
+<li class='all'>
+<a ng-class="{'active':getClass('/work/all')}" ng-href='#/work/all'>
+<div class='icon'>
+<i class='icon-portfolio-stack'></i>
+</div>
+<div class='text'>
+Everything
 </div>
 </a>
 </li>
@@ -181,6 +160,44 @@ Top
 <li>
 <a ng-href='#'></a>
 </li>
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2011"} Flingo.tv -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Gaikai.com -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Coca-Cola -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2007"} Nintendo -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2011"} GigSpark.com -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Samsung -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} Magento -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} MySpace.com -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2012"} AKTA -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} SocialCrunch -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} SocialVision -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Vosges Chocolate -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Metagenics -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} MOD X -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} Pawngo.com -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} TopGolf.com -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Kaleo Software -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2010"} CBD Marketing -->
+<!-- %li -->
+<!-- %a.tooltips{:href => '#', :"data-toggle" => "tooltip", :title => "2013"} Levid.com -->
 </ul>
 </nav>
 </nav>

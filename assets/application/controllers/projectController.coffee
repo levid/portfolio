@@ -1,6 +1,6 @@
 'use strict'
 
-Application.Controllers.controller "ProjectController", ["$rootScope", "$scope", "$location", "$socket", "User", "Projects", "Images", "Screenshots", "flickrPhotos", "Categories", "Tags", "SessionService", "$route", "$routeParams", ($rootScope, $scope, $location, $socket, User, Projects, Images, Screenshots, flickrPhotos, Categories, Tags, SessionService, $route, $routeParams) ->
+Application.Controllers.controller "ProjectController", ["$rootScope", "$scope", "$location", "$socket", "configuration", "User", "Projects", "Images", "Screenshots", "flickrPhotos", "Categories", "Tags", "SessionService", "$route", "$routeParams", ($rootScope, $scope, $location, $socket, configuration, User, Projects, Images, Screenshots, flickrPhotos, Categories, Tags, SessionService, $route, $routeParams) ->
 
   # ProjectController class that is accessible by the window object
   #
@@ -19,6 +19,23 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
           @index($scope, $rootScope.customParams)
         else if $rootScope.customParams.action == 'show'
           @show($scope, $rootScope.customParams)
+
+      $scope.s3_path = configuration.s3_path
+
+      # $.subscribe('resize.Portfolio', @initAfterViewContentLoadedProxy('resize.Portfolio'))
+
+      # return this to make this class chainable
+      this
+
+    initAfterViewContentLoadedProxy: () ->
+      # Skip the first argument (event object) but log the other args.
+      (_, options) =>
+        setWidth = (options) =>
+          $('.thumbnails-show-view').css width: ($(window).width() - options.widthDifference) - options.rightMargin
+        $(window).resize =>
+          setWidth(options)
+        setWidth(options)
+
 
 
     #### The index action
@@ -40,6 +57,7 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
         $.each project, (k, v) =>
           tags = []
           categories = []
+          images = []
           $.each v.image_ids, (k1, v1) =>
             if v1 isnt ''
               Images.find({id: v1}, (image) ->
@@ -48,8 +66,9 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
                 # delete image.work_id
                 # delete image.name
                 # delete image.format
-                v.image_paths = image
+                 images.push(image)
               )
+              v.image_paths = images
           $.each v.tag_ids, (k2, v2) =>
             if v2 isnt ''
               Tags.find({id: v2}, (tag) ->
@@ -144,18 +163,11 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
           $.each project.image_ids, (k, v) =>
             if v isnt ''
               Images.find({id: v}, (image) ->
-                # delete image.id
-                # delete image.project_id
-                # delete image.work_id
-                # delete image.name
-                # delete image.format
-
                 $.each screenshotsArr, (k2,v2) =>
                   if v2.screenable_id is v
                     images.push(v2)
                 images.push(image)
               )
-
               project.image_paths = images
 
           $.extend(projectsArr, project, projectsArr)
@@ -180,6 +192,13 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
     # These are helper methods accessible to the angular user views
     #
     initScopedMethods: () ->
+      $scope.reverse = (array) ->
+        copy = [].concat(array)
+        return copy.reverse()
+
+      $scope.go = (path) ->
+        $location.path(path)
+
       $scope.showMessage = ->
         $scope.message && $scope.message.length
 
@@ -194,6 +213,9 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
 
       $scope.sortBy = (arr) ->
         arr.category
+
+      $scope.goBack = () ->
+        $location.path(history.back())
 
       $scope.getImages = (data) ->
         images = []
@@ -215,6 +237,11 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
           tags = $.parseJSON(data)
           return tags
         false
+
+      $scope.notSorted = (obj) ->
+        if !obj
+          return []
+        return Object.keys(obj)
 
       $scope.addProject = ->
         user = new Project

@@ -38,17 +38,17 @@ class UI extends Portfolio
     window.$UI = this
     $UI.Constants = {}
 
-    $(document).ready =>
-      @showSpinner $(@overlaySpinnerEl),
-        lines: 15
-        length: 0
-        width: 3
-        radius: 50
-        color: '#000000'
-        speed: 1.6
-        trail: 45
-        shadow: false
-        hwaccel: true
+    # $(document).ready =>
+    #   @showSpinner $(@overlaySpinnerEl),
+    #     lines: 15
+    #     length: 0
+    #     width: 3
+    #     radius: 50
+    #     color: '#000000'
+    #     speed: 1.6
+    #     trail: 45
+    #     shadow: false
+    #     hwaccel: true
 
     this # allows for method chaining
 
@@ -78,10 +78,11 @@ class UI extends Portfolio
             soundId:  "click"
       )
       $UI.Constants.audio.enableAudio()
-
-    $(window).load =>
       $UI.Constants.theme = new $UI.Theme()
       $UI.Constants.theme.enableThemes()
+
+    $(window).load =>
+
       $UI.Constants.menuScroller  = new $UI.Scroller("[data-behavior='scrollable']")
 
   showLoadingScreen: () ->
@@ -89,8 +90,8 @@ class UI extends Portfolio
     @showSpinner $(@overlaySpinnerEl),
       lines: 15
       length: 0
-      width: 3
-      radius: 50
+      width: 2
+      radius: 60
       color: '#000000'
       speed: 1.6
       trail: 45

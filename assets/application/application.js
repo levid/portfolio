@@ -33,6 +33,14 @@ angular.module('application', ['ngResource', 'application.filters', 'application
           category: 'design'
         }
       }).
+      when('/work/all/project/:slug', {
+        templateUrl: 'views/work/show.html',
+        controller: 'ProjectController',
+        customParams: {
+          action: 'show',
+          category: 'all'
+        }
+      }).
       when('/work/design/project/:slug', {
         templateUrl: 'views/work/design/show.html',
         controller: 'ProjectController',
@@ -63,6 +71,13 @@ angular.module('application', ['ngResource', 'application.filters', 'application
         }
       }).
       when('/work', {
+        templateUrl: 'views/work/all.html',
+        controller: 'WorkController',
+        customParams: {
+          action: 'index'
+        }
+      }).
+      when('/work/all', {
         templateUrl: 'views/work/all.html',
         controller: 'WorkController',
         customParams: {

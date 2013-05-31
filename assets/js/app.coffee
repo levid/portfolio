@@ -38,10 +38,6 @@ class Portfolio
       $UI.initGlobalUI()
 
       $(@innerContentEl).css minHeight: $(document).innerHeight()
-      $("[data-behavior='scroll-top']").hide()
-      $(document).on 'click', "[data-behavior='scroll-top']", (e) =>
-        e.preventDefault()
-        $UI.scrollTop()
 
     $(window).resize =>
       $(@innerContentEl).css width: $(window).width()
@@ -55,17 +51,10 @@ class Portfolio
       ).init()
 
       $("[data-behavior='scrollable']").css height: ($(window).height() - 250)
-      $(".tooltips").tooltip
-        container: 'body'
-        placement: 'right'
 
-
-      $(document).on 'mouseenter', ".user-header .logo a img", (e) ->
-        $(this).attr('src', 'images/logo-header-small-light.svg').hide().stop().fadeIn()
-
-      $(document).on 'mouseleave', ".user-header .logo a img", (e) ->
-        $(this).attr('src', 'images/logo-header-small.svg').hide().stop().fadeIn()
-
+      @initTooltips()
+      @initLogoFade()
+      @initScrollTop()
 
 
       # $(document).on 'mouseenter', ".thumbnails .image", (e) ->
@@ -77,11 +66,32 @@ class Portfolio
       #   $(this).find(".info-container").hide()
 
 
+
+
+  initScrollTop: () ->
+    $("[data-behavior='scroll-top']").parent().hide()
+    $(document).on 'click', "[data-behavior='scroll-top']", (e) =>
+      e.preventDefault()
+      $UI.scrollTop()
+
     $(@main).on 'scroll', (e) ->
       if $(this).scrollTop() > 100
-        $("[data-behavior='scroll-top']").fadeIn()
+        $("[data-behavior='scroll-top']").parent().fadeIn()
       else
-        $("[data-behavior='scroll-top']").fadeOut()
+        $("[data-behavior='scroll-top']").parent().fadeOut()
+
+  initLogoFade: () ->
+    $(document).on 'mouseenter', ".user-header .logo a img", (e) ->
+      $(this).attr('src', 'images/logo-header-small-light.svg').hide().stop().fadeIn()
+
+    $(document).on 'mouseleave', ".user-header .logo a img", (e) ->
+      $(this).attr('src', 'images/logo-header-small.svg').hide().stop().fadeIn()
+
+  initTooltips: () ->
+    $(".tooltips").tooltip
+      container: 'body'
+      placement: 'right'
+
 
   initAfterViewContentLoaded: (path) ->
     $UI.scrollTop()
@@ -98,6 +108,7 @@ class Portfolio
       #   $UI.Constants.imageGrid.buildGrid({}, ->
       #     $('.thumbnails').isotope('shuffle')
       #   )
+
       $.publish('initAfterViewContentLoaded.Portfolio', path)
       $UI.hideLoadingScreen()
       console.log "All images have loaded."

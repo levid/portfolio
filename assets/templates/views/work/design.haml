@@ -7,26 +7,69 @@
       %div{:"data-ng-hide" => "projects && projects.length > 0", :class => "error"}
         No images found for this category.
 
+      .info-container
+        .content
+
+          %h3 Design
+
+          .sort-by{"data-option-key" => "sortBy"}
+            %a{"data-option-value" => "strategy", :href => "#sortBy=strategy"}
+              strategy
+            %a{"data-option-value" => "brand", :href => "#sortBy=brand"}
+              brand
+            %a{"data-option-value" => "web", :href => "#sortBy=web"}
+              web
+            %a{"data-option-value" => "graphic", :href => "#sortBy=graphic"}
+              graphic
+            %a.active{"data-option-value" => "All", :href => "#sortBy=all"}
+              All
+
+          / .block
+          /   %table
+          /     %tr
+          /       %td Url
+          /       %td
+          /         %a{:"ng-href" => "{{project.url}}"} {{project.url || 'N/A'}}
+
+          /     %tr
+          /       %td Year
+          /       %td
+          /         %div {{project.date | date:'yyyy' || 'N/A'}}
+
+          /     %tr
+          /       %td Description
+          /       %td
+          /         %div {{project.description || 'N/A'}}
+          .buttons
+            %a.btn.btn-back{:"ng-href" => '', :"ng-click" => "goBack()"}
+              %i.icon-portfolio-arrow-left
+              / Back
+            / .block
+            /   %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}"}
+            /     %i.icon-portfolio-resize
+            /     Website
+
       .thumbnails{:"ng-init" => "projectThumbs = projects"}
         %div{:"data-ng-repeat" => "project in projectThumbs | orderBy:name:descending | filter:category"}
-          %div{:"ng-repeat" => "(key, val) in project.image_paths"}
-            %div{:"ng-switch" => '', :on => "key"}
-              .thumb{:"ng-switch-when" => "large_image"}
-
-                .image
-                  .info-container
+          %div{:"ng-repeat" => "image in project.image_paths"}
+            %div{:"ng-repeat" => "(key, val) in image", :"ng-switch" => '', :on => "key"}
+              .thumb{:"ng-switch-when" => "preview_image"}
+                .image{:"ng-click" => "go('/work/design/project/'+project.slug)"}
+                  .project-details-container
                     .content
                       %h3 {{project.name}}
+                      / .block
+                      /   %p {{project.description}}
                       .block
                         %table
                           %tr
                             %td Url
                             %td
                               %a{:"ng-href" => "{{project.url}}"} {{project.url || 'N/A'}}
-                          %tr
-                            %td Tags
-                            %td
-                              %div {{(project.tags).join(', ') || 'N/A'}}
+                          / %tr
+                          /   %td Tags
+                          /   %td
+                          /     %div {{(project.tags).join(', ') || 'N/A'}}
                           %tr
                             %td Categories
                             %td
@@ -39,13 +82,13 @@
                       .block
                         %a.btn.btn-orange{:"data-ng-href" => "/#/work/design/project/{{project.slug}}"}
                           %i.icon-portfolio-magnifier
-                          View Project
+                          Details
                         %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}"}
                           %i.icon-portfolio-resize
-                          Website
-                  %img{:"ng-src" => "images/portfolio_images/{{project.image_paths.id}}/{{val}}"}
+                          / Website
+                  %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
               / %div{:"ng-switch-when" => "composite_image_laptop"}
               /     %img{:"ng-src" => "images/portfolio_images/{{val}}"}
 
-        / .thumb{:"ng-repeat" => "item in photos.items"}
-        /   %img{:"ng-src" => "{{ item.media.m }}"}
+          / .thumb{:"ng-repeat" => "item in photos.items"}
+          /   %img{:"ng-src" => "{{ item.media.m }}"}

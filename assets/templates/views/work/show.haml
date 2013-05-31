@@ -1,5 +1,5 @@
-%script{:id => "views/work/design/show.html", :type => "text/ng-template"}
-  %section.sub.design.show.view
+%script{:id => "views/work/show.html", :type => "text/ng-template"}
+  %section.sub.work.show.view
     .innerContent
       %div{:"ng-include" => '', :src => "'views/partials/user-header.html'"}
 
@@ -18,11 +18,6 @@
           /     int
 
           %h3 {{project.name}}
-
-          .buttons
-            %a.btn.btn-back{:"ng-href" => '', :"ng-click" => "goBack()"}
-              %i.icon-portfolio-arrow-left
-              / Back
 
           .block
             %table
@@ -44,6 +39,10 @@
                 %td Tags
                 %td
                   %div {{(project.tags).join(', ') || 'N/A'}}
+          .buttons
+            %a.btn.btn-back{:"ng-href" => '', :"ng-click" => "goBack()"}
+              %i.icon-portfolio-arrow-left
+              / Back
 
       .thumbnails-show-view
         %div{:"ng-repeat" => "image in project.image_paths"}

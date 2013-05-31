@@ -15,20 +15,22 @@ nav.sidebar-nav {
   // @include transition(left 300ms ease-in-out);
 
   .lock {
-    width: auto;
-    height: auto;
-    display: block;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
     position: fixed;
-    bottom: 130px;
+    margin: 0px;
+    padding: 0px;
+    bottom: 134px;
     left: -50px;
 
     a {
-      padding: 15px 0px 10px 0px;
+      padding: 0px;
       margin: 0px;
-      width: auto;
-      height: auto;
+      width: inherit;
+      height: inherit;
       display: inline-block;
-      font-size: 1.5em;
+      font-size: 1.6em;
       text-align: center;
       color: #525252;
       @include transition(all .1s ease-in-out);
@@ -54,7 +56,60 @@ nav.sidebar-nav {
       i {
         margin: 0px;
         padding: 0px;
-        width: 70px;
+        width: inherit;
+        height: inherit;
+        height: auto;
+        font-size: 1em;
+        display: inline-block;
+      }
+
+      &:hover {
+        color: #ffffff;
+        // background-color: rgba(56, 61, 63, 0.7);
+
+        i {
+          position: relative;
+        }
+      }
+    }
+  }
+
+  .settings {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    position: fixed;
+    margin: 0px;
+    padding: 0px;
+    bottom: 130px;
+    left: -100px;
+
+    a {
+      padding: 0px;
+      margin: 0px;
+      width: inherit;
+      height: inherit;
+      display: inline-block;
+      font-size: 1.2em;
+      text-align: center;
+      color: #525252;
+      @include transition(all .1s ease-in-out);
+
+      &.active {
+        .locked {
+          display: inline-block;
+        }
+
+        .unlocked {
+          display: none;
+        }
+      }
+
+      i {
+        margin: 0px;
+        padding: 0px;
+        width: inherit;
+        height: inherit;
         height: auto;
         font-size: 1em;
         display: inline-block;
@@ -107,6 +162,14 @@ nav.sidebar-nav {
         @include transition(all .1s ease-in-out);
         cursor: pointer;
         @include border-radius(10px);
+
+        &.active {
+          color: #93ccd9;
+
+          a {
+            color: #ffffff;
+          }
+        }
 
         a {
           padding: 5px;
@@ -223,8 +286,13 @@ nav.sidebar-nav {
         }
 
         &.highlight {
-          color: #ffffff;
-          background-color: rgba(56, 61, 63, 0.7);
+          color: rgba(255,255,255, 0.5);
+          background-color: rgba(56, 61, 63, 0.5);
+
+          &:hover {
+            color: #ffffff;
+            background-color: rgba(56, 61, 63, 0.7);
+          }
         }
 
         i {

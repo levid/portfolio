@@ -1,6 +1,6 @@
 'use strict'
 
-Application.Controllers.controller "NavbarController", ["$scope", "$location", "Clients", ($scope, $location, Clients) ->
+Application.Controllers.controller "NavbarController", ["$scope", "$location", "Clients", "Projects", ($scope, $location, Clients, Projects) ->
   # NavbarController class that is accessible by the window object
   #
   # @todo add a notifications handler
@@ -12,7 +12,7 @@ Application.Controllers.controller "NavbarController", ["$scope", "$location", "
     #
     constructor: () ->
       @initScopedMethods()
-      $scope.clients = Clients.query()
+      $scope.projectsNavMenu = Projects.findAll()
 
     #### Scoped methods
     #
@@ -21,10 +21,10 @@ Application.Controllers.controller "NavbarController", ["$scope", "$location", "
     initScopedMethods: () ->
       $scope.getClients = () ->
         clientsArr = [{}]
-        clients = Clients.query((client) ->
+        clients = Projects.query((projects) ->
           # $.each client, (k, v) =>
 
-          $.extend(clientsArr, client, clientsArr)
+          $.extend(clientsArr, projects.client, clientsArr)
         , (error) ->
           console.log error
         )
@@ -33,6 +33,13 @@ Application.Controllers.controller "NavbarController", ["$scope", "$location", "
 
       $scope.getClass = (path) ->
         if $location.path().substr(0, path.length) is path
+          true
+        else
+          false
+
+      $scope.getSlug = (slug) ->
+        currentPath = $location.path().substr(0, $location.path().length)
+        if currentPath.indexOf(slug) >= 0
           true
         else
           false

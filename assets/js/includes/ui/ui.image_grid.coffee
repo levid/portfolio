@@ -5,6 +5,12 @@
 # - This class extends the Portfolio.UI class
 #
 class ImageGrid extends Portfolio.UI
+  opts:
+    sidebarNavEl:     undefined
+    contentEl:        undefined
+    innerContentEl:   undefined
+    thumbnailsEl:     undefined
+    loaded:           undefined
 
   #### The constructor for the ImageGrid class
   #
@@ -13,21 +19,45 @@ class ImageGrid extends Portfolio.UI
   #
   constructor: (@options) ->
     # Extend default options to include passed in arguments
-    @options = $.extend({}, this.opts, @options)
+    @options          = $.extend({}, this.opts, @options)
+    @sidebarNavEl     = @options.sidebarNavEl or "nav.sidebar-nav"
+    @innerContentEl   = @options.innerContentEl   or "section.content .innerContent"
+    @contentEl        = @options.contentEl        or "section.content"
+    @thumbnailsEl     = @options.thumbnailsEl     or "section.content .innerContent .thumbnails"
 
-    $.subscribe('resize.Portfolio', @initAfterViewContentLoadedProxy('resize.Portfolio'))
 
-    # return this to make this class chainable
-    this
+    $.subscribe('resize.Portfolio', @initResize('resize.Portfolio'))
+    # $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
 
-  initAfterViewContentLoadedProxy: () ->
+  initResize: () ->
+    console.log "resize"
     # Skip the first argument (event object) but log the other args.
     (_, options) =>
-      @resizeTo = setTimeout(=>
-        @buildGrid options, =>
-          $('.thumbnails').isotope('reLayout')
-          clearTimeout @resizeTo
-      , 500)
+      # @resizeTo = setTimeout(=>
+      #   @buildGrid options, =>
+      #     $('.thumbnails').isotope('reLayout')
+      #     clearTimeout @resizeTo
+      # , 500)
+
+      @buildGrid options, =>
+        $('.thumbnails').isotope('reLayout')
+
+  initAfterViewContentLoadedProxy: () ->
+    console.log "loaded"
+    # Skip the first argument (event object) but log the other args.
+    (_, path) =>
+      options = {}
+      options.widthDifference = $(@sidebarNavEl).width() - 70
+      options.rightMargin = 70
+
+      containerWidth = $(window).width() - 70
+      $(@contentEl).css width: containerWidth
+      $(@innerContentEl).css width: containerWidth
+      $(@thumbnailsEl).css width: containerWidth
+
+      @buildGrid options, =>
+        $('.thumbnails').isotope('reLayout')
+        @loaded = true
 
   buildGrid: (options, callback) ->
     callback          = callback or ->
@@ -62,7 +92,7 @@ class ImageGrid extends Portfolio.UI
       if @containerEl.find('.thumb').length is 1
         @thumbContainer.css width: containerWidth - 0.5
         @thumbContainer.find('img').css width: containerWidth - 0.5
-      else if @containerEl.find('.thumb').length is 2 or path is 'show'
+      else if @containerEl.find('.thumb').length is 2
         @thumbContainer.css width: (containerWidth / 2)
         @thumbContainer.find('img').css width: (containerWidth / 2)
       else
@@ -77,10 +107,17 @@ class ImageGrid extends Portfolio.UI
           resizeContainer: true
           resizable: true
           transformsEnabled: true
-          animationOptions:
-           duration: 500
-           easing: 'easeInOutQuint'
-           queue: false
+          # animationOptions:
+          #  duration: 500
+          #  easing: 'easeInOutQuint'
+          #  queue: false
+
+          getSortData:
+            category: ($elem) ->
+              $elem.attr('data-category')
+            category: ($elem) ->
+              $elem.find('.name').text()
+
 
         # $(@containerEl).show()
 

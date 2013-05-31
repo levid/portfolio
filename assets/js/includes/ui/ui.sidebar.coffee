@@ -7,6 +7,7 @@
 class Sidebar extends Portfolio.UI
   opts:
     lockEl:           undefined
+    settingsEl:       undefined
     locked:           undefined
     clone:            undefined
     sidebarNavEl:     undefined
@@ -18,6 +19,7 @@ class Sidebar extends Portfolio.UI
     sidebarMenuOpen:  undefined
     hoverCaptionEl:   undefined
     thumbnailsEl:     undefined
+    loaded:           undefined
 
   #### The constructor for the Sidebar class
   #
@@ -28,6 +30,7 @@ class Sidebar extends Portfolio.UI
     # Extend default options to include passed in arguments
     @options          = $.extend({}, this.opts, @options)
     @lockEl           = @options.lockEl           or ".lock"
+    @settingsEl       = @options.settingsEl       or ".settings"
     @locked           = @options.locked           or false
     @sidebarNavEl     = @options.sidebarNavEl     or "nav.sidebar-nav"
     @sidebarNavLinks  = @options.sidebarNavLinks  or "nav.sidebar-nav ul.nav li a"
@@ -49,7 +52,14 @@ class Sidebar extends Portfolio.UI
   initAfterViewContentLoadedProxy: () ->
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
-      @initSidebar()
+      # @initSidebar()
+      @path = path
+
+      @loadedTimeout = setTimeout(=>
+        @loaded = true
+        @initSidebar()
+        clearTimeout @loadedTimeout
+      , 500)
 
   initSidebar: () ->
     $(@hoverCaptionEl).hide()
@@ -79,10 +89,17 @@ class Sidebar extends Portfolio.UI
       ypos            = $(e.target).parents('li').find('a').position().top
       text            = $(e.target).parents('li').find('.text').text().replace(/\s+/g, "")
       linkClass       = $(e.target).parents('li').find('a').attr('class')
+      buttonClass     = $(e.target).parents('li').attr('class')
       @clone          = $("[data-object='hover-caption']").clone().prependTo($(e.target).parents('li'))
       @clone.text(text)
 
       if linkClass is 'active' then @clone.addClass 'active'
+      if buttonClass is 'all'
+        @highlightLeftNav('design').show()
+        @highlightLeftNav('identity').show()
+        @highlightLeftNav('code').show()
+        @highlightLeftNav('web').show()
+        @highlightLeftNav('all').show()
 
       @clone.css top: ypos
       @clone.stop().animate(
@@ -93,7 +110,10 @@ class Sidebar extends Portfolio.UI
         easing: 'easeOutQuint'
       )
 
-    $(document).on 'mouseleave', @sidebarNavLinks, (e) => @clone.fadeOut('slow').remove() if @clone
+    $(document).on 'mouseleave', @sidebarNavLinks, (e) =>
+      @clone.fadeOut('slow').remove() if @clone
+      @highlightLeftNav().hide()
+
     $(document).on 'mouseenter', @sidebarNavEl, (e) => if @sidebarMenuOpen isnt true then @openSidebar()
     $(document).on 'mouseleave', @sidebarNavEl, (e) => if @locked isnt true and @sidebarMenuOpen isnt true then @closeSidebar()
 
@@ -122,12 +142,35 @@ class Sidebar extends Portfolio.UI
       else if @sidebarMenuOpen is false
         @openSidebarMenu()
 
+  highlightLeftNav: (target) ->
+    highlight = target
+    showingAll = @path.indexOf("all") >= 0
+
+    show: () =>
+      $(@sidebarNavEl).find('.nav li').each (index) ->
+        if $(this).attr('class') is highlight
+          $(this).find('a').addClass 'highlight' unless showingAll is true
+
+    hide: () =>
+      showingAll = @path.indexOf("all") >= 0
+      if showingAll is true
+        $(@sidebarNavEl).find('.nav li a.active').removeClass('highlight')
+      else
+        $(@sidebarNavEl).find('.nav li a').removeClass('highlight')
+
+      # $(@sidebarNavEl).find('.nav li a').each (index) ->
+      #   if $(this).attr('class') isnt 'highlight'
+      #     $(@sidebarNavEl).find('.nav li a').removeClass 'highlight'
+      #   else if $(this).attr('class') is 'active'
+      #     $(@sidebarNavEl).find('.nav li a').removeClass('highlight')
+
   openSidebarMenu: () ->
     # console.log "open sidebar menu"
     @sidebarOpen = true
     @sidebarMenuOpen = true
 
     containerWidth = ($(window).width() - $(@sidebarNavEl).width()) - 16
+    $(@contentEl).css width: containerWidth
     $(@innerContentEl).css width: containerWidth
     $(@thumbnailsEl).css width: containerWidth
 
@@ -138,15 +181,15 @@ class Sidebar extends Portfolio.UI
     )
 
     $(@lensFlareEl).css left: 310
-    $(@lockEl).fadeIn('slow').css left: 5
+    $(@lockEl).fadeIn(500).css left: 20
+    $(@settingsEl).fadeIn(500).css left: 55
 
     # $(@sidebarNavEl).removeClass('animate-sidebar-closed')
     # $(@sidebarNavEl).removeClass('animate-sidebar-open')
     # $(@sidebarNavEl).addClass('animate-sidebar-menu-open')
 
     @animateToPosition @innerContentEl, 300
-    @animateToPosition @sidebarNavEl, 0, =>
-      $(@lockEl).fadeIn('slow').css left: 5
+    @animateToPosition @sidebarNavEl, 0
     @animateToPosition @sidebarMenuEl, 7
 
   closeSidebarMenu: () ->
@@ -165,6 +208,7 @@ class Sidebar extends Portfolio.UI
     @sidebarMenuOpen = false
 
     containerWidth = $(window).width() - 70
+    $(@contentEl).css width: containerWidth
     $(@innerContentEl).css width: containerWidth
     $(@thumbnailsEl).css width: containerWidth
 
@@ -178,12 +222,18 @@ class Sidebar extends Portfolio.UI
     # $(@sidebarNavEl).removeClass('animate-sidebar-closed')
     # $(@sidebarNavEl).addClass('animate-sidebar-open')
 
+    $(@lockEl).fadeOut(500, =>
+      $(this).css left: -50
+    )
+    $(@settingsEl).fadeOut(500, =>
+      $(this).css left: -50
+    )
+
     $(@hoverCaptionEl).css left: 80
     $(@lensFlareEl).css left: 80
     @animateToPosition @thumbnailsEl, 0
     @animateToPosition @innerContentEl, 70
-    @animateToPosition @sidebarNavEl, -230, =>
-      $(@lockEl).fadeOut('slow').css left: -50
+    @animateToPosition @sidebarNavEl, -230
     @animateToPosition @sidebarMenuEl, -300
 
   closeSidebar: () ->
@@ -192,6 +242,7 @@ class Sidebar extends Portfolio.UI
     @sidebarMenuOpen = false
 
     containerWidth = $(window).width()
+    $(@contentEl).css width: containerWidth
     $(@innerContentEl).css width: containerWidth
     $(@thumbnailsEl).css width: containerWidth
 
@@ -205,22 +256,29 @@ class Sidebar extends Portfolio.UI
     # $(@sidebarNavEl).removeClass('animate-sidebar-open')
     # $(@sidebarNavEl).addClass('animate-sidebar-closed')
 
+    $(@lockEl).fadeOut(500, =>
+      $(this).css left: -50
+    )
+    $(@settingsEl).fadeOut(500, =>
+      $(this).css left: -50
+    )
+
     $(@lensFlareEl).css left: 10
     @animateToPosition @thumbnailsEl, 0
     @animateToPosition @innerContentEl, 0
-    @animateToPosition @sidebarNavEl, -285, =>
-      $(@lockEl).fadeOut('slow').css left: -50
+    @animateToPosition @sidebarNavEl, -285
     @animateToPosition @sidebarMenuEl, -300
 
   adjustImageGrid: (options) ->
     widthDifference  = options.widthDifference or 0
     rightMargin      = options.rightMargin or 0
 
-    $.publish('resize.Portfolio',
-      options =
-        widthDifference: widthDifference
-        rightMargin:     rightMargin
-    )
+    if @loaded is true
+      $.publish('resize.Portfolio',
+        options =
+          widthDifference: widthDifference
+          rightMargin:     rightMargin
+      )
 
   animateToPosition: (el, pos, callback) ->
     callback = callback or ->

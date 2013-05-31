@@ -1,5 +1,5 @@
-<script id='views/work/design/show.html' type='text/ng-template'>
-<section class='sub design show view'>
+<script id='views/work/show.html' type='text/ng-template'>
+<section class='sub work show view'>
 <div class='innerContent'>
 <div ng-include='' src="'views/partials/user-header.html'"></div>
 <div class='info-container'>
@@ -16,12 +16,6 @@
 <!-- %a{"data-option-value" => "int", :href => "#sortBy=int"} -->
 <!-- int -->
 <h3>{{project.name}}</h3>
-<div class='buttons'>
-<a class='btn btn-back' ng-click='goBack()' ng-href=''>
-<i class='icon-portfolio-arrow-left'></i>
-<!-- Back -->
-</a>
-</div>
 <div class='block'>
 <table>
 <tr>
@@ -49,6 +43,12 @@
 </td>
 </tr>
 </table>
+</div>
+<div class='buttons'>
+<a class='btn btn-back' ng-click='goBack()' ng-href=''>
+<i class='icon-portfolio-arrow-left'></i>
+<!-- Back -->
+</a>
 </div>
 </div>
 </div>

@@ -117,6 +117,7 @@ class Nav extends Portfolio.UI
       @highlightLeftNav('identity').show()
       @highlightLeftNav('code').show()
       @highlightLeftNav('web').show()
+      @highlightLeftNav('all').show()
 
     ).on('mouseleave', @allLink, (e) =>
       @highlightLeftNav().hide()

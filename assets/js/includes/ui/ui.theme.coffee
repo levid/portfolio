@@ -38,7 +38,7 @@ class Theme extends Portfolio.UI
         @themeContainerEl = $(".theme-container")
         @themeContainerEl.fadeIn('slow')
 
-  getNewTheme: () ->
+  getRandomTheme: () ->
     themes   = @themeContainerEl.find('li')
 
     rand = () =>
@@ -49,9 +49,9 @@ class Theme extends Portfolio.UI
     newtheme = if newTheme isnt active then newTheme else rand()
     newTheme
 
-  changeTheme: (options) ->
+  changeVisibleTheme: (options) ->
     options = options or {}
-    theme   = @getNewTheme()
+    theme   = @getRandomTheme()
     if options.overlay is "false"
       @themeContainerEl.find('li').removeClass 'active'
       @themeContainerEl.find("li:eq(#{theme})").addClass 'active'
@@ -79,7 +79,7 @@ class Theme extends Portfolio.UI
     ), $.noop, true
 
   swapPreviewImage: () ->
-    newTheme = @getNewTheme()
+    newTheme = @getRandomTheme()
     @themeContainerEl.find('li').removeClass 'active'
     @themeContainerEl.find("li:eq(#{newTheme})").addClass 'active'
 
@@ -88,8 +88,8 @@ class Theme extends Portfolio.UI
       $UI.showSpinner @overlayEl.find('.spinner'),
         lines: 15
         length: 0
-        width: 3
-        radius: 50
+        width: 2
+        radius: 60
         color: '#000000'
         speed: 1.6
         trail: 45
@@ -105,12 +105,14 @@ class Theme extends Portfolio.UI
     )
 
   enableThemes: () ->
-    @themeContainerEl.fadeIn('slow')
     @swapPreviewImage()
+    @changeVisibleTheme()
+    $(@themeContainerEl).fadeIn(500)
+
     $UI.showSpinner @previewSpinnerEl.find('.spinner'),
       lines: 12
       length: 0
-      width: 5
+      width: 4
       radius: 15
       color: '#ffffff'
       speed: 1.6
@@ -122,7 +124,7 @@ class Theme extends Portfolio.UI
       e.preventDefault()
       $(@toggleButtonEl).find('.text').hide()
       @previewSpinnerEl.show()
-      @changeTheme()
+      @changeVisibleTheme()
     )
 
 # Assign this class to the Portfolio Namespace
