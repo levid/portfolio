@@ -82,7 +82,6 @@ class UI extends Portfolio
       $UI.Constants.theme.enableThemes()
 
     $(window).load =>
-
       $UI.Constants.menuScroller  = new $UI.Scroller("[data-behavior='scrollable']")
 
   showLoadingScreen: () ->

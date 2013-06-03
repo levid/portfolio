@@ -9,7 +9,7 @@ var Application = Application || {};
 
 Application.Constants = angular.module('application.constants', []);
 Application.Services = angular.module('application.services', []);
-Application.Controllers = angular.module('application.controllers', []);
+Application.Controllers   = angular.module('application.controllers', []);
 Application.Filters = angular.module('application.filters', []);
 Application.Directives = angular.module('application.directives', []);
 
@@ -157,7 +157,9 @@ angular.module('application', ['ngResource', 'application.filters', 'application
 
     $rootScope.$on('$routeChangeStart', function(nextRoute, currentRoute) {
       $UI.showLoadingScreen();
+      $UI.Constants.viewLoaded = false;
     });
+
     // Bind the `$routeChangeSuccess` event on the rootScope, so that we dont need to bind in individual controllers.
     $rootScope.$on('$routeChangeSuccess', function(currentRoute, previousRoute) {
       // This will set the custom property that we have defined while configuring the routes.

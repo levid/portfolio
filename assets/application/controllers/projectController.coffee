@@ -91,11 +91,23 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
               )
               v.categories = categories
         $.extend(projectsArr, project, projectsArr)
+
       , (error) ->
         console.log error
       )
 
       $scope.projects = projectsArr
+
+      # @loadImages = setTimeout(=>
+      #   $("#wrapper").waitForImages (=>
+      #     console.log "All design images have loaded."
+
+      #   ),((loaded, count, success) ->
+      #     console.log loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
+      #   ), waitForAll: true
+      #   clearTimeout @loadImages
+      # , 500)
+
       # $scope.photos = flickrPhotos.load({ tags: '1680x1050' })
       console.log $scope.projects
 
@@ -155,6 +167,7 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
           slug: $routeParams.slug
         , (project) ->
           images = []
+          tags = []
           screenshotsArr = []
           Screenshots.findAll((screenshots) ->
             screenshotsArr = screenshots
@@ -216,6 +229,16 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
 
       $scope.goBack = () ->
         $location.path(history.back())
+
+      $scope.getCategoryString = (categories) ->
+        categories = categories.join(' ')
+        categories = categories.toLowerCase()
+        return categories
+
+      $scope.getTagString = (tags) ->
+        tags = tags.join(' ')
+        tags = tags.toLowerCase()
+        return tags
 
       $scope.getImages = (data) ->
         images = []

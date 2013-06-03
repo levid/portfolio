@@ -8,21 +8,22 @@ No images found for this category.
 <div class='info-container'>
 <div class='content'>
 <h3>Design</h3>
-<div class='sort-by' data-option-key='sortBy'>
-<a data-option-value='strategy' href='#sortBy=strategy'>
-strategy
+<div class='sort-by' data-option-key='sort'>
+<div class='title'>Sort By</div>
+<a data-option-value='name' href='#'>
+Name
 </a>
-<a data-option-value='brand' href='#sortBy=brand'>
-brand
+<a data-option-value='category' href='#'>
+Category
 </a>
-<a data-option-value='web' href='#sortBy=web'>
-web
+<a data-option-value='tag' href='#'>
+Tag
 </a>
-<a data-option-value='graphic' href='#sortBy=graphic'>
-graphic
+<a data-option-value='year' href='#'>
+Year
 </a>
-<a class='active' data-option-value='All' href='#sortBy=all'>
-All
+<a class='active' data-option-value='ascending' href='#'>
+Ascending
 </a>
 </div>
 <!-- .block -->
@@ -55,17 +56,18 @@ All
 <div data-ng-repeat='project in projectThumbs | orderBy:name:descending | filter:category'>
 <div ng-repeat='image in project.image_paths'>
 <div ng-repeat='(key, val) in image' ng-switch='' on='key'>
-<div class='thumb' ng-switch-when='preview_image'>
+<div class='thumb' data-category='{{getCategoryString(project.categories)}}' data-tag='{{getTagString(project.tags)}}' ng-switch-when='preview_image'>
+<!-- {{project.categories}} -->
 <div class='image' ng-click="go('/work/design/project/'+project.slug)">
 <div class='project-details-container'>
 <div class='content'>
-<h3>{{project.name}}</h3>
+<h3 class='name'>{{project.name}}</h3>
 <!-- .block -->
 <!-- %p {{project.description}} -->
 <div class='block'>
 <table>
 <tr>
-<td>Url</td>
+<td class='url'>Url</td>
 <td>
 <a ng-href='{{project.url}}'>{{project.url || 'N/A'}}</a>
 </td>
@@ -77,13 +79,13 @@ All
 <tr>
 <td>Categories</td>
 <td>
-<div>{{(project.categories).join(', ') || 'N/A'}}</div>
+{{(project.categories).join(', ').toLowerCase() || 'N/A'}}
 </td>
 </tr>
 <tr>
 <td>Year</td>
-<td>
-<div>{{project.date | date:'yyyy' || 'N/A'}}</div>
+<td class='year'>
+{{project.date | date:'yyyy' || 'N/A'}}
 </td>
 </tr>
 </table>

@@ -7,7 +7,7 @@ Application.Controllers.controller "ClientsController", ["$rootScope", "$scope",
   # @todo add a notifications handler
   # @todo add a proper error handler
   #
-  class ClientController
+  class ClientsController
 
     #### It's always nice to have a constructor to keep things organized
     #
@@ -194,6 +194,6 @@ Application.Controllers.controller "ClientsController", ["$rootScope", "$scope",
           )
         false
 
-  window.ClientController = new ClientController()
+  window.ClientsController = new ClientsController()
 
 ]

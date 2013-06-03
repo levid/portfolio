@@ -12,17 +12,18 @@
 
           %h3 Design
 
-          .sort-by{"data-option-key" => "sortBy"}
-            %a{"data-option-value" => "strategy", :href => "#sortBy=strategy"}
-              strategy
-            %a{"data-option-value" => "brand", :href => "#sortBy=brand"}
-              brand
-            %a{"data-option-value" => "web", :href => "#sortBy=web"}
-              web
-            %a{"data-option-value" => "graphic", :href => "#sortBy=graphic"}
-              graphic
-            %a.active{"data-option-value" => "All", :href => "#sortBy=all"}
-              All
+          .sort-by{"data-option-key" => "sort"}
+            .title Sort By
+            %a{"data-option-value" => "name", :href => "#"}
+              Name
+            %a{"data-option-value" => "category", :href => "#"}
+              Category
+            %a{"data-option-value" => "tag", :href => "#"}
+              Tag
+            %a{"data-option-value" => "year", :href => "#"}
+              Year
+            %a.active{"data-option-value" => "ascending", :href => "#"}
+              Ascending
 
           / .block
           /   %table
@@ -53,17 +54,18 @@
         %div{:"data-ng-repeat" => "project in projectThumbs | orderBy:name:descending | filter:category"}
           %div{:"ng-repeat" => "image in project.image_paths"}
             %div{:"ng-repeat" => "(key, val) in image", :"ng-switch" => '', :on => "key"}
-              .thumb{:"ng-switch-when" => "preview_image"}
+              .thumb{:"ng-switch-when" => "preview_image", :"data-category" => "{{getCategoryString(project.categories)}}", :"data-tag" => "{{getTagString(project.tags)}}"}
+                / {{project.categories}}
                 .image{:"ng-click" => "go('/work/design/project/'+project.slug)"}
                   .project-details-container
                     .content
-                      %h3 {{project.name}}
+                      %h3.name {{project.name}}
                       / .block
                       /   %p {{project.description}}
                       .block
                         %table
                           %tr
-                            %td Url
+                            %td.url Url
                             %td
                               %a{:"ng-href" => "{{project.url}}"} {{project.url || 'N/A'}}
                           / %tr
@@ -73,11 +75,11 @@
                           %tr
                             %td Categories
                             %td
-                              %div {{(project.categories).join(', ') || 'N/A'}}
+                              {{(project.categories).join(', ').toLowerCase() || 'N/A'}}
                           %tr
                             %td Year
-                            %td
-                              %div {{project.date | date:'yyyy' || 'N/A'}}
+                            %td.year
+                              {{project.date | date:'yyyy' || 'N/A'}}
 
                       .block
                         %a.btn.btn-orange{:"data-ng-href" => "/#/work/design/project/{{project.slug}}"}

@@ -10,7 +10,6 @@ class ImageGrid extends Portfolio.UI
     contentEl:        undefined
     innerContentEl:   undefined
     thumbnailsEl:     undefined
-    loaded:           undefined
 
   #### The constructor for the ImageGrid class
   #
@@ -27,37 +26,78 @@ class ImageGrid extends Portfolio.UI
 
 
     $.subscribe('resize.Portfolio', @initResize('resize.Portfolio'))
-    # $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
+    $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
+
+    $(document).on 'click', ".sort-by a", (e) ->
+      e.preventDefault()
+      $(".sort-by a").removeClass 'active'
+      $(this).addClass 'active'
+      # get href attribute, minus the '#'
+      sortBy = $(e.target).data('option-value')
+      $('.thumbnails').isotope
+        sortBy: sortBy
+
 
   initResize: () ->
-    console.log "resize"
     # Skip the first argument (event object) but log the other args.
     (_, options) =>
-      # @resizeTo = setTimeout(=>
+      console.log "resize"
+      # resizeTo = setTimeout(=>
       #   @buildGrid options, =>
       #     $('.thumbnails').isotope('reLayout')
-      #     clearTimeout @resizeTo
+      #     clearTimeout resizeTo
       # , 500)
 
-      @buildGrid options, =>
+      @buildGrid(options, =>
         $('.thumbnails').isotope('reLayout')
+      )
 
   initAfterViewContentLoadedProxy: () ->
-    console.log "loaded"
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
+      console.log "loaded"
       options = {}
-      options.widthDifference = $(@sidebarNavEl).width() - 70
-      options.rightMargin = 70
+      sidebarMenuOpen = $UI.Constants.sidebarMenuOpen
+      sidebarOpen     = $UI.Constants.sidebarOpen
 
-      containerWidth = $(window).width() - 70
+      console.log "sidebarOpen: " + $UI.Constants.sidebarOpen
+      console.log "sidebarMenuOpen: " + $UI.Constants.sidebarMenuOpen
+
+      if sidebarOpen is true and sidebarMenuOpen is true
+        console.log "grid: sidebarmenu open"
+        containerWidth = ($(window).width() - $(@sidebarNavEl).width()) - 16
+        options.widthDifference = $(@sidebarNavEl).width() - 70
+        options.rightMargin = 70
+      else if sidebarOpen is true and sidebarMenuOpen is false
+        console.log "grid: sidebar open"
+        containerWidth = $(window).width() - 70
+        options.widthDifference = 0
+        options.rightMargin = 70
+      else if sidebarOpen is false and sidebarMenuOpen is false
+        console.log "grid: sidebar closed"
+        containerWidth = $(window).width()
+        options.widthDifference = 0
+        options.rightMargin = 0
+      else
+        console.log "grid: default"
+        containerWidth = $(window).width()
+        options.widthDifference = 0
+        options.rightMargin = 0
+
       $(@contentEl).css width: containerWidth
       $(@innerContentEl).css width: containerWidth
       $(@thumbnailsEl).css width: containerWidth
 
-      @buildGrid options, =>
-        $('.thumbnails').isotope('reLayout')
-        @loaded = true
+      # TODO: create dom listener to make sure thumbnails
+      # has children before initiating re-layout
+      buildIt = setTimeout(=>
+        @buildGrid options, =>
+          $('.thumbnails').isotope('reLayout')
+          clearTimeout buildIt
+      , 1000)
+
+      # @buildGrid options, =>
+      #   $('.thumbnails').isotope('shuffle')
 
   buildGrid: (options, callback) ->
     callback          = callback or ->
@@ -79,7 +119,7 @@ class ImageGrid extends Portfolio.UI
       cols2           = containerWidth / 2
       cols3           = containerWidth / 3
 
-      # console.log "cols1: #{cols1} - cols2: #{cols2} - cols3: #{cols3}"
+      console.log "cols1: #{cols1} - cols2: #{cols2} - cols3: #{cols3}"
 
       if cols2 > 600
         cols = cols3
@@ -102,21 +142,30 @@ class ImageGrid extends Portfolio.UI
       @containerEl.imagesLoaded =>
         @containerEl.isotope
           itemSelector: '.thumb'
-          animationEngine: 'best-available'
+          animationEngine: 'jquery'
           layoutMode: 'masonry'
           resizeContainer: true
           resizable: true
           transformsEnabled: true
+          # sortBy: 'web'
+          # sortAscending: true
           # animationOptions:
           #  duration: 500
           #  easing: 'easeInOutQuint'
           #  queue: false
 
+          onLayout: =>
+           $UI.Constants.viewLoaded = true
+
           getSortData:
+            name: ($elem) ->
+              return $elem.find('.name').text()
             category: ($elem) ->
-              $elem.attr('data-category')
-            category: ($elem) ->
-              $elem.find('.name').text()
+              return $elem.attr('data-category')
+            tag: ($elem) ->
+              return $elem.attr('data-tag')
+            year: ($elem) ->
+              return $elem.find('.year').text()
 
 
         # $(@containerEl).show()
@@ -129,6 +178,9 @@ class ImageGrid extends Portfolio.UI
       #     console.log "TEST"
       #     # callback()
 
+    # $(window).scroll ->
+    #   console.log "test"
+    #   $('.thumbnails').isotope('reLayout')
     $(window).resize ->
       calc()
     calc()

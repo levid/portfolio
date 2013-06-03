@@ -84,29 +84,30 @@ class Theme extends Portfolio.UI
     @themeContainerEl.find("li:eq(#{newTheme})").addClass 'active'
 
   showOverlay: (theme) ->
-    @overlayEl.fadeIn(=>
-      $UI.showSpinner @overlayEl.find('.spinner'),
-        lines: 15
-        length: 0
-        width: 2
-        radius: 60
-        color: '#000000'
-        speed: 1.6
-        trail: 45
-        shadow: false
-        hwaccel: true
+    unless $("#overlay").attr('display') is 'block'
+      @overlayEl.fadeIn(=>
+        $UI.showSpinner @overlayEl.find('.spinner'),
+          lines: 15
+          length: 0
+          width: 2
+          radius: 60
+          color: '#000000'
+          speed: 1.6
+          trail: 45
+          shadow: false
+          hwaccel: true
 
-      @swapBackgroundImage(=>
-        @overlayEl.fadeOut()
-        @swapPreviewImage()
-        @previewSpinnerEl.hide()
-        $(@toggleButtonEl).find('.text').show()
+        @swapBackgroundImage(=>
+          @overlayEl.fadeOut()
+          @swapPreviewImage()
+          @previewSpinnerEl.hide()
+          $(@toggleButtonEl).find('.text').show()
+        )
       )
-    )
 
   enableThemes: () ->
     @swapPreviewImage()
-    @changeVisibleTheme()
+    # @changeVisibleTheme()
     $(@themeContainerEl).fadeIn(500)
 
     $UI.showSpinner @previewSpinnerEl.find('.spinner'),

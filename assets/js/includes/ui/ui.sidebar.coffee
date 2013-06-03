@@ -41,6 +41,9 @@ class Sidebar extends Portfolio.UI
     @lensFlareEl      = @options.lensFlareEl      or ".lens-flare"
     @hoverCaptionEl   = @options.hoverCaptionEl   or "[data-object='hover-caption']"
 
+    @sidebarMenuOpen  = @sidebarMenuOpen or $UI.Constants.sidebarMenuOpen
+    @sidebarOpen      = @sidebarOpen or $UI.Constants.sidebarOpen
+
     @initSidebar()
     @enableButtons()
 
@@ -52,18 +55,11 @@ class Sidebar extends Portfolio.UI
   initAfterViewContentLoadedProxy: () ->
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
-      # @initSidebar()
       @path = path
-
-      @loadedTimeout = setTimeout(=>
-        @loaded = true
-        @initSidebar()
-        clearTimeout @loadedTimeout
-      , 500)
+      @initSidebar()
 
   initSidebar: () ->
     $(@hoverCaptionEl).hide()
-    # @locked = true
     if @sidebarMenuOpen is true
       # Set initial position of inner content
       $(@innerContentEl).css left: 300
@@ -137,10 +133,8 @@ class Sidebar extends Portfolio.UI
       if $UI.Constants.audio.getAudioEnabled() is true
         $UI.Constants.audio.playSound("#slide")
 
-      if @sidebarMenuOpen is true
-        @closeSidebarMenu()
-      else if @sidebarMenuOpen is false
-        @openSidebarMenu()
+      if @sidebarMenuOpen is true then @closeSidebarMenu()
+      else if @sidebarMenuOpen is false then @openSidebarMenu()
 
   highlightLeftNav: (target) ->
     highlight = target
@@ -158,27 +152,18 @@ class Sidebar extends Portfolio.UI
       else
         $(@sidebarNavEl).find('.nav li a').removeClass('highlight')
 
-      # $(@sidebarNavEl).find('.nav li a').each (index) ->
-      #   if $(this).attr('class') isnt 'highlight'
-      #     $(@sidebarNavEl).find('.nav li a').removeClass 'highlight'
-      #   else if $(this).attr('class') is 'active'
-      #     $(@sidebarNavEl).find('.nav li a').removeClass('highlight')
-
   openSidebarMenu: () ->
-    # console.log "open sidebar menu"
+    console.log "open sidebar menu"
     @sidebarOpen = true
     @sidebarMenuOpen = true
+
+    $UI.Constants.sidebarOpen = true
+    $UI.Constants.sidebarMenuOpen = true
 
     containerWidth = ($(window).width() - $(@sidebarNavEl).width()) - 16
     $(@contentEl).css width: containerWidth
     $(@innerContentEl).css width: containerWidth
     $(@thumbnailsEl).css width: containerWidth
-
-    @adjustImageGrid(
-      options =
-        widthDifference: $(@sidebarNavEl).width() - 70
-        rightMargin: 70
-    )
 
     $(@lensFlareEl).css left: 310
     $(@lockEl).fadeIn(500).css left: 20
@@ -192,31 +177,38 @@ class Sidebar extends Portfolio.UI
     @animateToPosition @sidebarNavEl, 0
     @animateToPosition @sidebarMenuEl, 7
 
+    @adjustImageGrid(
+      options =
+        widthDifference: $(@sidebarNavEl).width() - 70
+        rightMargin: 70
+    )
+
   closeSidebarMenu: () ->
-    # console.log "close sidebar menu"
+    console.log "close sidebar menu"
+
+    @sidebarOpen = true
+    @sidebarMenuOpen = false
+
+    $UI.Constants.sidebarOpen = true
+    $UI.Constants.sidebarMenuOpen = false
 
     if @locked is true
       @openSidebar()
     else
       @closeSidebar()
+
+  openSidebar: () ->
+    console.log "open sidebar"
     @sidebarOpen = true
     @sidebarMenuOpen = false
 
-  openSidebar: () ->
-    # console.log "open sidebar"
-    @sidebarOpen = true
-    @sidebarMenuOpen = false
+    $UI.Constants.sidebarOpen = true
+    $UI.Constants.sidebarMenuOpen = false
 
     containerWidth = $(window).width() - 70
     $(@contentEl).css width: containerWidth
     $(@innerContentEl).css width: containerWidth
     $(@thumbnailsEl).css width: containerWidth
-
-    @adjustImageGrid(
-      options =
-        widthDifference: 0
-        rightMargin: 70
-    )
 
     # $(@sidebarNavEl).removeClass('animate-sidebar-menu-open')
     # $(@sidebarNavEl).removeClass('animate-sidebar-closed')
@@ -236,21 +228,24 @@ class Sidebar extends Portfolio.UI
     @animateToPosition @sidebarNavEl, -230
     @animateToPosition @sidebarMenuEl, -300
 
+    @adjustImageGrid(
+      options =
+        widthDifference: 0
+        rightMargin: 70
+    )
+
   closeSidebar: () ->
-    # console.log "close sidebar"
+    console.log "close sidebar"
     @sidebarOpen = false
     @sidebarMenuOpen = false
+
+    $UI.Constants.sidebarOpen = false
+    $UI.Constants.sidebarMenuOpen = false
 
     containerWidth = $(window).width()
     $(@contentEl).css width: containerWidth
     $(@innerContentEl).css width: containerWidth
     $(@thumbnailsEl).css width: containerWidth
-
-    @adjustImageGrid(
-      options =
-        widthDifference: 0
-        rightMargin: 0
-    )
 
     # $(@sidebarNavEl).removeClass('animate-sidebar-menu-open')
     # $(@sidebarNavEl).removeClass('animate-sidebar-open')
@@ -269,11 +264,18 @@ class Sidebar extends Portfolio.UI
     @animateToPosition @sidebarNavEl, -285
     @animateToPosition @sidebarMenuEl, -300
 
+    @adjustImageGrid(
+      options =
+        widthDifference: 0
+        rightMargin: 0
+    )
+
   adjustImageGrid: (options) ->
     widthDifference  = options.widthDifference or 0
     rightMargin      = options.rightMargin or 0
 
-    if @loaded is true
+    if $UI.Constants.viewLoaded is true
+      console.log "publish resize events"
       $.publish('resize.Portfolio',
         options =
           widthDifference: widthDifference

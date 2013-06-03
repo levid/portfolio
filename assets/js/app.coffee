@@ -44,8 +44,8 @@ class Portfolio
       $(@innerContentEl).css minHeight: $(document).innerHeight()
 
     $(window).load =>
-      $UI.hideLoadingScreen()
-      $UI.Constants.imageGrid.buildGrid()
+      # $UI.hideLoadingScreen()
+      # $UI.Constants.imageGrid.buildGrid()
       $UI.Constants.nav = new $UI.Nav(
         lensFlareEnabled: "true"
       ).init()

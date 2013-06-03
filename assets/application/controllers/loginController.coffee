@@ -1,6 +1,6 @@
 "use strict"
 
-angular.module("application").controller "LoginCtrl", ["$rootScope", "$scope", "$location", "SessionService", ($rootScope, $scope, $location, SessionService) ->
+Application.Controllers.controller "LoginCtrl", ["$rootScope", "$scope", "$location", "SessionService", ($rootScope, $scope, $location, SessionService) ->
 
   init = ->
     $scope.user = SessionService.getUser()

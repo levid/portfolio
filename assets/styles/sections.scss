@@ -244,7 +244,7 @@ main#main {
 
       .content {
         width: 100%;
-        padding: 20px 50px 20px 100px;
+        padding: 20px 50px 20px 99px;
         color: #ffffff;
         font-family: ProximaNovaSemibold, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
         display: block;
@@ -255,16 +255,23 @@ main#main {
           padding: 0px;
           text-transform: uppercase;
           font-size: 2em;
-          display: block;
+          display: inline-block;
         }
 
         .sort-by {
-          margin: 10px 0px 0px 0px;
+          margin: 12px 0px 0px 20px;
           width: auto;
-          display: block;
+          display: inline-block;
           text-transform: uppercase;
           font-size: 0.9em;
           font-family: ProximaNovaRegular, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
+          position: relative;
+
+          .title {
+            margin-right: 10px;
+            width: auto;
+            display: inline-block;
+          }
 
           a + a {
             margin-left: 10px;
@@ -274,8 +281,8 @@ main#main {
             color: rgba(255,255,255, 0.5);
 
             &.active {
-              color: #93ccd9;
-              font-weight: bold;
+              color: lighten(#93ccd9, 10%);
+              // font-weight: bold;
             }
 
             &:hover {
@@ -288,7 +295,7 @@ main#main {
           display: inline-block;
           position: absolute;
           top: 20px;
-          left: 50px;
+          left: 40px;
 
           .btn.btn-back {
             margin: 0px;
@@ -461,7 +468,7 @@ main#main {
         margin: 0px;
         width: 100%;
         height: 100%;
-        // min-height: 500px;
+        min-height: 100%;
         z-index: 1;
         display: block;
         position: relative;
