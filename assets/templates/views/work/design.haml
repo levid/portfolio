@@ -10,11 +10,11 @@
       .info-container
         .content
 
-          %h3 Design
+          %h3 {{category}}
 
           .sort-by{"data-option-key" => "sort"}
             .title Sort By
-            %a{"data-option-value" => "name", :href => "#"}
+            %a.active{"data-option-value" => "name", :href => "#"}
               Name
             %a{"data-option-value" => "category", :href => "#"}
               Category
@@ -22,8 +22,6 @@
               Tag
             %a{"data-option-value" => "year", :href => "#"}
               Year
-            %a.active{"data-option-value" => "ascending", :href => "#"}
-              Ascending
 
           / .block
           /   %table
@@ -51,10 +49,10 @@
             /     Website
 
       .thumbnails{:"ng-init" => "projectThumbs = projects"}
-        %div{:"data-ng-repeat" => "project in projectThumbs | orderBy:name:descending | filter:category"}
+        %div{:"data-ng-repeat" => "project in projectThumbs"}
           %div{:"ng-repeat" => "image in project.image_paths"}
             %div{:"ng-repeat" => "(key, val) in image", :"ng-switch" => '', :on => "key"}
-              .thumb{:"ng-switch-when" => "preview_image", :"data-category" => "{{getCategoryString(project.categories)}}", :"data-tag" => "{{getTagString(project.tags)}}"}
+              .thumb{:"ng-switch-when" => "preview_image", :"data-category" => "{{getCategoryString(project.categories)}}", :"data-tag" => "{{getTagString(project.tags)}}", :"class" => "{{getCategoryString(project.categories)}}"}
                 / {{project.categories}}
                 .image{:"ng-click" => "go('/work/design/project/'+project.slug)"}
                   .project-details-container
@@ -72,10 +70,14 @@
                           /   %td Tags
                           /   %td
                           /     %div {{(project.tags).join(', ') || 'N/A'}}
+                          / %tr
+                          /   %td Categories
+                          /   %td
+                          /     {{(project.categories).join(', ').toLowerCase() || 'N/A'}}
                           %tr
-                            %td Categories
+                            %td Technologies
                             %td
-                              {{(project.categories).join(', ').toLowerCase() || 'N/A'}}
+                              {{(project.technologies).join(', ').toLowerCase() || 'N/A'}}
                           %tr
                             %td Year
                             %td.year
@@ -85,12 +87,13 @@
                         %a.btn.btn-orange{:"data-ng-href" => "/#/work/design/project/{{project.slug}}"}
                           %i.icon-portfolio-magnifier
                           Details
-                        %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}"}
+                        %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}", :target => '_blank'}
                           %i.icon-portfolio-resize
                           / Website
                   %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
-              / %div{:"ng-switch-when" => "composite_image_laptop"}
-              /     %img{:"ng-src" => "images/portfolio_images/{{val}}"}
+      %nav#page_nav
+        %a{:"ng-href" => "/#/work/design/{{limit+3}}/{{skip+1}}"}
 
-          / .thumb{:"ng-repeat" => "item in photos.items"}
-          /   %img{:"ng-src" => "{{ item.media.m }}"}
+
+        / .thumb{:"ng-repeat" => "item in photos.items"}
+        /   %img{:"ng-src" => "{{ item.media.m }}"}

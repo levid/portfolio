@@ -56,7 +56,12 @@ class Sidebar extends Portfolio.UI
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
       @path = path
+      # @lockedSave = @locked
+      # @locked = true
       @initSidebar()
+      # @locked = @lockedSave
+      # @lockedSave = undefined
+
 
   initSidebar: () ->
     $(@hoverCaptionEl).hide()
@@ -71,13 +76,19 @@ class Sidebar extends Portfolio.UI
       # open Sidebar
       @openSidebar()
 
-    @setHeightTimeout = setTimeout(=>
+    setSidebarHeight = () =>
       $('nav.sidebar-nav').css height: $('section.content .innerContent').height() + 120
-      clearTimeout @setHeightTimeout
-    , 1000)
+
+    setHeightTimeout = setTimeout(=>
+      setSidebarHeight()
+      clearTimeout setHeightTimeout
+    , 500)
+
+    $("#main").scroll =>
+      setSidebarHeight()
 
     $(window).resize =>
-      $('nav.sidebar-nav').css height: $('section.content .innerContent').height() + 120
+      setSidebarHeight()
 
   enableButtons: () ->
     $(document).on 'mouseenter', @sidebarNavLinks, (e) =>
@@ -138,7 +149,7 @@ class Sidebar extends Portfolio.UI
 
   highlightLeftNav: (target) ->
     highlight = target
-    showingAll = @path.indexOf("all") >= 0
+    showingAll = @path.indexOf("all") >= 0 if @path
 
     show: () =>
       $(@sidebarNavEl).find('.nav li').each (index) ->
@@ -162,7 +173,7 @@ class Sidebar extends Portfolio.UI
 
     containerWidth = ($(window).width() - $(@sidebarNavEl).width()) - 16
     $(@contentEl).css width: containerWidth
-    $(@innerContentEl).css width: containerWidth
+
     $(@thumbnailsEl).css width: containerWidth
 
     $(@lensFlareEl).css left: 310
@@ -174,13 +185,14 @@ class Sidebar extends Portfolio.UI
     # $(@sidebarNavEl).addClass('animate-sidebar-menu-open')
 
     @animateToPosition @innerContentEl, 300
-    @animateToPosition @sidebarNavEl, 0
+    @animateToPosition @sidebarNavEl, 0, =>
+      $(@innerContentEl).css width: containerWidth
     @animateToPosition @sidebarMenuEl, 7
 
     @adjustImageGrid(
       options =
         widthDifference: $(@sidebarNavEl).width() - 70
-        rightMargin: 70
+        rightMargin: 80
     )
 
   closeSidebarMenu: () ->
@@ -207,7 +219,7 @@ class Sidebar extends Portfolio.UI
 
     containerWidth = $(window).width() - 70
     $(@contentEl).css width: containerWidth
-    $(@innerContentEl).css width: containerWidth
+
     $(@thumbnailsEl).css width: containerWidth
 
     # $(@sidebarNavEl).removeClass('animate-sidebar-menu-open')
@@ -225,13 +237,14 @@ class Sidebar extends Portfolio.UI
     $(@lensFlareEl).css left: 80
     @animateToPosition @thumbnailsEl, 0
     @animateToPosition @innerContentEl, 70
-    @animateToPosition @sidebarNavEl, -230
+    @animateToPosition @sidebarNavEl, -230, =>
+      $(@innerContentEl).css width: containerWidth
     @animateToPosition @sidebarMenuEl, -300
 
     @adjustImageGrid(
       options =
         widthDifference: 0
-        rightMargin: 70
+        rightMargin: 85
     )
 
   closeSidebar: () ->
@@ -258,16 +271,16 @@ class Sidebar extends Portfolio.UI
       $(this).css left: -50
     )
 
-    $(@lensFlareEl).css left: 10
+    $(@lensFlareEl).css left: 20
     @animateToPosition @thumbnailsEl, 0
-    @animateToPosition @innerContentEl, 0
+    @animateToPosition @innerContentEl, 10
     @animateToPosition @sidebarNavEl, -285
     @animateToPosition @sidebarMenuEl, -300
 
     @adjustImageGrid(
       options =
         widthDifference: 0
-        rightMargin: 0
+        rightMargin: 25
     )
 
   adjustImageGrid: (options) ->

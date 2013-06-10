@@ -3,9 +3,9 @@ Design
 </div>
 <nav class='sidebar-nav' ng-controller='NavbarController'>
 <div class='content-menu'>
-<h4>All Clients</h4>
+<h4>All Projects</h4>
 <ul data-behavior='scrollable'>
-<li data-ng-repeat='project in projectsNavMenu' ng-class="{'active':getSlug(project.slug)}">
+<li data-ng-repeat='project in projectsNavMenu | orderBy:predicate' ng-class="{'active':getSlug(project.slug)}">
 <a class='tooltips' data-ng-href='/#/work/all/project/{{project.slug}}'>{{project.name}}</a>
 </li>
 <!-- %li{:"data-ng-repeat" => "project in projectsNavMenu", :"ng-class" => "{'active':getSlug(project.slug)}"} -->

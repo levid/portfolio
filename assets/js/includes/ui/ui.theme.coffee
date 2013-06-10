@@ -11,6 +11,7 @@ class Theme extends Portfolio.UI
     wrapper:          undefined
     toggleButtonEl:   undefined
     previewSpinnerEl: undefined
+    enabled:          undefined
 
   #### The constructor for the Theme class
   #
@@ -25,6 +26,7 @@ class Theme extends Portfolio.UI
     @wrapper            = @options.wrapper          or $("#wrapper")
     @toggleButtonEl     = @options.toggleButtonEl   or "[data-behavior='toggle-theme']"
     @previewSpinnerEl   = @options.previewSpinnerEl or $(".theme-container .loading")
+    @enabled            = false
 
     $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
 
@@ -34,9 +36,10 @@ class Theme extends Portfolio.UI
   initAfterViewContentLoadedProxy: () ->
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
-      if path.indexOf("home") >= 0
-        @themeContainerEl = $(".theme-container")
-        @themeContainerEl.fadeIn('slow')
+      # if path.indexOf("home") >= 0
+      @enableThemes() unless @enabled is true
+      @themeContainerEl = $(".theme-container")
+      @themeContainerEl.fadeIn('slow')
 
   getRandomTheme: () ->
     themes   = @themeContainerEl.find('li')
@@ -61,22 +64,28 @@ class Theme extends Portfolio.UI
       @showOverlay(theme)
 
   swapBackgroundImage: (callback) ->
-    callback           = callback or ->
-    backgroundImage    = @themeContainerEl.find("li.active img").data('background')
-    backgroundPosition = @themeContainerEl.find("li.active img").data('position') or 'bottom left'
+    callback = callback or ->
 
-    message = backgroundImage.toString().split('/')
-    message = message[message.length-1]
-    $.publish 'event.Portfolio',
-      header: "Current Theme"
-      message: message
+    if callback is 'default'
+      backgroundImage    = @themeContainerEl.find("li.default img").data('background')
+      backgroundPosition = @themeContainerEl.find("li.default img").data('position') or 'bottom left'
+    else
+      backgroundImage    = @themeContainerEl.find("li.active img").data('background')
+      backgroundPosition = @themeContainerEl.find("li.active img").data('position') or 'bottom left'
 
-    @wrapper.css(
-      backgroundImage:    "url(#{backgroundImage})"
-      backgroundPosition: backgroundPosition
-    ).waitForImages (->
-      callback()
-    ), $.noop, true
+    if backgroundImage isnt null
+      message = backgroundImage.toString().split('/')
+      message = message[message.length-1]
+      $.publish 'event.Portfolio',
+        header: "Current Theme"
+        message: message
+
+      @wrapper.css(
+        backgroundImage:    "url(#{backgroundImage})"
+        backgroundPosition: backgroundPosition
+      ).waitForImages (->
+        callback() unless callback is 'default'
+      ), $.noop, true
 
   swapPreviewImage: () ->
     newTheme = @getRandomTheme()
@@ -106,9 +115,16 @@ class Theme extends Portfolio.UI
       )
 
   enableThemes: () ->
+    @enabled = true
     @swapPreviewImage()
-    # @changeVisibleTheme()
     $(@themeContainerEl).fadeIn(500)
+
+    is_default = @themeContainerEl.find("li").hasClass('default')
+    if is_default isnt false
+      @swapBackgroundImage('default')
+    else
+      @swapBackgroundImage()
+      @swapPreviewImage()
 
     $UI.showSpinner @previewSpinnerEl.find('.spinner'),
       lines: 12

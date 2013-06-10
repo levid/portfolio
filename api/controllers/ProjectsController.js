@@ -1,25 +1,70 @@
 /*---------------------
-	:: Project
+	:: Projects
 	-> controller
 ---------------------*/
 var ProjectsController = {
 
   findAll: function(req, res) {
-    Projects.findAll(function(err, projects) {
-      if (err) return res.send(err, 500);
-      return res.json(projects)
-    });
+    limit = req.body.limit || 0;
+    skip = req.body.skip || 0;
+    var category = req.param('id');
+    if(category != undefined){
+      // Projects.findAll({
+      //   category_string: {
+      //     contains: category
+      //   }
+      // }).done(function(err, projects) {
+      //   if (err) return res.send(err, 500);
+      //   console.log(projects);
+      //   return res.json(projects);
+      // });
 
-    // console.log(projectsArr);
+      Projects.findAll({
+        // name: {
+        //   contains: 'serv'
+        // },
+        limit: limit,
+        skip: skip
+      }).done(function(err, projects) {
+        if (err) return res.send(err, 500);
+        console.log(projects);
+        if (!projects) return res.send("No projects found!", 404);
+        return res.json(projects);
+      });
+    }
+    else {
+      Projects.findAll().done(function(err, projects) {
+        if (err) return res.send(err, 500);
+        if (!projects) return res.send("No projects found!", 404);
+        return res.json(projects);
+      });
+    }
+
+    // Projects.find()
+    // .where({ category_string: {contains: category}})
+    // .limit(100)
+    // .exec(function(err, projects) {
+    //   if (err) return res.send(err, 500);
+    //   if (!projects) return res.send("No projects were found!", 404);
+    //   return res.json(projects);
+    // });
   },
 
   find: function(req, res) {
-    Projects.find({slug: req.params.id},function(err, projects) {
+    Projects.find({slug: req.param('id')}).done(function(err, project) {
       if (err) return res.send(err, 500);
-      return res.json(projects);
+      if (!project) return res.send("No project with that id exists!", 404);
+      return res.json(project);
     });
 
-    // console.log(projectsArr);
+    // Projects.findOne()
+    // .where({ slug: req.param('id')})
+    // .limit(100)
+    // .exec(function(err, project) {
+    //   if (err) return res.send(err, 500);
+    //   if (!project) return res.send("No project with that id exists!", 404);
+    //   return res.json(project);
+    // });
   }
 
   // // // New Method

@@ -37,13 +37,24 @@
                   %div {{project.date | date:'yyyy' || 'N/A'}}
 
               %tr
-                %td Description
+                %td Categories
                 %td
-                  %div {{project.description || 'N/A'}}
+                  {{(project.categories).join(', ').toLowerCase() || 'N/A'}}
+
+              %tr
+                %td Technologies
+                %td
+                  {{(project.technologies).join(', ').toLowerCase() || 'N/A'}}
+
               %tr{:"ng-show" => "project.tags && project.tags.length > 0"}
                 %td Tags
                 %td
                   %div {{(project.tags).join(', ') || 'N/A'}}
+
+              %tr
+                %td Description
+                %td
+                  %div {{project.description || 'N/A'}}
 
       .thumbnails-show-view
         %div{:"ng-repeat" => "image in project.image_paths"}

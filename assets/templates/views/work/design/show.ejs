@@ -37,15 +37,27 @@
 </td>
 </tr>
 <tr>
-<td>Description</td>
+<td>Categories</td>
 <td>
-<div>{{project.description || 'N/A'}}</div>
+{{(project.categories).join(', ').toLowerCase() || 'N/A'}}
+</td>
+</tr>
+<tr>
+<td>Technologies</td>
+<td>
+{{(project.technologies).join(', ').toLowerCase() || 'N/A'}}
 </td>
 </tr>
 <tr ng-show='project.tags &amp;&amp; project.tags.length &gt; 0'>
 <td>Tags</td>
 <td>
 <div>{{(project.tags).join(', ') || 'N/A'}}</div>
+</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>
+<div>{{project.description || 'N/A'}}</div>
 </td>
 </tr>
 </table>

@@ -1,8 +1,92 @@
 <script id='views/about.html' type='text/ng-template'>
-  <section class='sub about'>
-    <div class='innerContent'>
-      <div ng-include='' src="'views/partials/user-header.html'"></div>
-      About Content
-    </div>
-  </section>
+<section class='sub about'>
+<div class='innerContent'>
+<div ng-include='' src="'views/partials/user-header.html'"></div>
+<div class='info-container'>
+<div class='content'>
+<!-- .img -->
+<!-- %gravatar{:email => "user.email", :"data-ng-model" => "user", :class => "img-circle", :style => "width: 80px; height: 80px"} -->
+<h3>About</h3>
+<div>
+<div class='text'>
+<p class='large'>
+Hi there, I'm an UI/UX Designer & Web Developer based in Orange County, CA.
+</p>
+<div class='divider'></div>
+<p class='small'>
+I enjoy designing and developing responsive websites, web applications, mobile applications, games, print, typography and branding.
+</p>
+<!-- %p.small -->
+<!-- Hey, my name is Jonathan Krause - I would call myself a front-end developer (you know those job titles). I am currently living in Berlin, Germany, working full-time at Edenspiekermann. I am a passionate web developer with a strong focus on pragmatism and agile development. I love responsive, not over-engineered (form- and function-wise) user interfaces that are highly usable and bring real value to people. I also appreciate logical and typography-driven design approaches. Therefore I strive to use technologies and methodologies that deliver the best possible user experience. I like tinkering with front-end performance and the latest HTML, CSS and JavaScript stuff. To complete the story, I want to mention that I have a degree in application development and in the past used to work in the more enterprise-oriented business. Besides that I love dogs, aquariums, nature in generall and enjoy people that take themselves not too seriously. -->
+<!-- %p.small -->
+<!-- This is version three of my website. You can also have a look back at version one and version two, if interested. With version three I forced myself to write English to improve my language skills. So there are german as well as english posts on this blog. -->
+<!-- %p.small -->
+<!-- Feel free to send me a tweet or just drop me an email whenever you want. You can find me also on Github and occasionally on Xing or LinkedIn. -->
+<!-- %p.small -->
+<!-- Colophon -->
+<!-- This site is built on Express.js and is the outcome of experimenting with Node.js. The basic stack can be found here. It's hosted with the help of lovely Nodejitsu, a super simple and powerful Node.js hosting platform. -->
+<div class='divider'></div>
+</div>
+</div>
+<div class='skills-container'>
+<div class='skills'>
+<h4>Skills</h4>
+<div class='toolbox-header' data-length='300'>UI / UX</div>
+<div class='toolbox-item'></div>
+<div class='toolbox-header' data-length='230'>Frontend Development</div>
+<div class='toolbox-item'></div>
+<div class='toolbox-header' data-length='200'>Backend Development</div>
+<div class='toolbox-item'></div>
+<div class='toolbox-header' data-length='170'>Mobile Development</div>
+<div class='toolbox-item'></div>
+<div class='toolbox-header' data-length='280'>Web Design</div>
+<div class='toolbox-item'></div>
+<div class='toolbox-header' data-length='190'>Motion Graphics</div>
+<div class='toolbox-item'></div>
+<div class='toolbox-header' data-length='290'>Print Design</div>
+<div class='toolbox-item'></div>
+<div class='toolbox-header' data-length='210'>Branding</div>
+<div class='toolbox-item'></div>
+<div class='toolbox-header' data-length='250'>Identity</div>
+<div class='toolbox-item'></div>
+</div>
+<div class='skills'>
+<h4>&nbsp;</h4>
+<div class='toolbox-header' data-length='145'>HTML5</div>
+<div class='toolbox-item'></div>
+<div class='toolbox-header' data-length='230'>CSS3</div>
+<div class='toolbox-item'></div>
+<div class='toolbox-header' data-length='200'>Javascript / jQuery</div>
+<div class='toolbox-item'></div>
+<div class='toolbox-header' data-length='250'>Photoshop</div>
+<div class='toolbox-item'></div>
+<div class='toolbox-header' data-length='200'>MVC4 Razor (C#)</div>
+<div class='toolbox-item'></div>
+<div class='toolbox-header' data-length='220'>SEO / PPC</div>
+<div class='toolbox-item'></div>
+</div>
+<div class='skills'>
+<div id='piechart'></div>
+</div>
+</div>
+<div>
+<a href='#'>CV</a>
+</div>
+<!-- #pie-chart -->
+<!-- %span#label1.chart-label{:style => "display: inline;"} Responsive Development -->
+<!-- %svg#line1.chart-line{:style => "display: inline;"} -->
+<!-- %line{:style => "stroke:rgb(21,21,21);stroke-width:1", :x1 => "0", :x2 => "25", :y1 => "0", :y2 => "25"} -->
+<!-- %span#label2.chart-label{:style => "display: inline;"} Social Media -->
+<!-- %svg#line2.chart-line{:style => "display: inline;"} -->
+<!-- %line{:style => "stroke:rgb(21,21,21);stroke-width:1", :x1 => "25", :x2 => "0", :y1 => "0", :y2 => "25"} -->
+<!-- %span#label3.chart-label{:style => "display: inline;"} UI Design -->
+<!-- %svg#line3.chart-line{:style => "display: inline;"} -->
+<!-- %line{:style => "stroke:rgb(21,21,21);stroke-width:1", :x1 => "0", :x2 => "25", :y1 => "0", :y2 => "25"} -->
+<!-- %span#label4.chart-label{:style => "display: inline;"} Performance Testing -->
+<!-- %svg#line4.chart-line{:style => "display: inline;"} -->
+<!-- %line{:style => "stroke:rgb(21,21,21);stroke-width:1", :x1 => "25", :x2 => "0", :y1 => "0", :y2 => "25"} -->
+</div>
+</div>
+</div>
+</section>
 </script>

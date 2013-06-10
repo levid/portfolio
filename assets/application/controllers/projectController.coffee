@@ -1,6 +1,6 @@
 'use strict'
 
-Application.Controllers.controller "ProjectController", ["$rootScope", "$scope", "$location", "$socket", "configuration", "User", "Projects", "Images", "Screenshots", "flickrPhotos", "Categories", "Tags", "SessionService", "$route", "$routeParams", ($rootScope, $scope, $location, $socket, configuration, User, Projects, Images, Screenshots, flickrPhotos, Categories, Tags, SessionService, $route, $routeParams) ->
+Application.Controllers.controller "ProjectController", ["$rootScope", "$scope", "$location", "$socket", "configuration", "User", "Projects", "Images", "Screenshots", "Technologies", "flickrPhotos", "Categories", "Tags", "SessionService", "$route", "$routeParams", ($rootScope, $scope, $location, $socket, configuration, User, Projects, Images, Screenshots, Technologies, flickrPhotos, Categories, Tags, SessionService, $route, $routeParams) ->
 
   # ProjectController class that is accessible by the window object
   #
@@ -21,7 +21,7 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
           @show($scope, $rootScope.customParams)
 
       $scope.s3_path = configuration.s3_path
-
+      $scope.category = $rootScope.customParams.category
       # $.subscribe('resize.Portfolio', @initAfterViewContentLoadedProxy('resize.Portfolio'))
 
       # return this to make this class chainable
@@ -36,8 +36,6 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
           setWidth(options)
         setWidth(options)
 
-
-
     #### The index action
     #
     # @param [Object] $scope
@@ -48,55 +46,12 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
     index: ($scope, params) ->
       console.log "#{$rootScope.customParams.action} action called"
       $UI.Constants.actionPath = $rootScope.customParams.action
-      category = params.category
+      $UI.Constants.category   = $rootScope.customParams.category
 
-      projectsArr = [{}]
-      projects = Projects.findAll(
-        category: category
-      , (project) ->
-        $.each project, (k, v) =>
-          tags = []
-          categories = []
-          images = []
-          $.each v.image_ids, (k1, v1) =>
-            if v1 isnt ''
-              Images.find({id: v1}, (image) ->
-                # delete image.id
-                # delete image.project_id
-                # delete image.work_id
-                # delete image.name
-                # delete image.format
-                 images.push(image)
-              )
-              v.image_paths = images
-          $.each v.tag_ids, (k2, v2) =>
-            if v2 isnt ''
-              Tags.find({id: v2}, (tag) ->
-                delete tag.id
-                delete tag.project_id
-                delete tag.work_id
-                delete tag.slug
-                tags.push(tag.name)
-              )
-              v.tags = tags
-          $.each v.category_ids, (k3, v3) =>
-            if v3 isnt ''
-              Categories.find({id: v3}, (category) ->
-                delete category.id
-                delete category.category_group_id
-                delete category.project_id
-                delete category.work_id
-                delete category.slug
-                categories.push(category.name)
-              )
-              v.categories = categories
-        $.extend(projectsArr, project, projectsArr)
+      $scope.limit = $routeParams.limit or 0
+      $scope.skip = $routeParams.skip or 0
 
-      , (error) ->
-        console.log error
-      )
-
-      $scope.projects = projectsArr
+      @loadProducts($scope.limit, $scope.skip, params.category)
 
       # @loadImages = setTimeout(=>
       #   $("#wrapper").waitForImages (=>
@@ -109,7 +64,51 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
       # , 500)
 
       # $scope.photos = flickrPhotos.load({ tags: '1680x1050' })
-      console.log $scope.projects
+
+    loadProducts: (limit, skip, category) ->
+      projectsArr = [{}]
+      projects = Projects.findAll(
+        category: category
+        limit: limit
+        skip: skip
+      , (project) ->
+        $.each project, (k, v) =>
+          tags = []
+          categories = []
+          images = []
+          technologies = []
+          $.each v.image_ids, (key, val) =>
+            if val isnt ''
+              Images.find({id: val}, (image) ->
+                images.push(image)
+              )
+              v.image_paths = images
+          $.each v.tag_ids, (key, val) =>
+            if val isnt ''
+              Tags.find({id: val}, (tag) ->
+                tags.push(tag.name)
+              )
+              v.tags = tags
+          $.each v.category_ids, (key, val) =>
+            if val isnt ''
+              Categories.find({id: val}, (category) ->
+                categories.push(category.name)
+              )
+              v.categories = categories
+          $.each v.technology_ids, (key, val) ->
+            if val isnt ''
+              Technologies.find({id: val}, (technology) ->
+                technologies.push(technology.name)
+              )
+              v.technologies = technologies
+        $.extend(projectsArr, project, projectsArr)
+
+      , (error) ->
+        console.log error
+      )
+
+      $scope.projects = projectsArr
+      $scope.predicate = 'name'
 
     #### The new action
     #
@@ -166,8 +165,11 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
         projects = Projects.find(
           slug: $routeParams.slug
         , (project) ->
-          images = []
           tags = []
+          categories = []
+          images = []
+          technologies = []
+
           screenshotsArr = []
           Screenshots.findAll((screenshots) ->
             screenshotsArr = screenshots
@@ -176,16 +178,33 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
           $.each project.image_ids, (k, v) =>
             if v isnt ''
               Images.find({id: v}, (image) ->
-                $.each screenshotsArr, (k2,v2) =>
-                  if v2.screenable_id is v
-                    images.push(v2)
+                $.each screenshotsArr, (key, val) =>
+                  if val.screenable_id is v
+                    images.push(val)
                 images.push(image)
               )
               project.image_paths = images
 
-          $.extend(projectsArr, project, projectsArr)
+          $.each project.tag_ids, (key, val) =>
+            if val isnt ''
+              Tags.find({id: val}, (tag) ->
+                tags.push(tag.name)
+              )
+              project.tags = tags
+          $.each project.category_ids, (key, val) =>
+            if val isnt ''
+              Categories.find({id: val}, (category) ->
+                categories.push(category.name)
+              )
+              project.categories = categories
+          $.each project.technology_ids, (key, val) ->
+            if val isnt ''
+              Technologies.find({id: val}, (technology) ->
+                technologies.push(technology.name)
+              )
+              project.technologies = technologies
 
-          console.log projectsArr
+          $.extend(projectsArr, project, projectsArr)
         , (error) ->
           console.log error
         )
@@ -266,9 +285,15 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
           return []
         return Object.keys(obj)
 
+      $scope.nextPage = (limit, skip) ->
+        $scope.limit = limit + 3
+        $scope.skip = skip + 1
+        console.log limit
+        console.log skip
+
       $scope.addProject = ->
         user = new Project
-          name:     $scope.inputData.name     if $scope.inputData.name.length
+          name: $scope.inputData.name if $scope.inputData.name.length
 
         Project.save(project,
           success = (data, status, headers, config) ->

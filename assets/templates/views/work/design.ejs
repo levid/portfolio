@@ -7,10 +7,10 @@ No images found for this category.
 </div>
 <div class='info-container'>
 <div class='content'>
-<h3>Design</h3>
+<h3>{{category}}</h3>
 <div class='sort-by' data-option-key='sort'>
 <div class='title'>Sort By</div>
-<a data-option-value='name' href='#'>
+<a class='active' data-option-value='name' href='#'>
 Name
 </a>
 <a data-option-value='category' href='#'>
@@ -21,9 +21,6 @@ Tag
 </a>
 <a data-option-value='year' href='#'>
 Year
-</a>
-<a class='active' data-option-value='ascending' href='#'>
-Ascending
 </a>
 </div>
 <!-- .block -->
@@ -53,10 +50,10 @@ Ascending
 </div>
 </div>
 <div class='thumbnails' ng-init='projectThumbs = projects'>
-<div data-ng-repeat='project in projectThumbs | orderBy:name:descending | filter:category'>
+<div data-ng-repeat='project in projectThumbs'>
 <div ng-repeat='image in project.image_paths'>
 <div ng-repeat='(key, val) in image' ng-switch='' on='key'>
-<div class='thumb' data-category='{{getCategoryString(project.categories)}}' data-tag='{{getTagString(project.tags)}}' ng-switch-when='preview_image'>
+<div class='thumb {{getCategoryString(project.categories)}}' data-category='{{getCategoryString(project.categories)}}' data-tag='{{getTagString(project.tags)}}' ng-switch-when='preview_image'>
 <!-- {{project.categories}} -->
 <div class='image' ng-click="go('/work/design/project/'+project.slug)">
 <div class='project-details-container'>
@@ -76,10 +73,14 @@ Ascending
 <!-- %td Tags -->
 <!-- %td -->
 <!-- %div {{(project.tags).join(', ') || 'N/A'}} -->
+<!-- %tr -->
+<!-- %td Categories -->
+<!-- %td -->
+<!-- {{(project.categories).join(', ').toLowerCase() || 'N/A'}} -->
 <tr>
-<td>Categories</td>
+<td>Technologies</td>
 <td>
-{{(project.categories).join(', ').toLowerCase() || 'N/A'}}
+{{(project.technologies).join(', ').toLowerCase() || 'N/A'}}
 </td>
 </tr>
 <tr>
@@ -95,7 +96,7 @@ Ascending
 <i class='icon-portfolio-magnifier'></i>
 Details
 </a>
-<a class='btn btn-teal' data-ng-href='{{project.url}}'>
+<a class='btn btn-teal' data-ng-href='{{project.url}}' target='_blank'>
 <i class='icon-portfolio-resize'></i>
 <!-- Website -->
 </a>
@@ -105,14 +106,15 @@ Details
 <img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}'>
 </div>
 </div>
-<!-- %div{:"ng-switch-when" => "composite_image_laptop"} -->
-<!-- %img{:"ng-src" => "images/portfolio_images/{{val}}"} -->
 </div>
 </div>
+</div>
+</div>
+<nav id='page_nav'>
+<a ng-href='/#/work/design/{{limit+3}}/{{skip+1}}'></a>
 <!-- .thumb{:"ng-repeat" => "item in photos.items"} -->
 <!-- %img{:"ng-src" => "{{ item.media.m }}"} -->
-</div>
-</div>
+</nav>
 </div>
 </section>
 </script>

@@ -9,8 +9,6 @@ var ScreenshotsController = {
       if (err) return res.send(err, 500);
       return res.json(screenshots)
     });
-
-    // console.log(projectsArr);
   },
 
   find: function(req, res) {
@@ -21,10 +19,7 @@ var ScreenshotsController = {
       if (err) return res.send(err, 500);
       return res.json(screenshots);
     });
-
-    // console.log(projectsArr);
   }
-
 
 };
 module.exports = ScreenshotsController;

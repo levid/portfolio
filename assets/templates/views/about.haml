@@ -3,4 +3,100 @@
     .innerContent
       %div{:"ng-include" => '', :src => "'views/partials/user-header.html'"}
 
-      About Content
+      .info-container
+        .content
+
+          / .img
+          /   %gravatar{:email => "user.email", :"data-ng-model" => "user", :class => "img-circle", :style => "width: 80px; height: 80px"}
+          %h3 About
+          %div
+            .text
+              %p.large
+                Hi there, I'm an UI/UX Designer & Web Developer based in Orange County, CA.
+              .divider
+              %p.small
+                I enjoy designing and developing responsive websites, web applications, mobile applications, games, print, typography and branding.
+
+              / %p.small
+              /   Hey, my name is Jonathan Krause - I would call myself a front-end developer (you know those job titles). I am currently living in Berlin, Germany, working full-time at Edenspiekermann. I am a passionate web developer with a strong focus on pragmatism and agile development. I love responsive, not over-engineered (form- and function-wise) user interfaces that are highly usable and bring real value to people. I also appreciate logical and typography-driven design approaches. Therefore I strive to use technologies and methodologies that deliver the best possible user experience. I like tinkering with front-end performance and the latest HTML, CSS and JavaScript stuff. To complete the story, I want to mention that I have a degree in application development and in the past used to work in the more enterprise-oriented business. Besides that I love dogs, aquariums, nature in generall and enjoy people that take themselves not too seriously.
+              / %p.small
+              /   This is version three of my website. You can also have a look back at version one and version two, if interested. With version three I forced myself to write English to improve my language skills. So there are german as well as english posts on this blog.
+              / %p.small
+              /   Feel free to send me a tweet or just drop me an email whenever you want. You can find me also on Github and occasionally on Xing or LinkedIn.
+              / %p.small
+              /   Colophon
+              /   This site is built on Express.js and is the outcome of experimenting with Node.js. The basic stack can be found here. It's hosted with the help of lovely Nodejitsu, a super simple and powerful Node.js hosting platform.
+
+              .divider
+          .skills-container
+            .skills
+              %h4 Skills
+              .toolbox-header{"data-length" => "300"} UI / UX
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "230"} Frontend Development
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "200"} Backend Development
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "170"} Mobile Development
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "280"} Web Design
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "190"} Motion Graphics
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "290"} Print Design
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "210"} Branding
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "250"} Identity
+              .toolbox-item
+
+
+            .skills
+              %h4 &nbsp;
+              .toolbox-header{"data-length" => "145"} HTML5
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "230"} CSS3
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "200"} Javascript / jQuery
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "250"} Photoshop
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "200"} MVC4 Razor (C#)
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "220"} SEO / PPC
+              .toolbox-item
+
+            .skills
+              #piechart
+
+          %div
+            %a{:href => '#'} CV
+
+
+
+          / #pie-chart
+          /   %span#label1.chart-label{:style => "display: inline;"} Responsive Development
+          /   %svg#line1.chart-line{:style => "display: inline;"}
+          /     %line{:style => "stroke:rgb(21,21,21);stroke-width:1", :x1 => "0", :x2 => "25", :y1 => "0", :y2 => "25"}
+          /   %span#label2.chart-label{:style => "display: inline;"} Social Media
+          /   %svg#line2.chart-line{:style => "display: inline;"}
+          /     %line{:style => "stroke:rgb(21,21,21);stroke-width:1", :x1 => "25", :x2 => "0", :y1 => "0", :y2 => "25"}
+          /   %span#label3.chart-label{:style => "display: inline;"} UI Design
+          /   %svg#line3.chart-line{:style => "display: inline;"}
+          /     %line{:style => "stroke:rgb(21,21,21);stroke-width:1", :x1 => "0", :x2 => "25", :y1 => "0", :y2 => "25"}
+          /   %span#label4.chart-label{:style => "display: inline;"} Performance Testing
+          /   %svg#line4.chart-line{:style => "display: inline;"}
+          /     %line{:style => "stroke:rgb(21,21,21);stroke-width:1", :x1 => "25", :x2 => "0", :y1 => "0", :y2 => "25"}

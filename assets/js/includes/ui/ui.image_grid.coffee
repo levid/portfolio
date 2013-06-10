@@ -56,6 +56,7 @@ class ImageGrid extends Portfolio.UI
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
       console.log "loaded"
+      @category = $UI.Constants.category
       options = {}
       sidebarMenuOpen = $UI.Constants.sidebarMenuOpen
       sidebarOpen     = $UI.Constants.sidebarOpen
@@ -67,22 +68,22 @@ class ImageGrid extends Portfolio.UI
         console.log "grid: sidebarmenu open"
         containerWidth = ($(window).width() - $(@sidebarNavEl).width()) - 16
         options.widthDifference = $(@sidebarNavEl).width() - 70
-        options.rightMargin = 70
+        options.rightMargin = 80
       else if sidebarOpen is true and sidebarMenuOpen is false
         console.log "grid: sidebar open"
         containerWidth = $(window).width() - 70
         options.widthDifference = 0
-        options.rightMargin = 70
+        options.rightMargin = 85
       else if sidebarOpen is false and sidebarMenuOpen is false
         console.log "grid: sidebar closed"
         containerWidth = $(window).width()
         options.widthDifference = 0
-        options.rightMargin = 0
+        options.rightMargin = 25
       else
         console.log "grid: default"
         containerWidth = $(window).width()
         options.widthDifference = 0
-        options.rightMargin = 0
+        options.rightMargin = 25
 
       $(@contentEl).css width: containerWidth
       $(@innerContentEl).css width: containerWidth
@@ -95,9 +96,6 @@ class ImageGrid extends Portfolio.UI
           $('.thumbnails').isotope('reLayout')
           clearTimeout buildIt
       , 1000)
-
-      # @buildGrid options, =>
-      #   $('.thumbnails').isotope('shuffle')
 
   buildGrid: (options, callback) ->
     callback          = callback or ->
@@ -147,8 +145,8 @@ class ImageGrid extends Portfolio.UI
           resizeContainer: true
           resizable: true
           transformsEnabled: true
-          # sortBy: 'web'
-          # sortAscending: true
+          # filter: ".#{@category}" if @category and @category isnt 'all'
+          sortBy: 'name'
           # animationOptions:
           #  duration: 500
           #  easing: 'easeInOutQuint'
@@ -167,8 +165,25 @@ class ImageGrid extends Portfolio.UI
             year: ($elem) ->
               return $elem.find('.year').text()
 
+      @containerEl.infinitescroll
+        behavior: 'local'
+        binder: @containerEl
+        navSelector: "#page_nav" # selector for the paged navigation
+        nextSelector: "#page_nav a" # selector for the NEXT link (to page 2)
+        itemSelector: '.thumb' # selector for all items you'll retrieve
+        dataType: 'json'
+        appendCallback: false
+        loading:
+          finishedMsg: "No more pages to load."
+          img: "http://i.imgur.com/qkKy8.gif"
 
-        # $(@containerEl).show()
+      # call Isotope as a callback
+      , (json, opts) =>
+        page = opts.state.currPage
+        console.log page
+        # @containerEl.isotope "appended", $(newElements)
+
+
 
       # $.extend $.Isotope::,
       #   _customModeReset: ->

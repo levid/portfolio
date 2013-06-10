@@ -13,6 +13,7 @@ Application.Controllers.controller "NavbarController", ["$scope", "$location", "
     constructor: () ->
       @initScopedMethods()
       $scope.projectsNavMenu = Projects.findAll()
+      $scope.predicate = 'name'
 
     #### Scoped methods
     #

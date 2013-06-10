@@ -2,9 +2,9 @@
   Design
 %nav.sidebar-nav{:"ng-controller" => "NavbarController"}
   .content-menu
-    %h4 All Clients
+    %h4 All Projects
     %ul{:data => {:behavior => 'scrollable'}}
-      %li{:"data-ng-repeat" => "project in projectsNavMenu", :"ng-class" => "{'active':getSlug(project.slug)}"}
+      %li{:"data-ng-repeat" => "project in projectsNavMenu | orderBy:predicate", :"ng-class" => "{'active':getSlug(project.slug)}"}
         %a.tooltips{:"data-ng-href" => "/#/work/all/project/{{project.slug}}"} {{project.name}}
       / %li{:"data-ng-repeat" => "project in projectsNavMenu", :"ng-class" => "{'active':getSlug(project.slug)}"}
       /   %a.tooltips{:"data-ng-href" => "/#/work/all/project/{{project.slug}}", :"data-toggle" => "tooltip", :title => "{{project.date | date:'yyyy'}}"} {{project.name}}

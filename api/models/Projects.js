@@ -51,6 +51,14 @@ module.exports = {
       type: 'STRING'
     },
 
+    category_string: {
+      type: 'STRING'
+    },
+
+    technology_ids: {
+      type: 'STRING'
+    },
+
     slug: {
       type: 'STRING'
     }

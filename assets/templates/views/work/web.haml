@@ -1,20 +1,97 @@
 %script{:type => "text/ng-template", :id => "views/work/web.html"}
   %section.sub.web
     .innerContent
-      %div{:"ng-include" => '', :src => "'views/partials/user-header.html'"}
 
-      .thumbnails
-        .thumb
-          %img{:src => 'images/thumb-dubleds-web1.jpg'}
-        .thumb
-          %img{:src => 'images/thumb-dubleds-web2.jpg'}
-        .thumb
-          %img{:src => 'images/thumb-dubleds-web1.jpg'}
-        .thumb
-          %img{:src => 'images/thumb-dubleds-web2.jpg'}
-        .thumb
-          %img{:src => 'images/thumb-dubleds-web1.jpg'}
-        .thumb
-          %img{:src => 'images/thumb-dubleds-web2.jpg'}
-        .thumb
-          %img{:src => 'images/thumb-dubleds-web1.jpg'}
+      %div{:"data-ng-include" => '', :src => "'views/partials/user-header.html'"}
+
+      %div{:"data-ng-hide" => "projects && projects.length > 0", :class => "error"}
+        No images found for this category.
+
+      .info-container
+        .content
+
+          %h3 {{category}}
+
+          .sort-by{"data-option-key" => "sort"}
+            .title Sort By
+            %a.active{"data-option-value" => "name", :href => "#"}
+              Name
+            %a{"data-option-value" => "category", :href => "#"}
+              Category
+            %a{"data-option-value" => "tag", :href => "#"}
+              Tag
+            %a{"data-option-value" => "year", :href => "#"}
+              Year
+
+          / .block
+          /   %table
+          /     %tr
+          /       %td Url
+          /       %td
+          /         %a{:"ng-href" => "{{project.url}}"} {{project.url || 'N/A'}}
+
+          /     %tr
+          /       %td Year
+          /       %td
+          /         %div {{project.date | date:'yyyy' || 'N/A'}}
+
+          /     %tr
+          /       %td Description
+          /       %td
+          /         %div {{project.description || 'N/A'}}
+          .buttons
+            %a.btn.btn-back{:"ng-href" => '', :"ng-click" => "goBack()"}
+              %i.icon-portfolio-arrow-left
+              / Back
+            / .block
+            /   %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}"}
+            /     %i.icon-portfolio-resize
+            /     Website
+
+      .thumbnails{:"ng-init" => "projectThumbs = projects"}
+        %div{:"data-ng-repeat" => "project in projectThumbs"}
+          %div{:"ng-repeat" => "image in project.image_paths"}
+            %div{:"ng-repeat" => "(key, val) in image", :"ng-switch" => '', :on => "key"}
+              .thumb{:"ng-switch-when" => "preview_image", :"data-category" => "{{getCategoryString(project.categories)}}", :"data-tag" => "{{getTagString(project.tags)}}", :"class" => "{{getCategoryString(project.categories)}}"}
+                / {{project.categories}}
+                .image{:"ng-click" => "go('/work/web/project/'+project.slug)"}
+                  .project-details-container
+                    .content
+                      %h3.name {{project.name}}
+                      / .block
+                      /   %p {{project.description}}
+                      .block
+                        %table
+                          %tr
+                            %td.url Url
+                            %td
+                              %a{:"ng-href" => "{{project.url}}"} {{project.url || 'N/A'}}
+                          / %tr
+                          /   %td Tags
+                          /   %td
+                          /     %div {{(project.tags).join(', ') || 'N/A'}}
+                          / %tr
+                          /   %td Categories
+                          /   %td
+                          /     {{(project.categories).join(', ').toLowerCase() || 'N/A'}}
+                          %tr
+                            %td Technologies
+                            %td
+                              {{(project.technologies).join(', ').toLowerCase() || 'N/A'}}
+                          %tr
+                            %td Year
+                            %td.year
+                              {{project.date | date:'yyyy' || 'N/A'}}
+
+                      .block
+                        %a.btn.btn-orange{:"data-ng-href" => "/#/work/web/project/{{project.slug}}"}
+                          %i.icon-portfolio-magnifier
+                          Details
+                        %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}", :target => '_blank'}
+                          %i.icon-portfolio-resize
+                          / Website
+                  %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
+
+
+          / .thumb{:"ng-repeat" => "item in photos.items"}
+          /   %img{:"ng-src" => "{{ item.media.m }}"}

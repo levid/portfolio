@@ -25,12 +25,19 @@ angular.module('application', ['ngResource', 'application.filters', 'application
       when('/home', {
         templateUrl: 'views/home.html'
       }).
-      when('/work/design', {
-        templateUrl: 'views/work/design.html',
+      when('/work', {
+        templateUrl: 'views/work/all.html',
+        controller: 'WorkController',
+        customParams: {
+          action: 'index'
+        }
+      }).
+      when('/work/all', {
+        templateUrl: 'views/work/all.html',
         controller: 'ProjectController',
         customParams: {
           action: 'index',
-          category: 'design'
+          category: 'all'
         }
       }).
       when('/work/all/project/:slug', {
@@ -41,6 +48,15 @@ angular.module('application', ['ngResource', 'application.filters', 'application
           category: 'all'
         }
       }).
+      when('/work/design', {
+        templateUrl: 'views/work/design.html',
+        controller: 'ProjectController',
+        customParams: {
+          action: 'index',
+          category: 'design'
+        }
+      }).
+
       when('/work/design/project/:slug', {
         templateUrl: 'views/work/design/show.html',
         controller: 'ProjectController',
@@ -51,41 +67,55 @@ angular.module('application', ['ngResource', 'application.filters', 'application
       }).
       when('/work/identity', {
         templateUrl: 'views/work/identity.html',
-        controller: 'WorkController',
+        controller: 'ProjectController',
         customParams: {
-          action: 'index'
+          action: 'index',
+          category: 'identity'
+        }
+      }).
+      when('/work/identity/project/:slug', {
+        templateUrl: 'views/work/identity/show.html',
+        controller: 'ProjectController',
+        customParams: {
+          action: 'show',
+          category: 'identity'
         }
       }).
       when('/work/code', {
         templateUrl: 'views/work/code.html',
-        controller: 'WorkController',
+        controller: 'ProjectController',
         customParams: {
-          action: 'index'
+          action: 'index',
+          category: 'code'
+        }
+      }).
+      when('/work/code/project/:slug', {
+        templateUrl: 'views/work/code/show.html',
+        controller: 'ProjectController',
+        customParams: {
+          action: 'show',
+          category: 'code'
         }
       }).
       when('/work/web', {
         templateUrl: 'views/work/web.html',
-        controller: 'WorkController',
+        controller: 'ProjectController',
         customParams: {
-          action: 'index'
+          action: 'index',
+          category: 'web'
         }
       }).
-      when('/work', {
-        templateUrl: 'views/work/all.html',
-        controller: 'WorkController',
+      when('/work/web/project/:slug', {
+        templateUrl: 'views/work/web/show.html',
+        controller: 'ProjectController',
         customParams: {
-          action: 'index'
-        }
-      }).
-      when('/work/all', {
-        templateUrl: 'views/work/all.html',
-        controller: 'WorkController',
-        customParams: {
-          action: 'index'
+          action: 'show',
+          category: 'web'
         }
       }).
       when('/about', {
-        templateUrl: 'views/about.html'
+        templateUrl: 'views/about.html',
+        controller: 'AboutController'
       }).
       when('/contact', {
         templateUrl: 'views/contact.html'

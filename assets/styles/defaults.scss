@@ -51,6 +51,18 @@ body {
   background-color: #ffffff;
 }
 
+.teal {
+  color: #93ccd9 !important;
+}
+
+.orange {
+  color: lighten(#ff6e42, 10%) !important;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
 .border {
   &.all {
     border: 8px solid #ffffff;
@@ -71,6 +83,14 @@ body {
   &.right {
     border-right: 8px solid #ffffff;
   }
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
 }
 
 .display-inline-block {

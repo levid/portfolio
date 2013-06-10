@@ -79,7 +79,6 @@ class UI extends Portfolio
       )
       $UI.Constants.audio.enableAudio()
       $UI.Constants.theme = new $UI.Theme()
-      $UI.Constants.theme.enableThemes()
 
     $(window).load =>
       $UI.Constants.menuScroller  = new $UI.Scroller("[data-behavior='scrollable']")
@@ -98,13 +97,10 @@ class UI extends Portfolio
       hwaccel: true
 
   hideLoadingScreen: () ->
-    @fadeIt = setTimeout(=>
-      $(@overlayEl).fadeOut(500, =>
-        @hideSpinner $(@overlaySpinnerEl)
-        clearTimeout @fadeIt
-        # $.publish 'event.Portfolio', message: "Loading Complete"
-      )
-    , 500)
+    fadeIt = setTimeout(=>
+      $(@overlayEl).hide()
+      clearTimeout fadeIt
+    , 1500)
 
   showLoadingSpinner: (target) ->
     $(@loadingEl).fadeIn()

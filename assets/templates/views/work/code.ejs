@@ -1,85 +1,116 @@
 <script id='views/work/code.html' type='text/ng-template'>
 <section class='sub code'>
 <div class='innerContent'>
-<div ng-include='' src="'views/partials/user-header.html'"></div>
-<div class='thumbnails'>
-<div class='thumb'>
-<img src='images/thumb-dubleds-web1.jpg'>
+<div data-ng-include='' src="'views/partials/user-header.html'"></div>
+<div class='error' data-ng-hide='projects &amp;&amp; projects.length &gt; 0'>
+No images found for this category.
 </div>
-<div class='thumb'>
-<img src='images/thumb-dubleds-web2.jpg'>
+<div class='info-container'>
+<div class='content'>
+<h3>{{category}}</h3>
+<div class='sort-by' data-option-key='sort'>
+<div class='title'>Sort By</div>
+<a class='active' data-option-value='name' href='#'>
+Name
+</a>
+<a data-option-value='category' href='#'>
+Category
+</a>
+<a data-option-value='tag' href='#'>
+Tag
+</a>
+<a data-option-value='year' href='#'>
+Year
+</a>
 </div>
-<div class='thumb'>
-<img src='images/thumb-dubleds-web1.jpg'>
+<!-- .block -->
+<!-- %table -->
+<!-- %tr -->
+<!-- %td Url -->
+<!-- %td -->
+<!-- %a{:"ng-href" => "{{project.url}}"} {{project.url || 'N/A'}} -->
+<!-- %tr -->
+<!-- %td Year -->
+<!-- %td -->
+<!-- %div {{project.date | date:'yyyy' || 'N/A'}} -->
+<!-- %tr -->
+<!-- %td Description -->
+<!-- %td -->
+<!-- %div {{project.description || 'N/A'}} -->
+<div class='buttons'>
+<a class='btn btn-back' ng-click='goBack()' ng-href=''>
+<i class='icon-portfolio-arrow-left'></i>
+<!-- Back -->
+</a>
+<!-- .block -->
+<!-- %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}"} -->
+<!-- %i.icon-portfolio-resize -->
+<!-- Website -->
 </div>
-<div class='thumb'>
-<img src='images/thumb-dubleds-web2.jpg'>
 </div>
-<div class='thumb'>
-<img src='images/thumb-dubleds-web1.jpg'>
 </div>
-<div class='thumb'>
-<img src='images/thumb-dubleds-web2.jpg'>
+<div class='thumbnails' ng-init='projectThumbs = projects'>
+<div data-ng-repeat='project in projectThumbs'>
+<div ng-repeat='image in project.image_paths'>
+<div ng-repeat='(key, val) in image' ng-switch='' on='key'>
+<div class='thumb {{getCategoryString(project.categories)}}' data-category='{{getCategoryString(project.categories)}}' data-tag='{{getTagString(project.tags)}}' ng-switch-when='preview_image'>
+<!-- {{project.categories}} -->
+<div class='image' ng-click="go('/work/code/project/'+project.slug)">
+<div class='project-details-container'>
+<div class='content'>
+<h3 class='name'>{{project.name}}</h3>
+<!-- .block -->
+<!-- %p {{project.description}} -->
+<div class='block'>
+<table>
+<tr>
+<td class='url'>Url</td>
+<td>
+<a ng-href='{{project.url}}'>{{project.url || 'N/A'}}</a>
+</td>
+</tr>
+<!-- %tr -->
+<!-- %td Tags -->
+<!-- %td -->
+<!-- %div {{(project.tags).join(', ') || 'N/A'}} -->
+<!-- %tr -->
+<!-- %td Categories -->
+<!-- %td -->
+<!-- {{(project.categories).join(', ').toLowerCase() || 'N/A'}} -->
+<tr>
+<td>Technologies</td>
+<td>
+{{(project.technologies).join(', ').toLowerCase() || 'N/A'}}
+</td>
+</tr>
+<tr>
+<td>Year</td>
+<td class='year'>
+{{project.date | date:'yyyy' || 'N/A'}}
+</td>
+</tr>
+</table>
 </div>
-<div class='thumb'>
-<img src='images/thumb-dubleds-web1.jpg'>
+<div class='block'>
+<a class='btn btn-orange' data-ng-href='/#/work/code/project/{{project.slug}}'>
+<i class='icon-portfolio-magnifier'></i>
+Details
+</a>
+<a class='btn btn-teal' data-ng-href='{{project.url}}' target='_blank'>
+<i class='icon-portfolio-resize'></i>
+<!-- Website -->
+</a>
 </div>
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example1-1.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example1-2.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example1-3.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example1-4.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example1-5.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example1-6.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example1-7.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example1-8.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example1-9.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example1-10.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example1-11.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-1.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-2.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-3.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-4.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-5.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-6.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-7.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-8.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-9.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-10.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-11.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-12.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-13.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-14.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-15.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-16.jpg'} -->
-<!-- .thumb -->
-<!-- %img{:src => 'images/examples/example4-17.jpg'} -->
+</div>
+</div>
+<img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}'>
+</div>
+</div>
+</div>
+</div>
+<!-- .thumb{:"ng-repeat" => "item in photos.items"} -->
+<!-- %img{:"ng-src" => "{{ item.media.m }}"} -->
+</div>
 </div>
 </div>
 </section>
