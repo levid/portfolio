@@ -3,4 +3,30 @@
     .innerContent
       %div{:"ng-include" => '', :src => "'views/partials/user-header.html'"}
 
-      Clients Content
+      .info-container
+        .content
+          %h3 Clients
+          %div
+            .text
+              %p.large
+                I have had the pleasure of working with many companies from around the world on all kinds of fun projects.
+              .divider
+              %p.small
+                Here are a few of the clients I have worked with:
+              .divider
+
+          .list-container
+            .list.clients
+              %h4 Startups
+              %ul
+                %li.client{:"ng-repeat" => "startup in startups | orderBy:predicate"}
+                  %a{:"ng-href" => "{{startup.url}}", :target => "_blank"}
+                    {{startup.name}}
+
+          .list-container
+            .list.clients
+              %h4 Other
+              %ul
+                %li.client{:"ng-repeat" => "client in clients | orderBy:predicate"}
+                  %a{:"ng-href" => "{{client.url}}", :target => "_blank"}
+                    {{client.name}}

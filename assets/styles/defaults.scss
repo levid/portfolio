@@ -59,6 +59,29 @@ body {
   color: lighten(#ff6e42, 10%) !important;
 }
 
+a {
+  &.teal {
+    color: #93ccd9 !important;
+
+    &:hover {
+      color: #ffffff !important;
+    }
+  }
+
+  &.orange {
+    color: lighten(#ff6e42, 10%) !important;
+
+    &:hover {
+      color: #ffffff !important;
+    }
+  }
+}
+
+.small {
+  vertical-align: bottom;
+  font-size: 0.9em;
+}
+
 .uppercase {
   text-transform: uppercase;
 }
@@ -105,6 +128,13 @@ body {
   -o-transition: 1s linear all;
   transition: 1s linear all;
   position:relative;
+}
+
+.sticky {
+  margin: 8px 0px 8px 0px;
+  position: fixed !important;
+  top: 0px !important;
+  z-index: 2;
 }
 
 .push {

@@ -10,10 +10,29 @@ Application.Controllers.controller "AboutController", ["$rootScope", "$scope", "
     #
     constructor: () ->
       @initCharts()
-      @initPieChart()
+      @initPieChart2()
 
       $scope.user =
         email: "i.wooten@gmail.com"
+
+      if $rootScope.customParams
+        if $rootScope.customParams.action == 'index'
+          @index($scope, $rootScope.customParams)
+
+    #### The index action
+    #
+    # @param [Object] $scope
+    #
+    # - The $scope object must be passed in to the method
+    #   since it is a public static method
+    #
+    index: ($scope, params) ->
+      columnTimeout = setTimeout(=>
+        $('.programming ul').columnize
+          columns: 4
+        clearTimeout columnTimeout
+      , 700)
+
 
     initCharts: () =>
       #-------------------- Animate D3JS Charts --------------------//
@@ -27,8 +46,8 @@ Application.Controllers.controller "AboutController", ["$rootScope", "$scope", "
 
       # Store current and interpolate to the new angles.
       arcTween = (a) ->
-        i = d3.interpolate(@_current, a)
-        @_current = i(0)
+        i = d3.interpolate(@current, a)
+        @current = i(0)
         (t) ->
           arc i(t)
 
@@ -60,81 +79,91 @@ Application.Controllers.controller "AboutController", ["$rootScope", "$scope", "
             .data([datalength])
             .enter()
             .append("rect")
+            .attr("width", 0)
             .attr("stroke", "none")
-            .attr("fill", "#93ccd9")
             .attr("x", 0)
             .attr("y", 0)
             .attr("height", 2)
-            .transition()
+
+          rects.transition()
             .duration(1000)
             .ease("elastic")
-            .delay(100 * index)
+            .delay(3000)
             .attr("width", datalength)
+
+          if datalength == "300"
+            rects.attr("fill", "#93ccd9")
+          else
+            rects.attr("fill", "#AAAAAA")
 
       animateCharts()
 
+
     initPieChart2: () ->
-      # width and height, natch
-      # arc radius
-      # duration, in milliseconds
-
-      # ---------------------------------------------------------------------
-
-      # GROUP FOR CENTER TEXT
-
-      # CENTER LABEL
-
-      # DRAW ARC PATHS
-
-      # DRAW SLICE LABELS
-
-      # --------- "PAY NO ATTENTION TO THE MAN BEHIND THE CURTAIN" ---------
-
       # Store the currently-displayed angles in this._current.
       # Then, interpolate from this._current to the new angles.
       arcTween = (a) ->
-        i = d3.interpolate(@_current, a)
-        @_current = i(0)
+        i = d3.interpolate(@current, a)
+        @current = i(0)
         (t) ->
           arc i(t)
 
       # update chart
       updateChart = (model) ->
-        data = eval_(model) # which model?
+        data = eval(model) # which model?
         arcs.data donut(data.pct) # recompute angles, rebind data
-        arcs.transition().ease("elastic").duration(dur).attrTween "d", arcTween
+        arcs.transition()
+          .ease("cubic-in-out")
+          .duration(dur)
+          .attrTween "d", arcTween
+
         sliceLabel.data donut(data.pct)
-        sliceLabel.transition().ease("elastic").duration(dur).attr("transform", (d) ->
-          "translate(" + arc.centroid(d) + ")"
-        ).style "fill-opacity", (d) ->
-          (if d.value is 0 then 1e-6 else 1)
+        sliceLabel.transition()
+          .ease("cubic-in-out")
+          .duration(dur).attr("transform", (d) ->
+            "translate(" + arc.centroid(d) + ")"
+          ).style "fill-opacity", (d) ->
+            (if d.value is 0 then 1e-6 else 1)
 
-        pieLabel.text data.label
-      agg =
-        label: "Design"
-        pct: [30, 10, 6, 30, 14, 10]
+        pieLabel.text data.legend
+      ui =
+        legend: "UI"
+        labels: ["Web", "Mobile", "Mobile Web", "Games", "Apps", "Flash"]
+        pct: [30, 10, 15, 10, 25, 10]
 
-      bal =
-        label: "Development"
-        pct: [24, 7, 2, 18, 13, 36]
+      ux =
+        legend: "UX"
+        labels: ["Web", "Mobile", "Mobile Web", "Games", "Apps", "Flash"]
+        pct: [50, 10, 10, 0, 25, 15]
 
-      mod =
-        label: "Moderate"
-        pct: [12, 4, 2, 10, 11, 61]
+      frontend =
+        legend: "Front End"
+        labels: ["Web", "Mobile", "Mobile Web", "Games", "Apps", "Flash"]
+        pct: [50, 5, 20, 10, 20, 5]
 
-      inc =
-        label: "Income"
-        pct: [0, 0, 0, 0, 0, 100]
+      backend =
+        legend: "Back End"
+        labels: ["Web", "Mobile", "Mobile Web", "Games", "Apps", "Flash"]
+        pct: [45, 15, 0, 0, 35, 15]
 
-      data = agg
-      labels = ["LCAP", "MCAP", "SCAP", "Intl", "Alt", "Fixed"]
+      data = ui
+      $('#experience a:first-child').addClass 'active'
+
+      # width and height
       w = 320
       h = 320
+      # arc radius
       r = Math.min(w, h) / 2
+      # duration, in milliseconds
+      that = this
       dur = 750
-      color = ["#edc900", "#93ccd9", "#e53517", "#FBC1B0", "#F36E46", "#067FAB"]
+      color = ["#93ccd9", "#e53517", "#FBC1B0", "#F36E46", "#067FAB", "#f6aa06"]
+
       donut = d3.layout.pie().sort(null)
-      arc = d3.svg.arc().innerRadius(r - 70).outerRadius(r - 20)
+      arc = d3.svg.arc()
+        .innerRadius(r - 100)
+        .outerRadius(r - 30)
+
       svg = d3.select("#piechart")
         .append("svg:svg")
         .attr("width", w)
@@ -144,43 +173,74 @@ Application.Controllers.controller "AboutController", ["$rootScope", "$scope", "
         .attr("class", "arcGrp")
         .attr("transform", "translate(" + (w / 2) + "," + (h / 2) + ")")
 
+      # Group for labels
       label_group = svg.append("svg:g")
         .attr("class", "lblGroup")
         .attr("transform", "translate(" + (w / 2) + "," + (h / 2) + ")")
 
+      # Group for center text
       center_group = svg.append("svg:g")
         .attr("class", "ctrGroup")
         .attr("transform", "translate(" + (w / 2) + "," + (h / 2) + ")")
 
+      # Center label
       pieLabel = center_group.append("svg:text")
         .attr("dy", "10px")
         .attr("class", "chartLabel")
         .attr("text-anchor", "middle")
-        .text(data.label)
-        .attr("fill", "#ffffff")
+        .text(data.legend)
+        .attr("font-size", "15px")
+        .attr("fill", "white")
 
+      # Draw slice labels
+      sliceLabel = label_group.selectAll("text")
+        .data(donut(data.pct))
+        .enter()
+        .append("svg:text")
+        .attr("class", "arcLabel")
+        .attr("class", (d, i) ->
+          "arc#{i}"
+        )
+        .attr("transform", (d) ->
+          "translate(" + arc.centroid(d) + ")"
+        ).attr("text-anchor", "middle").text (d, i) ->
+          data.labels[i]
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "12px")
+        .attr("fill", "white")
+
+
+      # Draw arc paths
       arcs = arc_grp.selectAll("path")
         .data(donut(data.pct))
         .enter()
         .append("svg:path")
         .attr("fill", (d, i) ->
           color[i]
-        ).attr("d", arc).each (d) ->
-          @_current = d
-
-      sliceLabel = label_group.selectAll("text")
-        .data(donut(data.pct))
-        .enter()
-        .append("svg:text")
-        .attr("class", "arcLabel")
-        .attr("transform", (d) ->
-          "translate(" + arc.centroid(d) + ")"
-        ).attr("text-anchor", "middle").text (d, i) ->
-          labels[i]
-        .attr("fill", "#ffffff")
+        )
+        .attr("d", arc).each((d) ->
+          @current = d
+        )
+        # .on("mouseover", (d, i) ->
+        #   d3.select(this)
+        #     .transition()
+        #     .ease("cubic-in-out")
+        #     .duration(500)
+        #     .attr("opacity", "0.5")
+        # )
+        # .on("mouseout", (d, i) ->
+        #   d3.select(this)
+        #     .transition()
+        #     .ease("cubic-in-out")
+        #     .duration(500)
+        #     .attr("opacity", "1")
+        # )
 
       # click handler
-      $("#objectives a").click ->
+      $(document).on 'click', "#experience a", (e) ->
+        e.preventDefault()
+        $(this).parent().find('a.active').removeClass 'active'
+        $(this).addClass 'active'
         updateChart @href.slice(@href.indexOf("#") + 1)
 
 

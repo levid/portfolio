@@ -12,10 +12,10 @@
           %div
             .text
               %p.large
-                Hi there, I'm an UI/UX Designer & Web Developer based in Orange County, CA.
+                Hi there, my name is Isaac Wooten. I'm an UI/UX Designer & Web Developer currently residing in Orange County, CA.
               .divider
               %p.small
-                I enjoy designing and developing responsive websites, web applications, mobile applications, games, print, typography and branding.
+                I enjoy designing and developing responsive websites, real-time web applications, mobile applications, single-page apps, all kinds of games, print media, typography and branding.
 
               / %p.small
               /   Hey, my name is Jonathan Krause - I would call myself a front-end developer (you know those job titles). I am currently living in Berlin, Germany, working full-time at Edenspiekermann. I am a passionate web developer with a strong focus on pragmatism and agile development. I love responsive, not over-engineered (form- and function-wise) user interfaces that are highly usable and bring real value to people. I also appreciate logical and typography-driven design approaches. Therefore I strive to use technologies and methodologies that deliver the best possible user experience. I like tinkering with front-end performance and the latest HTML, CSS and JavaScript stuff. To complete the story, I want to mention that I have a degree in application development and in the past used to work in the more enterprise-oriented business. Besides that I love dogs, aquariums, nature in generall and enjoy people that take themselves not too seriously.
@@ -34,7 +34,7 @@
               .toolbox-header{"data-length" => "300"} UI / UX
               .toolbox-item
 
-              .toolbox-header{"data-length" => "230"} Frontend Development
+              .toolbox-header{"data-length" => "300"} Frontend Development
               .toolbox-item
 
               .toolbox-header{"data-length" => "200"} Backend Development
@@ -52,51 +52,363 @@
               .toolbox-header{"data-length" => "290"} Print Design
               .toolbox-item
 
-              .toolbox-header{"data-length" => "210"} Branding
-              .toolbox-item
-
-              .toolbox-header{"data-length" => "250"} Identity
+              .toolbox-header{"data-length" => "220"} Branding & Identity
               .toolbox-item
 
 
             .skills
-              %h4 &nbsp;
-              .toolbox-header{"data-length" => "145"} HTML5
+              %h4 Tools
+              .toolbox-header{"data-length" => "300"} HTML5 / HAML
               .toolbox-item
 
-              .toolbox-header{"data-length" => "230"} CSS3
+              .toolbox-header{"data-length" => "300"} CSS3 / SASS
               .toolbox-item
 
-              .toolbox-header{"data-length" => "200"} Javascript / jQuery
+              .toolbox-header{"data-length" => "300"} JavaScript / CoffeeScript
               .toolbox-item
 
-              .toolbox-header{"data-length" => "250"} Photoshop
+              .toolbox-header{"data-length" => "300"} Ruby / Rails / Padrino / PHP
               .toolbox-item
 
-              .toolbox-header{"data-length" => "200"} MVC4 Razor (C#)
+              .toolbox-header{"data-length" => "300"} MySQL / MongoDB / PostgresSQL
               .toolbox-item
 
-              .toolbox-header{"data-length" => "220"} SEO / PPC
+              .toolbox-header{"data-length" => "220"} Node.js
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "300"} Flash ActionScript 1, 2 & 3
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "300"} Photoshop
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "220"} Illustrator
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "180"} After Effects
+              .toolbox-item
+
+              .toolbox-header{"data-length" => "90"} Maya
               .toolbox-item
 
             .skills
+              %h4 Experience
+              #experience
+                %a{:href => "#ui"} UI
+                %a{:href => "#ux"} UX
+                %a{:href => "#frontend"} Front End
+                %a{:href => "#backend"} Back End
               #piechart
 
+
           %div
-            %a{:href => '#'} CV
+            .text
+              / .divider
+              %h3 Colophon
+              .divider
+              %p.small
+                This portfolio site is the outcome of experimenting with Node.js, Sails.js and Angular.js.
+                %br/
+                Download the full project source code at:
+                %i.icon-portfolio-github.teal
+                %a.teal{:"ng-href" => 'https://github.com/levid/portfolio', :target => '_blank'}
+                  github.com/levid/portfolio
+              .divider
+              %p.medium
+                Here is a full list of tools and libraries I used to create this site in case you are interested.
+              .divider
 
+          .list-container
+            .list
+              %h4 JavaScript Libraries
+              %table
+                %tr
+                  %th Name
+                  %th For
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://jquery.com/', :target => '_blank'}
+                      jQuery
+                  %td
+                    DOM Manipulation
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://gsgd.co.uk/sandbox/jquery/easing/', :target => '_blank'}
+                      Easing
+                  %td
+                    Animation Easing Methods
+                %tr
+                  %td
+                    %a{:"ng-href" => 'https://github.com/jquery/jquery-migrate/', :target => '_blank'}
+                      Migrate
+                  %td
+                    API's and features removed from jQuery core
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://tutorialzine.com/2011/09/shuffle-letters-effect-jquery/', :target => '_blank'}
+                      Shuffle Letters
+                  %td
+                    Letter Shuffling Goodness
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://isotope.metafizzy.co/', :target => '_blank'}
+                      Isotope
+                  %td
+                    Portfolio Fluid Grid
+                %tr
+                  %td
+                    %a{:"ng-href" => 'https://github.com/alexanderdickson/waitForImages', :target => '_blank'}
+                      Wait For Images
+                  %td
+                    Image Preloading
+                %tr
+                  %td
+                    %a{:"ng-href" => 'https://github.com/cowboy/jquery-tiny-pubsub', :target => '_blank'}
+                      Tiny PubSub
+                  %td
+                    Simple PubSub Event System
+                %tr
+                  %td
+                    %a{:"ng-href" => 'https://github.com/stanlemon/jGrowl', :target => '_blank'}
+                      jGrowl
+                  %td
+                    Simple Growl Notifications
+                %tr
+                  %td
+                    %a{:"ng-href" => 'https://github.com/brandonaaron/jquery-mousewheel', :target => '_blank'}
+                      Mouse Wheel
+                  %td
+                    Mouse Wheel Scrolling
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://manos.malihu.gr/jquery-custom-content-scroller/', :target => '_blank'}
+                      Custom Content Scroller
+                  %td
+                    Simple Custom Content Scroller
+                %tr
+                  %td
+                    %a{:"ng-href" => 'https://github.com/paulirish/infinite-scroll', :target => '_blank'}
+                      Infinite Scroll
+                  %td
+                    Portfolio Grid Infinite Scrolling
+                %tr
+                  %td
+                    %a{:"ng-href" => 'https://github.com/paulirish/infinite-scroll', :target => '_blank'}
+                      Infinite Scroll
+                  %td
+                    Portfolio Grid Infinite Scrolling
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://jqueryui.com/', :target => '_blank'}
+                      jQuery UI
+                  %td
+                    Additional Effects
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://fgnass.github.io/spin.js/', :target => '_blank'}
+                      Spin
+                  %td
+                    Loading Spinners
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://twitter.github.io/bootstrap/', :target => '_blank'}
+                      Bootstrap Tooltips
+                  %td
+                    Context Tooltips
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://twitter.github.io/bootstrap/', :target => '_blank'}
+                      Bootstrap Tooltips
+                  %td
+                    Tooltips
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://modernizr.com/', :target => '_blank'}
+                      Modernizr
+                  %td
+                    Feature Detection and Support
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://imakewebthings.com/jquery-waypoints/', :target => '_blank'}
+                      Waypoints
+                  %td
+                    Scroll Location Detection
+                %tr
+                  %td
+                    %a{:"ng-href" => 'https://github.com/adamwulf/Columnizer-jQuery-Plugin', :target => '_blank'}
+                      Columnizer
+                  %td
+                    Multi-column layouts
 
+            .list
+              %h4 Development Tools
+              %table
+                %tr
+                  %th Name
+                  %th For
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://www.ruby-lang.org/', :target => '_blank'}
+                      Ruby
+                  %td
+                    Portfolio Admin Tool
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://rubyonrails.org/', :target => '_blank'}
+                      Rails
+                  %td
+                    Portfolio Admin Tool
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://haml.info/', :target => '_blank'}
+                      HAML
+                  %td
+                    HTML Creation
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://sass-lang.com/', :target => '_blank'}
+                      SASS
+                  %td
+                    CSS Creation
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://icomoon.io/', :target => '_blank'}
+                      Icomoon
+                  %td
+                    Icon Web-Font Generator
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://rmagick.rubyforge.org/', :target => '_blank'}
+                      RMagick
+                  %td
+                    Processing Portfolio Images
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://nodejs.org/', :target => '_blank'}
+                      Node.js
+                  %td
+                    Backend
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://sailsjs.com/', :target => '_blank'}
+                      Sails.js
+                  %td
+                    Real-time Backend API Framework
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://angularjs.org/', :target => '_blank'}
+                      Angular.js
+                  %td
+                    Frontend JavaScript framework
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://d3js.org/', :target => '_blank'}
+                      D3.js
+                  %td
+                    SVG Charts
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://socket.io/', :target => '_blank'}
+                      Socket.io
+                  %td
+                    Real-time Data
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://www.mongodb.org/', :target => '_blank'}
+                      Mongo DB
+                  %td
+                    Database Storage
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://coffeescript.org/', :target => '_blank'}
+                      CoffeeScript
+                  %td
+                    Frontend Development
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://aws.amazon.com/s3/', :target => '_blank'}
+                      Amazon S3
+                  %td
+                    Image Storage
+                %tr
+                  %td
+                    %a{:"ng-href" => 'https://www.heroku.com/', :target => '_blank'}
+                      Heroku
+                  %td
+                    Server Hosting
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://www.sublimetext.com/2', :target => '_blank'}
+                      Sublime Text 2
+                  %td
+                    IDE
+                %tr
+                  %td
+                    %a{:"ng-href" => 'github.com', :target => '_blank'}
+                      GitHub
+                  %td
+                    Code Repository
 
-          / #pie-chart
-          /   %span#label1.chart-label{:style => "display: inline;"} Responsive Development
-          /   %svg#line1.chart-line{:style => "display: inline;"}
-          /     %line{:style => "stroke:rgb(21,21,21);stroke-width:1", :x1 => "0", :x2 => "25", :y1 => "0", :y2 => "25"}
-          /   %span#label2.chart-label{:style => "display: inline;"} Social Media
-          /   %svg#line2.chart-line{:style => "display: inline;"}
-          /     %line{:style => "stroke:rgb(21,21,21);stroke-width:1", :x1 => "25", :x2 => "0", :y1 => "0", :y2 => "25"}
-          /   %span#label3.chart-label{:style => "display: inline;"} UI Design
-          /   %svg#line3.chart-line{:style => "display: inline;"}
-          /     %line{:style => "stroke:rgb(21,21,21);stroke-width:1", :x1 => "0", :x2 => "25", :y1 => "0", :y2 => "25"}
-          /   %span#label4.chart-label{:style => "display: inline;"} Performance Testing
-          /   %svg#line4.chart-line{:style => "display: inline;"}
-          /     %line{:style => "stroke:rgb(21,21,21);stroke-width:1", :x1 => "25", :x2 => "0", :y1 => "0", :y2 => "25"}
+            .list
+              %h4 Design Tools
+              %table
+                %tr
+                  %th Name
+                  %th For
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://www.creativesoutfitter.com/product/34/dot-grid-book', :target => '_blank'}
+                      Dot Grid Book
+                  %td
+                    UX Wireframing
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://www.spoke-design.com/', :target => '_blank'}
+                      Spoke Pencil
+                  %td
+                    UX Wireframing
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://www.adobe.com/products/photoshop.html', :target => '_blank'}
+                      Photoshop
+                  %td
+                    UI Design
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://www.adobe.com/products/illustrator.html', :target => '_blank'}
+                      Illustrator
+                  %td
+                    Branding Design
+                %tr
+                  %td
+                    %a{:"ng-href" => 'https://typekit.com/fonts/proxima-nova', :target => '_blank'}
+                      Proxima Nova
+                  %td
+                    Primary Typeface
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://www.myfonts.com/fonts/adobe/helvetica-neue/', :target => '_blank'}
+                      Helvetica Neue
+                  %td
+                    Secondary Typeface
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://iconmonstr.com/', :target => '_blank'}
+                      Iconmonstr
+                  %td
+                    Icons
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://thenounproject.com/', :target => '_blank'}
+                      The Noun Project
+                  %td
+                    Icons
+                %tr
+                  %td
+                    %a{:"ng-href" => 'http://www.widewallpapers.net/', :target => '_blank'}
+                      Wide Wallpapers
+                  %td
+                    Background Themes
+
+          / %div
+          /   %a{:href => '#'} CV

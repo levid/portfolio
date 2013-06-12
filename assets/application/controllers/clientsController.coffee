@@ -29,16 +29,27 @@ Application.Controllers.controller "ClientsController", ["$rootScope", "$scope",
     #   since it is a public static method
     #
     index: ($scope, params) ->
-      clientsArr = [{}]
-      clients = Clients.query((client) ->
-        $.each client, (k, v) =>
-
-        $.extend(clientsArr, client, clientsArr)
+      clientsArr = []
+      startupsArr = []
+      clients = Clients.findAll((clients) ->
+        $.each clients, (k, v) =>
+          if v.is_startup is true
+            startupsArr.push(v)
+          else if v.is_startup is false
+            clientsArr.push(v)
       , (error) ->
         console.log error
       )
 
       $scope.clients = clientsArr
+      $scope.startups = startupsArr
+      $scope.predicate = 'name'
+
+      columnTimeout = setTimeout(=>
+        $('.clients ul').columnize
+          columns: 4
+        clearTimeout columnTimeout
+      , 700)
 
     #### The new action
     #

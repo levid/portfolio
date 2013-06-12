@@ -3,4 +3,110 @@
     .innerContent
       %div{:"ng-include" => '', :src => "'views/partials/user-header.html'"}
 
-      Contact Content
+      .info-container
+        .content
+          %h3 Contact
+          %div
+            .text
+              %p.large
+                I am currently working full-time at
+                %a.teal{:href => 'http://columnfivemedia.com/', :target => '_blank'} Column Five Media
+                but I am also available for freelance projects. I would love to hear from you!
+              .divider
+              %p.small
+                If you have any questions please use the contact form or choose a method below.
+              .divider
+
+          .list-container
+            .list
+              %h4
+                Contact Form
+                .spinner
+              .divider
+              %form{:id => "contact-form", :"ng-submit" => "contactMe()", :name => "contactForm", :class => "css-form", :novalidate => ''}
+                / %span.error{:"ng-show" => "contactForm.$error.required"} Required!
+                / %span.error{:"ng-show" => "contactForm.$error.url"} Invalid URL Format!
+                / %div{:"ng-show" => "contactForm.contact.email.$dirty && contactForm.contact.email.$invalid"}
+                /   Invalid:
+                /   %span{:"ng-show" => "contactForm.contact.email.$error.required"} Tell us your email.
+                /   %span{:"ng-show" => "contactForm.contact.email.$error.email"} This is not a valid email.
+
+                %table
+                  %tr
+                    %td
+                      %label{:for => "name"}
+                        Name
+                        %span{:class => "required"}*
+                    %td
+                      %input#name{:"data-ng-model" => "contact.name", :required => "", :type => "text", :placeholder => 'Full Name'}/
+                  %tr
+                    %td
+                      %label{:for => "email"}
+                        Email
+                        %span{:class => "required"}*
+                    %td
+                      %input{:"data-ng-model" => "contact.email", :required => "", :type => "email", :placeholder => "Email Address"}/
+                      .input-help
+                        %h4 This is not a valid email address.
+                  %tr
+                    %td
+                      %label{:for => "phone"} Phone Number
+                    %td
+                      %input{:"data-ng-model" => "contact.phone", :type => "text", :placeholder => 'Phone Number'}/
+                  %tr
+                    %td
+                      %label{:for => "website"} Your Website
+                    %td
+                      %input{:"data-ng-model" => "contact.website", :type => "url", :placeholder => 'http://'}/
+                      .input-help
+                        %h4 This is not a valid URL.
+                  %tr
+                    %td
+                      %label{:for => "message"}
+                        Your Message
+                        %span{:class => "required"}*
+                    %td
+                      %textarea{:"data-ng-model" => "contact.message", :required => "", :type => "text", :placeholder => 'Message', :rows => 4}
+
+                %span.small.pull-left.required * Required Fields
+                %button.submit.pull-right{:"ng-disabled" => "contactForm.$invalid", :type => "submit"}
+                  %i.icon-portfolio-email.teal
+                  Send
+
+            .list
+              %h4 Other Methods
+              .divider
+              %table
+                / %tr
+                /   %th Type
+                /   %th Link
+                %tr
+                  %td
+                    Email
+                  %td
+                    %a{:href => "mailto:isaac@levid.com?subject=General Inquiry", :rel => "external", :target => '_blank'} isaac@levid.com
+                %tr
+                  %td
+                    Twitter
+                  %td
+                    %a{:href => "https://twitter.com/iwooten", :rel => "external", :target => '_blank'} @iwooten
+                %tr
+                  %td
+                    GitHub
+                  %td
+                    %a{:href => "https://github.com/levid", :rel => "external", :target => '_blank'} github.com/levid
+                %tr
+                  %td
+                    Linkedin
+                  %td
+                    %a{:href => "http://www.linkedin.com/in/levid", :rel => "external", :target => '_blank'} linkedin.com/in/levid
+                %tr
+                  %td
+                    Dribbble
+                  %td
+                    %a{:href => "http://dribbble.com/levid", :rel => "external", :target => '_blank'} dribbble.com/levid
+                %tr
+                  %td
+                    Behance
+                  %td
+                    %a{:href => "http://www.behance.net/levid", :rel => "external", :target => '_blank'} behance.net/levid

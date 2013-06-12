@@ -1,8 +1,162 @@
 <script id='views/contact.html' type='text/ng-template'>
-  <section class='sub contact'>
-    <div class='innerContent'>
-      <div ng-include='' src="'views/partials/user-header.html'"></div>
-      Contact Content
-    </div>
-  </section>
+<section class='sub contact'>
+<div class='innerContent'>
+<div ng-include='' src="'views/partials/user-header.html'"></div>
+<div class='info-container'>
+<div class='content'>
+<h3>Contact</h3>
+<div>
+<div class='text'>
+<p class='large'>
+I am currently working full-time at
+<a class='teal' href='http://columnfivemedia.com/' target='_blank'>Column Five Media</a>
+but I am also available for freelance projects. I would love to hear from you!
+</p>
+<div class='divider'></div>
+<p class='small'>
+If you have any questions please use the contact form or choose a method below.
+</p>
+<div class='divider'></div>
+</div>
+</div>
+<div class='list-container'>
+<div class='list'>
+<h4>
+Contact Form
+<div class='spinner'></div>
+</h4>
+<div class='divider'></div>
+<form class='css-form' id='contact-form' name='contactForm' ng-submit='contactMe()' novalidate=''>
+<!-- %span.error{:"ng-show" => "contactForm.$error.required"} Required! -->
+<!-- %span.error{:"ng-show" => "contactForm.$error.url"} Invalid URL Format! -->
+<!-- %div{:"ng-show" => "contactForm.contact.email.$dirty && contactForm.contact.email.$invalid"} -->
+<!-- Invalid: -->
+<!-- %span{:"ng-show" => "contactForm.contact.email.$error.required"} Tell us your email. -->
+<!-- %span{:"ng-show" => "contactForm.contact.email.$error.email"} This is not a valid email. -->
+<table>
+<tr>
+<td>
+<label for='name'>
+Name
+<span class='required'>*</span>
+</label>
+</td>
+<td>
+<input data-ng-model='contact.name' id='name' placeholder='Full Name' required='' type='text'>
+</td>
+</tr>
+<tr>
+<td>
+<label for='email'>
+Email
+<span class='required'>*</span>
+</label>
+</td>
+<td>
+<input data-ng-model='contact.email' placeholder='Email Address' required='' type='email'>
+<div class='input-help'>
+<h4>This is not a valid email address.</h4>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<label for='phone'>Phone Number</label>
+</td>
+<td>
+<input data-ng-model='contact.phone' placeholder='Phone Number' type='text'>
+</td>
+</tr>
+<tr>
+<td>
+<label for='website'>Your Website</label>
+</td>
+<td>
+<input data-ng-model='contact.website' placeholder='http://' type='url'>
+<div class='input-help'>
+<h4>This is not a valid URL.</h4>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<label for='message'>
+Your Message
+<span class='required'>*</span>
+</label>
+</td>
+<td>
+<textarea data-ng-model='contact.message' placeholder='Message' required='' rows='4' type='text'></textarea>
+</td>
+</tr>
+</table>
+<span class='small pull-left required'>* Required Fields</span>
+<button class='submit pull-right' ng-disabled='contactForm.$invalid' type='submit'>
+<i class='icon-portfolio-email teal'></i>
+Send
+</button>
+</form>
+</div>
+<div class='list'>
+<h4>Other Methods</h4>
+<div class='divider'></div>
+<table>
+<!-- %tr -->
+<!-- %th Type -->
+<!-- %th Link -->
+<tr>
+<td>
+Email
+</td>
+<td>
+<a href='mailto:isaac@levid.com?subject=General Inquiry' rel='external' target='_blank'>isaac@levid.com</a>
+</td>
+</tr>
+<tr>
+<td>
+Twitter
+</td>
+<td>
+<a href='https://twitter.com/iwooten' rel='external' target='_blank'>@iwooten</a>
+</td>
+</tr>
+<tr>
+<td>
+GitHub
+</td>
+<td>
+<a href='https://github.com/levid' rel='external' target='_blank'>github.com/levid</a>
+</td>
+</tr>
+<tr>
+<td>
+Linkedin
+</td>
+<td>
+<a href='http://www.linkedin.com/in/levid' rel='external' target='_blank'>linkedin.com/in/levid</a>
+</td>
+</tr>
+<tr>
+<td>
+Dribbble
+</td>
+<td>
+<a href='http://dribbble.com/levid' rel='external' target='_blank'>dribbble.com/levid</a>
+</td>
+</tr>
+<tr>
+<td>
+Behance
+</td>
+<td>
+<a href='http://www.behance.net/levid' rel='external' target='_blank'>behance.net/levid</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 </script>

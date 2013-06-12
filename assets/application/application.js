@@ -115,16 +115,31 @@ angular.module('application', ['ngResource', 'application.filters', 'application
       }).
       when('/about', {
         templateUrl: 'views/about.html',
-        controller: 'AboutController'
+        controller: 'AboutController',
+        customParams: {
+          action: 'index'
+        }
       }).
       when('/contact', {
-        templateUrl: 'views/contact.html'
+        templateUrl: 'views/contact.html',
+        controller: 'ContactController',
+        customParams: {
+          action: 'index'
+        }
       }).
       when('/clients', {
-        templateUrl: 'views/clients.html'
+        templateUrl: 'views/clients.html',
+        controller: 'ClientsController',
+        customParams: {
+          action: 'index'
+        }
       }).
       when('/cv', {
-        templateUrl: 'views/cv.html'
+        templateUrl: 'views/cv.html',
+        controller: 'AboutController',
+        customParams: {
+          action: 'index'
+        }
       }).
       when('/view1', {
         templateUrl: 'views/partials/partial1.html'

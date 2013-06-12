@@ -12,7 +12,8 @@
         "sails-mongo": "latest",
         "socket.io": "0.9.14",
         "bcrypt": "0.7.5",
-        "forever": "latest"
+        "forever": "latest",
+        "nodemailer": "latest"
     },
     "scripts": {
         "start": "node .app.js",
@@ -23,7 +24,7 @@
     "author": "Isaac Wooten",
     "license": "MIT",
     "engines": {
-        "node": "0.8.x"
+        "node": "0.10.x"
     },
     "subdomain": "levid-isaac-portfolio-2013"
 }

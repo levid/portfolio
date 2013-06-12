@@ -8,11 +8,17 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
   # @todo add a proper error handler
   #
   class ProjectController
+    opts:
+      projectInfoOverlay: undefined
+      inView:             undefined
+      previousView:       undefined
 
     #### It's always nice to have a constructor to keep things organized
     #
     constructor: () ->
       @initScopedMethods()
+
+      @projectInfoOverlay = $('.project-info-overlay')
 
       if $rootScope.customParams
         if $rootScope.customParams.action == 'index'
@@ -22,7 +28,10 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
 
       $scope.s3_path = configuration.s3_path
       $scope.category = $rootScope.customParams.category
+
       # $.subscribe('resize.Portfolio', @initAfterViewContentLoadedProxy('resize.Portfolio'))
+
+      $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
 
       # return this to make this class chainable
       this
@@ -30,11 +39,52 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
     initAfterViewContentLoadedProxy: () ->
       # Skip the first argument (event object) but log the other args.
       (_, options) =>
-        setWidth = (options) =>
-          $('.thumbnails-show-view').css width: ($(window).width() - options.widthDifference) - options.rightMargin
-        $(window).resize =>
-          setWidth(options)
-        setWidth(options)
+        screenshotTimeout = setTimeout(=>
+          $('.thumbnails-show-view').waitForImages (=>
+            @setWaypoints('.block', '#main')
+            $UI.hideSpinner $('.info-container').find('.spinner')
+
+            if $UI.Constants.sidebarMenuOpen is true
+              Portfolio.openSidebarMenu()
+            else
+              Portfolio.openSidebar()
+
+            # setWidth = (options) =>
+            #   $('.thumbnails-show-view').css
+            #     width: ($(window).width()) - 70
+            #     left: -40
+
+            # $(window).resize =>
+            #   setWidth(options)
+            # setWidth(options)
+
+            console.log "All screenshots have loaded."
+
+          ),((loaded, count, success) ->
+            console.log loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
+            $(this).addClass "loaded"
+          ), true
+          clearTimeout screenshotTimeout
+        , 1000)
+
+    setWaypoints: (element, context) ->
+      self = this
+      $(element).waypoint
+        context: context
+        # offset: 50
+        handler: (direction) ->
+          self.projectInfoOverlay.fadeOut()
+
+          description       = $(this).find('.description').text()
+          self.previousView = self.inView
+          self.inView       = description
+
+          # unless self.previousView is self.inView
+          if direction is 'down'
+            if description.length > 0
+              self.projectInfoOverlay.fadeIn()
+              projectOverlay = self.projectInfoOverlay.find('p')
+              projectOverlay.text description
 
     #### The index action
     #
@@ -159,7 +209,8 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
 
       $UI.Constants.actionPath = $rootScope.customParams.action
 
-      console.log $routeParams
+
+
       if $routeParams.slug
         projectsArr = [{}]
         projects = Projects.find(
@@ -205,10 +256,40 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
               project.technologies = technologies
 
           $.extend(projectsArr, project, projectsArr)
+
+          columnTimeout = setTimeout(=>
+            $('.project-info li').each ->
+              title = $(this).attr('rel')
+              # $(this).attr('data-content', "#{title}")
+            $('.project-info').columnize
+              columns: 2
+
+            # $('.thumbnails-show-view').waypoint
+            #   context: '#main'
+            #   offset: 30
+            #   handler: (direction) ->
+            #     $('.info-container').toggleClass 'sticky'
+
+            clearTimeout columnTimeout
+          , 700)
+
+          $UI.showSpinner $('.info-container').find('.spinner'),
+            lines: 12
+            length: 0
+            width: 3
+            radius: 10
+            color: '#ffffff'
+            speed: 1.6
+            trail: 45
+            shadow: false
+            hwaccel: false
+
         , (error) ->
           console.log error
         )
+
         $scope.project = projectsArr
+
 
     #### Get current scope
     #

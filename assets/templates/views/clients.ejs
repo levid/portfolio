@@ -1,8 +1,48 @@
 <script id='views/clients.html' type='text/ng-template'>
-  <section class='sub clients'>
-    <div class='innerContent'>
-      <div ng-include='' src="'views/partials/user-header.html'"></div>
-      Clients Content
-    </div>
-  </section>
+<section class='sub clients'>
+<div class='innerContent'>
+<div ng-include='' src="'views/partials/user-header.html'"></div>
+<div class='info-container'>
+<div class='content'>
+<h3>Clients</h3>
+<div>
+<div class='text'>
+<p class='large'>
+I have had the pleasure of working with many companies from around the world on all kinds of fun projects.
+</p>
+<div class='divider'></div>
+<p class='small'>
+Here are a few of the clients I have worked with:
+</p>
+<div class='divider'></div>
+</div>
+</div>
+<div class='list-container'>
+<div class='list clients'>
+<h4>Startups</h4>
+<ul>
+<li class='client' ng-repeat='startup in startups | orderBy:predicate'>
+<a ng-href='{{startup.url}}' target='_blank'>
+{{startup.name}}
+</a>
+</li>
+</ul>
+</div>
+</div>
+<div class='list-container'>
+<div class='list clients'>
+<h4>Other</h4>
+<ul>
+<li class='client' ng-repeat='client in clients | orderBy:predicate'>
+<a ng-href='{{client.url}}' target='_blank'>
+{{client.name}}
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 </script>

@@ -137,7 +137,7 @@ class ImageGrid extends Portfolio.UI
         @thumbContainer.css width: cols - 0.5
         @thumbContainer.find('img').css width: cols - 0.5
 
-      @containerEl.imagesLoaded =>
+      $('.thumbnails').imagesLoaded =>
         @containerEl.isotope
           itemSelector: '.thumb'
           animationEngine: 'jquery'

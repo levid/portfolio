@@ -26,7 +26,7 @@ footer {
     top: -5px;
 
     img {
-      @include transition(all .1s ease-in-out);
+      @include transition(all .2s ease-in-out);
     }
 
     &:hover {
@@ -35,7 +35,7 @@ footer {
       }
 
       img {
-        @include transform-scale(scale(1.3));
+        @include transform-scale(scale(0.9));
       }
     }
   }

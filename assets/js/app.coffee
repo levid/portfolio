@@ -40,9 +40,9 @@ class Portfolio
       $("section.content .innerContent").css minHeight: $(document).innerHeight()
 
     $(window).resize =>
-
       $("section.content .innerContent").css width: $(window).width()
       $("section.content .innerContent").css minHeight: $(document).innerHeight()
+
     $(window).load =>
       # $UI.hideLoadingScreen()
       # $UI.Constants.imageGrid.buildGrid()
@@ -89,7 +89,7 @@ class Portfolio
   initTooltips: () ->
     $(".tooltips").tooltip
       container: 'body'
-      placement: 'right'
+      # placement: 'right'
 
   initAfterViewContentLoaded: (path) ->
     $UI.scrollTop()

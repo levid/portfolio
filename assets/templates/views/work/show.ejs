@@ -1,56 +1,76 @@
 <script id='views/work/show.html' type='text/ng-template'>
 <section class='sub work show view'>
 <div class='innerContent'>
-<div ng-include='' src="'views/partials/user-header.html'"></div>
-<div class='info-container'>
+<!-- %div{:"ng-include" => '', :src => "'views/partials/user-header.html'"} -->
+<div class='info-container tall'>
 <div class='content'>
-<!-- .sort-by{"data-option-key" => "sortBy"} -->
-<!-- %a{"data-option-value" => "strategy", :href => "#sortBy=strategy"} -->
-<!-- strategy -->
-<!-- %a{"data-option-value" => "brand", :href => "#sortBy=brand"} -->
-<!-- brand -->
-<!-- %a{"data-option-value" => "web", :href => "#sortBy=web"} -->
-<!-- web -->
-<!-- %a{"data-option-value" => "graphic", :href => "#sortBy=graphic"} -->
-<!-- graphic -->
-<!-- %a{"data-option-value" => "int", :href => "#sortBy=int"} -->
-<!-- int -->
-<h3>{{project.name}}</h3>
-<div class='block'>
-<table>
-<tr>
-<td>Url</td>
-<td>
-<a ng-href='{{project.url}}'>{{project.url || 'N/A'}}</a>
-</td>
-</tr>
-<tr>
-<td>Year</td>
-<td>
-<div>{{project.date | date:'yyyy' || 'N/A'}}</div>
-</td>
-</tr>
-<tr>
-<td>Description</td>
-<td>
-<div>{{project.description || 'N/A'}}</div>
-</td>
-</tr>
-<tr ng-show='project.tags &amp;&amp; project.tags.length &gt; 0'>
-<td>Tags</td>
-<td>
-<div>{{(project.tags).join(', ') || 'N/A'}}</div>
-</td>
-</tr>
-</table>
-</div>
+<h3>
+{{project.name}}
+<div class='spinner'></div>
+</h3>
 <div class='buttons'>
 <a class='btn btn-back' ng-click='goBack()' ng-href=''>
 <i class='icon-portfolio-arrow-left'></i>
-<!-- Back -->
 </a>
 </div>
+<div class='block'>
+<ul class='project-info'>
+<li>
+<table>
+<tr>
+<td>URL</td>
+<td>
+<a ng-href='{{project.url}}' target='_blank'>{{project.url || 'N/A'}}</a>
+</td>
+</tr>
+</table>
+</li>
+<li>
+<table>
+<tr>
+<td>Year</td>
+<td>{{project.date | date:'yyyy' || 'N/A'}}</td>
+</tr>
+</table>
+</li>
+<li>
+<table>
+<tr>
+<td>Categories</td>
+<td>{{(project.categories).join(', ').toLowerCase() || 'N/A'}}</td>
+</tr>
+</table>
+</li>
+<li>
+<table>
+<tr>
+<td>Technologies</td>
+<td>{{(project.technologies).join(', ').toLowerCase() || 'N/A'}}</td>
+</tr>
+</table>
+</li>
+<li ng-show='project.tags &amp;&amp; project.tags.length &gt; 0' rel='tags'>
+<table>
+<tr>
+<td>Tags</td>
+<td>{{(project.tags).join(', ') || 'N/A'}}</td>
+</tr>
+</table>
+</li>
+<li rel='description'>
+<table>
+<tr>
+<td>Description</td>
+<td>{{project.description || 'N/A'}}</td>
+</tr>
+</table>
+</li>
+</ul>
 </div>
+</div>
+</div>
+<div class='project-info-overlay'>
+<p></p>
 </div>
 <div class='thumbnails-show-view'>
 <div ng-repeat='image in project.image_paths'>
@@ -72,11 +92,11 @@
 </div>
 <div class='block' ng-switch-when='image_filename'>
 <img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}'>
-<div class='info' data-ng-show='image.description'>{{image.description}}</div>
+<div class='info description hide' data-ng-show='image.description'>{{image.description}}</div>
 </div>
 <div class='block' ng-switch-when='file_filename'>
 <img ng-src='{{s3_path}}/image/screenshots/{{image.id}}/{{val}}'>
-<div class='info' data-ng-show='image.description'>{{image.description}}</div>
+<div class='info description hide' data-ng-show='image.description'>{{image.description}}</div>
 </div>
 </div>
 </div>

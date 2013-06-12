@@ -47,6 +47,9 @@ class Sidebar extends Portfolio.UI
     @initSidebar()
     @enableButtons()
 
+    Portfolio.openSidebar     = => @openSidebar()
+    Portfolio.openSidebarMenu = => @openSidebarMenu()
+
     $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
 
     # return this to make this class chainable
@@ -173,7 +176,6 @@ class Sidebar extends Portfolio.UI
 
     containerWidth = ($(window).width() - $(@sidebarNavEl).width()) - 16
     $(@contentEl).css width: containerWidth
-
     $(@thumbnailsEl).css width: containerWidth
 
     $(@lensFlareEl).css left: 310
@@ -219,7 +221,6 @@ class Sidebar extends Portfolio.UI
 
     containerWidth = $(window).width() - 70
     $(@contentEl).css width: containerWidth
-
     $(@thumbnailsEl).css width: containerWidth
 
     # $(@sidebarNavEl).removeClass('animate-sidebar-menu-open')

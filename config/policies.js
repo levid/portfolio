@@ -6,7 +6,10 @@
 module.exports.policies = {
 
 	// Default policy (allow public access)
-	'*': true,
+	// '*': 'authenticated',
+
+  // FIX THIS
+  '*': true,
 
   userController: {
     '*' : 'authenticated'

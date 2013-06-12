@@ -76,7 +76,9 @@ window.onload = function() {
 			'icon-portfoliofullscreen' : '&#xf0b2;',
 			'icon-portfoliostack' : '&#xe036;',
 			'icon-portfoliocog-2' : '&#xe037;',
-			'icon-portfoliosigma' : '&#xe038;'
+			'icon-portfoliosigma' : '&#xe038;',
+			'icon-portfoliofile-pdf' : '&#xe039;',
+			'icon-portfoliofile-word' : '&#xe03a;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;

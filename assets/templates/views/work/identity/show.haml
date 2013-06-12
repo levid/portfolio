@@ -1,61 +1,57 @@
 %script{:id => "views/work/identity/show.html", :type => "text/ng-template"}
   %section.sub.identity.show.view
     .innerContent
-      %div{:"ng-include" => '', :src => "'views/partials/user-header.html'"}
+      / %div{:"ng-include" => '', :src => "'views/partials/user-header.html'"}
 
-      .info-container
+      .info-container.tall
         .content
-          / .sort-by{"data-option-key" => "sortBy"}
-          /   %a{"data-option-value" => "strategy", :href => "#sortBy=strategy"}
-          /     strategy
-          /   %a{"data-option-value" => "brand", :href => "#sortBy=brand"}
-          /     brand
-          /   %a{"data-option-value" => "web", :href => "#sortBy=web"}
-          /     web
-          /   %a{"data-option-value" => "graphic", :href => "#sortBy=graphic"}
-          /     graphic
-          /   %a{"data-option-value" => "int", :href => "#sortBy=int"}
-          /     int
-
-          %h3 {{project.name}}
+          %h3
+            {{project.name}}
+            .spinner
 
           .buttons
             %a.btn.btn-back{:"ng-href" => '', :"ng-click" => "goBack()"}
               %i.icon-portfolio-arrow-left
-              / Back
 
           .block
-            %table
-              %tr
-                %td Url
-                %td
-                  %a{:"ng-href" => "{{project.url}}"} {{project.url || 'N/A'}}
+            %ul.project-info
+              %li
+                %table
+                  %tr
+                    %td URL
+                    %td
+                      %a{:"ng-href" => "{{project.url}}", :target => '_blank'} {{project.url || 'N/A'}}
+              %li
+                %table
+                  %tr
+                    %td Year
+                    %td {{project.date | date:'yyyy' || 'N/A'}}
+              %li
+                %table
+                  %tr
+                    %td Categories
+                    %td {{(project.categories).join(', ').toLowerCase() || 'N/A'}}
 
-              %tr
-                %td Year
-                %td
-                  %div {{project.date | date:'yyyy' || 'N/A'}}
+              %li
+                %table
+                  %tr
+                    %td Technologies
+                    %td {{(project.technologies).join(', ').toLowerCase() || 'N/A'}}
 
-              %tr
-                %td Categories
-                %td
-                  {{(project.categories).join(', ').toLowerCase() || 'N/A'}}
+              %li{:"ng-show" => "project.tags && project.tags.length > 0", :rel => 'tags'}
+                %table
+                  %tr
+                    %td Tags
+                    %td {{(project.tags).join(', ') || 'N/A'}}
 
-              %tr
-                %td Technologies
-                %td
-                  {{(project.technologies).join(', ').toLowerCase() || 'N/A'}}
+              %li{:rel => 'description'}
+                %table
+                  %tr
+                    %td Description
+                    %td {{project.description || 'N/A'}}
 
-              %tr{:"ng-show" => "project.tags && project.tags.length > 0"}
-                %td Tags
-                %td
-                  %div {{(project.tags).join(', ') || 'N/A'}}
-
-              %tr
-                %td Description
-                %td
-                  %div {{project.description || 'N/A'}}
-
+      .project-info-overlay
+        %p
       .thumbnails-show-view
         %div{:"ng-repeat" => "image in project.image_paths"}
           .thumb-full-width{:"ng-repeat" => "key in notSorted(image)", :"ng-init" => "val = image[key]", :"ng-switch" => '', :on => "key"}
@@ -71,7 +67,7 @@
               %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
             %div.block{:"ng-switch-when" => "image_filename"}
               %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
-              %div.info{:"data-ng-show" => "image.description"} {{image.description}}
+              %div.info.description.hide{:"data-ng-show" => "image.description"} {{image.description}}
             %div.block{:"ng-switch-when" => "file_filename"}
               %img{:"ng-src" => "{{s3_path}}/image/screenshots/{{image.id}}/{{val}}"}
-              %div.info{:"data-ng-show" => "image.description"} {{image.description}}
+              %div.info.description.hide{:"data-ng-show" => "image.description"} {{image.description}}

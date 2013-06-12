@@ -2,12 +2,12 @@
   %section.sub.design
     .innerContent
 
-      %div{:"data-ng-include" => '', :src => "'views/partials/user-header.html'"}
+      / %div{:"data-ng-include" => '', :src => "'views/partials/user-header.html'"}
 
       %div{:"data-ng-hide" => "projects && projects.length > 0", :class => "error"}
         No images found for this category.
 
-      .info-container
+      .info-container.tall
         .content
 
           %h3 {{category}}
@@ -60,36 +60,36 @@
                       %h3.name {{project.name}}
                       / .block
                       /   %p {{project.description}}
-                      .block
-                        %table
-                          %tr
-                            %td.url Url
-                            %td
-                              %a{:"ng-href" => "{{project.url}}"} {{project.url || 'N/A'}}
-                          / %tr
-                          /   %td Tags
-                          /   %td
-                          /     %div {{(project.tags).join(', ') || 'N/A'}}
-                          / %tr
-                          /   %td Categories
-                          /   %td
-                          /     {{(project.categories).join(', ').toLowerCase() || 'N/A'}}
-                          %tr
-                            %td Technologies
-                            %td
-                              {{(project.technologies).join(', ').toLowerCase() || 'N/A'}}
-                          %tr
-                            %td Year
-                            %td.year
-                              {{project.date | date:'yyyy' || 'N/A'}}
+                      / .block
+                      /   %table
+                      /     %tr
+                      /       %td.url Url
+                      /       %td
+                      /         %a{:"ng-href" => "{{project.url}}"} {{project.url || 'N/A'}}
+                      /     / %tr
+                      /     /   %td Tags
+                      /     /   %td
+                      /     /     %div {{(project.tags).join(', ') || 'N/A'}}
+                      /     / %tr
+                      /     /   %td Categories
+                      /     /   %td
+                      /     /     {{(project.categories).join(', ').toLowerCase() || 'N/A'}}
+                      /     %tr
+                      /       %td Technologies
+                      /       %td
+                      /         {{(project.technologies).join(', ').toLowerCase() || 'N/A'}}
+                      /     %tr
+                      /       %td Year
+                      /       %td.year
+                      /         {{project.date | date:'yyyy' || 'N/A'}}
 
-                      .block
-                        %a.btn.btn-orange{:"data-ng-href" => "/#/work/design/project/{{project.slug}}"}
-                          %i.icon-portfolio-magnifier
-                          Details
-                        %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}", :target => '_blank'}
-                          %i.icon-portfolio-resize
-                          / Website
+                      / .block
+                      /   %a.btn.btn-orange{:"data-ng-href" => "/#/work/design/project/{{project.slug}}"}
+                      /     %i.icon-portfolio-magnifier
+                      /     Details
+                      /   %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}", :target => '_blank'}
+                      /     %i.icon-portfolio-resize
+                      /     / Website
                   %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
       %nav#page_nav
         %a{:"ng-href" => "/#/work/design/{{limit+3}}/{{skip+1}}"}

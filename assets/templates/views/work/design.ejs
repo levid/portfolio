@@ -1,11 +1,11 @@
 <script id='views/work/design.html' type='text/ng-template'>
 <section class='sub design'>
 <div class='innerContent'>
-<div data-ng-include='' src="'views/partials/user-header.html'"></div>
+<!-- %div{:"data-ng-include" => '', :src => "'views/partials/user-header.html'"} -->
 <div class='error' data-ng-hide='projects &amp;&amp; projects.length &gt; 0'>
 No images found for this category.
 </div>
-<div class='info-container'>
+<div class='info-container tall'>
 <div class='content'>
 <h3>{{category}}</h3>
 <div class='sort-by' data-option-key='sort'>
@@ -61,46 +61,35 @@ Year
 <h3 class='name'>{{project.name}}</h3>
 <!-- .block -->
 <!-- %p {{project.description}} -->
-<div class='block'>
-<table>
-<tr>
-<td class='url'>Url</td>
-<td>
-<a ng-href='{{project.url}}'>{{project.url || 'N/A'}}</a>
-</td>
-</tr>
+<!-- .block -->
+<!-- %table -->
 <!-- %tr -->
-<!-- %td Tags -->
+<!-- %td.url Url -->
 <!-- %td -->
-<!-- %div {{(project.tags).join(', ') || 'N/A'}} -->
+<!-- %a{:"ng-href" => "{{project.url}}"} {{project.url || 'N/A'}} -->
+<!-- / %tr -->
+<!-- /   %td Tags -->
+<!-- /   %td -->
+<!-- /     %div {{(project.tags).join(', ') || 'N/A'}} -->
+<!-- / %tr -->
+<!-- /   %td Categories -->
+<!-- /   %td -->
+<!-- /     {{(project.categories).join(', ').toLowerCase() || 'N/A'}} -->
 <!-- %tr -->
-<!-- %td Categories -->
+<!-- %td Technologies -->
 <!-- %td -->
-<!-- {{(project.categories).join(', ').toLowerCase() || 'N/A'}} -->
-<tr>
-<td>Technologies</td>
-<td>
-{{(project.technologies).join(', ').toLowerCase() || 'N/A'}}
-</td>
-</tr>
-<tr>
-<td>Year</td>
-<td class='year'>
-{{project.date | date:'yyyy' || 'N/A'}}
-</td>
-</tr>
-</table>
-</div>
-<div class='block'>
-<a class='btn btn-orange' data-ng-href='/#/work/design/project/{{project.slug}}'>
-<i class='icon-portfolio-magnifier'></i>
-Details
-</a>
-<a class='btn btn-teal' data-ng-href='{{project.url}}' target='_blank'>
-<i class='icon-portfolio-resize'></i>
-<!-- Website -->
-</a>
-</div>
+<!-- {{(project.technologies).join(', ').toLowerCase() || 'N/A'}} -->
+<!-- %tr -->
+<!-- %td Year -->
+<!-- %td.year -->
+<!-- {{project.date | date:'yyyy' || 'N/A'}} -->
+<!-- .block -->
+<!-- %a.btn.btn-orange{:"data-ng-href" => "/#/work/design/project/{{project.slug}}"} -->
+<!-- %i.icon-portfolio-magnifier -->
+<!-- Details -->
+<!-- %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}", :target => '_blank'} -->
+<!-- %i.icon-portfolio-resize -->
+<!-- / Website -->
 </div>
 </div>
 <img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}'>
