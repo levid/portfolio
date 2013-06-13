@@ -56,18 +56,18 @@
         %div{:"ng-repeat" => "image in project.image_paths"}
           .thumb-full-width{:"ng-repeat" => "key in notSorted(image)", :"ng-init" => "val = image[key]", :"ng-switch" => '', :on => "key"}
             %div.block{:"ng-switch-when" => "logo_filename"}
-              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
+              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "{{image.logo_width}}", :height => "{{image.logo_height}}"}
             %div.block{:"ng-switch-when" => "composite_image_desktop"}
-              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
+              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "871", :height => "638"}
             %div.block{:"ng-switch-when" => "composite_image_laptop"}
-              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
+              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "786", :height => "575"}
             %div.block{:"ng-switch-when" => "composite_image_tablet"}
-              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
-            %div.block{:"ng-switch-when" => "large_image"}
-              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
+              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "689", :height => "504"}
+            / %div.block{:"ng-switch-when" => "large_image"}
+            /   %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
             %div.block{:"ng-switch-when" => "image_filename"}
-              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
+              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "{{image.image_width}}"}
               %div.info.description.hide{:"data-ng-show" => "image.description"} {{image.description}}
             %div.block{:"ng-switch-when" => "file_filename"}
-              %img{:"ng-src" => "{{s3_path}}/image/screenshots/{{image.id}}/{{val}}"}
+              %img{:"ng-src" => "{{s3_path}}/image/screenshots/{{image.id}}/{{val}}", :width => "{{image.image_width}}"}
               %div.info.description.hide{:"data-ng-show" => "image.description"} {{image.description}}

@@ -1,3 +1,4 @@
+'use strict'
 #### The UI class serving as the base class for the Application
 #
 # This class can be accessed via ** window.Portfolio.UI **
@@ -38,19 +39,7 @@ class UI extends Portfolio
     window.$UI = this
     $UI.Constants = {}
 
-    # $(document).ready =>
-    #   @showSpinner $(@overlaySpinnerEl),
-    #     lines: 15
-    #     length: 0
-    #     width: 3
-    #     radius: 50
-    #     color: '#000000'
-    #     speed: 1.6
-    #     trail: 45
-    #     shadow: false
-    #     hwaccel: true
-
-    this # allows for method chaining
+    return this # allows for method chaining
 
   # This method is initialized by the parent class and should contain anything that needs to run on every page
   initGlobalUI: (options) ->
@@ -144,24 +133,24 @@ class UI extends Portfolio
       duration: 1000
       easing: 'easeInOutQuint'
 
-  zoomOut: () ->
-    console.log "zoom out"
-    $(@loadingBlockEl).css
-      top: -150
-      left: -150
-      width: $(window).width() + 300
-      height: $(window).height() + 300
+  # zoomOut: () ->
+  #   log "zoom out"
+  #   $(@loadingBlockEl).css
+  #     top: -150
+  #     left: -150
+  #     width: $(window).width() + 300
+  #     height: $(window).height() + 300
 
-    $(@loadingBlockEl).animate
-      width: $(@loadingBlockEl).find(".spinner").width()
-      height: $(@loadingBlockEl).find(".spinner").height()
-      left: ($(window).width() / 2) - ($(@loadingBlockEl).find(".spinner").width() / 2)
-      top: ($(window).height() / 2) - ($(@loadingBlockEl).find(".spinner").height() / 2) - 40
-    ,
-      duration: 1500
-      easing: 'easeOutSine'
-      complete: =>
-        # console.log "finished"
+  #   $(@loadingBlockEl).animate
+  #     width: $(@loadingBlockEl).find(".spinner").width()
+  #     height: $(@loadingBlockEl).find(".spinner").height()
+  #     left: ($(window).width() / 2) - ($(@loadingBlockEl).find(".spinner").width() / 2)
+  #     top: ($(window).height() / 2) - ($(@loadingBlockEl).find(".spinner").height() / 2) - 40
+  #   ,
+  #     duration: 1500
+  #     easing: 'easeOutSine'
+  #     complete: =>
+  #       # console.log "finished"
 
 # Assign this class to the $SC Namespace
 window.Portfolio.UI = new UI()

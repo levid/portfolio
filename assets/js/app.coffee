@@ -1,3 +1,4 @@
+'use strict'
 #### The Application class serving as the base class
 #
 # This class can be accessed via ** window.Portfolio **
@@ -10,6 +11,7 @@
 # - UI.Audio
 # - UI.Utils
 #
+
 class Portfolio
   opts:
     wrapper:        undefined
@@ -30,29 +32,26 @@ class Portfolio
     @innerContentEl = @options.innerContentEl or $("section.content .innerContent")
     @init()
 
-    this
+    return this
 
   init: () ->
     $(document).ready =>
       $UI.Constants.imageGrid = new $UI.ImageGrid()
       $UI.initGlobalUI()
 
-      $("section.content .innerContent").css minHeight: $(document).innerHeight()
+      @innerContentEl.css minHeight: $(document).innerHeight()
 
     $(window).resize =>
-      $("section.content .innerContent").css width: $(window).width()
-      $("section.content .innerContent").css minHeight: $(document).innerHeight()
+      @innerContentEl.css width: $(window).width()
+      @innerContentEl.css minHeight: $(document).innerHeight()
 
     $(window).load =>
-      # $UI.hideLoadingScreen()
-      # $UI.Constants.imageGrid.buildGrid()
-      $("section.content .innerContent").css width: $(window).width()
+      @innerContentEl.css width: $(window).width()
+      $("[data-behavior='scrollable']").css height: ($(window).height() - 250)
 
       $UI.Constants.nav = new $UI.Nav(
         lensFlareEnabled: "true"
       ).init()
-
-      $("[data-behavior='scrollable']").css height: ($(window).height() - 250)
 
       @initTooltips()
       @initLogoFade()
@@ -69,7 +68,7 @@ class Portfolio
 
   initScrollTop: () ->
     $("[data-behavior='scroll-top']").parent().hide()
-    $(document).on 'click', "[data-behavior='scroll-top']", (e) =>
+    $(document).on 'click', "[data-behavior='scroll-top']", (e) ->
       e.preventDefault()
       $UI.scrollTop()
 
@@ -102,18 +101,13 @@ class Portfolio
       @main.removeClass 'dark'
 
     @wrapper.waitForImages (=>
-      # if $('.thumbnails').length
-      #   $UI.Constants.imageGrid.buildGrid({}, ->
-      #     $('.thumbnails').isotope('shuffle')
-      #   )
-
       $UI.Constants.path = path
       $.publish('initAfterViewContentLoaded.Portfolio', path)
       $UI.hideLoadingScreen()
-      console.log "All images have loaded."
+      log "All images have loaded."
 
     ),((loaded, count, success) ->
-      console.log loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
+      log loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
       $(this).addClass "loaded"
     ), true
 

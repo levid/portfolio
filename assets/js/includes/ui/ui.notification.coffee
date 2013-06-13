@@ -1,3 +1,4 @@
+'use strict'
 #### Notification class
 #
 # @extends UI
@@ -34,7 +35,7 @@ class Notification extends Portfolio.UI
     $.subscribe('event.Portfolio', @eventHandler('event.Portfolio'))
 
     # return this to make this class chainable
-    this
+    return this
 
   initAfterViewContentLoadedProxy: () ->
     # Skip the first argument (event object) but log the other args.

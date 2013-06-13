@@ -1,3 +1,4 @@
+'use strict'
 #### Nav class
 #
 # @extends UI
@@ -38,7 +39,7 @@ class Nav extends Portfolio.UI
       @init()
 
     # return this to make this class chainable
-    this
+    return this
 
   init: () ->
     @initShareButtons()

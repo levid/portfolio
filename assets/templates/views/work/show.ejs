@@ -76,26 +76,25 @@
 <div ng-repeat='image in project.image_paths'>
 <div class='thumb-full-width' ng-init='val = image[key]' ng-repeat='key in notSorted(image)' ng-switch='' on='key'>
 <div class='block' ng-switch-when='logo_filename'>
-<img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}'>
+<img height='{{image.logo_height}}' ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}' width='{{image.logo_width}}'>
 </div>
 <div class='block' ng-switch-when='composite_image_desktop'>
-<img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}'>
+<img height='638' ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}' width='871'>
 </div>
 <div class='block' ng-switch-when='composite_image_laptop'>
-<img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}'>
+<img height='575' ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}' width='786'>
 </div>
 <div class='block' ng-switch-when='composite_image_tablet'>
-<img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}'>
+<img height='504' ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}' width='689'>
 </div>
-<div class='block' ng-switch-when='large_image'>
-<img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}'>
-</div>
+<!-- %div.block{:"ng-switch-when" => "large_image"} -->
+<!-- %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"} -->
 <div class='block' ng-switch-when='image_filename'>
-<img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}'>
+<img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}' width='{{image.image_width}}'>
 <div class='info description hide' data-ng-show='image.description'>{{image.description}}</div>
 </div>
 <div class='block' ng-switch-when='file_filename'>
-<img ng-src='{{s3_path}}/image/screenshots/{{image.id}}/{{val}}'>
+<img ng-src='{{s3_path}}/image/screenshots/{{image.id}}/{{val}}' width='{{image.image_width}}'>
 <div class='info description hide' data-ng-show='image.description'>{{image.description}}</div>
 </div>
 </div>

@@ -1,3 +1,4 @@
+'use strict'
 #### Utilities class
 #
 # @extends UI
@@ -12,9 +13,6 @@ class Utils extends Portfolio.UI
   # - The options object that is used by the class for configuration purposes (optional)
   #
   constructor: (@options) ->
-    # return this to make this class chainable
-    this
-
     window.log = this.log
     @enableSVGfallback()
 
@@ -37,6 +35,9 @@ class Utils extends Portfolio.UI
           data.spinner.stop()
           delete data.spinner
       this
+
+    # return this to make this class chainable
+    return this
 
   #   accessors =
   #     sortable:

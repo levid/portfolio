@@ -1,3 +1,4 @@
+'use strict'
 #### ImageGrid class
 #
 # @extends UI
@@ -37,6 +38,8 @@ class ImageGrid extends Portfolio.UI
       $('.thumbnails').isotope
         sortBy: sortBy
 
+    # return this to make this class chainable
+    return this
 
   initResize: () ->
     # Skip the first argument (event object) but log the other args.

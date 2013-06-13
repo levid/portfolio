@@ -7,17 +7,26 @@
 
 var Application = Application || {};
 
-Application.Constants = angular.module('application.constants', []);
-Application.Services = angular.module('application.services', []);
+Application.Constants     = angular.module('application.constants', []);
+Application.Services      = angular.module('application.services', []);
 Application.Controllers   = angular.module('application.controllers', []);
-Application.Filters = angular.module('application.filters', []);
-Application.Directives = angular.module('application.directives', []);
+Application.Filters       = angular.module('application.filters', []);
+Application.Directives    = angular.module('application.directives', []);
 
-angular.module('application', ['ngResource', 'application.filters', 'application.services', 'application.directives', 'application.constants', 'application.controllers']).
-  config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-
+angular.module('application',
+  ['ngResource',
+  'application.filters',
+  'application.services',
+  'application.directives',
+  'application.constants',
+  'application.controllers']
+).config(
+  ['$routeProvider',
+  '$locationProvider',
+  '$httpProvider',
+  function($routeProvider, $locationProvider, $httpProvider) {
     // $locationProvider.html5Mode(true).hashPrefix('!')
-
+    // $httpProvider.defaults.headers.get['X-Portfolio-Request'] = 'TEST'
     $routeProvider.
       when('/', {
         redirectTo: '/home'
@@ -58,7 +67,7 @@ angular.module('application', ['ngResource', 'application.filters', 'application
       }).
 
       when('/work/design/project/:slug', {
-        templateUrl: 'views/work/design/show.html',
+        templateUrl: 'views/work/show.html',
         controller: 'ProjectController',
         customParams: {
           action: 'show',
@@ -74,7 +83,7 @@ angular.module('application', ['ngResource', 'application.filters', 'application
         }
       }).
       when('/work/identity/project/:slug', {
-        templateUrl: 'views/work/identity/show.html',
+        templateUrl: 'views/work/show.html',
         controller: 'ProjectController',
         customParams: {
           action: 'show',
@@ -90,7 +99,7 @@ angular.module('application', ['ngResource', 'application.filters', 'application
         }
       }).
       when('/work/code/project/:slug', {
-        templateUrl: 'views/work/code/show.html',
+        templateUrl: 'views/work/show.html',
         controller: 'ProjectController',
         customParams: {
           action: 'show',
@@ -106,7 +115,7 @@ angular.module('application', ['ngResource', 'application.filters', 'application
         }
       }).
       when('/work/web/project/:slug', {
-        templateUrl: 'views/work/web/show.html',
+        templateUrl: 'views/work/show.html',
         controller: 'ProjectController',
         customParams: {
           action: 'show',
@@ -195,11 +204,13 @@ angular.module('application', ['ngResource', 'application.filters', 'application
       }).
       otherwise({
         templateUrl: 'views/error404.html'
-        // redirectTo: '/login'
       });
-
-  }]).run(function($rootScope, $route){
-
+    }
+  ]
+).run(
+  ['$rootScope',
+  '$route',
+  function($rootScope, $route){
     $rootScope.$on('$routeChangeStart', function(nextRoute, currentRoute) {
       $UI.showLoadingScreen();
       $UI.Constants.viewLoaded = false;
@@ -216,4 +227,4 @@ angular.module('application', ['ngResource', 'application.filters', 'application
       //   $UI.hideLoadingScreen();
       // }), 500);
     });
-});
+}]);

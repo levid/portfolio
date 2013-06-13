@@ -1,20 +1,26 @@
 /**
 * Allow any authenticated user.
 */
-module.exports = function (req,res,next) {
+module.exports = function (req, res, ok) {
 
   // User is allowed, proceed to controller
 
-  // FIX THIS
-  if (req.session.authenticated) {
-  // if (req.isAuthenticated()) {
-    // return ok();
-    next();
-  }
+  console.log(req.param('action'));
+  var action = req.param('action');
 
-  // User is not allowed
+  res.header('Cache-control', 'public');
+  // res.header('Content-Encoding', 'gzip');
+
+  if (action == "index" || action == "find" || action == "findAll" || action == "send") {
+    return ok();
+  }
   else {
-    res.redirect('/login');
-    // return res.send("You are not permitted to perform this action.",403);
+    // if (req.isAuthenticated()) {
+    if (req.session.authenticated) {
+      return ok();
+    }
+    // User is not allowed
+    // res.redirect('/login');
+    return res.send("You are not permitted to perform this action.",403);
   }
 };

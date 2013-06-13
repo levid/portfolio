@@ -6,24 +6,15 @@
 module.exports.policies = {
 
 	// Default policy (allow public access)
-	// '*': 'authenticated',
+  // '*': true
+  '*': 'authenticated',
 
-  // FIX THIS
-  '*': true,
+  // ProjectsController: {
+  //   index: true,
+  //   '*': 'authenticated'
+  // },
 
-  userController: {
-    '*' : 'authenticated'
-  },
-
-  usersController: {
-    '*' : 'authenticated'
-  },
-
-  workController: {
-    '*' : 'authenticated'
-  },
-
-  sessionController : {
+  SessionController : {
     '*' : true
   }
 

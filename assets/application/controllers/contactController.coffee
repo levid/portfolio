@@ -36,7 +36,7 @@ Application.Controllers.controller "ContactController", ["$rootScope", "$scope",
           header: "Response"
           message: response.message
 
-        @log response
+        log response
       )
 
       $("button.submit").attr('disabled', 'disabled')
@@ -55,26 +55,6 @@ Application.Controllers.controller "ContactController", ["$rootScope", "$scope",
         trail: 45
         shadow: false
         hwaccel: false
-
-    #### Global Log Method
-    #
-    # This cool logging method allows objects to be printed to the console instead of just showing [Object, object]
-    #
-    log: (message) ->
-      params = {}
-      params.traceToConsole = true
-      # params = $.deparam.querystring()
-      if params.traceToConsole? # set ?traceToConsole=true to display logging
-        f     = console.log
-        args  = Array::slice.call(arguments)
-
-        if args.length and args[0] is "!"
-          args.shift()
-          f = console.warn
-        try
-          f.apply console, args
-        catch ex
-          f args.join(" ")
 
       # str = "http://mail.google.com/mail/?view=cm&fs=1&to=#{to}&su=#{subject}&body=#{newMessage.replace(/\n/g, "%0A")}&ui=1"
       # location.href = str

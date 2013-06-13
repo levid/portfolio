@@ -3,22 +3,17 @@
 	<head>
     <title><%- title %></title>
 
+    <meta charset="utf-8"/>
     <meta name="description" content="California based web designer and developer with over a decade of professional experience in the web industry."/>
     <meta name="author" content="Isaac T. Wooten - Levid Media, LLC"/>
     <meta name="keywords" content="web, web design, web site, design portfolio, portfolio, web developer, developer, mobile app developer, application developer, isaac wooten, levid"/>
-		<meta charset="utf-8"/>
-
     <meta http-equiv="Content-Type" content="text/plain;charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <meta name="description" content="">
+
 		<!-- Viewport mobile tag for sensible mobile support -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <!--[if lte IE 7]><script src="/js/lte-ie7.js"></script><![endif]-->
-
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-		<!-- JavaScript and stylesheets from your assets folder are included here -->
-
     <!--[if lte IE 8]> <script src="/js/vendor/angular-ui-ie-shiv.js"></script><![endif]-->
 
     <!--[if lte IE 8]>
@@ -34,51 +29,19 @@
       </script>
     <![endif]-->
 
-  <!--<script src="/js/vendor/head.min.js"></script>
-    <script>
-        head.js(
-           {jquery: "/js/vendor/jquery-1.9.1.min.js"},
-           {jqueryUI: "/js/vendor/jquery-ui-1.10.3.custom.min.js"},
-           {easing: "/js/vendor/jquery.easing.1.3.js"},
-           {migrate: "/js/vendor/jquery-migrate-git.min.js"},
-           {shuffleLetters: "/js/vendor/jquery.shuffleLetters.js"},
-           {isotope: "/js/vendor/jquery.isotope.min.js"},
-           {waitForImages: "/js/vendor/jquery.waitforimages.min.js"},
-           {pubSub: "/js/vendor/jquery-tiny-pubsub.min.js"},
-           {growl: "/js/vendor/jquery.jgrowl.min.js"},
-           {customScrollbar: "/js/vendor/jquery.mCustomScrollbar.js"},
-           {spin: "/js/vendor/spin.min.js"},
-           {bootstrap: "/js/vendor/bootstrap.min.js"},
-           {modernizr: "/js/vendor/modernizr-2.6.2.min.js"},
-           {socketIO: "/js/vendor/socket.io.min.js"},
-           {underscore: "/js/vendor/underscore-min.js"},
-           {angular: "/js/vendor/angular.min.js"},
-           {angularCookies: "/js/vendor/angular-cookies.js"},
-           {angularResource: "/js/vendor/angular-resource.js"},
-           {angularSanitize: "/js/vendor/angular-sanitize.js"},
-           function() {
-              portfolio = new Portfolio();
-           }
-        );
-    </script>
-  -->
+		<!-- <%- assets.css() %> -->
 
-		<%- assets.css() %>
+    <link rel="stylesheet" href="/assets/styles/application.css">
+    <link rel="stylesheet" href="/assets/styles/vendor/bootstrap.css">
+    <link rel="stylesheet" href="/assets/styles/vendor/chosen.css">
 
 	</head>
-
   <body>
-
     <div id="loading-block">
       <div class="spinner"></div>
     </div>
-
-    <div class="logo-preload">
-<!--       <img src="images/logo-footer.svg" \> -->
-    </div>
-
+    <div class="logo-preload"></div>
     <div class="navbar-shim"></div>
-
     <div id="wrapper" class="border all">
       <%- partial('header')%>
       <%- partial('body')%>
@@ -101,6 +64,9 @@
     </script>
 
     <script type="text/javascript" src="/js/vendor/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/js/vendor/angular.min.js"></script>
+
+
     <script type="text/javascript" src="/js/vendor/jquery.easing.1.3.js"></script>
     <script type="text/javascript" src="/js/vendor/jquery-migrate-git.min.js"></script>
     <script type="text/javascript" src="/js/vendor/jquery.shuffleLetters.js"></script>
@@ -117,7 +83,7 @@
     <script type="text/javascript" src="/js/vendor/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/vendor/modernizr-2.6.2.min.js"></script>
     <script type="text/javascript" src="/js/vendor/waypoints.min.js"></script>
-    <script type="text/javascript" src="/js/vendor/angular.min.js"></script>
+
     <script type="text/javascript" src="/js/vendor/d3.v3.js"></script>
     <script type="text/javascript" src="/js/vendor/socket.io.min.js"></script>
 
@@ -126,17 +92,6 @@
     <script type="text/javascript" src="/js/vendor/angular-sanitize.js"></script>
 
     <%- assets.js() %>
-
-    <script>
-      $(window).load(function(){
-        // window.PortfolioApp = new Portfolio();
-      });
-    </script>
-
-
-   <!-- <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>-->
-
-
 
 	</body>
 </html>

@@ -1,3 +1,4 @@
+'use strict'
 #### Scroller class
 #
 # @extends UI
@@ -30,7 +31,7 @@ class Scroller extends Portfolio.UI
     # $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
 
     # return this to make this class chainable
-    this
+    return this
 
   initAfterViewContentLoadedProxy: () ->
     # Skip the first argument (event object) but log the other args.

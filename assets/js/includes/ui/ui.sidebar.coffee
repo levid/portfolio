@@ -1,3 +1,4 @@
+'use strict'
 #### Sidebar class
 #
 # @extends UI
@@ -53,7 +54,7 @@ class Sidebar extends Portfolio.UI
     $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
 
     # return this to make this class chainable
-    this
+    return this
 
   initAfterViewContentLoadedProxy: () ->
     # Skip the first argument (event object) but log the other args.
