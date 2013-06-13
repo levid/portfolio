@@ -1,5 +1,5 @@
-<script id='views/work/identity.html' type='text/ng-template'>
-<section class='sub identity'>
+<script id='views/work/index.html' type='text/ng-template'>
+<section class='sub index'>
 <div class='innerContent'>
 <!-- %div{:"data-ng-include" => '', :src => "'views/partials/user-header.html'"} -->
 <div class='error' data-ng-hide='projects &amp;&amp; projects.length &gt; 0'>
@@ -49,18 +49,16 @@ Year
 </div>
 </div>
 </div>
-<div class='thumbnails' ng-init='projectThumbs = projects'>
-<div data-ng-repeat='project in projectThumbs'>
-<div ng-repeat='image in project.image_paths'>
-<div ng-repeat='(key, val) in image' ng-switch='' on='key'>
-<div class='thumb {{getCategoryString(project.categories)}}' data-category='{{getCategoryString(project.categories)}}' data-tag='{{getTagString(project.tags)}}' ng-switch-when='preview_image'>
+<div class='thumbnails'>
+<div data-ng-repeat='project in projects'>
+<div class="').toLowerCase()}} thumb {{project.categories.join('," data-category="{{project.categories.join(', ').toLowerCase()}}" data-tag="{{project.tags.join(', ').toLowerCase()}}">
 <!-- {{project.categories}} -->
-<div class='image' ng-click="go('/work/identity/project/'+project.slug)">
+<div class='image' ng-click="go('/work/design/project/'+project.slug)">
 <div class='project-details-container'>
 <div class='content'>
 <h3 class='name'>{{project.name}}</h3>
-<!-- / .block -->
-<!-- /   %p {{project.description}} -->
+<!-- .block -->
+<!-- %p {{project.description}} -->
 <!-- .block -->
 <!-- %table -->
 <!-- %tr -->
@@ -84,7 +82,7 @@ Year
 <!-- %td.year -->
 <!-- {{project.date | date:'yyyy' || 'N/A'}} -->
 <!-- .block -->
-<!-- %a.btn.btn-orange{:"data-ng-href" => "/#/work/identity/project/{{project.slug}}"} -->
+<!-- %a.btn.btn-orange{:"data-ng-href" => "/#/work/design/project/{{project.slug}}"} -->
 <!-- %i.icon-portfolio-magnifier -->
 <!-- Details -->
 <!-- %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}", :target => '_blank'} -->
@@ -92,15 +90,16 @@ Year
 <!-- / Website -->
 </div>
 </div>
-<img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}'>
+<img ng-src='{{getPreviewImagePath(project)}}'>
 </div>
 </div>
 </div>
 </div>
+<nav id='page_nav'>
+<a ng-href='/#/work/design/{{limit+3}}/{{skip+1}}'></a>
 <!-- .thumb{:"ng-repeat" => "item in photos.items"} -->
 <!-- %img{:"ng-src" => "{{ item.media.m }}"} -->
-</div>
-</div>
+</nav>
 </div>
 </section>
 </script>

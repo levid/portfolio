@@ -20,6 +20,12 @@ Application.Controllers.controller "ClientsController", ["$rootScope", "$scope",
         else if $rootScope.customParams.action == 'show'
           @show($scope)
 
+      $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
+
+    initAfterViewContentLoadedProxy: () ->
+      # Skip the first argument (event object) but log the other args.
+      (_, options) =>
+        $UI.hideLoadingScreen()
 
     #### The index action
     #

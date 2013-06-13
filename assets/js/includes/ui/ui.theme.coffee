@@ -101,7 +101,7 @@ class Theme extends Portfolio.UI
           length: 0
           width: 2
           radius: 60
-          color: '#000000'
+          color: '#ffffff'
           speed: 1.6
           trail: 45
           shadow: false

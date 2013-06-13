@@ -153,7 +153,7 @@ class Sidebar extends Portfolio.UI
 
   highlightLeftNav: (target) ->
     highlight = target
-    showingAll = @path.indexOf("all") >= 0 if @path
+    showingAll = @path.indexOf("all") >= 0 if @path.length
 
     show: () =>
       $(@sidebarNavEl).find('.nav li').each (index) ->
@@ -189,7 +189,7 @@ class Sidebar extends Portfolio.UI
 
     @animateToPosition @innerContentEl, 300
     @animateToPosition @sidebarNavEl, 0, =>
-      $(@innerContentEl).css width: containerWidth
+      # $(@innerContentEl).css width: containerWidth
     @animateToPosition @sidebarMenuEl, 7
 
     @adjustImageGrid(
@@ -240,7 +240,7 @@ class Sidebar extends Portfolio.UI
     @animateToPosition @thumbnailsEl, 0
     @animateToPosition @innerContentEl, 70
     @animateToPosition @sidebarNavEl, -230, =>
-      $(@innerContentEl).css width: containerWidth
+      # $(@innerContentEl).css width: containerWidth
     @animateToPosition @sidebarMenuEl, -300
 
     @adjustImageGrid(
@@ -259,7 +259,7 @@ class Sidebar extends Portfolio.UI
 
     containerWidth = $(window).width()
     $(@contentEl).css width: containerWidth
-    $(@innerContentEl).css width: containerWidth
+    # $(@innerContentEl).css width: containerWidth
     $(@thumbnailsEl).css width: containerWidth
 
     # $(@sidebarNavEl).removeClass('animate-sidebar-menu-open')

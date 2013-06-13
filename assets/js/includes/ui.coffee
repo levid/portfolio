@@ -79,7 +79,7 @@ class UI extends Portfolio
       length: 0
       width: 2
       radius: 60
-      color: '#000000'
+      color: '#ffffff'
       speed: 1.6
       trail: 45
       shadow: false
@@ -87,9 +87,9 @@ class UI extends Portfolio
 
   hideLoadingScreen: () ->
     fadeIt = setTimeout(=>
-      $(@overlayEl).hide()
+      $(@overlayEl).fadeOut(500)
       clearTimeout fadeIt
-    , 1500)
+    , 500)
 
   showLoadingSpinner: (target) ->
     $(@loadingEl).fadeIn()

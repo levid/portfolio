@@ -44,46 +44,38 @@ class ImageGrid extends Portfolio.UI
   initResize: () ->
     # Skip the first argument (event object) but log the other args.
     (_, options) =>
-      console.log "resize"
-      # resizeTo = setTimeout(=>
-      #   @buildGrid options, =>
-      #     $('.thumbnails').isotope('reLayout')
-      #     clearTimeout resizeTo
-      # , 500)
-
-      @buildGrid(options, =>
-        $('.thumbnails').isotope('reLayout')
-      )
+      log "resize"
+      @buildGrid(options)
 
   initAfterViewContentLoadedProxy: () ->
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
-      console.log "loaded"
+      log "loaded"
       @category = $UI.Constants.category
       options = {}
       sidebarMenuOpen = $UI.Constants.sidebarMenuOpen
       sidebarOpen     = $UI.Constants.sidebarOpen
 
-      console.log "sidebarOpen: " + $UI.Constants.sidebarOpen
-      console.log "sidebarMenuOpen: " + $UI.Constants.sidebarMenuOpen
+      log "sidebarOpen: " + $UI.Constants.sidebarOpen
+      log "sidebarMenuOpen: " + $UI.Constants.sidebarMenuOpen
 
       if sidebarOpen is true and sidebarMenuOpen is true
-        console.log "grid: sidebarmenu open"
+        log "grid: sidebarmenu open"
         containerWidth = ($(window).width() - $(@sidebarNavEl).width()) - 16
         options.widthDifference = $(@sidebarNavEl).width() - 70
         options.rightMargin = 80
       else if sidebarOpen is true and sidebarMenuOpen is false
-        console.log "grid: sidebar open"
+        log "grid: sidebar open"
         containerWidth = $(window).width() - 70
         options.widthDifference = 0
         options.rightMargin = 85
       else if sidebarOpen is false and sidebarMenuOpen is false
-        console.log "grid: sidebar closed"
+        log "grid: sidebar closed"
         containerWidth = $(window).width()
         options.widthDifference = 0
         options.rightMargin = 25
       else
-        console.log "grid: default"
+        log "grid: default"
         containerWidth = $(window).width()
         options.widthDifference = 0
         options.rightMargin = 25
@@ -92,13 +84,15 @@ class ImageGrid extends Portfolio.UI
       $(@innerContentEl).css width: containerWidth
       $(@thumbnailsEl).css width: containerWidth
 
-      # TODO: create dom listener to make sure thumbnails
-      # has children before initiating re-layout
-      buildIt = setTimeout(=>
+      $('.thumbnails').waitForImages (=>
         @buildGrid options, =>
-          $('.thumbnails').isotope('reLayout')
-          clearTimeout buildIt
-      , 1000)
+          $UI.hideLoadingScreen()
+        console.log "All preview images have loaded."
+
+      ),((loaded, count, success) ->
+        console.log loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
+        $(this).addClass "loaded"
+      ), true
 
   buildGrid: (options, callback) ->
     callback          = callback or ->
@@ -120,7 +114,7 @@ class ImageGrid extends Portfolio.UI
       cols2           = containerWidth / 2
       cols3           = containerWidth / 3
 
-      console.log "cols1: #{cols1} - cols2: #{cols2} - cols3: #{cols3}"
+      # console.log "cols1: #{cols1} - cols2: #{cols2} - cols3: #{cols3}"
 
       if cols2 > 600
         cols = cols3
@@ -140,7 +134,7 @@ class ImageGrid extends Portfolio.UI
         @thumbContainer.css width: cols - 0.5
         @thumbContainer.find('img').css width: cols - 0.5
 
-      $('.thumbnails').imagesLoaded =>
+      @containerEl.imagesLoaded =>
         @containerEl.isotope
           itemSelector: '.thumb'
           animationEngine: 'jquery'
@@ -157,6 +151,7 @@ class ImageGrid extends Portfolio.UI
 
           onLayout: =>
            $UI.Constants.viewLoaded = true
+           callback()
 
           getSortData:
             name: ($elem) ->
@@ -168,23 +163,23 @@ class ImageGrid extends Portfolio.UI
             year: ($elem) ->
               return $elem.find('.year').text()
 
-      @containerEl.infinitescroll
-        behavior: 'local'
-        binder: @containerEl
-        navSelector: "#page_nav" # selector for the paged navigation
-        nextSelector: "#page_nav a" # selector for the NEXT link (to page 2)
-        itemSelector: '.thumb' # selector for all items you'll retrieve
-        dataType: 'json'
-        appendCallback: false
-        loading:
-          finishedMsg: "No more pages to load."
-          img: "http://i.imgur.com/qkKy8.gif"
+      # @containerEl.infinitescroll
+      #   behavior: 'local'
+      #   binder: @containerEl
+      #   navSelector: "#page_nav" # selector for the paged navigation
+      #   nextSelector: "#page_nav a" # selector for the NEXT link (to page 2)
+      #   itemSelector: '.thumb' # selector for all items you'll retrieve
+      #   dataType: 'json'
+      #   appendCallback: false
+      #   loading:
+      #     finishedMsg: "No more pages to load."
+      #     img: "http://i.imgur.com/qkKy8.gif"
 
-      # call Isotope as a callback
-      , (json, opts) =>
-        page = opts.state.currPage
-        console.log page
-        # @containerEl.isotope "appended", $(newElements)
+      # # call Isotope as a callback
+      # , (json, opts) =>
+      #   page = opts.state.currPage
+      #   console.log page
+      #   # @containerEl.isotope "appended", $(newElements)
 
 
 

@@ -47,8 +47,8 @@ class ScrollSidebar extends Portfolio.UI
       measureAndMove = () =>
         # if checkIfBottomReached() is false
         @setPosition($("#main").scrollTop() + @options.offsets[@move])
-      clearTimeout(@setPositionTimer)
-      @setPositionTimer = setTimeout(measureAndMove, 150)
+      clearTimeout(setPositionTimer)
+      setPositionTimer = setTimeout(measureAndMove, 100)
 
     $("#main").on 'scroll', (e) => action()
     $(window).on 'load', (e) => action()

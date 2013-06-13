@@ -1,13 +1,13 @@
 'use strict'
 
-Application.Controllers.controller "ProjectController", ["$rootScope", "$scope", "$location", "$socket", "configuration", "User", "Projects", "Images", "Screenshots", "Technologies", "flickrPhotos", "Categories", "Tags", "SessionService", "$route", "$routeParams", ($rootScope, $scope, $location, $socket, configuration, User, Projects, Images, Screenshots, Technologies, flickrPhotos, Categories, Tags, SessionService, $route, $routeParams) ->
+Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope", "$location", "$socket", "configuration", "User", "Projects", "Images", "Screenshots", "Technologies", "flickrPhotos", "Categories", "Tags", "SessionService", "$route", "$routeParams", ($rootScope, $scope, $location, $socket, configuration, User, Projects, Images, Screenshots, Technologies, flickrPhotos, Categories, Tags, SessionService, $route, $routeParams) ->
 
-  # ProjectController class that is accessible by the window object
+  # ProjectsController class that is accessible by the window object
   #
   # @todo add a notifications handler
   # @todo add a proper error handler
   #
-  class ProjectController
+  class ProjectsController
     opts:
       projectInfoOverlay: undefined
       inView:             undefined
@@ -117,6 +117,7 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
 
     loadProducts: (limit, skip, category) ->
       projectsArr = [{}]
+      preview_images = []
       projects = Projects.findAll(
         category: category
         limit: limit
@@ -130,6 +131,9 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
           $.each v.image_ids, (key, val) =>
             if val isnt ''
               Images.find({id: val}, (image) ->
+                v.preview_image =
+                  id: image.id
+                  path: image.preview_image
                 images.push(image)
               )
               v.image_paths = images
@@ -157,6 +161,7 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
         console.log error
       )
 
+      $scope.preview_images = preview_images
       $scope.projects = projectsArr
       $scope.predicate = 'name'
 
@@ -206,6 +211,8 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
     #
     show: ($scope, params) ->
       console.log "#{$rootScope.customParams.action} action called"
+
+      $UI.hideLoadingScreen()
 
       $UI.Constants.actionPath = $rootScope.customParams.action
 
@@ -354,6 +361,14 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
           return images.large
         false
 
+      $scope.getPreviewImagePath = (project) ->
+        image_id = project.preview_image?.id
+        image_path = project.preview_image?.path
+        if image_id
+          image = "#{$scope.s3_path}/image/portfolio_image/#{image_id}/#{image_path}"
+          return image
+        false
+
       $scope.getTags = (data) ->
         tags = []
         if data
@@ -421,6 +436,6 @@ Application.Controllers.controller "ProjectController", ["$rootScope", "$scope",
           )
         false
 
-  window.ProjectController = new ProjectController()
+  window.ProjectsController = new ProjectsController()
 
 ]

@@ -11,6 +11,13 @@ Application.Controllers.controller "ContactController", ["$rootScope", "$scope",
     constructor: () ->
       @initScopedMethods()
 
+      $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
+
+    initAfterViewContentLoadedProxy: () ->
+      # Skip the first argument (event object) but log the other args.
+      (_, options) =>
+        $UI.hideLoadingScreen()
+
     initScopedMethods: () ->
       $scope.contactMe = =>
         @sendEmail($scope.contact)
@@ -39,10 +46,9 @@ Application.Controllers.controller "ContactController", ["$rootScope", "$scope",
         log response
       )
 
+      $.publish 'event.Portfolio', message: "Sending email..."
       $("button.submit").attr('disabled', 'disabled')
       @showLoadingSpinner()
-
-      $.publish 'event.Portfolio', message: "Sending email..."
 
     showLoadingSpinner: () ->
       $UI.showSpinner $('.list-container .list').find('.spinner'),
@@ -55,9 +61,6 @@ Application.Controllers.controller "ContactController", ["$rootScope", "$scope",
         trail: 45
         shadow: false
         hwaccel: false
-
-      # str = "http://mail.google.com/mail/?view=cm&fs=1&to=#{to}&su=#{subject}&body=#{newMessage.replace(/\n/g, "%0A")}&ui=1"
-      # location.href = str
 
   window.ContactController = new ContactController()
 

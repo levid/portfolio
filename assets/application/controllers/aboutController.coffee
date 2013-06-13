@@ -19,6 +19,13 @@ Application.Controllers.controller "AboutController", ["$rootScope", "$scope", "
         if $rootScope.customParams.action == 'index'
           @index($scope, $rootScope.customParams)
 
+      $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
+
+    initAfterViewContentLoadedProxy: () ->
+      # Skip the first argument (event object) but log the other args.
+      (_, options) =>
+        $UI.hideLoadingScreen()
+
     #### The index action
     #
     # @param [Object] $scope

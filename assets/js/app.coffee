@@ -39,14 +39,14 @@ class Portfolio
       $UI.Constants.imageGrid = new $UI.ImageGrid()
       $UI.initGlobalUI()
 
-      @innerContentEl.css minHeight: $(document).innerHeight()
+      $("section.content .innerContent").css minHeight: $(document).innerHeight()
 
     $(window).resize =>
-      @innerContentEl.css width: $(window).width()
-      @innerContentEl.css minHeight: $(document).innerHeight()
+      $("section.content .innerContent").css width: $(window).width()
+      $("section.content .innerContent").css minHeight: $(document).innerHeight()
 
     $(window).load =>
-      @innerContentEl.css width: $(window).width()
+      $("section.content .innerContent").css width: $(window).width()
       $("[data-behavior='scrollable']").css height: ($(window).height() - 250)
 
       $UI.Constants.nav = new $UI.Nav(
@@ -103,7 +103,6 @@ class Portfolio
     @wrapper.waitForImages (=>
       $UI.Constants.path = path
       $.publish('initAfterViewContentLoaded.Portfolio', path)
-      $UI.hideLoadingScreen()
       log "All images have loaded."
 
     ),((loaded, count, success) ->
