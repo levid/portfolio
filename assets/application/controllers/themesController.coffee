@@ -16,9 +16,14 @@ Application.Controllers.controller "ThemesController", ["$rootScope", "$scope", 
     constructor: () ->
       @options            = $.extend({}, this.opts, @options)
       @themeContainerEl   = @options.themeContainerEl or $(".theme-container")
-
-      $scope.themes = Themes.findAll()
       @initScopedMethods()
+      $scope.themes = Themes.findAll()
+
+      $('.themes-list').on 'click', 'li', (e) ->
+        e.preventDefault()
+        $('.themes-list').find('li').removeClass 'active'
+        $UI.Theme.chooseBackgroundImage $(this).index()
+        $(this).addClass 'active'
 
       if $rootScope.customParams
         if $rootScope.customParams.action == 'index'
@@ -31,7 +36,7 @@ Application.Controllers.controller "ThemesController", ["$rootScope", "$scope", 
     initAfterViewContentLoadedProxy: () ->
       # Skip the first argument (event object) but log the other args.
       (_, options) =>
-        $UI.hideLoadingScreen()
+        # $UI.hideLoadingScreen()
         if $UI.Constants.sidebarMenuOpen is true then Portfolio.openSidebarMenu() else Portfolio.openSidebar()
 
     #### The index action
@@ -49,13 +54,7 @@ Application.Controllers.controller "ThemesController", ["$rootScope", "$scope", 
       #   console.log error
       # )
 
-      # console.log themesArr
 
-      # $scope.themes = Themes.findAll()
-
-      # $scope.themes = Themes.findAll()
-      # $scope.predicate = 'name'
-      # $scope.themes = Themes.findAll()
 
       setTimeout(=>
         $('.themes-list').waitForImages (=>
@@ -65,15 +64,9 @@ Application.Controllers.controller "ThemesController", ["$rootScope", "$scope", 
 
           activeEl = $('.themes-list').find("li:eq(#{active})")
           $(activeEl).addClass 'active'
+          $UI.hideLoadingScreen()
         ), $.noop, true
       , 1000)
-
-      $(document).on 'click', '.themes-list li', (e) ->
-        e.preventDefault()
-        $('.themes-list').find('li').removeClass 'active'
-        $UI.Theme.chooseBackgroundImage $(this).index()
-        $(this).addClass 'active'
-
 
     #### The new action
     #

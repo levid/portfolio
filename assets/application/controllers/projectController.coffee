@@ -175,8 +175,6 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
     #
     show: ($scope, params) ->
       log "#{$rootScope.customParams.action} action called"
-
-      # $UI.hideLoadingScreen()
       $UI.Constants.actionPath = $rootScope.customParams.action
 
       if $routeParams.slug
