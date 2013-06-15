@@ -1,0 +1,25 @@
+%script{:id => "views/themes.html", :type => "text/ng-template"}
+  %section.sub.themes
+    .innerContent
+      %div{:"ng-include" => '', :src => "'views/partials/user-header.html'"}
+
+      .info-container
+        .content
+          %h3 Themes
+          %div
+            .text
+              %p.large
+                Choose from {{themes.length}} different default background themes.
+              / .divider
+              / %p.small
+              /   The majority of these themes can be downloaded at:
+              /   %a.teal{:"ng-href" => 'http://www.widewallpapers.net/', :target => '_blank'}
+              /     widewallpapers.net
+              .divider
+
+          .themes-list
+            .theme
+              / %h4 JavaScript Libraries
+              %ul
+                %li{:"ng-repeat" => "theme in themes", :"ng-class" => "{'default':theme.is_default == true}", :"ng-init" => "path = s3_path + '/image/themes/' + theme.id"}
+                  %img{:"ng-src" => "{{path}}/{{theme.thumbnail_image}}", :"data-background" => "{{path}}/{{theme.background_image_filename}}", :"data-position" => "{{theme.position}}", :width => "150", :height => "84"}

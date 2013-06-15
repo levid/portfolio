@@ -121,6 +121,15 @@ class Sidebar extends Portfolio.UI
         easing: 'easeOutQuint'
       )
 
+    $(document).on 'mouseenter', "[data-behavior='scrollable'] a", (e) =>
+      @filterMenuOpacity($(e.target).attr('rel'))
+
+    $(document).on 'mouseleave', "[data-behavior='scrollable'] a", (e) =>
+      $('.thumbnails .thumb').css opacity: 1
+      # $('.thumbnails .thumb').find('.image img').removeClass 'grey'
+      $('.thumbnails .thumb').find('.image .project-details-container').css opacity: 0
+      $('.thumbnails .thumb').removeClass 'hover'
+
     $(document).on 'mouseleave', @sidebarNavLinks, (e) =>
       @clone.fadeOut('slow').remove() if @clone
       @highlightLeftNav().hide()
@@ -151,9 +160,22 @@ class Sidebar extends Portfolio.UI
       if @sidebarMenuOpen is true then @closeSidebarMenu()
       else if @sidebarMenuOpen is false then @openSidebarMenu()
 
+  filterMenuOpacity: (targetId) ->
+    $('.thumbnails .thumb').each (index) ->
+      if $(this).attr('rel') is targetId
+        $(this).find('.image .project-details-container').css opacity: 1
+        # $(this).find('.image img').addClass 'grey'
+        $(this).addClass 'hover'
+        # $(this).css opacity: 1
+      else
+        $(this).find('.image .project-details-container').css opacity: 0
+        # $(this).find('.image img').removeClass 'grey'
+        $(this).removeClass 'hover'
+        # $(this).css opacity: 0.3
+
   highlightLeftNav: (target) ->
     highlight = target
-    showingAll = @path.indexOf("all") >= 0 if @path.length
+    showingAll = @path?.indexOf("all") >= 0
 
     show: () =>
       $(@sidebarNavEl).find('.nav li').each (index) ->
@@ -161,14 +183,14 @@ class Sidebar extends Portfolio.UI
           $(this).find('a').addClass 'highlight' unless showingAll is true
 
     hide: () =>
-      showingAll = @path.indexOf("all") >= 0
+      showingAll = @path?.indexOf("all") >= 0
       if showingAll is true
         $(@sidebarNavEl).find('.nav li a.active').removeClass('highlight')
       else
         $(@sidebarNavEl).find('.nav li a').removeClass('highlight')
 
   openSidebarMenu: () ->
-    console.log "open sidebar menu"
+    log "open sidebar menu"
     @sidebarOpen = true
     @sidebarMenuOpen = true
 
@@ -189,7 +211,7 @@ class Sidebar extends Portfolio.UI
 
     @animateToPosition @innerContentEl, 300
     @animateToPosition @sidebarNavEl, 0, =>
-      # $(@innerContentEl).css width: containerWidth
+      $(@innerContentEl).css width: containerWidth
     @animateToPosition @sidebarMenuEl, 7
 
     @adjustImageGrid(
@@ -199,7 +221,7 @@ class Sidebar extends Portfolio.UI
     )
 
   closeSidebarMenu: () ->
-    console.log "close sidebar menu"
+    log "close sidebar menu"
 
     @sidebarOpen = true
     @sidebarMenuOpen = false
@@ -213,7 +235,7 @@ class Sidebar extends Portfolio.UI
       @closeSidebar()
 
   openSidebar: () ->
-    console.log "open sidebar"
+    log "open sidebar"
     @sidebarOpen = true
     @sidebarMenuOpen = false
 
@@ -240,7 +262,7 @@ class Sidebar extends Portfolio.UI
     @animateToPosition @thumbnailsEl, 0
     @animateToPosition @innerContentEl, 70
     @animateToPosition @sidebarNavEl, -230, =>
-      # $(@innerContentEl).css width: containerWidth
+      $(@innerContentEl).css width: containerWidth
     @animateToPosition @sidebarMenuEl, -300
 
     @adjustImageGrid(
@@ -250,7 +272,7 @@ class Sidebar extends Portfolio.UI
     )
 
   closeSidebar: () ->
-    console.log "close sidebar"
+    log "close sidebar"
     @sidebarOpen = false
     @sidebarMenuOpen = false
 
@@ -259,7 +281,7 @@ class Sidebar extends Portfolio.UI
 
     containerWidth = $(window).width()
     $(@contentEl).css width: containerWidth
-    # $(@innerContentEl).css width: containerWidth
+    $(@innerContentEl).css width: containerWidth
     $(@thumbnailsEl).css width: containerWidth
 
     # $(@sidebarNavEl).removeClass('animate-sidebar-menu-open')
@@ -290,7 +312,7 @@ class Sidebar extends Portfolio.UI
     rightMargin      = options.rightMargin or 0
 
     if $UI.Constants.viewLoaded is true
-      console.log "publish resize events"
+      log "publish resize events"
       $.publish('resize.Portfolio',
         options =
           widthDifference: widthDifference

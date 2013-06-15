@@ -25,6 +25,7 @@ Application.Controllers.controller "AboutController", ["$rootScope", "$scope", "
       # Skip the first argument (event object) but log the other args.
       (_, options) =>
         $UI.hideLoadingScreen()
+        if $UI.Constants.sidebarMenuOpen is true then Portfolio.openSidebarMenu() else Portfolio.openSidebar()
 
     #### The index action
     #

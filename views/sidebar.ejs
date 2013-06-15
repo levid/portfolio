@@ -2,9 +2,9 @@
 <nav class='sidebar-nav' ng-controller='NavbarController'>
 <div class='content-menu'>
 <h4>All Projects</h4>
-<ul data-behavior='scrollable'>
+<ul class='scrollable' data-behavior='scrollable'>
 <li data-ng-repeat='project in projectsNavMenu | orderBy:predicate' ng-class="{'active':getSlug(project.slug)}">
-<a class='tooltips' data-ng-href='/#/work/all/project/{{project.slug}}'>{{project.name}}</a>
+<a class='tooltips' data-ng-href='/#/work/all/project/{{project.slug}}' rel='{{project.id}}'>{{project.name}}</a>
 </li>
 <!-- %li{:"data-ng-repeat" => "project in projectsNavMenu", :"ng-class" => "{'active':getSlug(project.slug)}"} -->
 <!-- %a.tooltips{:"data-ng-href" => "/#/work/all/project/{{project.slug}}", :"data-toggle" => "tooltip", :title => "{{project.date | date:'yyyy'}}"} {{project.name}} -->
@@ -20,10 +20,32 @@
 </div>
 </a>
 </div>
-<div class='settings'>
-<a data-behavior='toggle-lock' ng-href='#'>
+<div class='settings dropdown dropup'>
+<a class='dropdown-toggle' data-toggle='dropdown' ng-href='#'>
 <i class='icon-portfolio-cog-2'></i>
 </a>
+<ul class='dropdown-menu'>
+<li>
+<a href='#'>
+Disable Sounds
+</a>
+</li>
+<li>
+<a href='#'>
+Disable Notifications
+</a>
+</li>
+<li>
+<a href='#'>
+Disable Shuffle Letters
+</a>
+</li>
+<li>
+<a href='#'>
+Cancel
+</a>
+</li>
+</ul>
 </div>
 <ul class='nav'>
 <li class='menu'>
@@ -105,7 +127,7 @@ Everything
 <li class='about'>
 <a ng-class="{'active':getClass('/about')}" ng-href='#/about'>
 <div class='icon'>
-<i class='icon-portfolio-info-script'></i>
+<i class='icon-portfolio-accessibility'></i>
 </div>
 <div class='text'>
 About
@@ -135,10 +157,20 @@ Clients
 <li class='cv'>
 <a ng-class="{'active':getClass('/cv')}" ng-href='#/cv'>
 <div class='icon'>
-<i class='icon-portfolio-tropics'></i>
+<i class='icon-portfolio-info-script'></i>
 </div>
 <div class='text'>
 CV
+</div>
+</a>
+</li>
+<li class='cv'>
+<a ng-class="{'active':getClass('/themes')}" ng-href='#/themes'>
+<div class='icon'>
+<i class='icon-portfolio-tropics'></i>
+</div>
+<div class='text'>
+Themes
 </div>
 </a>
 </li>

@@ -83,6 +83,34 @@ nav.sidebar-nav {
     padding: 0px;
     bottom: 130px;
     left: -100px;
+    z-index: 600;
+
+    .dropdown-menu {
+      background-color: #000000;
+      @include border-radius(0px);
+      border: 1px solid rgba(129,129,129,0.3);
+      padding: 10px;
+
+      li {
+        a {
+          padding: 1px 5px 0px 5px;
+          width: 100%;
+          color: #b1b2b2;
+          text-transform: uppercase;
+          font-size: .9em;
+          font-family: ProximaNovaRegular, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
+          font-weight: 300;
+          text-align: left;
+
+          &:hover {
+            background: none;
+            background-color: #ff6e42;
+            @include background-gradient(#ff6e42, #ff6e42, #ff6e42);
+            color: #ffffff;
+          }
+        }
+      }
+    }
 
     a {
       padding: 0px;
@@ -148,7 +176,7 @@ nav.sidebar-nav {
       font-weight: 300;
     }
 
-    ul {
+    ul.scrollable {
       width: 230px;
       margin: 10px 0px 0px 0px;
       padding: 10px 10px 10px 20px;

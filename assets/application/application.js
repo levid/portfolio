@@ -32,7 +32,11 @@ angular.module('application',
         redirectTo: '/home'
       }).
       when('/home', {
-        templateUrl: 'views/home.html'
+        templateUrl: 'views/home.html',
+        controller: 'HomeController',
+        customParams: {
+          action: 'index'
+        }
       }).
       when('/work', {
         templateUrl: 'views/work/index.html',
@@ -65,7 +69,6 @@ angular.module('application',
           category: 'design'
         }
       }).
-
       when('/work/design/project/:slug', {
         templateUrl: 'views/work/show.html',
         controller: 'ProjectsController',
@@ -146,6 +149,13 @@ angular.module('application',
       when('/cv', {
         templateUrl: 'views/cv.html',
         controller: 'AboutController',
+        customParams: {
+          action: 'index'
+        }
+      }).
+      when('/themes', {
+        templateUrl: 'views/themes.html',
+        controller: 'ThemesController',
         customParams: {
           action: 'index'
         }

@@ -51,7 +51,7 @@ Year
 </div>
 <div class='thumbnails'>
 <div data-ng-repeat='project in projects'>
-<div class="').toLowerCase()}} thumb {{project.categories.join('," data-category="{{project.categories.join(', ').toLowerCase()}}" data-tag="{{project.tags.join(', ').toLowerCase()}}">
+<div class='thumb' data-category="{{project.categories.join(', ').toLowerCase()}}" data-tag="{{project.tags.join(', ').toLowerCase()}}" rel='{{project.id}}'>
 <!-- {{project.categories}} -->
 <div class='image' ng-click="go('/work/design/project/'+project.slug)">
 <div class='project-details-container'>

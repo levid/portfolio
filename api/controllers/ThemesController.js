@@ -4,7 +4,10 @@
 ---------------------*/
 var ThemesController = {
   findAll: function(req, res) {
-    Themes.findAll({is_active: 'true'}).done(function(err, themes) {
+    Themes.findAll({
+      is_active: "true",
+      sort: "name ASC"
+    }).done(function(err, themes) {
       if (err) return res.send(err, 500);
       return res.json(themes)
     });

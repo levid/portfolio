@@ -35,9 +35,6 @@ class Nav extends Portfolio.UI
     @allLink          = @options.allLink          or "section.content ul.nav li.filter-by a"
     @lensFlareEnabled = @options.lensFlareEnabled or "true"
 
-    $(document).ready =>
-      @init()
-
     # return this to make this class chainable
     return this
 
@@ -60,7 +57,7 @@ class Nav extends Portfolio.UI
 
   shuffleLetters: () ->
     $(document).on('mouseenter', @shuffleLinks, (e) ->
-      $(this).shuffleLetters
+      $(this).parent().find('.shuffle').shuffleLetters
         callback: ->
           # console.log "finished"
     )
@@ -87,7 +84,7 @@ class Nav extends Portfolio.UI
 
   largeButtons: () =>
     $(document).on('mouseenter', @homeNavLinks, (e) =>
-      @lensFlare($(e.target)).show()
+      @lensFlare($(e.target).parent()).show()
 
       $(e.target).parent().stop().animate
         left: 0
@@ -95,7 +92,7 @@ class Nav extends Portfolio.UI
         duration: 500
         easing: 'easeOutQuint'
 
-      @filterNavOpacity($(e.target).parents('ul').find('li.large a'), $(e.target))
+      @filterNavOpacity($(e.target).parents('ul').find('li.large .shuffle'), $(e.target).parents('li').find('.shuffle'))
       @highlightLeftNav($(e.target).data('target')).show()
 
     ).on('mouseleave', @homeNavLinks,  (e) =>
@@ -104,8 +101,9 @@ class Nav extends Portfolio.UI
         $(@lensFlareEl).stop().fadeOut()
       , 8000)
 
-      $(e.target).parents('ul').find('li.large a').each (index) ->
+      $(e.target).parents('ul').find('li.large .shuffle').each (index) ->
         $(this).css opacity: 1
+
       @highlightLeftNav().hide()
 
     ).on('click', @homeNavLinks,  (e) =>
@@ -129,11 +127,11 @@ class Nav extends Portfolio.UI
 
   smallButtons: () =>
     $(document).on('mouseenter', @smallNavlinks, (e) =>
-      @filterNavOpacity($(e.target).parents('ul').find('li.small a'), $(e.target))
+      @filterNavOpacity($(e.target).parents('ul').find('li.small .shuffle'), $(e.target).parents('li').find('.shuffle'))
       @highlightLeftNav($(e.target).data('target')).show()
 
     ).on('mouseleave', @smallNavlinks, (e) =>
-      $(e.target).parents('ul').find('li.small a').each (index) ->
+      $(e.target).parents('ul').find('li.small .shuffle').each (index) ->
         $(this).css opacity: 1
       @highlightLeftNav().hide()
 

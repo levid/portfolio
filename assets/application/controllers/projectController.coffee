@@ -17,7 +17,6 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
     #
     constructor: () ->
       @initScopedMethods()
-
       @projectInfoOverlay = $('.project-info-overlay')
 
       if $rootScope.customParams
@@ -29,62 +28,8 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       $scope.s3_path = configuration.s3_path
       $scope.category = $rootScope.customParams.category
 
-      # $.subscribe('resize.Portfolio', @initAfterViewContentLoadedProxy('resize.Portfolio'))
-
-      $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
-
       # return this to make this class chainable
       this
-
-    initAfterViewContentLoadedProxy: () ->
-      # Skip the first argument (event object) but log the other args.
-      (_, options) =>
-        screenshotTimeout = setTimeout(=>
-          $('.thumbnails-show-view').waitForImages (=>
-            @setWaypoints('.block', '#main')
-            $UI.hideSpinner $('.info-container').find('.spinner')
-
-            if $UI.Constants.sidebarMenuOpen is true
-              Portfolio.openSidebarMenu()
-            else
-              Portfolio.openSidebar()
-
-            # setWidth = (options) =>
-            #   $('.thumbnails-show-view').css
-            #     width: ($(window).width()) - 70
-            #     left: -40
-
-            # $(window).resize =>
-            #   setWidth(options)
-            # setWidth(options)
-
-            console.log "All screenshots have loaded."
-
-          ),((loaded, count, success) ->
-            console.log loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
-            $(this).addClass "loaded"
-          ), true
-          clearTimeout screenshotTimeout
-        , 1000)
-
-    setWaypoints: (element, context) ->
-      self = this
-      $(element).waypoint
-        context: context
-        # offset: 50
-        handler: (direction) ->
-          self.projectInfoOverlay.fadeOut()
-
-          description       = $(this).find('.description').text()
-          self.previousView = self.inView
-          self.inView       = description
-
-          # unless self.previousView is self.inView
-          if direction is 'down'
-            if description.length > 0
-              self.projectInfoOverlay.fadeIn()
-              projectOverlay = self.projectInfoOverlay.find('p')
-              projectOverlay.text description
 
     #### The index action
     #
@@ -94,7 +39,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
     #   since it is a public static method
     #
     index: ($scope, params) ->
-      console.log "#{$rootScope.customParams.action} action called"
+      log "#{$rootScope.customParams.action} action called"
       $UI.Constants.actionPath = $rootScope.customParams.action
       $UI.Constants.category   = $rootScope.customParams.category
 
@@ -105,10 +50,10 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
 
       # @loadImages = setTimeout(=>
       #   $("#wrapper").waitForImages (=>
-      #     console.log "All design images have loaded."
+      #     log "All design images have loaded."
 
       #   ),((loaded, count, success) ->
-      #     console.log loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
+      #     log loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
       #   ), waitForAll: true
       #   clearTimeout @loadImages
       # , 500)
@@ -158,12 +103,31 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
         $.extend(projectsArr, project, projectsArr)
 
       , (error) ->
-        console.log error
+        log error
       )
 
       $scope.preview_images = preview_images
       $scope.projects = projectsArr
       $scope.predicate = 'name'
+
+    setInfoWaypoints: (element, context) ->
+      self = this
+      $(element).waypoint
+        context: context
+        # offset: 50
+        handler: (direction) ->
+          self.projectInfoOverlay.fadeOut()
+
+          description       = $(this).find('.description').text()
+          self.previousView = self.inView
+          self.inView       = description
+
+          # unless self.previousView is self.inView
+          if direction is 'down'
+            if description.length > 0
+              self.projectInfoOverlay.fadeIn()
+              projectOverlay = self.projectInfoOverlay.find('p')
+              projectOverlay.text description
 
     #### The new action
     #
@@ -173,13 +137,13 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
     #   since it is a public static method
     #
     new: ($scope) ->
-      console.log "#{$rootScope.customParams.action} action called"
+      log "#{$rootScope.customParams.action} action called"
       # $scope.user = Project.get(
       #   action: "new"
       # , (resource) ->
-      #   console.log resource
+      #   log resource
       # , (response) ->
-      #   console.log response
+      #   log response
       # )
 
 
@@ -191,15 +155,15 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
     #   since it is a public static method
     #
     edit: ($scope) ->
-      console.log "#{$rootScope.customParams.action} action called"
+      log "#{$rootScope.customParams.action} action called"
       if $routeParams.id
         $scope.project = Project.get(
           id: $routeParams.id
           action: "edit"
         , (success) ->
-          console.log success
+          log success
         , (error) ->
-          console.log error
+          log error
         )
 
     #### The show action
@@ -210,15 +174,18 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
     #   since it is a public static method
     #
     show: ($scope, params) ->
-      console.log "#{$rootScope.customParams.action} action called"
+      log "#{$rootScope.customParams.action} action called"
 
-      $UI.hideLoadingScreen()
-
+      # $UI.hideLoadingScreen()
       $UI.Constants.actionPath = $rootScope.customParams.action
 
-
-
       if $routeParams.slug
+
+        screenshotsArr = []
+        Screenshots.findAll((screenshots) ->
+          screenshotsArr = screenshots
+        )
+
         projectsArr = [{}]
         projects = Projects.find(
           slug: $routeParams.slug
@@ -228,19 +195,16 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
           images = []
           technologies = []
 
-          screenshotsArr = []
-          Screenshots.findAll((screenshots) ->
-            screenshotsArr = screenshots
-          )
-
           $.each project.image_ids, (k, v) =>
             if v isnt ''
               Images.find({id: v}, (image) ->
-                $.each screenshotsArr, (key, val) =>
-                  if val.screenable_id is v
-                    images.push(val)
                 images.push(image)
               )
+
+              $.each screenshotsArr, (key, val) =>
+                if val.screenable_id is v
+                  images.push(val)
+
               project.image_paths = images
 
           $.each project.tag_ids, (key, val) =>
@@ -284,7 +248,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
             lines: 12
             length: 0
             width: 3
-            radius: 10
+            radius: 13
             color: '#ffffff'
             speed: 1.6
             trail: 45
@@ -292,10 +256,42 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
             hwaccel: false
 
         , (error) ->
-          console.log error
+          log error
         )
 
         $scope.project = projectsArr
+
+      setTimeout(=>
+        $('.thumbnails').waitForImages (=>
+          # setWidth = (options) =>
+          #   $('.thumbnails-show-view').css
+          #     width: ($(window).width()) - 70
+          #     left: -40
+
+          # $(window).resize =>
+          #   setWidth(options)
+          # setWidth(options)
+
+          # if $UI.Constants.sidebarMenuOpen is true then Portfolio.openSidebarMenu() else Portfolio.openSidebar()
+
+          @setInfoWaypoints('.block', '#main')
+
+          log "All screenshots have loaded."
+
+          $('.info-container .spinner .text').text ""
+          $('#overlay .logo-preload .text').text ""
+          $('.info-container .spinner .text').fadeOut()
+          $UI.hideSpinner $('.info-container .spinner')
+          $.publish 'event.Portfolio', message: "All screenshots loaded"
+
+        ),((loaded, count, success) ->
+          log loaded + " of " + count + " screenshots has " + ((if success then "loaded" else "failed to load")) + "."
+          perc = Math.round((100 / count) * loaded)
+          $('.info-container .spinner .text').text "#{perc}"
+          $('#overlay .logo-preload .text').text "#{perc} %"
+          $(this).addClass "loaded"
+        ), $.noop, true
+      , 1500)
 
 
     #### Get current scope
@@ -384,8 +380,8 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       $scope.nextPage = (limit, skip) ->
         $scope.limit = limit + 3
         $scope.skip = skip + 1
-        console.log limit
-        console.log skip
+        log limit
+        log skip
 
       $scope.addProject = ->
         user = new Project
@@ -428,11 +424,11 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
           Project.delete(
             id: project.id
           , (success) ->
-            console.log success
+            log success
             $scope.projects = _.difference($scope.projects, project)
             $socket.emit "deleteProject", project # Broadcast to connected subscribers that a project has been deleted
           , (error) ->
-            console.log error
+            log error
           )
         false
 

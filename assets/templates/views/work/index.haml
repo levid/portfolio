@@ -50,7 +50,7 @@
 
       .thumbnails
         %div{:"data-ng-repeat" => "project in projects"}
-          .thumb{:"data-category" => "{{project.categories.join(', ').toLowerCase()}}", :"data-tag" => "{{project.tags.join(', ').toLowerCase()}}", :"class" => "{{project.categories.join(', ').toLowerCase()}}"}
+          .thumb{:"data-category" => "{{project.categories.join(', ').toLowerCase()}}", :"data-tag" => "{{project.tags.join(', ').toLowerCase()}}", :rel => "{{project.id}}"}
             / {{project.categories}}
             .image{:"ng-click" => "go('/work/design/project/'+project.slug)"}
               .project-details-container

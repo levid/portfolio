@@ -8,6 +8,7 @@
           %h3
             {{project.name}}
             .spinner
+              .text
 
           .buttons
             %a.btn.btn-back{:"ng-href" => '', :"ng-click" => "goBack()"}
@@ -52,22 +53,33 @@
 
       .project-info-overlay
         %p
-      .thumbnails-show-view
+      .thumbnails.show-view
         %div{:"ng-repeat" => "image in project.image_paths"}
-          .thumb-full-width{:"ng-repeat" => "key in notSorted(image)", :"ng-init" => "val = image[key]", :"ng-switch" => '', :on => "key"}
-            %div.block{:"ng-switch-when" => "logo_filename"}
-              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "{{image.logo_width}}", :height => "{{image.logo_height}}"}
-            %div.block{:"ng-switch-when" => "composite_image_desktop"}
-              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "871", :height => "638"}
-            %div.block{:"ng-switch-when" => "composite_image_laptop"}
-              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "786", :height => "575"}
-            %div.block{:"ng-switch-when" => "composite_image_tablet"}
-              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "689", :height => "504"}
-            / %div.block{:"ng-switch-when" => "large_image"}
-            /   %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
-            %div.block{:"ng-switch-when" => "image_filename"}
-              %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "{{image.image_width}}"}
-              %div.info.description.hide{:"data-ng-show" => "image.description"} {{image.description}}
-            %div.block{:"ng-switch-when" => "file_filename"}
-              %img{:"ng-src" => "{{s3_path}}/image/screenshots/{{image.id}}/{{val}}", :width => "{{image.image_width}}"}
-              %div.info.description.hide{:"data-ng-show" => "image.description"} {{image.description}}
+          .thumb{:"ng-repeat" => "key in notSorted(image)", :"ng-init" => "val = image[key]", :"ng-switch" => '', :on => "key"}
+            .image
+              .project-details-container{:style => 'opacity: 0'}
+                .content
+                  %h3.name
+                    %i.icon-portfolio-magnifier
+                    View
+              .block{:"ng-switch-when" => "logo_filename"}
+                %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "{{image.logo_width}}", :height => "{{image.logo_height}}"}
+              .block{:"ng-switch-when" => "composite_image_desktop"}
+                %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "871", :height => "638"}
+              .block{:"ng-switch-when" => "composite_image_laptop"}
+                %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "786", :height => "575"}
+              .block{:"ng-switch-when" => "composite_image_tablet"}
+                %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "689", :height => "504"}
+              / %div.block{:"ng-switch-when" => "large_image"}
+              /   %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"}
+              .block{:"ng-switch-when" => "image_filename"}
+                %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}", :width => "{{image.image_width}}"}
+                .info.description.hide{:"data-ng-show" => "image.description"} {{image.description}}
+              .block{:"ng-switch-when" => "file_filename"}
+                %img{:"ng-src" => "{{s3_path}}/image/screenshots/{{image.id}}/{{val}}", :width => "{{image.image_width}}"}
+                .info.description.hide{:"data-ng-show" => "image.description"} {{image.description}}
+
+  #zoom
+    %a.close-button{:href => '#'}
+      %i.icon-portfolio-close
+    %img{:src => ""}

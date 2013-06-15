@@ -1,6 +1,6 @@
 'use strict'
 
-Application.Controllers.controller "MainCtrl", ["$rootScope", "$scope", "$location", ($rootScope, $scope, $location) ->
+Application.Controllers.controller "MainCtrl", ["$rootScope", "$scope", "$location", "configuration", "Themes", ($rootScope, $scope, $location, configuration, Themes) ->
   class MainCtrl
     constructor: () ->
       $scope.foo = "booyah"
@@ -11,6 +11,8 @@ Application.Controllers.controller "MainCtrl", ["$rootScope", "$scope", "$locati
 
         $scope.portfolio = Portfolio
         $scope.portfolio.initAfterViewContentLoaded(path)
+
+        $scope.s3_path = configuration.s3_path
 
   window.MainCtrl = new MainCtrl()
 ]

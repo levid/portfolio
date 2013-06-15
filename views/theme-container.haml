@@ -1,12 +1,12 @@
-.theme-container{:"ng-controller" => "ThemesController"}
-  %a.theme-tooltip{:href => '#', :data => {:behavior => 'toggle-theme'}}
+.theme-container{:"ng-controller" => 'ThemesController'}
+  %a.toggle-theme{:href => '#', :data => {:behavior => 'toggle-theme'}}
     .text
       %i.icon-portfolio-shuffle
     .loading
-      .spinner
+      .theme-spinner
     .box
       %ul
-        %li.active{:"ng-repeat" => "theme in themes", :"ng-class" => "{'default':theme.is_default == true}", :"ng-init" => "path = s3_path + '/image/themes/' + theme.id"}
+        %li{:"ng-repeat" => "theme in themes", :"ng-class" => "{'default':theme.is_default == true}", :"ng-init" => "path = s3_path + '/image/themes/' + theme.id"}
           %img{:"ng-src" => "{{path}}/{{theme.thumbnail_image}}", :"data-background" => "{{path}}/{{theme.background_image_filename}}", :"data-position" => "{{theme.position}}", :width => "150", :height => "84"}
 
     / .hexagon.hexagon

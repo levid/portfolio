@@ -6,7 +6,9 @@
 <div class='content'>
 <h3>
 {{project.name}}
-<div class='spinner'></div>
+<div class='spinner'>
+<div class='text'></div>
+</div>
 </h3>
 <div class='buttons'>
 <a class='btn btn-back' ng-click='goBack()' ng-href=''>
@@ -72,9 +74,18 @@
 <div class='project-info-overlay'>
 <p></p>
 </div>
-<div class='thumbnails-show-view'>
+<div class='thumbnails show-view'>
 <div ng-repeat='image in project.image_paths'>
-<div class='thumb-full-width' ng-init='val = image[key]' ng-repeat='key in notSorted(image)' ng-switch='' on='key'>
+<div class='thumb' ng-init='val = image[key]' ng-repeat='key in notSorted(image)' ng-switch='' on='key'>
+<div class='image'>
+<div class='project-details-container' style='opacity: 0'>
+<div class='content'>
+<h3 class='name'>
+<i class='icon-portfolio-magnifier'></i>
+View
+</h3>
+</div>
+</div>
 <div class='block' ng-switch-when='logo_filename'>
 <img height='{{image.logo_height}}' ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}' width='{{image.logo_width}}'>
 </div>
@@ -101,5 +112,12 @@
 </div>
 </div>
 </div>
+</div>
 </section>
+<div id='zoom'>
+<a class='close-button' href='#'>
+<i class='icon-portfolio-close'></i>
+</a>
+<img src=''>
+</div>
 </script>

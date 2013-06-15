@@ -20,10 +20,10 @@ class ImageGrid extends Portfolio.UI
   constructor: (@options) ->
     # Extend default options to include passed in arguments
     @options          = $.extend({}, this.opts, @options)
-    @sidebarNavEl     = @options.sidebarNavEl or "nav.sidebar-nav"
-    @innerContentEl   = @options.innerContentEl   or "section.content .innerContent"
-    @contentEl        = @options.contentEl        or "section.content"
-    @thumbnailsEl     = @options.thumbnailsEl     or "section.content .innerContent .thumbnails"
+    @sidebarNavEl     = @options.sidebarNavEl     or $("nav.sidebar-nav")
+    @innerContentEl   = @options.innerContentEl   or $("section.content .innerContent")
+    @contentEl        = @options.contentEl        or $("section.content")
+    @thumbnailsEl     = @options.thumbnailsEl     or $(".thumbnails")
 
 
     $.subscribe('resize.Portfolio', @initResize('resize.Portfolio'))
@@ -33,10 +33,31 @@ class ImageGrid extends Portfolio.UI
       e.preventDefault()
       $(".sort-by a").removeClass 'active'
       $(this).addClass 'active'
-      # get href attribute, minus the '#'
       sortBy = $(e.target).data('option-value')
       $('.thumbnails').isotope
         sortBy: sortBy
+
+
+    $(document).on 'click', ".thumbnails.show-view .project-details-container", (e) ->
+      e.preventDefault()
+      imagePath = $(this).parent().find('.block img').attr('src')
+      img = $("#zoom").find('img')
+      $(img).attr('src', imagePath)
+      $("#zoom").css
+        lineHeight: $(window).height() + 'px'
+      $("#zoom").fadeIn()
+
+      $(window).resize =>
+        $("#zoom").css
+          lineHeight: $(window).height() + 'px'
+
+    $(document).on 'click', "#zoom", (e) ->
+      e.preventDefault()
+      $("#zoom").fadeOut()
+
+    $(document).on 'click', ".close-button", (e) ->
+      e.preventDefault()
+      $("#zoom").fadeOut()
 
     # return this to make this class chainable
     return this
@@ -51,18 +72,19 @@ class ImageGrid extends Portfolio.UI
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
       log "loaded"
-      @category = $UI.Constants.category
-      options = {}
-      sidebarMenuOpen = $UI.Constants.sidebarMenuOpen
-      sidebarOpen     = $UI.Constants.sidebarOpen
+      @category         = $UI.Constants.category
+      @path              = $UI.Constants?.actionPath
+      options           = {}
+      sidebarMenuOpen   = $UI.Constants.sidebarMenuOpen
+      sidebarOpen       = $UI.Constants.sidebarOpen
 
       log "sidebarOpen: " + $UI.Constants.sidebarOpen
       log "sidebarMenuOpen: " + $UI.Constants.sidebarMenuOpen
 
       if sidebarOpen is true and sidebarMenuOpen is true
         log "grid: sidebarmenu open"
-        containerWidth = ($(window).width() - $(@sidebarNavEl).width()) - 16
-        options.widthDifference = $(@sidebarNavEl).width() - 70
+        containerWidth = ($(window).width() - $("nav.sidebar-nav").width()) - 16
+        options.widthDifference =$("nav.sidebar-nav").width() - 70
         options.rightMargin = 80
       else if sidebarOpen is true and sidebarMenuOpen is false
         log "grid: sidebar open"
@@ -80,41 +102,42 @@ class ImageGrid extends Portfolio.UI
         options.widthDifference = 0
         options.rightMargin = 25
 
-      $(@contentEl).css width: containerWidth
-      $(@innerContentEl).css width: containerWidth
-      $(@thumbnailsEl).css width: containerWidth
+      @contentEl.css width: containerWidth
+      @innerContentEl.css width: containerWidth
+      @thumbnailsEl.css width: containerWidth
 
-      $('.thumbnails').waitForImages (=>
-        @buildGrid options, =>
-          $UI.hideLoadingScreen()
-        console.log "All preview images have loaded."
+      setTimeout(=>
+        $('.thumbnails').waitForImages (=>
+          @buildGrid(options, =>
+            $UI.hideLoadingScreen()
+          )
 
-      ),((loaded, count, success) ->
-        console.log loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
-        $(this).addClass "loaded"
-      ), true
+          log "All preview images have loaded."
+
+        ),((loaded, count, success) ->
+          log loaded + " of " + count + " preview images has " + ((if success then "loaded" else "failed to load")) + "."
+          $(this).addClass "loaded"
+        ), $.noop, true
+      , 1000)
 
   buildGrid: (options, callback) ->
-    callback          = callback or ->
-    if options
-      widthDifference = options.widthDifference
-      rightMargin     = options.rightMargin
-      path            = $UI.Constants?.actionPath
-    else
-      widthDifference = 0
-      rightMargin     = 70
+    callback = callback or ->
 
     calc = () =>
+      if Object.keys(options).length is 0
+        options.widthDifference = 0
+        options.rightMargin = 0
+
       @containerEl    = $('.thumbnails')
       @thumbContainer = $('.thumb')
-      windowWidth     = $(window).width() - widthDifference
+      windowWidth     = $(window).width() - options.widthDifference
       windowHeight    = $(window).height()
-      containerWidth  = windowWidth - rightMargin
+      containerWidth  = windowWidth - options.rightMargin
       cols1           = containerWidth
       cols2           = containerWidth / 2
       cols3           = containerWidth / 3
 
-      # console.log "cols1: #{cols1} - cols2: #{cols2} - cols3: #{cols3}"
+      # log "cols1: #{cols1} - cols2: #{cols2} - cols3: #{cols3}"
 
       if cols2 > 600
         cols = cols3
@@ -122,6 +145,8 @@ class ImageGrid extends Portfolio.UI
         cols = cols1
       else
         cols = cols2
+
+      # if @path is 'show' then cols = cols2
 
       @containerEl.css width: $(window).width()
       if @containerEl.find('.thumb').length is 1
@@ -178,7 +203,7 @@ class ImageGrid extends Portfolio.UI
       # # call Isotope as a callback
       # , (json, opts) =>
       #   page = opts.state.currPage
-      #   console.log page
+      #   log page
       #   # @containerEl.isotope "appended", $(newElements)
 
 
@@ -188,11 +213,11 @@ class ImageGrid extends Portfolio.UI
       #   _customModeLayout: ($elems) ->
       #   _customModeGetContainerSize: ->
       #   _customModeResizeChanged: ->
-      #     console.log "TEST"
+      #     log "TEST"
       #     # callback()
 
     # $(window).scroll ->
-    #   console.log "test"
+    #   log "test"
     #   $('.thumbnails').isotope('reLayout')
     $(window).resize ->
       calc()

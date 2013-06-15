@@ -1,14 +1,14 @@
 <div class='theme-container' ng-controller='ThemesController'>
-<a class='theme-tooltip' data-behavior='toggle-theme' href='#'>
+<a class='toggle-theme' data-behavior='toggle-theme' href='#'>
 <div class='text'>
 <i class='icon-portfolio-shuffle'></i>
 </div>
 <div class='loading'>
-<div class='spinner'></div>
+<div class='theme-spinner'></div>
 </div>
 <div class='box'>
 <ul>
-<li class='active' ng-class="{'default':theme.is_default == true}" ng-init="path = s3_path + '/image/themes/' + theme.id" ng-repeat='theme in themes'>
+<li ng-class="{'default':theme.is_default == true}" ng-init="path = s3_path + '/image/themes/' + theme.id" ng-repeat='theme in themes'>
 <img data-background='{{path}}/{{theme.background_image_filename}}' data-position='{{theme.position}}' height='84' ng-src='{{path}}/{{theme.thumbnail_image}}' width='150'>
 </li>
 </ul>

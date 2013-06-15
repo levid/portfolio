@@ -31,6 +31,92 @@
 //   z-index: 2;
 // }
 
+.bg-image {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  min-height: 100%;
+  height: 100%;
+  margin: 0 auto -100px; /* the bottom margin is the negative value of the footer's height */
+  position: fixed;
+  z-index: 1;
+  // @include opacity(0);
+  // background-color: #000000;
+
+  // @include background($path + 'themes/ocean-rocks.jpg', no-repeat, bottom left, transparent);
+  // @include background($path + 'patterns/moulin.png', repeat, top left, transparent);
+  @include background-size(100%);
+  // @include transition(opacity 500ms ease-in-out);
+}
+
+#zoom {
+  background: rgba(0,0,0,0.9);
+  opacity: 1;
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  left: 8px;
+  bottom: 8px;
+  height: auto;
+  width: auto;
+  max-height: 100%;
+  z-index: 5000;
+  display: none;
+  text-align: center;
+  cursor: pointer;
+  overflow: scroll;
+
+  img {
+    top: 0;
+    margin: 0px auto;
+    width: auto;
+    height: auto;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  a {
+    width: 60px;
+    height: 60px;
+    color: rgba(255,255,255, 0.5);
+    position: fixed;
+    top: 30px;
+    right: 20px;
+    display: inline-block;
+    font-size: 2em;
+    vertical-align: top;
+    line-height: 12px;
+    z-index: 10;
+
+    i {
+      position: relative;
+      top: 0px;
+    }
+
+    &:hover {
+      color: #ffffff;
+      @include transition(all 200ms ease-in-out);
+    }
+  }
+}
+
+.bg-temp {
+  width: 100%;
+  display: none;
+  overflow: hidden;
+  min-height: 100%;
+  height: 100%;
+  margin: 0 auto -100px; /* the bottom margin is the negative value of the footer's height */
+  position: fixed;
+  z-index: 0;
+
+  // background-color: #000000;
+
+  // @include background($path + 'themes/ocean-rocks.jpg', no-repeat, bottom left, transparent);
+  @include background-size(100%);
+}
+
 #wrapper {
   width: 100%;
   display: block;
@@ -40,11 +126,8 @@
   height: 100%;
   margin: 0 auto -100px; /* the bottom margin is the negative value of the footer's height */
 
-  @include background($path + 'themes/ocean-rocks.jpg', no-repeat, bottom left, transparent);
-  @include background-size(cover);
-
   position: relative;
-  z-index: 1;
+  z-index: 2;
 
   &.sub {
     main#main {
@@ -99,11 +182,12 @@
       top: 8px;
       left: 8px;
       right: 8px;
-      bottom: 120px;
-      z-index: 500;
+      bottom: 128px;
+      z-index: 800;
       position: fixed;
       // background-color: #f7f5ed;
-      background-color: rgba(0,0,0, 0.9);
+      background-color: rgba(0,0,0,0.9);
+      // @include background($path + 'patterns/dark_dotted2.png', repeat, top left, transparent);
       height: auto;
       width: auto;
       max-height: 100%;
@@ -136,6 +220,20 @@
             top: 50%;
             position: relative;
           }
+        }
+
+        .text {
+          margin: 25px 0px 0px -20px;
+          left: 50%;
+          top: 50%;
+          width: 40px;
+          height: auto;
+          color: #ffffff;
+          position: absolute;
+          display: inline-block;
+          font-family: ProximaNovaRegular, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
+          font-size: 10px;
+          text-align: center;
         }
       }
 
@@ -241,134 +339,6 @@
           }
           .off-state {
             display: inline-block;
-          }
-        }
-      }
-    }
-
-    .theme-container {
-      margin: 0px auto;
-      width: auto;
-      height: auto;
-      display: none;
-      // overflow: hidden;
-
-      // @include border-radius(50px);
-      position: absolute;
-      top: 40px;
-      right: 70px;
-      z-index: 500;
-      @include transition(all .2s linear);
-
-      &:hover {
-        .box {
-          @include transition(all .2s linear);
-          border: 1px solid rgba(255,255,255, 0.5);
-        }
-      }
-
-      .box {
-        width: 69px;
-        height: 69px;
-        display: inline-block;
-        @include border-radius(50px);
-        overflow: hidden;
-        @include transition(all .2s linear);
-        border: 1px solid transparent;
-      }
-
-      .loading {
-        margin: 0;
-        width: 69px;
-        height: 69px;
-        display: none;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        z-index: 500;
-
-        .spinner {
-          width: auto;
-          height: 40px;
-          display: inline-block;
-          position: relative;
-          top: 34px;
-        }
-      }
-
-      .title {
-        width: auto;
-        margin: 0px 0px 0px 0px;
-        display: block;
-        position: absolute;
-        left: -100px;
-        top: 25px;
-        font-family: ProximaNovaSemibold, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
-        font-size: 0.9em;
-        text-transform: uppercase;
-        text-align: center;
-        text-shadow: 1px 1px 2px rgba(0,0,0, 0.5);
-        @include opacity(0);
-        @include transition(all .1s linear);
-        color: #ffffff;
-      }
-
-      a {
-        width: 69px;
-        height: 69px;
-        display: block;
-        text-align: center;
-        // @include border-radius(50px);
-
-        &:hover {
-          .text {
-            @include opacity(100);
-          }
-
-          img {
-            // border-color: #ffffff;
-          }
-
-          .title {
-            @include opacity(100);
-          }
-
-          // @include transform-scale(scale(1.3));
-        }
-
-        .text {
-          margin: 19px auto;
-          width: 100%;
-          height: auto;
-          position: absolute;
-          font-family: ProximaNovaSemibold, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
-          font-size: 1.7em;
-          text-shadow: 1px 1px 2px rgba(0,0,0, 0.7);
-          @include opacity(50);
-          color: #ffffff;
-          @include transition(all .1s linear);
-          z-index: 10;
-        }
-
-        ul {
-          margin: 0px;
-          padding: 0px;
-          list-style: none;
-
-          li {
-            width: 69px;
-            height: 79px;
-            display: none;
-            overflow: hidden;
-
-            &.active {
-              display: inline-block;
-            }
-
-            img {
-              height: 79px;
-              @include transition(all .1s linear);
-            }
           }
         }
       }

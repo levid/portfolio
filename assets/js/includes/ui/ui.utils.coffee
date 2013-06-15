@@ -36,6 +36,18 @@ class Utils extends Portfolio.UI
           delete data.spinner
       this
 
+    # Extend jQuery with a center() method. Usage: $(element).center()
+    $.fn.extend center: ->
+      @each ->
+        top = ($(window).height() - $(this).outerHeight()) / 2
+        left = ($(window).width() - $(this).width()) / 2
+
+        $(this).css
+          position: "fixed"
+          margin: 0
+          top: (if top > 0 then top else 0) + "px"
+          left: (if left > 0 then left else 0) + "px"
+
     # return this to make this class chainable
     return this
 

@@ -11,7 +11,6 @@
 # - UI.Audio
 # - UI.Utils
 #
-
 class Portfolio
   opts:
     wrapper:        undefined
@@ -26,9 +25,9 @@ class Portfolio
   constructor: (@options) ->
     # Extend default options to include passed in arguments
     @options        = $.extend({}, this.opts, @options)
-    @wrapper        = @options.wrapper or $("#wrapper")
-    @main           = @options.main or $("#main")
-    @sidebarNavEl   = @options.sidebarNavEl or $("nav.sidebar-nav")
+    @wrapper        = @options.wrapper        or $("#wrapper")
+    @main           = @options.main           or $("#main")
+    @sidebarNavEl   = @options.sidebarNavEl   or $("nav.sidebar-nav")
     @innerContentEl = @options.innerContentEl or $("section.content .innerContent")
     @init()
 
@@ -37,6 +36,7 @@ class Portfolio
   init: () ->
     $(document).ready =>
       $UI.Constants.imageGrid = new $UI.ImageGrid()
+      $UI.Constants.nav       = new $UI.Nav(lensFlareEnabled: "true").init()
       $UI.initGlobalUI()
 
       $("section.content .innerContent").css minHeight: $(document).innerHeight()
@@ -49,10 +49,6 @@ class Portfolio
       $("section.content .innerContent").css width: $(window).width()
       $("[data-behavior='scrollable']").css height: ($(window).height() - 250)
 
-      $UI.Constants.nav = new $UI.Nav(
-        lensFlareEnabled: "true"
-      ).init()
-
       @initTooltips()
       @initLogoFade()
       @initScrollTop()
@@ -64,7 +60,6 @@ class Portfolio
       # $(document).on 'mouseleave', ".thumbnails .image", (e) ->
       #   e.preventDefault()
       #   $(this).find(".info-container").hide()
-
 
   initScrollTop: () ->
     $("[data-behavior='scroll-top']").parent().hide()
@@ -92,6 +87,8 @@ class Portfolio
 
   initAfterViewContentLoaded: (path) ->
     $UI.scrollTop()
+
+    $UI.Constants.viewLoaded = false
 
     if path isnt "home"
       @wrapper.addClass 'sub'

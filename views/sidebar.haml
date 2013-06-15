@@ -2,9 +2,9 @@
 %nav.sidebar-nav{:"ng-controller" => "NavbarController"}
   .content-menu
     %h4 All Projects
-    %ul{:data => {:behavior => 'scrollable'}}
+    %ul.scrollable{:data => {:behavior => 'scrollable'}}
       %li{:"data-ng-repeat" => "project in projectsNavMenu | orderBy:predicate", :"ng-class" => "{'active':getSlug(project.slug)}"}
-        %a.tooltips{:"data-ng-href" => "/#/work/all/project/{{project.slug}}"} {{project.name}}
+        %a.tooltips{:"data-ng-href" => "/#/work/all/project/{{project.slug}}", :rel => "{{project.id}}"} {{project.name}}
       / %li{:"data-ng-repeat" => "project in projectsNavMenu", :"ng-class" => "{'active':getSlug(project.slug)}"}
       /   %a.tooltips{:"data-ng-href" => "/#/work/all/project/{{project.slug}}", :"data-toggle" => "tooltip", :title => "{{project.date | date:'yyyy'}}"} {{project.name}}
 
@@ -14,9 +14,24 @@
         %i.icon-portfolio-locked
       .unlocked
         %i.icon-portfolio-unlocked
-  .settings
-    %a{:"ng-href" => '#', :data => {:behavior => 'toggle-lock'}}
+  .settings.dropdown.dropup
+    %a.dropdown-toggle{:"ng-href" => '#', :"data-toggle" => "dropdown"}
       %i.icon-portfolio-cog-2
+
+    %ul.dropdown-menu
+      %li
+        %a{:href => "#"}
+          Disable Sounds
+      %li
+        %a{:href => "#"}
+          Disable Notifications
+      %li
+        %a{:href => "#"}
+          Disable Shuffle Letters
+      %li
+        %a{:href => "#"}
+          Cancel
+
   %ul.nav
     %li.menu
       %a{:href => '#', :data => {:behavior => 'toggle-menu'}}
@@ -67,7 +82,7 @@
     %li.about
       %a{:"ng-href" => '#/about', :"ng-class" => "{'active':getClass('/about')}"}
         .icon
-          %i.icon-portfolio-info-script
+          %i.icon-portfolio-accessibility
         .text
           About
     %li.contact
@@ -85,9 +100,15 @@
     %li.cv
       %a{:"ng-href" => '#/cv', :"ng-class" => "{'active':getClass('/cv')}"}
         .icon
-          %i.icon-portfolio-tropics
+          %i.icon-portfolio-info-script
         .text
           CV
+    %li.cv
+      %a{:"ng-href" => '#/themes', :"ng-class" => "{'active':getClass('/themes')}"}
+        .icon
+          %i.icon-portfolio-tropics
+        .text
+          Themes
     %li.top
       %a{:href => '#', :data => {:behavior => 'scroll-top'}}
         .icon

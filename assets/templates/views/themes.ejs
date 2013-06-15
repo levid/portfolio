@@ -1,0 +1,35 @@
+<script id='views/themes.html' type='text/ng-template'>
+<section class='sub themes'>
+<div class='innerContent'>
+<div ng-include='' src="'views/partials/user-header.html'"></div>
+<div class='info-container'>
+<div class='content'>
+<h3>Themes</h3>
+<div>
+<div class='text'>
+<p class='large'>
+Choose from {{themes.length}} different default background themes.
+</p>
+<!-- .divider -->
+<!-- %p.small -->
+<!-- The majority of these themes can be downloaded at: -->
+<!-- %a.teal{:"ng-href" => 'http://www.widewallpapers.net/', :target => '_blank'} -->
+<!-- widewallpapers.net -->
+<div class='divider'></div>
+</div>
+</div>
+<div class='themes-list'>
+<div class='theme'>
+<!-- %h4 JavaScript Libraries -->
+<ul>
+<li ng-class="{'default':theme.is_default == true}" ng-init="path = s3_path + '/image/themes/' + theme.id" ng-repeat='theme in themes'>
+<img data-background='{{path}}/{{theme.background_image_filename}}' data-position='{{theme.position}}' height='84' ng-src='{{path}}/{{theme.thumbnail_image}}' width='150'>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</script>
