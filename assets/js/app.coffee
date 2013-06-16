@@ -35,6 +35,7 @@ class Portfolio
 
   init: () ->
     $(document).ready =>
+      $UI.Constants.Settings = {}
       $UI.Constants.imageGrid = new $UI.ImageGrid()
       $UI.Constants.nav       = new $UI.Nav(lensFlareEnabled: "true").init()
       $UI.initGlobalUI()

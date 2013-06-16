@@ -4,6 +4,10 @@
     .info-container {
       padding: 0px;
       background-color: transparent;
+
+      .content {
+        padding: 0px 50px 0px 99px;
+      }
     }
 
     .themes-list {
@@ -26,7 +30,7 @@
             font-size: 1em;
             color: lighten(#b1b2b2, 10%);
             display: inline-block;
-            @include opacity(70);
+            // @include opacity(70);
             @include transition(all 200ms ease-in-out);
             // background-color: rgba(0,0,0, 0.8);
             border: 1px solid transparent;
@@ -40,7 +44,7 @@
 
               @include transition(all 200ms ease-in-out);
               // @include box-shadow(0 0 20px 0 rgba(0, 0, 0, 0.5));
-              @include opacity(100);
+              // @include opacity(100);
               position: relative;
               z-index: 100;
               cursor: pointer;
@@ -48,7 +52,7 @@
 
             &.active {
               border: 1px solid #f7f5ed;
-              @include opacity(100);
+              // @include opacity(100);
             }
           }
         }

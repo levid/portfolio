@@ -108,6 +108,45 @@ nav.sidebar-nav {
             @include background-gradient(#ff6e42, #ff6e42, #ff6e42);
             color: #ffffff;
           }
+
+          &.on {
+            &:before {
+              // content: "\002022";
+              content: "\2713";
+              color: #93ccd9;
+              font-size: 1.1em;
+              position: relative;
+              display: inline-block;
+            }
+          }
+
+          &.off {
+            color: #868686;
+            text-decoration: line-through;
+
+            &:before {
+              // content: "\002022";
+              content: "\2713";
+              color: #868686;
+              font-size: 1.1em;
+              position: relative;
+              display: inline-block;
+            }
+
+            &:hover {
+              color: #ffffff;
+              text-decoration: none;
+
+              &:before {
+                // content: "\002022";
+                content: "\2713";
+                color: #ffffff;
+                font-size: 1.1em;
+                position: relative;
+                display: inline-block;
+              }
+            }
+          }
         }
       }
     }

@@ -83,9 +83,9 @@ class Sidebar extends Portfolio.UI
     setSidebarHeight = () =>
       $('nav.sidebar-nav').css height: $('section.content .innerContent').height() + 120
 
+    clearTimeout setHeightTimeout if setHeightTimeout
     setHeightTimeout = setTimeout(=>
       setSidebarHeight()
-      clearTimeout setHeightTimeout
     , 500)
 
     $("#main").scroll =>
@@ -154,7 +154,7 @@ class Sidebar extends Portfolio.UI
       @clone.remove()
       e.preventDefault()
 
-      if $UI.Constants.audio.getAudioEnabled() is true
+      if $UI.Constants.audio.isAudioEnabled() is true
         $UI.Constants.audio.playSound("#slide")
 
       if @sidebarMenuOpen is true then @closeSidebarMenu()

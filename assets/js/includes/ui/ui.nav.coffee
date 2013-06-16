@@ -16,6 +16,7 @@ class Nav extends Portfolio.UI
     allLink:          undefined
     lensFlareEl:      undefined
     lensFlareEnabled: undefined
+    scope:            undefined
 
   #### The constructor for the Nav class
   #
@@ -34,9 +35,15 @@ class Nav extends Portfolio.UI
     @smallNavlinks    = @options.smallNavlinks    or "section.content ul.nav li.small a"
     @allLink          = @options.allLink          or "section.content ul.nav li.filter-by a"
     @lensFlareEnabled = @options.lensFlareEnabled or "true"
+    @scope            = MainCtrl.getScope()
+    @enableScopeBinding()
 
     # return this to make this class chainable
     return this
+
+  enableScopeBinding: () ->
+    @scope.$watch 'shuffle_letters', (val) =>
+      if val is true then @shuffleLetterState().on() else @shuffleLetterState().off()
 
   init: () ->
     @initShareButtons()
@@ -56,11 +63,23 @@ class Nav extends Portfolio.UI
         $(this).css opacity: 1
 
   shuffleLetters: () ->
+    self = this
     $(document).on('mouseenter', @shuffleLinks, (e) ->
-      $(this).parent().find('.shuffle').shuffleLetters
-        callback: ->
-          # console.log "finished"
+      if self.isLetterShufflingEnabled() is true
+        $(this).parent().find('.shuffle').shuffleLetters
+          callback: ->
+            # console.log "finished"
     )
+
+  isLetterShufflingEnabled: () ->
+    return @scope.shuffle_letters
+
+  shuffleLetterState: () ->
+    on: () =>
+      $.publish 'event.Portfolio', message: "Letter Shuffling Enabled"
+
+    off: () =>
+      $.publish 'event.Portfolio', message: "Letter Shuffling Disabled"
 
   enableRollovers: () ->
     large: @largeButtons
@@ -97,7 +116,8 @@ class Nav extends Portfolio.UI
 
     ).on('mouseleave', @homeNavLinks,  (e) =>
       @lensFlare().hide()
-      @lensFlareTimer = setTimeout(=>
+      clearTimeout lensFlareTimer if lensFlareTimer
+      lensFlareTimer = setTimeout(=>
         $(@lensFlareEl).stop().fadeOut()
       , 8000)
 

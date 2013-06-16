@@ -9,25 +9,25 @@
       /   %a.tooltips{:"data-ng-href" => "/#/work/all/project/{{project.slug}}", :"data-toggle" => "tooltip", :title => "{{project.date | date:'yyyy'}}"} {{project.name}}
 
   .lock
-    %a{:"ng-href" => '#', :data => {:behavior => 'toggle-lock'}}
+    %a{:href => '#', :data => {:behavior => 'toggle-lock'}}
       .locked
         %i.icon-portfolio-locked
       .unlocked
         %i.icon-portfolio-unlocked
   .settings.dropdown.dropup
-    %a.dropdown-toggle{:"ng-href" => '#', :"data-toggle" => "dropdown"}
+    %a.dropdown-toggle{:"ng-href" => '', :"data-toggle" => "dropdown"}
       %i.icon-portfolio-cog-2
 
     %ul.dropdown-menu
       %li
-        %a{:href => "#"}
-          Disable Sounds
+        %a{:href => '#', :"ng-settings" => '', :"data-audio" => "audio", :"ng-click" => "toggleAudio()"}
+          Sounds
       %li
-        %a{:href => "#"}
-          Disable Notifications
+        %a{:href => '#', :"ng-settings" => '', :"data-notifications" => "notifications", :"ng-click" => "toggleNotifications()"}
+          Notifications
       %li
-        %a{:href => "#"}
-          Disable Shuffle Letters
+        %a{:href => '#', :"ng-settings" => '', :"data-shuffle-letters" => "shuffle_letters", :"ng-click" => "toggleShuffleLetters()"}
+          Letter Shuffling
       %li
         %a{:href => "#"}
           Cancel

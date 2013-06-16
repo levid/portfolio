@@ -3,6 +3,8 @@
 ###
 Defines application-wide key value pairs
 ###
-Application.Constants.constant "configuration", {
+Application.Constants.constant "configuration",
   s3_path: "https://s3.amazonaws.com/levidportfolio/uploads"
-}
+  audio: true
+  notifications: true
+  shuffle_letters: true

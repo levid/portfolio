@@ -11,7 +11,7 @@
       .text
 
   #audio-toggle
-    %a.on.audio-tooltip{:href => '#', :data => {:behavior => 'toggle-audio-state'}}
+    %a.audio-tooltip{:href => '#', :"ng-settings" => '', :"data-audio" => "audio",  :"ng-click" => "toggleAudio()"}
       .on-state
         %i.icon-portfolio-volume-medium
       .off-state

@@ -54,8 +54,6 @@ Application.Controllers.controller "ThemesController", ["$rootScope", "$scope", 
       #   console.log error
       # )
 
-
-
       setTimeout(=>
         $('.themes-list').waitForImages (=>
           active             = $UI.Constants.activeTheme
@@ -137,14 +135,9 @@ Application.Controllers.controller "ThemesController", ["$rootScope", "$scope", 
     # These are helper methods accessible to the angular user views
     #
     initScopedMethods: () ->
-
       $scope.getThemes = () ->
-        themes = Themes.query((themes) ->
-          console.log themes
-          $scope.themes = themes
-        , (error) ->
-          console.log error
-        )
+        themes = Themes.findAll()
+        return themes
 
   window.ThemesController = new ThemesController()
 

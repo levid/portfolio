@@ -106,16 +106,20 @@ class ImageGrid extends Portfolio.UI
       @innerContentEl.css width: containerWidth
       @thumbnailsEl.css width: containerWidth
 
-      setTimeout(=>
+      clearTimeout = previewImagesTimeout if previewImagesTimeout
+      previewImagesTimeout = setTimeout(=>
         $('.thumbnails').waitForImages (=>
           @buildGrid(options, =>
-            $UI.hideLoadingScreen()
+            $UI.hideLoadingScreen(=>
+              $('#overlay .logo-preload .text').text ""
+            )
           )
-
           log "All preview images have loaded."
 
         ),((loaded, count, success) ->
           log loaded + " of " + count + " preview images has " + ((if success then "loaded" else "failed to load")) + "."
+          perc = Math.round((100 / count) * loaded)
+          $('#overlay .logo-preload .text').text "#{perc} %"
           $(this).addClass "loaded"
         ), $.noop, true
       , 1000)

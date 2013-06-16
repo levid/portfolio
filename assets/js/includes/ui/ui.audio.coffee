@@ -8,8 +8,8 @@
 class Audio extends Portfolio.UI
   opts:
     config:             undefined
-    audioEnabled:       undefined
     audioContainerEl:   undefined
+    scope:              undefined
 
   #### The constructor for the Audio class
   #
@@ -20,50 +20,30 @@ class Audio extends Portfolio.UI
     # Extend default options to include passed in arguments
     @options            = $.extend({}, this.opts, @options)
     @config             = @options.config           or {}
-    @audioEnabled       = @options.audioEnabled     or false
     @audioContainerEl   = @options.audioContainerEl or "#audio-container"
-
-    @initAudioToggleButton()
-
-    $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
+    @scope              = MainCtrl.getScope()
+    @enableScopeBinding()
 
     # return this to make this class chainable
     return this
 
-  initAfterViewContentLoadedProxy: () ->
-    # Skip the first argument (event object) but log the other args.
-    (_, path) =>
-      if @audioEnabled is true
-        @assignSounds()
+  enableScopeBinding: () ->
+    @scope.$watch 'audio', (val) =>
+      if val is true then @audioState().on() else @audioState().off()
 
-  getAudioEnabled: () ->
-    return @audioEnabled
-
-  enableAudio: () ->
-    @audioEnabled = true
-    @assignSounds()
-
-  disableAudio: () ->
-    @audioEnabled = false
-
-  initAudioToggleButton: () ->
-    $(document).on('click', "[data-behavior='toggle-audio-state']", (e) =>
-      e.preventDefault()
-      if @audioEnabled is true then @audioState().off() else @audioState().on()
-    )
+  isAudioEnabled: () ->
+    return @scope.audio
 
   audioState: () ->
     on: () =>
-      $.publish 'event.Portfolio', message: "Audio enabled"
-      $("a[data-behavior='toggle-audio-state']").removeClass('off').addClass('on')
-      @audioEnabled = true
+      @assignSounds()
+      $.publish 'event.Portfolio', message: "Sounds enabled"
+
     off: () =>
-      $.publish 'event.Portfolio', message: "Audio disabled"
-      $("a[data-behavior='toggle-audio-state']").removeClass('on').addClass('off')
-      @audioEnabled = false
+      $.publish 'event.Portfolio', message: "Sounds disabled"
 
   assignSounds: () ->
-    if @audioEnabled is true
+    if @isAudioEnabled() is true
       self = this
       $.each @config, (k,v) =>
         # loop each menu item
@@ -75,7 +55,7 @@ class Audio extends Portfolio.UI
         )
 
         $(document).on 'mouseenter', v.links, (e) ->
-          if self.audioEnabled is true
+          if self.isAudioEnabled() is true
             sound = $("##{v.soundId}-" + $(this).data("#{v.soundId}"))[0]
             sound.play() if sound
         $("##{v.soundId}").attr "id", "#{v.soundId}-0" # get first one into naming convention

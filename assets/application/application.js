@@ -221,6 +221,7 @@ angular.module('application',
   ['$rootScope',
   '$route',
   function($rootScope, $route){
+    $UI.Constants.Settings = {};
     $rootScope.$on('$routeChangeStart', function(nextRoute, currentRoute) {
       $UI.showLoadingScreen();
       $UI.Constants.viewLoaded = false;

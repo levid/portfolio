@@ -226,6 +226,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
 
           $.extend(projectsArr, project, projectsArr)
 
+          clearTimeout columnTimeout if columnTimeout
           columnTimeout = setTimeout(=>
             $('.project-info li').each ->
               title = $(this).attr('rel')
@@ -238,8 +239,6 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
             #   offset: 30
             #   handler: (direction) ->
             #     $('.info-container').toggleClass 'sticky'
-
-            clearTimeout columnTimeout
           , 700)
 
           $UI.showSpinner $('.info-container').find('.spinner'),
@@ -259,7 +258,8 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
 
         $scope.project = projectsArr
 
-      setTimeout(=>
+      clearTimeout = screenshotTimeout if screenshotTimeout
+      screenshotTimeout = setTimeout(=>
         $('.thumbnails').waitForImages (=>
           # setWidth = (options) =>
           #   $('.thumbnails-show-view').css
@@ -276,10 +276,10 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
 
           log "All screenshots have loaded."
 
-          $('.info-container .spinner .text').text ""
-          $('#overlay .logo-preload .text').text ""
           $('.info-container .spinner .text').fadeOut()
-          $UI.hideSpinner $('.info-container .spinner')
+          $UI.hideSpinner $('.info-container .spinner'), =>
+            $('.info-container .spinner .text').text ""
+            $('#overlay .logo-preload .text').text ""
           $.publish 'event.Portfolio', message: "All screenshots loaded"
 
         ),((loaded, count, success) ->

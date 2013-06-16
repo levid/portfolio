@@ -66,8 +66,8 @@ class UI extends Portfolio
             links:    ".social-links a"
             soundId:  "click"
       )
-      $UI.Constants.audio.enableAudio()
       $UI.Constants.theme = new $UI.Theme()
+      $UI.Constants.notification = new $UI.Notification()
 
     $(window).load =>
       $UI.Constants.menuScroller  = new $UI.Scroller("[data-behavior='scrollable']")
@@ -85,10 +85,12 @@ class UI extends Portfolio
       shadow: false
       hwaccel: true
 
-  hideLoadingScreen: () ->
+  hideLoadingScreen: (callback) ->
+    callback = callback or ->
+    clearTimeout fadeIt if fadeIt
     fadeIt = setTimeout(=>
       $(@overlayEl).fadeOut(500)
-      clearTimeout fadeIt
+      callback()
     , 500)
 
   showLoadingSpinner: (target) ->
@@ -104,9 +106,11 @@ class UI extends Portfolio
       shadow: false
       hwaccel: false
 
-  hideLoadingSpinner: () ->
+  hideLoadingSpinner: (callback) ->
+    callback = callback or ->
     $(@loadingEl).fadeOut(=>
       @hideSpinner $(@loadingSpinnerEl)
+      callback()
     )
 
   showSpinner: (target, opts) ->

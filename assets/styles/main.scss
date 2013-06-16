@@ -186,8 +186,8 @@
       z-index: 800;
       position: fixed;
       // background-color: #f7f5ed;
-      background-color: rgba(0,0,0,0.9);
-      // @include background($path + 'patterns/dark_dotted2.png', repeat, top left, transparent);
+      // background-color: rgba(0,0,0,0.9);
+      @include background($path + 'patterns/dark_dotted2.png', repeat, top left, transparent);
       height: auto;
       width: auto;
       max-height: 100%;

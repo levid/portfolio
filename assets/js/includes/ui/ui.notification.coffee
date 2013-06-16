@@ -8,6 +8,7 @@
 class Notification extends Portfolio.UI
   opts:
     defaultConfig: undefined
+    scope:         undefined
 
   #### The constructor for the Notification class
   #
@@ -31,17 +32,27 @@ class Notification extends Portfolio.UI
       log: (e, m, o) =>
         # Optional logging mechanism
 
-    # $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
+    @scope = MainCtrl.getScope()
+    @enableScopeBinding()
+
     $.subscribe('event.Portfolio', @eventHandler('event.Portfolio'))
 
     # return this to make this class chainable
     return this
 
-  initAfterViewContentLoadedProxy: () ->
-    # Skip the first argument (event object) but log the other args.
-    (_, path) =>
-      @displayNotification
-        message: "Viewing #{path}"
+  enableScopeBinding: () ->
+    @scope.$watch 'notifications', (val) =>
+      if val is true then @notificationState().on() else @notificationState().off()
+
+  areNotificationsEnabled: () ->
+    return @scope.notifications
+
+  notificationState: () ->
+    on: () =>
+      $.publish 'event.Portfolio', message: "Notifications enabled"
+
+    off: () =>
+      $.publish 'event.Portfolio', message: "Notifications disabled"
 
   eventHandler: () ->
     # Skip the first argument (event object) but log the other args.
@@ -49,13 +60,14 @@ class Notification extends Portfolio.UI
       @displayNotification(e)
 
   displayNotification: (e) ->
-    message     = e.message
-    options     = e.options or @defaultConfig
-    type        = e.type or 'general'
-    statusCode  = e.statusCode or '200' # OK
+    if @areNotificationsEnabled() is true
+      message     = e.message
+      options     = e.options or @defaultConfig
+      type        = e.type or 'general'
+      statusCode  = e.statusCode or '200' # OK
 
-    # https://github.com/stanlemon/jGrowl
-    $.jGrowl message, options
+      # https://github.com/stanlemon/jGrowl
+      $.jGrowl message, options
 
 # Assign this class to the Portfolio Namespace
-Portfolio.UI.Notification = new Notification()
+Portfolio.UI.Notification = Notification

@@ -11,7 +11,7 @@
 </ul>
 </div>
 <div class='lock'>
-<a data-behavior='toggle-lock' ng-href='#'>
+<a data-behavior='toggle-lock' href='#'>
 <div class='locked'>
 <i class='icon-portfolio-locked'></i>
 </div>
@@ -21,23 +21,23 @@
 </a>
 </div>
 <div class='settings dropdown dropup'>
-<a class='dropdown-toggle' data-toggle='dropdown' ng-href='#'>
+<a class='dropdown-toggle' data-toggle='dropdown' ng-href=''>
 <i class='icon-portfolio-cog-2'></i>
 </a>
 <ul class='dropdown-menu'>
 <li>
-<a href='#'>
-Disable Sounds
+<a data-audio='audio' href='#' ng-click='toggleAudio()' ng-settings=''>
+Sounds
 </a>
 </li>
 <li>
-<a href='#'>
-Disable Notifications
+<a data-notifications='notifications' href='#' ng-click='toggleNotifications()' ng-settings=''>
+Notifications
 </a>
 </li>
 <li>
-<a href='#'>
-Disable Shuffle Letters
+<a data-shuffle-letters='shuffle_letters' href='#' ng-click='toggleShuffleLetters()' ng-settings=''>
+Letter Shuffling
 </a>
 </li>
 <li>
