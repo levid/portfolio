@@ -31,6 +31,23 @@ class Theme extends Portfolio.UI
 
     $UI.Theme.chooseBackgroundImage = (id) => @chooseBackgroundImage(id)
 
+    $(document).on 'click', 'a.hide-images', (e) ->
+      e.preventDefault()
+
+
+      $('.themes-list').fadeToggle()
+
+      if $(this).text() is 'Hide Themes'
+        $(this).text("Show Themes")
+        $('.info-container .content h3').css opacity: 0
+        $('.info-container .content .text p').css opacity: 0
+        $('.info-container .content .divider').css opacity: 0
+      else
+        $(this).text("Hide Themes")
+        $('.info-container .content h3').css opacity: 1
+        $('.info-container .content .text p').css opacity: 1
+        $('.info-container .content .divider').css opacity: 1
+
     $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
 
     # return this to make this class chainable
@@ -40,9 +57,12 @@ class Theme extends Portfolio.UI
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
       # if path.indexOf("home") >= 0
-      @enableThemes() unless @enabled is true
-      @themeContainerEl = $(".theme-container")
-      @themeContainerEl.fadeIn('slow')
+
+      setTimeout(=>
+        @enableThemes() unless @enabled is true
+        @themeContainerEl = $(".theme-container")
+        @themeContainerEl.fadeIn('slow')
+      , 1000)
 
   getRandomTheme: () ->
     themes = @themeContainerEl.find('li')
@@ -58,18 +78,12 @@ class Theme extends Portfolio.UI
       newTheme = rand()
     newTheme
 
-  changeVisibleTheme: (options) ->
-    options = options or {}
-    theme   = @getRandomTheme()
-    if options.overlay is "false"
-      @themeContainerEl.find('li').removeClass 'active'
-      @themeContainerEl.find("li:eq(#{theme})").addClass 'active'
-      @swapBackgroundImage()
-    else
-      @themeContainerEl.find('li').removeClass 'active'
-      @themeContainerEl.find("li:eq(#{theme})").addClass 'active'
-      # @showOverlay(theme)
-      @swapBackgroundImage()
+  changeVisibleTheme: () ->
+    theme = @getRandomTheme()
+    @themeContainerEl.find('li.active').removeClass 'active'
+    @themeContainerEl.find("li:eq(#{theme})").addClass 'active'
+    # @showOverlay(theme)
+    @swapBackgroundImage()
 
   getImageName: (backgroundImage) ->
     if backgroundImage isnt null
@@ -92,9 +106,9 @@ class Theme extends Portfolio.UI
       imageName = @getImageName(backgroundImage)
       @showLoadingSpinner()
 
-      $.publish 'event.Portfolio',
-        header: "Current Theme"
-        message: "loading... #{imageName}"
+      # $.publish 'event.Portfolio',
+      #   header: "Current Theme"
+      #   message: "loading... #{imageName}"
 
       $UI.Constants.activeTheme = active
 

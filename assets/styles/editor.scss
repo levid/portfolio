@@ -1,0 +1,14 @@
+#editor {
+  position: relative !important;
+  margin: 20px 0px 0px 0px;
+  height: 400px;
+  width: 93%;
+}
+
+.ace-twilight {
+  background-color: transparent !important;
+}
+
+.ace-twilight .ace_gutter {
+  background-color: rgba(0,0,0, 0.3) !important;
+}

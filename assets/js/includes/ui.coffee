@@ -50,7 +50,7 @@ class UI extends Portfolio
         sidebarNavLinks: "nav.sidebar-nav ul.nav li a"
       )
 
-      $UI.Constants.scrollNav     = new $UI.ScrollSidebar("nav.sidebar-nav ul.nav")
+      $UI.Constants.scrollNav     = new $UI.ScrollSidebar("nav.sidebar-nav ul.nav") unless isMobile.any() and isMobile.excludeTablets() is true
       $UI.Constants.audio         = new $UI.Audio(
         config:
           sidebarNav:

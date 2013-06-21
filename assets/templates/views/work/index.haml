@@ -49,10 +49,11 @@
             /     Website
 
       .thumbnails
+        / %div{:"infinite-scroll" => '  nextPage()', :"infinite-scroll-disabled" => 'busy', :"infinite-scroll-distance" => '2', :"infinite-scroll-immediate-check" => false}
         %div{:"data-ng-repeat" => "project in projects"}
           .thumb{:"data-category" => "{{project.categories.join(', ').toLowerCase()}}", :"data-tag" => "{{project.tags.join(', ').toLowerCase()}}", :rel => "{{project.id}}"}
             / {{project.categories}}
-            .image{:"ng-click" => "go('/work/design/project/'+project.slug)"}
+            .image{:"ng-click" => "go(path+'/project/'+project.slug)"}
               .project-details-container
                 .content
                   %h3.name {{project.name}}
@@ -81,16 +82,17 @@
                   /       %td.year
                   /         {{project.date | date:'yyyy' || 'N/A'}}
 
-                  / .block
-                  /   %a.btn.btn-orange{:"data-ng-href" => "/#/work/design/project/{{project.slug}}"}
-                  /     %i.icon-portfolio-magnifier
-                  /     Details
-                  /   %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}", :target => '_blank'}
-                  /     %i.icon-portfolio-resize
-                  /     / Website
-              %img{:"ng-src" => "{{getPreviewImagePath(project)}}"}
+                  .block
+                    %a.btn.btn-orange{:"ng-click" => "go(path+'/project/'+project.slug)"}
+                      %i.icon-portfolio-magnifier
+                      .text Screenshots
+                    %a.btn.btn-teal{:"ng-click" => "go('/work/code/project/'+project.slug)", :"ng-show" => "project && project.sample_code.length"}
+                      %i.icon-portfolio-code
+                      .text Sample Code
+              %img{:"ng-src" => "{{getImagePath(project)}}", :"ng-show" => "getImagePath(project).length > 0"}
+          / %div{:"ng-show" => 'busy'} Loading data...
       %nav#page_nav
-        %a{:"ng-href" => "/#/work/design/{{limit+3}}/{{skip+1}}"}
+        %a{:"ng-href" => "{{path}}/{{limit+3}}/{{skip+1}}"}
 
 
         / .thumb{:"ng-repeat" => "item in photos.items"}

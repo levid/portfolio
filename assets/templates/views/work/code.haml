@@ -1,0 +1,46 @@
+%script{:type => "text/ng-template", :id => "views/work/code.html"}
+  %section.sub.code
+    .innerContent
+
+      / %div{:"data-ng-include" => '', :src => "'views/partials/user-header.html'"}
+
+      .info-container.tall
+        .content
+          %h3
+            Code
+            .spinner
+              .text
+
+          .buttons
+            %a.btn.btn-back{:"ng-href" => '', :"ng-click" => "goBack()"}
+              %i.icon-portfolio-arrow-left
+          %div
+            .text{:"ng-show" => "project && project.sample_code.length"}
+              %p.large
+                Sample code for {{project.name}}
+              .divider
+              %p.small
+                View the raw file on
+                %i.icon-portfolio-github.teal
+                %a.teal{:"ng-href" => "{{filePath}}", :target => '_blank'} GitHub
+                or view
+                %a.teal{:"ng-click" => "go('/work/all/project/'+project.slug)"}
+                  %i.icon-portfolio-screen
+                  Project Screenshots
+              .divider
+          %div{:"ng-show" => "project && filePath.length"}
+            .text
+              %p {{language}} Code:
+            #editor{:"data-ace" => "", :"ng-model" => "content", :"data-language" => "{{editorMode}}"}
+              %pre.code
+                :escaped
+          %div{:"ng-hide" => "project && filePath.length"}
+            .text
+              %p.large
+                Sorry, no sample code was found for {{project.name}} :(
+              .divider
+              %p.small
+                Click
+                %a.teal{:"ng-href" => '', :"ng-click" => "goBack()"} here
+                to go back.
+              .divider

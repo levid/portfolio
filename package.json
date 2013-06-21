@@ -13,7 +13,8 @@
         "socket.io": "0.9.14",
         "bcrypt": "0.7.5",
         "forever": "latest",
-        "nodemailer": "latest"
+        "nodemailer": "latest",
+        "request": "latest"
     },
     "scripts": {
         "start": "node .app.js",

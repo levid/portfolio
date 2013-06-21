@@ -33,6 +33,7 @@ main#main {
       margin: 0px;
       display: inline-block;
       position: relative;
+      // @include transition(all 300ms linear);
     }
 
     .user-header {
@@ -380,8 +381,8 @@ main#main {
         .buttons {
           display: inline-block;
           position: absolute;
-          top: 20px;
-          left: 40px;
+          top: 25px;
+          left: 50px;
 
           .btn.btn-back {
             margin: 0px;
@@ -393,18 +394,19 @@ main#main {
             display: inline-block;
             color: #b1b2b2;
             // border-bottom: 1px solid transparent;
-            // background-color: rgba(0,0,0, 0.8);
+            // background-color: rgba(0,0,0, 0.2);
             text-align: center;
+            @include border-radius(50%);
 
             &:hover {
               color: #ffffff;
-              // background-color: #000000;
+              // background-color: rgba(0,0,0, 0.5);
               // border-bottom: 1px solid #ff6e42;
             }
 
             i {
               position: relative;
-              top: 10px;
+              top: 9px;
             }
           }
         }
@@ -577,6 +579,11 @@ main#main {
         }
       }
 
+      #fixed {
+        height: 400px;
+        overflow: auto;
+      }
+
       .thumbnails {
         margin: 0px;
         width: 100%;
@@ -586,6 +593,7 @@ main#main {
         display: block;
         position: relative;
         background-color: rgba(0,0,0, 0.5);
+        // @include transition(all 300ms linear);
 
         .thumb {
           position: relative;
@@ -595,7 +603,6 @@ main#main {
           top: 0;
           z-index: 1;
           margin: 0;
-
           &:hover, .hover {
             -webkit-transform: scale(1.01);
             -moz-transform: scale(1.01);
@@ -616,6 +623,8 @@ main#main {
             width: 100%;
             height: auto;
             z-index: 2;
+            margin: 0;
+            border: 1px solid transparent;
             // @include transition(all .2s ease-in-out);
 
             filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0\'/></filter></svg>#grayscale");
@@ -663,7 +672,9 @@ main#main {
               width: 100%;
               height: 100%;
               position: absolute;
+              margin: 0px auto;
               z-index: 5;
+              text-align: center;
               background-color: rgba(0,0,0,0.7);
               @include opacity(0);
               @include transition(all .2s ease-in-out);
@@ -676,19 +687,26 @@ main#main {
 
                 h3 {
                   width: 100%;
-                  margin: -20px auto;
+                  margin: -40px auto;
                   padding: 0px;
                   text-transform: uppercase;
                   font-size: 2em;
                   top: 50%;
+                  left: 0px;
                   position: absolute;
                   text-align: center;
                 }
 
                 .block {
-                  margin: 12px 0px 0px 0px;
+                  margin: 0px auto;
                   font-family: ProximaNovaRegular, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
                   font-size: 1em;
+                  display: inline-block;
+                  position: absolute;
+                  top: 50%;
+                  left: 0px;
+                  width: 100%;
+                  text-align: center;
 
                   table {
                     margin: 0px;
@@ -735,17 +753,46 @@ main#main {
                   }
 
                   a + a {
-                    margin-left: 10px;
+                    margin-left: 5px;
                   }
 
                   a {
-                    margin: 10px 0px 0px 0px;
+                    padding: 10px;
+                    margin: 10px auto;
                     width: auto;
                     height: 38px;
                     display: inline-block;
                     text-transform: uppercase;
                     font-size: 0.9em;
-                    float: left;
+                    @include transition(all 300ms ease-in-out);
+                    overflow: hidden;
+                    @include border-radius(50px);
+                    position: relative;
+
+                    i {
+                      position: relative;
+                      left: 2px;
+                      font-size: 1.1em;
+                    }
+
+                    .text {
+                      width: 0px;
+                      display: inline-block;
+                      @include transition(all 300ms ease-in-out);
+                      @include opacity(0);
+                      white-space: nowrap;
+
+                    }
+
+                    &:hover {
+                      @include border-radius(0px);
+                      .text {
+                        width: 100px;
+                        display: inline-block;
+                        @include opacity(100);
+
+                      }
+                    }
                   }
                 }
               }
@@ -1200,6 +1247,46 @@ main#main {
           }
         }
       }
+    }
+  }
+
+  section.code {
+    .text {
+      width: 93%;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .info-container {
+      padding: 0px 0px 30px 0px;
+      background-color: rgba(0,0,0, 0.8);
+
+      .content {
+        p {
+          max-width: 90%;
+          font-family: ProximaNovaLight, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
+
+          &.large {
+            margin: 20px 0px 10px 0px;
+            font-size: 2em;
+          }
+
+          &.small {
+            line-height: 1.7em;
+            max-width: 800px;
+            font-size: 1.1em;
+            color: lighten(#b1b2b2, 10%);
+          }
+
+        }
+
+      }
+    }
+
+    .divider {
+      margin: 5px 0px 5px 0px;
+      border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
+      position: relative;
     }
   }
 }

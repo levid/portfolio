@@ -1,0 +1,63 @@
+<script id='views/work/code.html' type='text/ng-template'>
+<section class='sub code'>
+<div class='innerContent'>
+<!-- %div{:"data-ng-include" => '', :src => "'views/partials/user-header.html'"} -->
+<div class='info-container tall'>
+<div class='content'>
+<h3>
+Code
+<div class='spinner'>
+<div class='text'></div>
+</div>
+</h3>
+<div class='buttons'>
+<a class='btn btn-back' ng-click='goBack()' ng-href=''>
+<i class='icon-portfolio-arrow-left'></i>
+</a>
+</div>
+<div>
+<div class='text' ng-show='project &amp;&amp; project.sample_code.length'>
+<p class='large'>
+Sample code for {{project.name}}
+</p>
+<div class='divider'></div>
+<p class='small'>
+View the raw file on
+<i class='icon-portfolio-github teal'></i>
+<a class='teal' ng-href='{{filePath}}' target='_blank'>GitHub</a>
+or view
+<a class='teal' ng-click="go('/work/all/project/'+project.slug)">
+<i class='icon-portfolio-screen'></i>
+Project Screenshots
+</a>
+</p>
+<div class='divider'></div>
+</div>
+</div>
+<div ng-show='project &amp;&amp; filePath.length'>
+<div class='text'>
+<p>{{language}} Code:</p>
+</div>
+<div data-ace='' data-language='{{editorMode}}' id='editor' ng-model='content'>
+<pre class='code'></pre>
+</div>
+</div>
+<div ng-hide='project &amp;&amp; filePath.length'>
+<div class='text'>
+<p class='large'>
+Sorry, no sample code was found for {{project.name}} :(
+</p>
+<div class='divider'></div>
+<p class='small'>
+Click
+<a class='teal' ng-click='goBack()' ng-href=''>here</a>
+to go back.
+</p>
+<div class='divider'></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</script>

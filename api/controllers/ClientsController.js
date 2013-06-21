@@ -11,7 +11,7 @@ var ClientsController = {
   },
 
   find: function(req, res) {
-    Clients.find({id: req.params.id}).done(function(err, clients) {
+    Clients.find({id: req.param('id')}).done(function(err, clients) {
       if (err) return res.send(err, 500);
       return res.json(clients);
     });

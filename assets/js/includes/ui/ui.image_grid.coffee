@@ -40,7 +40,7 @@ class ImageGrid extends Portfolio.UI
 
     $(document).on 'click', ".thumbnails.show-view .project-details-container", (e) ->
       e.preventDefault()
-      imagePath = $(this).parent().find('.block img').attr('src')
+      imagePath = $(this).parent().find('img').attr('src')
       img = $("#zoom").find('img')
       $(img).attr('src', imagePath)
       $("#zoom").css
@@ -140,17 +140,23 @@ class ImageGrid extends Portfolio.UI
       cols1           = containerWidth
       cols2           = containerWidth / 2
       cols3           = containerWidth / 3
+      cols4           = containerWidth / 4
+      cols5           = containerWidth / 5
 
-      # log "cols1: #{cols1} - cols2: #{cols2} - cols3: #{cols3}"
+      # log "cols1: #{cols1} - cols2: #{cols2} - cols3: #{cols3} - cols4: #{cols4} - cols5: #{cols5}"
 
-      if cols2 > 600
+      # if cols4 > 600
+      #   cols = cols5
+      if cols3 > 700
+        cols = cols4
+      else if cols2 > 600
         cols = cols3
       else if cols2 < 400
         cols = cols1
       else
         cols = cols2
 
-      # if @path is 'show' then cols = cols2
+      if @path is 'show' and cols3 > 700 then cols = cols3
 
       @containerEl.css width: $(window).width()
       if @containerEl.find('.thumb').length is 1
@@ -170,12 +176,12 @@ class ImageGrid extends Portfolio.UI
           layoutMode: 'masonry'
           resizeContainer: true
           resizable: true
-          transformsEnabled: true
+          # transformsEnabled: true
           # filter: ".#{@category}" if @category and @category isnt 'all'
           sortBy: 'name'
           # animationOptions:
-          #  duration: 500
-          #  easing: 'easeInOutQuint'
+          #  duration: 300
+          #  easing: 'easeOutQuint'
           #  queue: false
 
           onLayout: =>
@@ -194,7 +200,7 @@ class ImageGrid extends Portfolio.UI
 
       # @containerEl.infinitescroll
       #   behavior: 'local'
-      #   binder: @containerEl
+      #   binder: '.thumbnails'
       #   navSelector: "#page_nav" # selector for the paged navigation
       #   nextSelector: "#page_nav a" # selector for the NEXT link (to page 2)
       #   itemSelector: '.thumb' # selector for all items you'll retrieve

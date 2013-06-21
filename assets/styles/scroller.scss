@@ -1,3 +1,4 @@
+@import "mixins";
 /* basic scrollbar styling */
 /* vertical scrollbar */
 .mCSB_container{
@@ -41,7 +42,7 @@
   height:30px;
 }
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
-  width:4px;
+  width:3px;
   height:100%;
   margin:0 auto;
   -webkit-border-radius:10px;
@@ -135,10 +136,12 @@
 
 /* default scrollbar colors and backgrounds */
 .mCustomScrollBox .mCSB_scrollTools{
-  opacity:0.75;
+  opacity:0.4;
+  @include transition(opacity .2s ease-in-out);
 }
 .mCustomScrollBox:hover .mCSB_scrollTools{
-  opacity:1;
+  opacity:0.75;
+  @include transition(opacity .2s ease-in-out);
 }
 .mCSB_scrollTools .mCSB_draggerRail{
   background:#000; /* rgba fallback */
@@ -147,11 +150,11 @@
 }
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
   background:#fff; /* rgba fallback */
-  background:rgba(255,255,255,0.75);
+  background:rgba(255,255,255,0.7);
   filter:"alpha(opacity=75)"; -ms-filter:"alpha(opacity=75)"; /* old ie */
 }
 .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar{
-  background:rgba(255,255,255,0.85);
+  background:rgba(255,255,255,0.8);
   filter:"alpha(opacity=85)"; -ms-filter:"alpha(opacity=85)"; /* old ie */
 }
 .mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,

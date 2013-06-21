@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="/assets/styles/vendor/chosen.css">
     -->
 
+    <link rel="stylesheet" href="/assets/styles/media-queries.css">
+
 	</head>
   <body>
     <div id="loading-block">
@@ -54,6 +56,8 @@
       <!-- Templates from your view path are included here -->
       <%- assets.templateLibrary() %>
     </div>
+
+    <%- partial('footer-mobile')%>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
@@ -94,6 +98,9 @@
     <script type="text/javascript" src="/js/vendor/angular-cookies.js"></script>
     <script type="text/javascript" src="/js/vendor/angular-resource.js"></script>
     <script type="text/javascript" src="/js/vendor/angular-sanitize.js"></script>
+    <script type="text/javascript" src="/js/vendor/ng-infinite-scroll.min.js"></script>
+    <script type="text/javascript" src="/js/vendor/ace/ace.js"></script>
+    <script type="text/javascript" src="/js/vendor/mobile-detect.js"></script>
 
     <%- assets.js() %>
 

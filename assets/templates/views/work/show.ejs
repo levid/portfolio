@@ -35,6 +35,14 @@
 </tr>
 </table>
 </li>
+<li ng-init='client = getClient(project)'>
+<table>
+<tr>
+<td>Client</td>
+<td>{{client || 'N/A'}}</td>
+</tr>
+</table>
+</li>
 <li>
 <table>
 <tr>
@@ -59,6 +67,20 @@
 </tr>
 </table>
 </li>
+<li ng-show='project &amp;&amp; project.sample_code.length'>
+<table>
+<tr>
+<td>Sample Code</td>
+<td>
+<a ng-click="go('/work/code/project/'+project.slug)">
+<i class='icon-portfolio-code'></i>
+Click here to view
+<i class='icon-portfolio-code'></i>
+</a>
+</td>
+</tr>
+</table>
+</li>
 <li rel='description'>
 <table>
 <tr>
@@ -78,33 +100,73 @@
 <div ng-repeat='image in project.image_paths'>
 <div class='thumb' ng-init='val = image[key]' ng-repeat='key in notSorted(image)' ng-switch='' on='key'>
 <div class='image'>
+<div class='block' ng-switch-when='logo_filename'>
 <div class='project-details-container' style='opacity: 0'>
 <div class='content'>
 <h3 class='name'>
-<i class='icon-portfolio-magnifier'></i>
+<i class='icon-portfolio-resize'></i>
 View
 </h3>
 </div>
 </div>
-<div class='block' ng-switch-when='logo_filename'>
 <img height='{{image.logo_height}}' ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}' width='{{image.logo_width}}'>
 </div>
 <div class='block' ng-switch-when='composite_image_desktop'>
+<div class='project-details-container' style='opacity: 0'>
+<div class='content'>
+<h3 class='name'>
+<i class='icon-portfolio-resize'></i>
+View
+</h3>
+</div>
+</div>
 <img height='638' ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}' width='871'>
 </div>
 <div class='block' ng-switch-when='composite_image_laptop'>
+<div class='project-details-container' style='opacity: 0'>
+<div class='content'>
+<h3 class='name'>
+<i class='icon-portfolio-resize'></i>
+View
+</h3>
+</div>
+</div>
 <img height='575' ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}' width='786'>
 </div>
 <div class='block' ng-switch-when='composite_image_tablet'>
+<div class='project-details-container' style='opacity: 0'>
+<div class='content'>
+<h3 class='name'>
+<i class='icon-portfolio-resize'></i>
+View
+</h3>
+</div>
+</div>
 <img height='504' ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}' width='689'>
 </div>
 <!-- %div.block{:"ng-switch-when" => "large_image"} -->
 <!-- %img{:"ng-src" => "{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}"} -->
 <div class='block' ng-switch-when='image_filename'>
+<div class='project-details-container' style='opacity: 0'>
+<div class='content'>
+<h3 class='name'>
+<i class='icon-portfolio-resize'></i>
+View
+</h3>
+</div>
+</div>
 <img ng-src='{{s3_path}}/image/portfolio_image/{{image.id}}/{{val}}' width='{{image.image_width}}'>
 <div class='info description hide' data-ng-show='image.description'>{{image.description}}</div>
 </div>
 <div class='block' ng-switch-when='file_filename'>
+<div class='project-details-container' style='opacity: 0'>
+<div class='content'>
+<h3 class='name'>
+<i class='icon-portfolio-resize'></i>
+View
+</h3>
+</div>
+</div>
 <img ng-src='{{s3_path}}/image/screenshots/{{image.id}}/{{val}}' width='{{image.image_width}}'>
 <div class='info description hide' data-ng-show='image.description'>{{image.description}}</div>
 </div>

@@ -2,8 +2,8 @@
 %nav.sidebar-nav{:"ng-controller" => "NavbarController"}
   .content-menu
     %h4 All Projects
-    %ul.scrollable{:data => {:behavior => 'scrollable'}}
-      %li{:"data-ng-repeat" => "project in projectsNavMenu | orderBy:predicate", :"ng-class" => "{'active':getSlug(project.slug)}"}
+    %ul.scrollable{:"ng-init" => "projects = getProjects()", :"ng-model" => "projects", :"data-sidebar" => '', :data => {:behavior => 'scrollable'}}
+      %li{:"data-ng-repeat" => "project in projects | orderBy:predicate", :"ng-class" => "{'active':getSlug(project.slug)}"}
         %a.tooltips{:"data-ng-href" => "/#/work/all/project/{{project.slug}}", :rel => "{{project.id}}"} {{project.name}}
       / %li{:"data-ng-repeat" => "project in projectsNavMenu", :"ng-class" => "{'active':getSlug(project.slug)}"}
       /   %a.tooltips{:"data-ng-href" => "/#/work/all/project/{{project.slug}}", :"data-toggle" => "tooltip", :title => "{{project.date | date:'yyyy'}}"} {{project.name}}

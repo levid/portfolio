@@ -23,7 +23,10 @@ var ProjectsController = {
       });
     }
     else {
-      Projects.findAll().done(function(err, projects) {
+      Projects.findAll({
+        limit: limit,
+        skip: skip
+      }).done(function(err, projects) {
         if (err) return res.send(err, 500);
         if (!projects) return res.send("No projects found!", 404);
         return res.json(projects);
@@ -36,6 +39,21 @@ var ProjectsController = {
       if (err) return res.send(err, 500);
       if (!project) return res.send("No project with that id exists!", 404);
       return res.json(project);
+    });
+  },
+
+  getTotal: function(req, res) {
+    var category  = req.param('id');
+
+    var categoryRegex = new RegExp(category,"g");
+
+    Projects.findAll({
+      category_string: categoryRegex // Had to do this because 'contains:' doesn't seem to work
+    }).done(function(err, projects) {
+      if (err) return res.send(err, 500);
+      return res.json({
+        totalProjects: projects.length
+      });
     });
   }
 };

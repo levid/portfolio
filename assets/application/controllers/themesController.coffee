@@ -16,8 +16,8 @@ Application.Controllers.controller "ThemesController", ["$rootScope", "$scope", 
     constructor: () ->
       @options            = $.extend({}, this.opts, @options)
       @themeContainerEl   = @options.themeContainerEl or $(".theme-container")
-      @initScopedMethods()
       $scope.themes = Themes.findAll()
+      @initScopedMethods()
 
       $('.themes-list').on 'click', 'li', (e) ->
         e.preventDefault()

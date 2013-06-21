@@ -50,10 +50,11 @@ Year
 </div>
 </div>
 <div class='thumbnails'>
+<!-- %div{:"infinite-scroll" => '  nextPage()', :"infinite-scroll-disabled" => 'busy', :"infinite-scroll-distance" => '2', :"infinite-scroll-immediate-check" => false} -->
 <div data-ng-repeat='project in projects'>
 <div class='thumb' data-category="{{project.categories.join(', ').toLowerCase()}}" data-tag="{{project.tags.join(', ').toLowerCase()}}" rel='{{project.id}}'>
 <!-- {{project.categories}} -->
-<div class='image' ng-click="go('/work/design/project/'+project.slug)">
+<div class='image' ng-click="go(path+'/project/'+project.slug)">
 <div class='project-details-container'>
 <div class='content'>
 <h3 class='name'>{{project.name}}</h3>
@@ -81,22 +82,26 @@ Year
 <!-- %td Year -->
 <!-- %td.year -->
 <!-- {{project.date | date:'yyyy' || 'N/A'}} -->
-<!-- .block -->
-<!-- %a.btn.btn-orange{:"data-ng-href" => "/#/work/design/project/{{project.slug}}"} -->
-<!-- %i.icon-portfolio-magnifier -->
-<!-- Details -->
-<!-- %a.btn.btn-teal{:"data-ng-href" => "{{project.url}}", :target => '_blank'} -->
-<!-- %i.icon-portfolio-resize -->
-<!-- / Website -->
+<div class='block'>
+<a class='btn btn-orange' ng-click="go(path+'/project/'+project.slug)">
+<i class='icon-portfolio-magnifier'></i>
+<div class='text'>Screenshots</div>
+</a>
+<a class='btn btn-teal' ng-click="go('/work/code/project/'+project.slug)" ng-show='project &amp;&amp; project.sample_code.length'>
+<i class='icon-portfolio-code'></i>
+<div class='text'>Sample Code</div>
+</a>
 </div>
 </div>
-<img ng-src='{{getPreviewImagePath(project)}}'>
+</div>
+<img ng-show='getImagePath(project).length &gt; 0' ng-src='{{getImagePath(project)}}'>
 </div>
 </div>
+<!-- %div{:"ng-show" => 'busy'} Loading data... -->
 </div>
 </div>
 <nav id='page_nav'>
-<a ng-href='/#/work/design/{{limit+3}}/{{skip+1}}'></a>
+<a ng-href='{{path}}/{{limit+3}}/{{skip+1}}'></a>
 <!-- .thumb{:"ng-repeat" => "item in photos.items"} -->
 <!-- %img{:"ng-src" => "{{ item.media.m }}"} -->
 </nav>

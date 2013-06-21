@@ -8,8 +8,9 @@
           %h3 Themes
           %div
             .text
-              %p.large
+              %p.large.display-inline-block
                 Choose from {{themes.length}} different default background themes.
+              %a.hide-images.teal.pull-right{:href => '#'} Hide Themes
               / .divider
               / %p.small
               /   The majority of these themes can be downloaded at:
@@ -21,5 +22,5 @@
             .theme
               / %h4 JavaScript Libraries
               %ul
-                %li{:"ng-repeat" => "theme in themes", :"ng-class" => "{'default':theme.is_default == true}", :"ng-init" => "path = s3_path + '/image/themes/' + theme.id"}
+                %li{:"ng-repeat" => "theme in themes", :"ng-class" => "{'default active':theme.is_default == true}", :"ng-init" => "path = s3_path + '/image/themes/' + theme.id"}
                   %img{:"ng-src" => "{{path}}/{{theme.thumbnail_image}}", :"data-background" => "{{path}}/{{theme.background_image_filename}}", :"data-position" => "{{theme.position}}", :width => "150", :height => "84"}

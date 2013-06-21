@@ -54,6 +54,8 @@ class Portfolio
       @initLogoFade()
       @initScrollTop()
 
+      if isMobile.any() then @hideUrlBar()
+
       # $(document).on 'mouseenter', ".thumbnails .image", (e) ->
       #   e.preventDefault()
       #   $(this).find(".info-container").show()
@@ -61,6 +63,13 @@ class Portfolio
       # $(document).on 'mouseleave', ".thumbnails .image", (e) ->
       #   e.preventDefault()
       #   $(this).find(".info-container").hide()
+
+   hideUrlBar: () ->
+    $(window).load ->
+      setTimeout(->
+        # Hide the address bar!
+        $(window).scrollTo(0, 1)
+      , 0)
 
   initScrollTop: () ->
     $("[data-behavior='scroll-top']").parent().hide()

@@ -135,7 +135,9 @@ class Sidebar extends Portfolio.UI
       @highlightLeftNav().hide()
 
     $(document).on 'mouseenter', @sidebarNavEl, (e) => if @sidebarMenuOpen isnt true then @openSidebar()
-    $(document).on 'mouseleave', @sidebarNavEl, (e) => if @locked isnt true and @sidebarMenuOpen isnt true then @closeSidebar()
+    $(document).on 'mouseleave', @sidebarNavEl, (e) =>
+      if $("#overlay").is(':hidden')
+        if @locked isnt true and @sidebarMenuOpen isnt true then @closeSidebar()
 
     $(document).on 'click', "[data-behavior='toggle-lock']", (e) =>
       e.preventDefault()
@@ -190,7 +192,7 @@ class Sidebar extends Portfolio.UI
         $(@sidebarNavEl).find('.nav li a').removeClass('highlight')
 
   openSidebarMenu: () ->
-    log "open sidebar menu"
+    # log "open sidebar menu"
     @sidebarOpen = true
     @sidebarMenuOpen = true
 
@@ -199,6 +201,7 @@ class Sidebar extends Portfolio.UI
 
     containerWidth = ($(window).width() - $(@sidebarNavEl).width()) - 16
     $(@contentEl).css width: containerWidth
+    $(@innerContentEl).css width: containerWidth + 100
     $(@thumbnailsEl).css width: containerWidth
 
     $(@lensFlareEl).css left: 310
@@ -209,10 +212,14 @@ class Sidebar extends Portfolio.UI
     # $(@sidebarNavEl).removeClass('animate-sidebar-open')
     # $(@sidebarNavEl).addClass('animate-sidebar-menu-open')
 
+    # $(@innerContentEl).css left: 300
+    # $(@sidebarNavEl).css left: 0
+    # $(@sidebarMenuEl).css left: 7
     @animateToPosition @innerContentEl, 300
-    @animateToPosition @sidebarNavEl, 0, =>
-      $(@innerContentEl).css width: containerWidth
+    @animateToPosition @sidebarNavEl, 0
     @animateToPosition @sidebarMenuEl, 7
+
+    @innerContentEl
 
     @adjustImageGrid(
       options =
@@ -221,8 +228,7 @@ class Sidebar extends Portfolio.UI
     )
 
   closeSidebarMenu: () ->
-    log "close sidebar menu"
-
+    # log "close sidebar menu"
     @sidebarOpen = true
     @sidebarMenuOpen = false
 
@@ -235,7 +241,7 @@ class Sidebar extends Portfolio.UI
       @closeSidebar()
 
   openSidebar: () ->
-    log "open sidebar"
+    # log "open sidebar"
     @sidebarOpen = true
     @sidebarMenuOpen = false
 
@@ -244,6 +250,7 @@ class Sidebar extends Portfolio.UI
 
     containerWidth = $(window).width() - 70
     $(@contentEl).css width: containerWidth
+    $(@innerContentEl).css width: containerWidth + 100
     $(@thumbnailsEl).css width: containerWidth
 
     # $(@sidebarNavEl).removeClass('animate-sidebar-menu-open')
@@ -259,10 +266,15 @@ class Sidebar extends Portfolio.UI
 
     $(@hoverCaptionEl).css left: 80
     $(@lensFlareEl).css left: 80
+
+    # $(@thumbnailsEll).css left: 0
+    # $(@innerContentEl).css left: 70
+    # $(@sidebarNavEl).css left: -230
+    # $(@sidebarMenuEl).css left: -300
+
     @animateToPosition @thumbnailsEl, 0
     @animateToPosition @innerContentEl, 70
-    @animateToPosition @sidebarNavEl, -230, =>
-      $(@innerContentEl).css width: containerWidth
+    @animateToPosition @sidebarNavEl, -230
     @animateToPosition @sidebarMenuEl, -300
 
     @adjustImageGrid(
@@ -272,7 +284,7 @@ class Sidebar extends Portfolio.UI
     )
 
   closeSidebar: () ->
-    log "close sidebar"
+    # log "close sidebar"
     @sidebarOpen = false
     @sidebarMenuOpen = false
 
@@ -281,7 +293,7 @@ class Sidebar extends Portfolio.UI
 
     containerWidth = $(window).width()
     $(@contentEl).css width: containerWidth
-    $(@innerContentEl).css width: containerWidth
+    $(@innerContentEl).css width: containerWidth + 100
     $(@thumbnailsEl).css width: containerWidth
 
     # $(@sidebarNavEl).removeClass('animate-sidebar-menu-open')
@@ -296,6 +308,12 @@ class Sidebar extends Portfolio.UI
     )
 
     $(@lensFlareEl).css left: 20
+
+    # $(@thumbnailsEll).css left: 0
+    # $(@innerContentEl).css left: 10
+    # $(@sidebarNavEl).css left: -285
+    # $(@sidebarMenuEl).css left: -300
+
     @animateToPosition @thumbnailsEl, 0
     @animateToPosition @innerContentEl, 10
     @animateToPosition @sidebarNavEl, -285
@@ -321,6 +339,15 @@ class Sidebar extends Portfolio.UI
 
   animateToPosition: (el, pos, callback) ->
     callback = callback or ->
+
+    # $(el).css
+    #   "webkitTransform": "translate3d(#{pos}px,0,0)"
+    #   "MozTransform": "translate3d(#{pos}px,0,0)"
+    #   "msTransform": "translate3d(#{pos}px,0,0)"
+    #   "OTransform": "translate3d(#{pos}px,0,0)"
+    #   "transform": "translate3d(#{pos}px,0,0)"
+    # callback()
+
     $(el).stop().animate
       left: pos
     ,

@@ -9,7 +9,7 @@
           %div
             .text
               %p.large
-                I have had the pleasure of working with many companies from around the world on all kinds of fun projects.
+                I have had the pleasure of working with many companies from around the world on all kinds of fun projects. Perhaps yours will be next? ;)
               .divider
               %p.small
                 Here are a few of the clients I have worked with:
@@ -17,7 +17,7 @@
 
           .list-container
             .list.clients
-              %h4 Startups
+              %h4 Web Startups
               %ul
                 %li.client{:"ng-repeat" => "startup in startups | orderBy:predicate"}
                   %a{:"ng-href" => "{{startup.url}}", :target => "_blank"}
@@ -25,7 +25,7 @@
 
           .list-container
             .list.clients
-              %h4 Other
+              %h4 Agencies & Other Companies
               %ul
                 %li.client{:"ng-repeat" => "client in clients | orderBy:predicate"}
                   %a{:"ng-href" => "{{client.url}}", :target => "_blank"}

@@ -7,9 +7,10 @@
 <h3>Themes</h3>
 <div>
 <div class='text'>
-<p class='large'>
+<p class='large display-inline-block'>
 Choose from {{themes.length}} different default background themes.
 </p>
+<a class='hide-images teal pull-right' href='#'>Hide Themes</a>
 <!-- .divider -->
 <!-- %p.small -->
 <!-- The majority of these themes can be downloaded at: -->
@@ -22,7 +23,7 @@ Choose from {{themes.length}} different default background themes.
 <div class='theme'>
 <!-- %h4 JavaScript Libraries -->
 <ul>
-<li ng-class="{'default':theme.is_default == true}" ng-init="path = s3_path + '/image/themes/' + theme.id" ng-repeat='theme in themes'>
+<li ng-class="{'default active':theme.is_default == true}" ng-init="path = s3_path + '/image/themes/' + theme.id" ng-repeat='theme in themes'>
 <img data-background='{{path}}/{{theme.background_image_filename}}' data-position='{{theme.position}}' height='84' ng-src='{{path}}/{{theme.thumbnail_image}}' width='150'>
 </li>
 </ul>

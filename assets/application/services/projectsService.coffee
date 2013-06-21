@@ -18,6 +18,12 @@ Application.Services.service("projectsService", ["ngResource"]).factory "Project
         skip: "@skip"
       isArray: true
 
+    getTotal:
+      method: "GET"
+      params:
+        dest: "getTotal"
+        category: "@category"
+
     index:
       method: "GET"
       isArray: true

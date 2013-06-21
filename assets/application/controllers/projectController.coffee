@@ -1,6 +1,6 @@
 'use strict'
 
-Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope", "$location", "$socket", "configuration", "User", "Projects", "Images", "Screenshots", "Technologies", "flickrPhotos", "Categories", "Tags", "SessionService", "$route", "$routeParams", ($rootScope, $scope, $location, $socket, configuration, User, Projects, Images, Screenshots, Technologies, flickrPhotos, Categories, Tags, SessionService, $route, $routeParams) ->
+Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope", "$http", "$location", "$socket", "configuration", "User", "Projects", "Clients", "Images", "Screenshots", "Technologies", "flickrPhotos", "Categories", "Tags", "SessionService", "$route", "$routeParams", ($rootScope, $scope, $http, $location, $socket, configuration, User, Projects, Clients, Images, Screenshots, Technologies, flickrPhotos, Categories, Tags, SessionService, $route, $routeParams) ->
 
   # ProjectsController class that is accessible by the window object
   #
@@ -12,6 +12,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       projectInfoOverlay: undefined
       inView:             undefined
       previousView:       undefined
+      screenshotsArr:     undefined
 
     #### It's always nice to have a constructor to keep things organized
     #
@@ -25,11 +26,20 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
         else if $rootScope.customParams.action == 'show'
           @show($scope, $rootScope.customParams)
 
+      $scope.path = $location.path()
       $scope.s3_path = configuration.s3_path
       $scope.category = $rootScope.customParams.category
 
+      $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
+
       # return this to make this class chainable
       this
+
+    initAfterViewContentLoadedProxy: () ->
+      # Skip the first argument (event object) but log the other args.
+      (_, options) =>
+        if $UI.Constants.sidebarMenuOpen is true then Portfolio.openSidebarMenu() else Portfolio.openSidebar()
+
 
     #### The index action
     #
@@ -40,13 +50,37 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
     #
     index: ($scope, params) ->
       log "#{$rootScope.customParams.action} action called"
-      $UI.Constants.actionPath = $rootScope.customParams.action
-      $UI.Constants.category   = $rootScope.customParams.category
+      $UI.Constants.actionPath = params.action
+      $UI.Constants.category   = params.category
 
       $scope.limit = $routeParams.limit or 0
       $scope.skip = $routeParams.skip or 0
 
       @loadProducts($scope.limit, $scope.skip, params.category)
+
+      # $scope.projects = []
+      # $scope.busy = false
+
+      # totalProjects = null
+      # Projects.getTotal
+      #   category: params.category
+      # , (resp) ->
+      #   totalProjects = resp.totalProjects
+
+      # counter = 0;
+      # $scope.nextPage = () =>
+      #   if counter <= totalProjects
+      #     return if $scope.busy
+      #     $scope.busy = true
+
+      #     @loadProducts($scope.limit, $scope.skip, params.category, (projects, projectsHtml) =>
+      #       counter += 3
+      #       $scope.skip = counter
+      #       $scope.busy = false
+      #       $('.thumbnails').isotope('reLayout')
+      #       # $('.thumbnails').append(projectsHtml).isotope('insert', projectsHtml)
+      #     )
+
 
       # @loadImages = setTimeout(=>
       #   $("#wrapper").waitForImages (=>
@@ -60,25 +94,33 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
 
       # $scope.photos = flickrPhotos.load({ tags: '1680x1050' })
 
-    loadProducts: (limit, skip, category) ->
+    loadProducts: (limit, skip, category, callback) ->
+      callback = callback or ->
       projectsArr = [{}]
       preview_images = []
+      logo_images = []
+      projectsHtml = ""
       projects = Projects.findAll(
         category: category
         limit: limit
         skip: skip
       , (project) ->
         $.each project, (k, v) =>
-          tags = []
-          categories = []
-          images = []
-          technologies = []
+          tags          = []
+          categories    = []
+          images        = []
+          technologies  = []
           $.each v.image_ids, (key, val) =>
             if val isnt ''
               Images.find({id: val}, (image) ->
-                v.preview_image =
-                  id: image.id
-                  path: image.preview_image
+                if image.preview_image
+                  v.preview_image =
+                    id: image.id
+                    path: image.preview_image
+                if image.logo_filename
+                  v.logo_image =
+                    id: image.id
+                    path: image.logo_filename
                 images.push(image)
               )
               v.image_paths = images
@@ -100,7 +142,11 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
                 technologies.push(technology.name)
               )
               v.technologies = technologies
+
         $.extend(projectsArr, project, projectsArr)
+
+        # $.each projectsArr, (k, v) ->
+        #   $scope.projects.push v
 
       , (error) ->
         log error
@@ -109,6 +155,8 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       $scope.preview_images = preview_images
       $scope.projects = projectsArr
       $scope.predicate = 'name'
+
+      callback(projectsArr, projectsHtml)
 
     setInfoWaypoints: (element, context) ->
       self = this
@@ -178,31 +226,24 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       $UI.Constants.actionPath = $rootScope.customParams.action
 
       if $routeParams.slug
-
-        screenshotsArr = []
-        Screenshots.findAll((screenshots) ->
-          screenshotsArr = screenshots
-        )
-
         projectsArr = [{}]
         projects = Projects.find(
           slug: $routeParams.slug
         , (project) ->
-          tags = []
-          categories = []
-          images = []
-          technologies = []
-
+          tags          = []
+          categories    = []
+          images        = []
+          technologies  = []
           $.each project.image_ids, (k, v) =>
             if v isnt ''
               Images.find({id: v}, (image) ->
                 images.push(image)
               )
-
-              $.each screenshotsArr, (key, val) =>
-                if val.screenable_id is v
-                  images.push(val)
-
+              Screenshots.findAll((screenshots) ->
+                $.each screenshots, (key, val) =>
+                  if val.screenable_id is v
+                    images.push(val)
+              )
               project.image_paths = images
 
           $.each project.tag_ids, (key, val) =>
@@ -257,6 +298,8 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
         )
 
         $scope.project = projectsArr
+
+        console.log $scope.project
 
       clearTimeout = screenshotTimeout if screenshotTimeout
       screenshotTimeout = setTimeout(=>
@@ -316,6 +359,15 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       $scope.showMessage = ->
         $scope.message && $scope.message.length
 
+      # FIX THIS
+      $scope.getClient = (project) ->
+        $scope.client = null
+        Clients.findAll((clients) ->
+          $.each clients, (k,v) ->
+            if v.id is project.client_id
+              $scope.client = v.name
+        )
+
       $scope.getProject = (project) ->
         project = Project.get project
         project
@@ -355,9 +407,14 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
           return images.large
         false
 
-      $scope.getPreviewImagePath = (project) ->
-        image_id = project.preview_image?.id
-        image_path = project.preview_image?.path
+      $scope.getImagePath = (project) ->
+        if $scope.path.indexOf('identity') >= 0
+          image_id = project.logo_image?.id
+          image_path = project.logo_image?.path
+        else
+          image_id = project.preview_image?.id
+          image_path = project.preview_image?.path
+
         if image_id
           image = "#{$scope.s3_path}/image/portfolio_image/#{image_id}/#{image_path}"
           return image

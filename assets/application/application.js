@@ -19,7 +19,8 @@ angular.module('application',
   'application.services',
   'application.directives',
   'application.constants',
-  'application.controllers']
+  'application.controllers',
+  'infinite-scroll']
 ).config(
   ['$routeProvider',
   '$locationProvider',
@@ -102,8 +103,8 @@ angular.module('application',
         }
       }).
       when('/work/code/project/:slug', {
-        templateUrl: 'views/work/show.html',
-        controller: 'ProjectsController',
+        templateUrl: 'views/work/code.html',
+        controller: 'CodeController',
         customParams: {
           action: 'show',
           category: 'code'
@@ -233,9 +234,5 @@ angular.module('application',
       if( (typeof $route.current.customParams == "object") && ($route.current.customParams !== null) ){
         $rootScope.customParams = $route.current.customParams;
       }
-
-      // setTimeout((function() {
-      //   $UI.hideLoadingScreen();
-      // }), 500);
     });
 }]);

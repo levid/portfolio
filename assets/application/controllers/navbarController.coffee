@@ -12,7 +12,6 @@ Application.Controllers.controller "NavbarController", ["$scope", "$location", "
     #
     constructor: () ->
       @initScopedMethods()
-      $scope.projectsNavMenu = Projects.findAll()
       $scope.predicate = 'name'
 
     #### Scoped methods
@@ -37,6 +36,11 @@ Application.Controllers.controller "NavbarController", ["$scope", "$location", "
           true
         else
           false
+
+      $scope.getProjects = () ->
+        Projects.findAll((projects) ->
+          $scope.projectsNavMenu = projects
+        )
 
       $scope.getSlug = (slug) ->
         currentPath = $location.path().substr(0, $location.path().length)

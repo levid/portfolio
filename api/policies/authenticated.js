@@ -11,7 +11,7 @@ module.exports = function (req, res, ok) {
   res.header('Cache-control', 'public');
   // res.header('Content-Encoding', 'gzip');
 
-  if (action == "index" || action == "find" || action == "findAll" || action == "send") {
+  if (action == "index" || action == "find" || action == "findAll" || action == "send" || action == "getTotal" || action == "getFileContents") {
     return ok();
   }
   else {

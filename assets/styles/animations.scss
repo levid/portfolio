@@ -8,10 +8,10 @@
     the setup styles (this avoids any CSS-specificity issues).
 */
 .mycss-animation-setup {
-  -webkit-transition:1s linear all;
-  -moz-transition:1s linear all;
-  -o-transition:1s linear all;
-  transition:1s linear all; /* future proof */
+  -webkit-transition: 300ms linear all;
+  -moz-transition: 300ms linear all;
+  -o-transition: 300ms linear all;
+  transition: 300ms linear all; /* future proof */
 }
 .mycss-animation-setup.mycss-animation-start {
 }
@@ -20,10 +20,10 @@
 .custom-enter-setup,
 .custom-leave-setup,
 .custom-move-setup {
-  -webkit-transition: 1s linear all;
-  -moz-transition: 1s linear all;
-  -o-transition: 1s linear all;
-  transition: 1s linear all;
+  -webkit-transition: 300ms linear all;
+  -moz-transition: 300ms linear all;
+  -o-transition: 300ms linear all;
+  transition: 300ms linear all;
   opacity: 0;
 }
 
@@ -84,10 +84,10 @@
 .enter-animation-setup, .leave-animation-setup,
 .move-animation-setup, .show-animation-setup,
 .hide-animation-setup {
-  -webkit-transition:all linear 1s;
-  -moz-transition:all linear 1s;
-  -o-transition:all linear 1s;
-  transition:all linear 1s;
+  -webkit-transition:all linear 300ms;
+  -moz-transition:all linear 300ms;
+  -o-transition:all linear 300ms;
+  transition:all linear 300ms;
 }
 
 .enter-animation-setup { }
