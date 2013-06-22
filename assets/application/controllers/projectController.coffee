@@ -299,10 +299,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
         , (error) ->
           log error
         )
-
         $scope.project = projectsArr
-
-        console.log $scope.project
 
       clearTimeout = screenshotTimeout if screenshotTimeout
       screenshotTimeout = setTimeout(=>

@@ -1,7 +1,7 @@
 module.exports = {
 
 	// Name of the application (used as default <title>)
-	appName: "Isaac T. Wooten - Web Designer & Developer",
+	appName: "Isaac T. Wooten - Web Designer & Developer located in Orange County, CA.",
 
 	// Port this Sails application will live on
 	port: process.env.PORT || 1337,
@@ -24,6 +24,6 @@ module.exports = {
 	// - verbose
 	//
 	log: {
-    level: 'verbose'
+    level: 'info'
   }
 };

@@ -98,16 +98,18 @@ class Utils extends Portfolio.UI
   # This cool logging method allows objects to be printed to the console instead of just showing [Object, object]
   #
   log: (message) ->
-    f     = console.log
-    args  = Array::slice.call(arguments)
+    params = $.deparam.querystring()
+    if params.traceToConsole? # set ?traceToConsole=true to display logging
+      f     = console.log
+      args  = Array::slice.call(arguments)
 
-    if args.length and args[0] is "!"
-      args.shift()
-      f = console.warn
-    try
-      f.apply console, args
-    catch ex
-      f args.join(" ")
+      if args.length and args[0] is "!"
+        args.shift()
+        f = console.warn
+      try
+        f.apply console, args
+      catch ex
+        f args.join(" ")
 
 # Assign this class to the Portfolio Namespace
 Portfolio.UI.Utils = new Utils()
