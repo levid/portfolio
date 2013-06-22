@@ -224,7 +224,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
     show: ($scope, params) ->
       log "#{$rootScope.customParams.action} action called"
       $UI.Constants.actionPath = $rootScope.customParams.action
-      $.publish 'event.Portfolio', message: "Contacting Amazon S3..."
+      # $.publish 'event.Portfolio', message: "Contacting Amazon S3..."
 
       if $routeParams.slug
         projectsArr = [{}]
