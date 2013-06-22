@@ -193,6 +193,7 @@ class Sidebar extends Portfolio.UI
 
   openSidebarMenu: () ->
     # log "open sidebar menu"
+    $("[data-behavior='scrollable']").mCustomScrollbar("update")
     @sidebarOpen = true
     @sidebarMenuOpen = true
 
