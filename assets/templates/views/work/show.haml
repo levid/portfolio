@@ -28,7 +28,7 @@
                     %td Year
                     %td {{project.date | date:'yyyy' || 'N/A'}}
 
-              %li{:"ng-init" => "client = getClient(project)"}
+              %li{:"ng-init" => "client = getProjectClient(project)"}
                 %table
                   %tr
                     %td Client

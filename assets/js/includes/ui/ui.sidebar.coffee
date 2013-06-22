@@ -201,7 +201,7 @@ class Sidebar extends Portfolio.UI
 
     containerWidth = ($(window).width() - $(@sidebarNavEl).width()) - 16
     $(@contentEl).css width: containerWidth
-    $(@innerContentEl).css width: containerWidth + 100
+    $(@innerContentEl).css width: containerWidth
     $(@thumbnailsEl).css width: containerWidth
 
     $(@lensFlareEl).css left: 310
@@ -250,7 +250,7 @@ class Sidebar extends Portfolio.UI
 
     containerWidth = $(window).width() - 70
     $(@contentEl).css width: containerWidth
-    $(@innerContentEl).css width: containerWidth + 100
+    $(@innerContentEl).css width: containerWidth
     $(@thumbnailsEl).css width: containerWidth
 
     # $(@sidebarNavEl).removeClass('animate-sidebar-menu-open')
@@ -293,7 +293,7 @@ class Sidebar extends Portfolio.UI
 
     containerWidth = $(window).width()
     $(@contentEl).css width: containerWidth
-    $(@innerContentEl).css width: containerWidth + 100
+    $(@innerContentEl).css width: containerWidth
     $(@thumbnailsEl).css width: containerWidth
 
     # $(@sidebarNavEl).removeClass('animate-sidebar-menu-open')

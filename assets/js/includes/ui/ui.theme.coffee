@@ -34,19 +34,20 @@ class Theme extends Portfolio.UI
     $(document).on 'click', 'a.hide-images', (e) ->
       e.preventDefault()
 
+      infoContainer = $('.info-container .content')
 
-      $('.themes-list').fadeToggle()
-
-      if $(this).text() is 'Hide Themes'
-        $(this).text("Show Themes")
-        $('.info-container .content h3').css opacity: 0
-        $('.info-container .content .text p').css opacity: 0
-        $('.info-container .content .divider').css opacity: 0
+      if $(this).hasClass 'active'
+        $('.themes-list').fadeOut()
+        infoContainer.find('h3').css opacity: 0
+        infoContainer.find('.text p').css opacity: 0
+        infoContainer.find('.divider').css opacity: 0
       else
-        $(this).text("Hide Themes")
-        $('.info-container .content h3').css opacity: 1
-        $('.info-container .content .text p').css opacity: 1
-        $('.info-container .content .divider').css opacity: 1
+        $('.themes-list').fadeIn()
+        infoContainer.find('h3').css opacity: 1
+        infoContainer.find('.text p').css opacity: 1
+        infoContainer.find('.divider').css opacity: 1
+
+      $(this).toggleClass 'active'
 
     $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
 

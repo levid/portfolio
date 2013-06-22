@@ -176,7 +176,7 @@ class ImageGrid extends Portfolio.UI
           layoutMode: 'masonry'
           resizeContainer: true
           resizable: true
-          # transformsEnabled: true
+          transformsEnabled: true
           # filter: ".#{@category}" if @category and @category isnt 'all'
           sortBy: 'name'
           # animationOptions:
@@ -185,8 +185,11 @@ class ImageGrid extends Portfolio.UI
           #  queue: false
 
           onLayout: =>
-           $UI.Constants.viewLoaded = true
-           callback()
+            $UI.Constants.viewLoaded = true
+            clearTimeout = imageGridTimeout if imageGridTimeout
+            imageGridTimeout = setTimeout(=>
+              callback()
+            , 200)
 
           getSortData:
             name: ($elem) ->
@@ -226,9 +229,9 @@ class ImageGrid extends Portfolio.UI
       #     log "TEST"
       #     # callback()
 
-    # $(window).scroll ->
-    #   log "test"
+    # $('#main').scroll ->
     #   $('.thumbnails').isotope('reLayout')
+
     $(window).resize ->
       calc()
     calc()

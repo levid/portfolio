@@ -56,7 +56,9 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       $scope.limit = $routeParams.limit or 0
       $scope.skip = $routeParams.skip or 0
 
-      @loadProducts($scope.limit, $scope.skip, params.category)
+      @loadProjects($scope.limit, $scope.skip, params.category)
+
+      $.publish 'event.Portfolio', message: "Contacting Amazon S3..."
 
       # $scope.projects = []
       # $scope.busy = false
@@ -73,7 +75,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       #     return if $scope.busy
       #     $scope.busy = true
 
-      #     @loadProducts($scope.limit, $scope.skip, params.category, (projects, projectsHtml) =>
+      #     @loadProjects($scope.limit, $scope.skip, params.category, (projects, projectsHtml) =>
       #       counter += 3
       #       $scope.skip = counter
       #       $scope.busy = false
@@ -94,7 +96,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
 
       # $scope.photos = flickrPhotos.load({ tags: '1680x1050' })
 
-    loadProducts: (limit, skip, category, callback) ->
+    loadProjects: (limit, skip, category, callback) ->
       callback = callback or ->
       projectsArr = [{}]
       preview_images = []
@@ -224,6 +226,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
     show: ($scope, params) ->
       log "#{$rootScope.customParams.action} action called"
       $UI.Constants.actionPath = $rootScope.customParams.action
+      $.publish 'event.Portfolio', message: "Contacting Amazon S3..."
 
       if $routeParams.slug
         projectsArr = [{}]
@@ -359,14 +362,14 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       $scope.showMessage = ->
         $scope.message && $scope.message.length
 
-      # FIX THIS
-      $scope.getClient = (project) ->
+      $scope.getProjectClient = (project) ->
         $scope.client = null
         Clients.findAll((clients) ->
           $.each clients, (k,v) ->
             if v.id is project.client_id
               $scope.client = v.name
         )
+        false
 
       $scope.getProject = (project) ->
         project = Project.get project

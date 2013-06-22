@@ -139,6 +139,9 @@ Application.Controllers.controller "ThemesController", ["$rootScope", "$scope", 
         themes = Themes.findAll()
         return themes
 
+      $scope.go = (path) ->
+        $location.path(path)
+
   window.ThemesController = new ThemesController()
 
 ]
