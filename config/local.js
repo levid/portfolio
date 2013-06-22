@@ -9,5 +9,5 @@
 module.exports.port = process.env.PORT || 1337;
 
 
-module.exports.environment = 'production';
+// module.exports.environment = 'production';
 // module.exports.adapters.default = 'mongo';
