@@ -6,15 +6,11 @@ Application.Directives.directive "sidebar", ["$timeout", ($timeout) ->
 
     scope.$watch "projectsNavMenu", (value) ->
       container = $("[data-behavior='scrollable']")
-      container.stop().animate
-        height: $(window).height() - 250
-      , 500, ->
-        container.mCustomScrollbar("update")
+      container.css height: $(window).height() - 250
+      container.mCustomScrollbar("update")
 
     ngModel.$render = ->
       container = $("[data-behavior='scrollable']")
-      container.stop().animate
-        height: $(window).height() - 250
-      , 500, ->
-        container.mCustomScrollbar("update")
+      container.css height: $(window).height() - 250
+      container.mCustomScrollbar("update")
 ]
