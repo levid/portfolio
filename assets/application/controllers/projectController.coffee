@@ -58,8 +58,6 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
 
       @loadProjects($scope.limit, $scope.skip, params.category)
 
-      $.publish 'event.Portfolio', message: "Contacting Amazon S3..."
-
       # $scope.projects = []
       # $scope.busy = false
 
