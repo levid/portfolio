@@ -37,11 +37,13 @@ class Theme extends Portfolio.UI
       infoContainer = $('.info-container .content')
 
       if $(this).hasClass 'active'
+        $(this).text('Show Themes')
         $('.themes-list').fadeOut()
         infoContainer.find('h3').css opacity: 0
         infoContainer.find('.text p').css opacity: 0
         infoContainer.find('.divider').css opacity: 0
       else
+        $(this).text('Hide Themes')
         $('.themes-list').fadeIn()
         infoContainer.find('h3').css opacity: 1
         infoContainer.find('.text p').css opacity: 1
