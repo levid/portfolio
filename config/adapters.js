@@ -5,7 +5,7 @@ module.exports.adapters = {
 
 	// If you leave the adapter config unspecified
 	// in a model definition, 'default' will be used.
-	'default': 'mongo',
+	'default': 'mongoProd',
 
 	// In-memory adapter for DEVELOPMENT ONLY
 	// (data is NOT preserved when the server shuts down)
@@ -42,6 +42,6 @@ module.exports.adapters = {
 
   mongoProd: {
     module   : 'sails-mongo',
-    url      : 'mongodb://' + process.env.MONGOHQ_USERNAME + ':' + process.env.MONGOHQ_PASSWORD + '@hatch.mongohq.com:10034/app15795196.portfolio'
+    url      : 'mongodb://' + process.env.MONGOHQ_USERNAME + ':' + process.env.MONGOHQ_PASSWORD + '@ethan.mongohq.com:10089/app15795196'
   }
 };
