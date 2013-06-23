@@ -368,7 +368,6 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
             if v.id is project.client_id
               $scope.client = v.name
         )
-        false
 
       $scope.getProject = (project) ->
         project = Project.get project
@@ -400,14 +399,12 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
         if data and data isnt undefined
           images.push(data)
           $scope.images = images
-        false
 
       $scope.getLargeImages = (data) ->
         images = []
         if data
           images = $.parseJSON(data)
           return images.large
-        false
 
       $scope.getImagePath = (project) ->
         if $scope.path.indexOf('identity') >= 0
@@ -420,14 +417,12 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
         if image_id
           image = "#{$scope.s3_path}/image/portfolio_image/#{image_id}/#{image_path}"
           return image
-        false
 
       $scope.getTags = (data) ->
         tags = []
         if data
           tags = $.parseJSON(data)
           return tags
-        false
 
       $scope.notSorted = (obj) ->
         if !obj
