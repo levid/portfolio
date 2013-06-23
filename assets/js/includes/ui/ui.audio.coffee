@@ -24,8 +24,15 @@ class Audio extends Portfolio.UI
     @scope              = MainCtrl.getScope()
     @enableScopeBinding()
 
+    $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
+
     # return this to make this class chainable
     return this
+
+  initAfterViewContentLoadedProxy: () ->
+    # Skip the first argument (event object) but log the other args.
+    (_, path) =>
+      @assignSounds()
 
   enableScopeBinding: () ->
     @scope.$watch 'audio', (val) =>
