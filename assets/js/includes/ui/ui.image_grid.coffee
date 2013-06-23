@@ -111,12 +111,10 @@ class ImageGrid extends Portfolio.UI
         $('#overlay .logo-preload .text').fadeIn().text ""
         $('.thumbnails').waitForImages (=>
           @buildGrid(options, =>
-            setTimeout(=>
-              $('#overlay .logo-preload .text').fadeOut()
-              $UI.hideLoadingScreen(=>
-                $('#overlay .logo-preload .text').text ""
-              )
-            , 1000)
+            $('#overlay .logo-preload .text').fadeOut()
+            $UI.hideLoadingScreen(=>
+              $('#overlay .logo-preload .text').text ""
+            )
           )
           log "All preview images have loaded."
 

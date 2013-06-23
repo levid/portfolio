@@ -319,12 +319,10 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
           log "All screenshots have loaded."
           $('.info-container .spinner .text').fadeOut()
 
-          setTimeout(=>
-            $('#overlay .logo-preload .text').fadeOut()
-            $UI.hideSpinner $('.info-container .spinner'), =>
-              $('.info-container .spinner .text').text ""
-              $('#overlay .logo-preload .text').text ""
-          , 1000)
+          $('#overlay .logo-preload .text').fadeOut()
+          $UI.hideSpinner $('.info-container .spinner'), =>
+            $('.info-container .spinner .text').text ""
+            $('#overlay .logo-preload .text').text ""
 
           $.publish 'event.Portfolio', message: "All screenshots loaded"
 
