@@ -318,9 +318,13 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
           log "All screenshots have loaded."
 
           $('.info-container .spinner .text').fadeOut()
-          $UI.hideSpinner $('.info-container .spinner'), =>
-            $('.info-container .spinner .text').text ""
-            $('#overlay .logo-preload .text').text ""
+
+          setTimeout(=>
+            $UI.hideSpinner $('.info-container .spinner'), =>
+              $('.info-container .spinner .text').text ""
+              $('#overlay .logo-preload .text').text ""
+          , 500)
+
           $.publish 'event.Portfolio', message: "All screenshots loaded"
 
         ),((loaded, count, success) ->

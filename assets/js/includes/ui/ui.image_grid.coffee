@@ -110,9 +110,11 @@ class ImageGrid extends Portfolio.UI
       previewImagesTimeout = setTimeout(=>
         $('.thumbnails').waitForImages (=>
           @buildGrid(options, =>
-            $UI.hideLoadingScreen(=>
-              $('#overlay .logo-preload .text').text ""
-            )
+            setTimeout(=>
+              $UI.hideLoadingScreen(=>
+                $('#overlay .logo-preload .text').text ""
+              )
+            , 500)
           )
           log "All preview images have loaded."
 
