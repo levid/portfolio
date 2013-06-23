@@ -301,6 +301,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
 
       clearTimeout = screenshotTimeout if screenshotTimeout
       screenshotTimeout = setTimeout(=>
+        $('#overlay .logo-preload .text').fadeIn().text ""
         $('.thumbnails').waitForImages (=>
           # setWidth = (options) =>
           #   $('.thumbnails-show-view').css
@@ -316,14 +317,14 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
           @setInfoWaypoints('.block', '#main')
 
           log "All screenshots have loaded."
-
           $('.info-container .spinner .text').fadeOut()
 
           setTimeout(=>
+            $('#overlay .logo-preload .text').fadeOut()
             $UI.hideSpinner $('.info-container .spinner'), =>
               $('.info-container .spinner .text').text ""
               $('#overlay .logo-preload .text').text ""
-          , 500)
+          , 1000)
 
           $.publish 'event.Portfolio', message: "All screenshots loaded"
 
