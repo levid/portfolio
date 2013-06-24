@@ -4,17 +4,16 @@ Application.Controllers.controller "MainCtrl", ["$rootScope", "$scope", "$locati
   class MainCtrl
     constructor: () ->
       $scope.foo = "booyah"
+      $scope.portfolio        = Portfolio
+      $scope.s3_path          = configuration.s3_path
+      $scope.audio            = configuration.audio
+      $scope.notifications    = configuration.notifications
+      $scope.shuffle_letters  = configuration.shuffle_letters
+
 
       $scope.$on '$viewContentLoaded', =>
         # Detect when view content has been loaded and re-initalize jQuery events
         path = $location.path().substr(1, $location.path().length)
-
-        $scope.portfolio        = Portfolio
-        $scope.s3_path          = configuration.s3_path
-        $scope.audio            = configuration.audio
-        $scope.notifications    = configuration.notifications
-        $scope.shuffle_letters  = configuration.shuffle_letters
-
         $scope.portfolio.initAfterViewContentLoaded(path)
 
       $scope.toggleAudio = () =>
