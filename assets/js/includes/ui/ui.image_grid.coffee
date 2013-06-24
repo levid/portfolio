@@ -108,29 +108,13 @@ class ImageGrid extends Portfolio.UI
 
       clearTimeout = previewImagesTimeout if previewImagesTimeout
       previewImagesTimeout = setTimeout(=>
-
-        $UI.showSpinner $('.info-container').find('.spinner'),
-          lines: 12
-          length: 0
-          width: 3
-          radius: 13
-          color: '#ffffff'
-          speed: 1.6
-          trail: 45
-          shadow: false
-          hwaccel: false
-
         $('#overlay .logo-preload .text').fadeIn().text ""
-        $('.info-container .spinner .text').text ""
         $('.thumbnails').waitForImages (=>
           @buildGrid(options, =>
             $('#overlay .logo-preload .text').fadeOut()
-            $('.info-container .spinner .text').fadeOut()
             $UI.hideLoadingScreen(=>
-              $('.info-container .spinner .text').text ""
               $('#overlay .logo-preload .text').text ""
             )
-            $UI.hideSpinner $('.info-container .spinner')
           )
           log "All preview images have loaded."
 
@@ -138,7 +122,6 @@ class ImageGrid extends Portfolio.UI
           log loaded + " of " + count + " preview images has " + ((if success then "loaded" else "failed to load")) + "."
           perc = Math.round((100 / count) * loaded)
           $('#overlay .logo-preload .text').text "#{perc} %"
-          $('.info-container .spinner .text').text "#{perc}"
           $(this).addClass "loaded"
         ), $.noop, true
       , 1000)
