@@ -120,6 +120,7 @@ class ImageGrid extends Portfolio.UI
         ),((loaded, count, success) ->
           log loaded + " of " + count + " preview images has " + ((if success then "loaded" else "failed to load")) + "."
           perc = Math.round((100 / count) * loaded)
+          $('#overlay .logo-preload .text').show()
           $('#overlay .logo-preload .text').text "#{perc} %"
           $(this).addClass "loaded"
         ), $.noop, true

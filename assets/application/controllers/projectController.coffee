@@ -327,6 +327,8 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
         ),((loaded, count, success) ->
           log loaded + " of " + count + " screenshots has " + ((if success then "loaded" else "failed to load")) + "."
           perc = Math.round((100 / count) * loaded)
+          $('#overlay .logo-preload .text').show()
+          $('.info-container .spinner .text').show()
           $('.info-container .spinner .text').text "#{perc}"
           $('#overlay .logo-preload .text').text "#{perc} %"
           $(this).addClass "loaded"
