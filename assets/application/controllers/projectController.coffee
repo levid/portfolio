@@ -299,8 +299,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
         )
         $scope.project = projectsArr
 
-      clearTimeout = screenshotTimeout if screenshotTimeout
-      screenshotTimeout = setTimeout(=>
+      setTimeout(=>
         $('#overlay .logo-preload .text').fadeIn().text ""
         $('.thumbnails').waitForImages (=>
           # setWidth = (options) =>
