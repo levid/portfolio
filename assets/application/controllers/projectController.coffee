@@ -333,7 +333,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
           $('#overlay .logo-preload .text').text "#{perc} %"
           $(this).addClass "loaded"
         ), $.noop, true
-      , 1000)
+      , 1500)
 
 
     #### Get current scope
