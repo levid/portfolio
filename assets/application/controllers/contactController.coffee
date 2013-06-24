@@ -11,13 +11,26 @@ Application.Controllers.controller "ContactController", ["$rootScope", "$scope",
     constructor: () ->
       @initScopedMethods()
 
+      if $rootScope.customParams
+        if $rootScope.customParams.action == 'index'
+          @index($scope, $rootScope.customParams)
+
       $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
 
     initAfterViewContentLoadedProxy: () ->
       # Skip the first argument (event object) but log the other args.
       (_, options) =>
-        $UI.hideLoadingScreen()
         if $UI.Constants.sidebarMenuOpen is true then Portfolio.openSidebarMenu() else Portfolio.openSidebar()
+
+    #### The index action
+    #
+    # @param [Object] $scope
+    #
+    # - The $scope object must be passed in to the method
+    #   since it is a public static method
+    #
+    index: ($scope, params) ->
+      $UI.hideLoadingScreen()
 
     initScopedMethods: () ->
       $scope.contactMe = =>

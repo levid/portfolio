@@ -25,7 +25,6 @@ Application.Controllers.controller "ClientsController", ["$rootScope", "$scope",
     initAfterViewContentLoadedProxy: () ->
       # Skip the first argument (event object) but log the other args.
       (_, options) =>
-        $UI.hideLoadingScreen()
         if $UI.Constants.sidebarMenuOpen is true then Portfolio.openSidebarMenu() else Portfolio.openSidebar()
 
     #### The index action
@@ -36,6 +35,7 @@ Application.Controllers.controller "ClientsController", ["$rootScope", "$scope",
     #   since it is a public static method
     #
     index: ($scope, params) ->
+      $UI.hideLoadingScreen()
       clientsArr = []
       startupsArr = []
       clients = Clients.findAll((clients) ->

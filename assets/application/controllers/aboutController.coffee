@@ -24,7 +24,6 @@ Application.Controllers.controller "AboutController", ["$rootScope", "$scope", "
     initAfterViewContentLoadedProxy: () ->
       # Skip the first argument (event object) but log the other args.
       (_, options) =>
-        $UI.hideLoadingScreen()
         if $UI.Constants.sidebarMenuOpen is true then Portfolio.openSidebarMenu() else Portfolio.openSidebar()
 
     #### The index action
@@ -35,6 +34,7 @@ Application.Controllers.controller "AboutController", ["$rootScope", "$scope", "
     #   since it is a public static method
     #
     index: ($scope, params) ->
+      $UI.hideLoadingScreen()
       columnTimeout = setTimeout(=>
         $('.programming ul').columnize
           columns: 4
