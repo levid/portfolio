@@ -108,7 +108,6 @@ class ImageGrid extends Portfolio.UI
 
       clearTimeout = previewImagesTimeout if previewImagesTimeout
       previewImagesTimeout = setTimeout(=>
-        $('#overlay .logo-preload .text').fadeIn().text ""
         $('.thumbnails').waitForImages (=>
           @buildGrid(options, =>
             $('#overlay .logo-preload .text').fadeOut()

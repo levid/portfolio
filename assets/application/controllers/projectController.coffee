@@ -300,7 +300,6 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
         $scope.project = projectsArr
 
       setTimeout(=>
-        $('#overlay .logo-preload .text').fadeIn().text ""
         $('.thumbnails').waitForImages (=>
           # setWidth = (options) =>
           #   $('.thumbnails-show-view').css
