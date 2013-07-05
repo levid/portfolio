@@ -80,6 +80,18 @@ class ImageGrid extends Portfolio.UI
     (_, path) =>
       @setupGrid (options) =>
         log "rendering"
+
+        $UI.showSpinner $('.info-container').find('.spinner'),
+          lines: 12
+          length: 0
+          width: 3
+          radius: 13
+          color: '#ffffff'
+          speed: 1.6
+          trail: 45
+          shadow: false
+          hwaccel: false
+
         $('.thumbnails').waitForImages (=>
           clearTimeout renderTimeout if renderTimeout
           renderTimeout = setTimeout(=>

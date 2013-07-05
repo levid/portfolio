@@ -283,17 +283,6 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
             #     $('.info-container').toggleClass 'sticky'
           , 700)
 
-          $UI.showSpinner $('.info-container').find('.spinner'),
-            lines: 12
-            length: 0
-            width: 3
-            radius: 13
-            color: '#ffffff'
-            speed: 1.6
-            trail: 45
-            shadow: false
-            hwaccel: false
-
         , (error) ->
           log error
         )
