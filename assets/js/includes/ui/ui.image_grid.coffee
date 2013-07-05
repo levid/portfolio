@@ -29,7 +29,7 @@ class ImageGrid extends Portfolio.UI
 
     $.subscribe('resize.Portfolio', @initResize('resize.Portfolio'))
     $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
-    $.subscribe('renderAfterViewContentLoaded.Portfolio', @renderAfterViewContentLoadedProxy('renderAfterViewContentLoaded.Portfolio'))
+    $.subscribe('renderAfterViewContentLoaded.Portfolio', @render('renderAfterViewContentLoaded.Portfolio'))
 
     $(document).on 'click', ".sort-by a", (e) ->
       e.preventDefault()
@@ -38,7 +38,6 @@ class ImageGrid extends Portfolio.UI
       sortBy = $(e.target).data('option-value')
       $('.thumbnails').isotope
         sortBy: sortBy
-
 
     $(document).on 'click', ".thumbnails.show-view .project-details-container", (e) ->
       e.preventDefault()
@@ -76,22 +75,26 @@ class ImageGrid extends Portfolio.UI
       log "loaded"
       @setupGrid()
 
-  renderAfterViewContentLoadedProxy: () ->
+  render: () ->
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
       @setupGrid (options) =>
         log "rendering"
         $('.thumbnails').waitForImages (=>
-          @buildGrid(options, =>
-            $('#overlay .logo-preload .text').fadeOut()
-            $UI.hideSpinner $('.info-container .spinner')
-            $UI.hideLoadingScreen(=>
-              $('.info-container .spinner .text').text ""
-              $('#overlay .logo-preload .text').text ""
+          clearTimeout renderTimeout if renderTimeout
+          renderTimeout = setTimeout(=>
+            @buildGrid(options, =>
+              $('#overlay .logo-preload .text').fadeOut()
+              $('.info-container .spinner .text').fadeOut()
+              $UI.hideSpinner $('.info-container .spinner')
+              $UI.hideLoadingScreen(=>
+                $('.info-container .spinner .text').text ""
+                $('#overlay .logo-preload .text').text ""
+              )
+              log "Rendering complete"
+              $.publish 'event.Portfolio', message: "Rendering complete"
             )
-          )
-          log "Rendering complete"
-          $.publish 'event.Portfolio', message: "Rendering complete"
+          , 500)
 
         ),((loaded, count, success) ->
           log loaded + " of " + count + " project images has " + ((if success then "loaded" else "failed to load")) + "."
@@ -137,7 +140,9 @@ class ImageGrid extends Portfolio.UI
 
     @contentEl.css width: containerWidth
     @innerContentEl.css width: containerWidth
-    @thumbnailsEl.css width: containerWidth
+    @thumbnailsEl.css
+      width: containerWidth
+      height: 'auto'
 
     callback(options)
 
