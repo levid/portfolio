@@ -125,7 +125,7 @@ class ImageGrid extends Portfolio.UI
           $('#overlay .logo-preload .text').text "#{perc} %"
           $(this).addClass "loaded"
         ), $.noop, true
-      , 1000)
+      , 1500)
 
   buildGrid: (options, callback) ->
     callback = callback or ->
