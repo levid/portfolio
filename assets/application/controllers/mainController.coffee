@@ -17,7 +17,7 @@ Application.Controllers.controller "MainCtrl", ["$rootScope", "$scope", "$locati
         contentLoadedTimeout = contentLoadedTimeout if contentLoadedTimeout
         contentLoadedTimeout = setTimeout(=>
           $rootScope.portfolio.initAfterViewContentLoaded(path)
-        , 250)
+        , 1000)
 
       $scope.toggleAudio = () =>
         if $scope.audio is true then $scope.audio = false else $scope.audio = true
