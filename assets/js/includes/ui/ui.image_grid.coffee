@@ -113,10 +113,12 @@ class ImageGrid extends Portfolio.UI
           @buildGrid(options, =>
             $('#overlay .logo-preload .text').fadeOut()
             $UI.hideLoadingScreen(=>
+              $UI.hideSpinner $('.info-container .spinner')
               $('#overlay .logo-preload .text').text ""
             )
           )
           log "All preview images have loaded."
+          $.publish 'event.Portfolio', message: "Rendering complete"
 
         ),((loaded, count, success) ->
           log loaded + " of " + count + " preview images has " + ((if success then "loaded" else "failed to load")) + "."
@@ -125,7 +127,7 @@ class ImageGrid extends Portfolio.UI
           $('#overlay .logo-preload .text').text "#{perc} %"
           $(this).addClass "loaded"
         ), $.noop, true
-      , 1500)
+      , 2000)
 
   buildGrid: (options, callback) ->
     callback = callback or ->
