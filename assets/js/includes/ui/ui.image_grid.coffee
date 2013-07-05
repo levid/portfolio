@@ -102,7 +102,7 @@ class ImageGrid extends Portfolio.UI
                   $('.info-container .spinner .text').text ""
                   $('#overlay .logo-preload .text').text ""
                 )
-                console.log "Rendering complete"
+                log "Rendering complete"
                 $.publish 'event.Portfolio', message: "Rendering complete"
               )
             )
