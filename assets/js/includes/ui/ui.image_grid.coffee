@@ -73,7 +73,7 @@ class ImageGrid extends Portfolio.UI
     (_, path) =>
       log "loaded"
       @category         = $UI.Constants.category
-      @path              = $UI.Constants?.actionPath
+      @path             = $UI.Constants?.actionPath
       options           = {}
       sidebarMenuOpen   = $UI.Constants.sidebarMenuOpen
       sidebarOpen       = $UI.Constants.sidebarOpen

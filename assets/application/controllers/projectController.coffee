@@ -322,6 +322,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
             $('.info-container .spinner .text').text ""
             $('#overlay .logo-preload .text').text ""
 
+          $.publish('initAfterViewContentLoaded.Portfolio')
           $.publish 'event.Portfolio', message: "All screenshots loaded"
 
         ),((loaded, count, success) ->
