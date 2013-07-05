@@ -92,8 +92,8 @@ class ImageGrid extends Portfolio.UI
           shadow: false
           hwaccel: false
 
-        $('#overlay .logo-preload .text').fadeIn()
-        $('.info-container .spinner .text').fadeIn()
+        $('#overlay .logo-preload .text').hide().fadeIn()
+        $('.info-container .spinner .text').hide().fadeIn()
 
         $('.thumbnails').waitForImages (=>
           clearTimeout renderTimeout if renderTimeout
