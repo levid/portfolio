@@ -31,6 +31,7 @@ Application.Controllers.controller "ContactController", ["$rootScope", "$scope",
     #
     index: ($scope, params) ->
       $UI.hideLoadingScreen()
+      _gaq.push ['_trackEvent', 'Page', 'Viewed', $UI.Constants.path]
 
     initScopedMethods: () ->
       $scope.contactMe = =>

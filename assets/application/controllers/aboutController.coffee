@@ -35,6 +35,7 @@ Application.Controllers.controller "AboutController", ["$rootScope", "$scope", "
     #
     index: ($scope, params) ->
       $UI.hideLoadingScreen()
+      _gaq.push ['_trackEvent', 'Page', 'Viewed', $UI.Constants.path]
       columnTimeout = setTimeout(=>
         $('.programming ul').columnize
           columns: 4

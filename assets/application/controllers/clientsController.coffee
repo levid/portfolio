@@ -36,6 +36,7 @@ Application.Controllers.controller "ClientsController", ["$rootScope", "$scope",
     #
     index: ($scope, params) ->
       $UI.hideLoadingScreen()
+      _gaq.push ['_trackEvent', 'Page', 'Viewed', $UI.Constants.path]
       clientsArr = []
       startupsArr = []
       clients = Clients.findAll((clients) ->
