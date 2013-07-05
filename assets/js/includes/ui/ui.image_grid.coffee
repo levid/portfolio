@@ -29,6 +29,7 @@ class ImageGrid extends Portfolio.UI
 
     $.subscribe('resize.Portfolio', @initResize('resize.Portfolio'))
     $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
+    $.subscribe('renderAfterViewContentLoaded.Portfolio', @render('renderAfterViewContentLoaded.Portfolio'))
 
     $(document).on 'click', ".sort-by a", (e) ->
       e.preventDefault()
@@ -107,6 +108,10 @@ class ImageGrid extends Portfolio.UI
       @innerContentEl.css width: containerWidth
       @thumbnailsEl.css width: containerWidth
 
+  render: () ->
+    # Skip the first argument (event object) but log the other args.
+    (_, path) =>
+      log "rendering"
       $('.thumbnails').waitForImages (=>
         @buildGrid(options, =>
           $('#overlay .logo-preload .text').fadeOut()

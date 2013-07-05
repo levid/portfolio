@@ -13,10 +13,11 @@ Application.Controllers.controller "MainCtrl", ["$rootScope", "$scope", "$locati
       $rootScope.$on '$viewContentLoaded', =>
         # Detect when view content has been loaded and re-initalize jQuery events
         path = $location.path().substr(1, $location.path().length)
+        $rootScope.portfolio.initAfterViewContentLoaded(path)
 
         contentLoadedTimeout = contentLoadedTimeout if contentLoadedTimeout
         contentLoadedTimeout = setTimeout(=>
-          $rootScope.portfolio.initAfterViewContentLoaded(path)
+          $rootScope.portfolio.renderAfterViewContentLoaded(path)
         , 1000)
 
       $scope.toggleAudio = () =>
