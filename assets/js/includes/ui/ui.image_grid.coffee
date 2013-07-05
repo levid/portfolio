@@ -29,7 +29,7 @@ class ImageGrid extends Portfolio.UI
 
     $.subscribe('resize.Portfolio', @initResize('resize.Portfolio'))
     $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
-    $.subscribe('renderAfterViewContentLoaded.Portfolio', @render('renderAfterViewContentLoaded.Portfolio'))
+    $.subscribe('renderAfterViewContentLoaded.Portfolio', @renderAfterViewContentLoadedProxy('renderAfterViewContentLoaded.Portfolio'))
 
     $(document).on 'click', ".sort-by a", (e) ->
       e.preventDefault()
@@ -74,65 +74,72 @@ class ImageGrid extends Portfolio.UI
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
       log "loaded"
-      @category         = $UI.Constants.category
-      @path             = $UI.Constants?.actionPath
-      options           = {}
-      sidebarMenuOpen   = $UI.Constants.sidebarMenuOpen
-      sidebarOpen       = $UI.Constants.sidebarOpen
+      @setupGrid()
 
-      log "sidebarOpen: " + $UI.Constants.sidebarOpen
-      log "sidebarMenuOpen: " + $UI.Constants.sidebarMenuOpen
-
-      if sidebarOpen is true and sidebarMenuOpen is true
-        log "grid: sidebarmenu open"
-        containerWidth = ($(window).width() - $("nav.sidebar-nav").width()) - 16
-        options.widthDifference = $("nav.sidebar-nav").width() - 70
-        options.rightMargin = 80
-      else if sidebarOpen is true and sidebarMenuOpen is false
-        log "grid: sidebar open"
-        containerWidth = $(window).width() - 70
-        options.widthDifference = 0
-        options.rightMargin = 85
-      else if sidebarOpen is false and sidebarMenuOpen is false
-        log "grid: sidebar closed"
-        containerWidth = $(window).width()
-        options.widthDifference = 0
-        options.rightMargin = 25
-      else
-        log "grid: default"
-        containerWidth = $(window).width()
-        options.widthDifference = 0
-        options.rightMargin = 25
-
-      @contentEl.css width: containerWidth
-      @innerContentEl.css width: containerWidth
-      @thumbnailsEl.css width: containerWidth
-
-  render: () ->
+  renderAfterViewContentLoadedProxy: () ->
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
-      log "rendering"
-      $('.thumbnails').waitForImages (=>
-        @buildGrid(options, =>
-          $('#overlay .logo-preload .text').fadeOut()
-          $UI.hideSpinner $('.info-container .spinner')
-          $UI.hideLoadingScreen(=>
-            $('.info-container .spinner .text').text ""
-            $('#overlay .logo-preload .text').text ""
+      @setupGrid (options) =>
+        log "rendering"
+        $('.thumbnails').waitForImages (=>
+          @buildGrid(options, =>
+            $('#overlay .logo-preload .text').fadeOut()
+            $UI.hideSpinner $('.info-container .spinner')
+            $UI.hideLoadingScreen(=>
+              $('.info-container .spinner .text').text ""
+              $('#overlay .logo-preload .text').text ""
+            )
           )
-        )
-        log "Rendering complete"
-        $.publish 'event.Portfolio', message: "Rendering complete"
+          log "Rendering complete"
+          $.publish 'event.Portfolio', message: "Rendering complete"
 
-      ),((loaded, count, success) ->
-        log loaded + " of " + count + " project images has " + ((if success then "loaded" else "failed to load")) + "."
-        perc = Math.round((100 / count) * loaded)
-        $('#overlay .logo-preload .text').show()
-        $('#overlay .logo-preload .text').text "#{perc} %"
-        $('.info-container .spinner .text').show()
-        $('.info-container .spinner .text').text "#{perc}"
-        $(this).addClass "loaded"
-      ), $.noop, true
+        ),((loaded, count, success) ->
+          log loaded + " of " + count + " project images has " + ((if success then "loaded" else "failed to load")) + "."
+          perc = Math.round((100 / count) * loaded)
+          $('#overlay .logo-preload .text').show()
+          $('#overlay .logo-preload .text').text "#{perc} %"
+          $('.info-container .spinner .text').show()
+          $('.info-container .spinner .text').text "#{perc}"
+          $(this).addClass "loaded"
+        ), $.noop, true
+
+  setupGrid: (callback) ->
+    callback = callback or ->
+    @category         = $UI.Constants.category
+    @path             = $UI.Constants?.actionPath
+    options           = {}
+    sidebarMenuOpen   = $UI.Constants.sidebarMenuOpen
+    sidebarOpen       = $UI.Constants.sidebarOpen
+
+    log "sidebarOpen: " + $UI.Constants.sidebarOpen
+    log "sidebarMenuOpen: " + $UI.Constants.sidebarMenuOpen
+
+    if sidebarOpen is true and sidebarMenuOpen is true
+      log "grid: sidebarmenu open"
+      containerWidth = ($(window).width() - $("nav.sidebar-nav").width()) - 16
+      options.widthDifference = $("nav.sidebar-nav").width() - 70
+      options.rightMargin = 80
+    else if sidebarOpen is true and sidebarMenuOpen is false
+      log "grid: sidebar open"
+      containerWidth = $(window).width() - 70
+      options.widthDifference = 0
+      options.rightMargin = 85
+    else if sidebarOpen is false and sidebarMenuOpen is false
+      log "grid: sidebar closed"
+      containerWidth = $(window).width()
+      options.widthDifference = 0
+      options.rightMargin = 25
+    else
+      log "grid: default"
+      containerWidth = $(window).width()
+      options.widthDifference = 0
+      options.rightMargin = 25
+
+    @contentEl.css width: containerWidth
+    @innerContentEl.css width: containerWidth
+    @thumbnailsEl.css width: containerWidth
+
+    callback(options)
 
   buildGrid: (options, callback) ->
     callback = callback or ->

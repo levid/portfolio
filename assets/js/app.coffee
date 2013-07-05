@@ -95,6 +95,9 @@ class Portfolio
       container: 'body'
       # placement: 'right'
 
+  renderAfterViewContentLoaded: (path) ->
+    $.publish('renderAfterViewContentLoaded.Portfolio', path)
+
   initAfterViewContentLoaded: (path) ->
     $UI.scrollTop()
 
