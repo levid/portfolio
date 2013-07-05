@@ -250,6 +250,7 @@ Application.Controllers.controller "AboutController", ["$rootScope", "$scope", "
         $(this).parent().find('a.active').removeClass 'active'
         $(this).addClass 'active'
         updateChart @href.slice(@href.indexOf("#") + 1)
+        _gaq.push ['_trackEvent', 'Page', 'About', "#{@href.slice(@href.indexOf("#") + 1)} Clicked"]
 
 
     initPieChart: () ->

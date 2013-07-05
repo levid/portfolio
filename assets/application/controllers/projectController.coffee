@@ -204,6 +204,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       # $.publish 'event.Portfolio', message: "Contacting Amazon S3..."
 
       if $routeParams.slug
+        _gaq.push ['_trackEvent', 'Page', 'Viewed', $routeParams.slug]
         projectsArr = [{}]
         projects = Projects.find(
           slug: $routeParams.slug

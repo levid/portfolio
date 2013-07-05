@@ -127,6 +127,7 @@ class Nav extends Portfolio.UI
       @highlightLeftNav().hide()
 
     ).on('click', @homeNavLinks,  (e) =>
+      _gaq.push ['_trackEvent', 'Nav', 'Home', "#{$(e.target).attr('href')} Clicked"]
       @highlightLeftNav().hide()
     )
 
@@ -142,6 +143,7 @@ class Nav extends Portfolio.UI
       @highlightLeftNav().hide()
 
     ).on('click', @allLink, (e) ->
+      _gaq.push ['_trackEvent', 'Nav', 'Home', "#{$(e.target).attr('href')} Clicked"]
       @highlightLeftNav().hide()
     )
 
@@ -156,6 +158,7 @@ class Nav extends Portfolio.UI
       @highlightLeftNav().hide()
 
     ).on('click', @smallNavlinks, (e) =>
+      _gaq.push ['_trackEvent', 'Nav', 'Home', "#{$(e.target).attr('href')} Clicked"]
       @highlightLeftNav().hide()
     )
 

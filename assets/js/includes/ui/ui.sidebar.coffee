@@ -146,10 +146,12 @@ class Sidebar extends Portfolio.UI
       if @locked is true
         $("a[data-behavior='toggle-lock']").removeClass 'active'
         $.publish 'event.Portfolio', message: "Sidebar unlocked"
+        _gaq.push ['_trackEvent', 'Nav', 'Sidebar', 'Unlocked']
         @unlock()
       else if @locked is false
         $("a[data-behavior='toggle-lock']").addClass 'active'
         $.publish 'event.Portfolio', message: "Sidebar locked"
+        _gaq.push ['_trackEvent', 'Nav', 'Sidebar', 'Locked']
         @lock()
 
     $(document).on 'click', "[data-behavior='toggle-menu']", (e) =>
@@ -196,6 +198,7 @@ class Sidebar extends Portfolio.UI
     container = $("[data-behavior='scrollable']")
     container.css height: $(window).height() - 250
     container.mCustomScrollbar("update")
+    _gaq.push ['_trackEvent', 'Nav', 'Sidebar Menu', 'Opened']
     @sidebarOpen = true
     @sidebarMenuOpen = true
 
@@ -234,6 +237,7 @@ class Sidebar extends Portfolio.UI
     # log "close sidebar menu"
     @sidebarOpen = true
     @sidebarMenuOpen = false
+    _gaq.push ['_trackEvent', 'Nav', 'Sidebar Menu', 'Closed']
 
     $UI.Constants.sidebarOpen = true
     $UI.Constants.sidebarMenuOpen = false
@@ -247,6 +251,7 @@ class Sidebar extends Portfolio.UI
     # log "open sidebar"
     @sidebarOpen = true
     @sidebarMenuOpen = false
+    _gaq.push ['_trackEvent', 'Nav', 'Sidebar', 'Opened']
 
     $UI.Constants.sidebarOpen = true
     $UI.Constants.sidebarMenuOpen = false
@@ -290,6 +295,7 @@ class Sidebar extends Portfolio.UI
     # log "close sidebar"
     @sidebarOpen = false
     @sidebarMenuOpen = false
+    _gaq.push ['_trackEvent', 'Nav', 'Sidebar', 'Closed']
 
     $UI.Constants.sidebarOpen = false
     $UI.Constants.sidebarMenuOpen = false

@@ -52,6 +52,7 @@ Application.Controllers.controller "CodeController", ["$rootScope", "$scope", "c
       $UI.Constants.actionPath = $rootScope.customParams.action
 
       if $routeParams.slug
+        _gaq.push ['_trackEvent', 'Page', 'Viewed', $routeParams.slug]
         projectsArr = [{}]
         projects = Projects.find(
           slug: $routeParams.slug

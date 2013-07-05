@@ -38,12 +38,14 @@ class Theme extends Portfolio.UI
 
       if $(this).hasClass 'active'
         $(this).text('Show Themes')
+        _gaq.push ['_trackEvent', 'Themes', 'List', 'Show Themes']
         $('.themes-list').fadeOut()
         infoContainer.find('h3').css opacity: 0
         infoContainer.find('.text p').css opacity: 0
         infoContainer.find('.divider').css opacity: 0
       else
         $(this).text('Hide Themes')
+        _gaq.push ['_trackEvent', 'Themes', 'List', 'Hide Themes']
         $('.themes-list').fadeIn()
         infoContainer.find('h3').css opacity: 1
         infoContainer.find('.text p').css opacity: 1
@@ -124,6 +126,7 @@ class Theme extends Portfolio.UI
           backgroundPosition: backgroundPosition
         ).fadeIn(500)
         $.publish 'event.Portfolio', message: "#{imageName} loaded"
+        _gaq.push ['_trackEvent', 'Themes', 'Active', "#{imageName}"]
         @hideLoadingSpinner()
         @swapPreviewImage()
         callback() unless callback is 'default'
@@ -184,6 +187,7 @@ class Theme extends Portfolio.UI
 
     $(document).on('click', "[data-behavior='toggle-theme']", (e) =>
       e.preventDefault()
+      _gaq.push ['_trackEvent', 'Themes', 'Active', 'Toggle Button Clicked']
       @swapBackgroundImage()
     )
 

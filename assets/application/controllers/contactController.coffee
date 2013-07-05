@@ -61,6 +61,7 @@ Application.Controllers.controller "ContactController", ["$rootScope", "$scope",
       )
 
       $.publish 'event.Portfolio', message: "Sending email..."
+      _gaq.push ['_trackEvent', 'Page', 'Contact', 'Email Sent']
       $("button.submit").attr('disabled', 'disabled')
       @showLoadingSpinner()
 
