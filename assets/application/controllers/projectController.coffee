@@ -299,19 +299,33 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
         )
         $scope.project = projectsArr
 
+      options           = {}
+      sidebarMenuOpen   = $UI.Constants.sidebarMenuOpen
+      sidebarOpen       = $UI.Constants.sidebarOpen
+
+      if sidebarOpen is true and sidebarMenuOpen is true
+        containerWidth = ($(window).width() - $("nav.sidebar-nav").width()) - 16
+        options.widthDifference = $("nav.sidebar-nav").width() - 70
+        options.rightMargin = 80
+      else if sidebarOpen is true and sidebarMenuOpen is false
+        containerWidth = $(window).width() - 70
+        options.widthDifference = 0
+        options.rightMargin = 85
+      else if sidebarOpen is false and sidebarMenuOpen is false
+        containerWidth = $(window).width()
+        options.widthDifference = 0
+        options.rightMargin = 25
+      else
+        containerWidth = $(window).width()
+        options.widthDifference = 0
+        options.rightMargin = 25
+
+      $("section.content").css width: containerWidth
+      $("section.content .innerContent").css width: containerWidth
+      $(".thumbnails").css width: containerWidth
+
       setTimeout(=>
         $('.thumbnails').waitForImages (=>
-          # setWidth = (options) =>
-          #   $('.thumbnails-show-view').css
-          #     width: ($(window).width()) - 70
-          #     left: -40
-
-          # $(window).resize =>
-          #   setWidth(options)
-          # setWidth(options)
-
-          # if $UI.Constants.sidebarMenuOpen is true then Portfolio.openSidebarMenu() else Portfolio.openSidebar()
-
           @setInfoWaypoints('.block', '#main')
 
           log "All screenshots have loaded."
@@ -322,7 +336,8 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
             $('.info-container .spinner .text').text ""
             $('#overlay .logo-preload .text').text ""
 
-          $.publish('initAfterViewContentLoaded.Portfolio')
+          $UI.ImageGrid.buildGrid(options)
+
           $.publish 'event.Portfolio', message: "All screenshots loaded"
 
         ),((loaded, count, success) ->

@@ -25,6 +25,7 @@ class ImageGrid extends Portfolio.UI
     @contentEl        = @options.contentEl        or $("section.content")
     @thumbnailsEl     = @options.thumbnailsEl     or $(".thumbnails")
 
+    $UI.ImageGrid.buildGrid = (options) => @buildGrid(options)
 
     $.subscribe('resize.Portfolio', @initResize('resize.Portfolio'))
     $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
@@ -84,7 +85,7 @@ class ImageGrid extends Portfolio.UI
       if sidebarOpen is true and sidebarMenuOpen is true
         log "grid: sidebarmenu open"
         containerWidth = ($(window).width() - $("nav.sidebar-nav").width()) - 16
-        options.widthDifference =$("nav.sidebar-nav").width() - 70
+        options.widthDifference = $("nav.sidebar-nav").width() - 70
         options.rightMargin = 80
       else if sidebarOpen is true and sidebarMenuOpen is false
         log "grid: sidebar open"
