@@ -92,6 +92,9 @@ class ImageGrid extends Portfolio.UI
           shadow: false
           hwaccel: false
 
+        $('#overlay .logo-preload .text').fadeIn()
+        $('.info-container .spinner .text').fadeIn()
+
         $('.thumbnails').waitForImages (=>
           clearTimeout renderTimeout if renderTimeout
           renderTimeout = setTimeout(=>
@@ -111,9 +114,9 @@ class ImageGrid extends Portfolio.UI
         ),((loaded, count, success) ->
           log loaded + " of " + count + " project images has " + ((if success then "loaded" else "failed to load")) + "."
           perc = Math.round((100 / count) * loaded)
-          $('#overlay .logo-preload .text').hide().fadeIn()
+          $('#overlay .logo-preload .text').show()
           $('#overlay .logo-preload .text').text "#{perc} %"
-          $('.info-container .spinner .text').hide().fadeIn()
+          $('.info-container .spinner .text').show()
           $('.info-container .spinner .text').text "#{perc}"
           $(this).addClass "loaded"
         ), $.noop, true
