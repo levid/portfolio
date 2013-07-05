@@ -95,12 +95,8 @@ class Portfolio
       container: 'body'
       # placement: 'right'
 
-  renderAfterViewContentLoaded: (path) ->
-    $.publish('renderAfterViewContentLoaded.Portfolio', path)
-
   initAfterViewContentLoaded: (path) ->
     $UI.scrollTop()
-
     $UI.Constants.viewLoaded = false
 
     if path isnt "home"
@@ -110,14 +106,20 @@ class Portfolio
       @wrapper.removeClass 'sub'
       @main.removeClass 'dark'
 
+    $('img:uncached').attr('title', 'Loading...');
+
     @wrapper.waitForImages (=>
       $UI.Constants.path = path
       $.publish('initAfterViewContentLoaded.Portfolio', path)
-      log "All images have loaded."
 
+      clearTimeout loadedTimeout if loadedTimeout
+      loadedTimeout = setTimeout(=>
+        $.publish('renderAfterViewContentLoaded.Portfolio', path)
+      , 1500)
+
+      log "All images have loaded."
     ),((loaded, count, success) ->
       log loaded + " of " + count + " images has " + ((if success then "loaded" else "failed to load")) + "."
-      $(this).addClass "loaded"
-    ), true
+    ), $.noop, true
 
 window.Portfolio = new Portfolio()

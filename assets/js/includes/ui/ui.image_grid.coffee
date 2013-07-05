@@ -7,10 +7,13 @@
 #
 class ImageGrid extends Portfolio.UI
   opts:
-    sidebarNavEl:     undefined
-    contentEl:        undefined
-    innerContentEl:   undefined
-    thumbnailsEl:     undefined
+    sidebarNavEl:       undefined
+    contentEl:          undefined
+    innerContentEl:     undefined
+    thumbnailsEl:       undefined
+    projectInfoOverlay: undefined
+    inView:             undefined
+    previousView:       undefined
 
   #### The constructor for the ImageGrid class
   #
@@ -19,17 +22,18 @@ class ImageGrid extends Portfolio.UI
   #
   constructor: (@options) ->
     # Extend default options to include passed in arguments
-    @options          = $.extend({}, this.opts, @options)
-    @sidebarNavEl     = @options.sidebarNavEl     or $("nav.sidebar-nav")
-    @innerContentEl   = @options.innerContentEl   or $("section.content .innerContent")
-    @contentEl        = @options.contentEl        or $("section.content")
-    @thumbnailsEl     = @options.thumbnailsEl     or $(".thumbnails")
+    @options            = $.extend({}, this.opts, @options)
+    @sidebarNavEl       = @options.sidebarNavEl       or $("nav.sidebar-nav")
+    @innerContentEl     = @options.innerContentEl     or $("section.content .innerContent")
+    @contentEl          = @options.contentEl          or $("section.content")
+    @thumbnailsEl       = @options.thumbnailsEl       or $(".thumbnails")
+    @projectInfoOverlay = @options.projectInfoOverlay or $('.project-info-overlay')
 
     $UI.ImageGrid.buildGrid = (options) => @buildGrid(options)
 
     $.subscribe('resize.Portfolio', @initResize('resize.Portfolio'))
     $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
-    $.subscribe('renderAfterViewContentLoaded.Portfolio', @render('renderAfterViewContentLoaded.Portfolio'))
+    $.subscribe('renderAfterViewContentLoaded.Portfolio', @renderGrid('renderAfterViewContentLoaded.Portfolio'))
 
     $(document).on 'click', ".sort-by a", (e) ->
       e.preventDefault()
@@ -75,43 +79,35 @@ class ImageGrid extends Portfolio.UI
       log "loaded"
       @setupGrid()
 
-  render: () ->
+  renderGrid: () ->
     # Skip the first argument (event object) but log the other args.
     (_, path) =>
-      @setupGrid (options) =>
-        log "rendering"
 
-        $UI.showSpinner $('.info-container').find('.spinner'),
-          lines: 12
-          length: 0
-          width: 3
-          radius: 13
-          color: '#ffffff'
-          speed: 1.6
-          trail: 45
-          shadow: false
-          hwaccel: false
+      $('#overlay .logo-preload .text').hide().fadeIn()
+      $('.info-container .spinner .text').hide().fadeIn()
 
-        $('#overlay .logo-preload .text').hide().fadeIn()
-        $('.info-container .spinner .text').hide().fadeIn()
-
-        $('.thumbnails').waitForImages (=>
+      $('.thumbnails').waitForImages
+        waitForAll: true
+        finished: () =>
           clearTimeout renderTimeout if renderTimeout
           renderTimeout = setTimeout(=>
-            @buildGrid(options, =>
-              $('#overlay .logo-preload .text').fadeOut()
-              $('.info-container .spinner .text').fadeOut()
-              $UI.hideSpinner $('.info-container .spinner')
-              $UI.hideLoadingScreen(=>
-                $('.info-container .spinner .text').text ""
-                $('#overlay .logo-preload .text').text ""
+            @setupGrid((options) =>
+              log "rendering"
+              @buildGrid(options, =>
+                @setInfoWaypoints('.block', '#main')
+                $('#overlay .logo-preload .text').fadeOut()
+                $('.info-container .spinner .text').fadeOut()
+                $UI.hideSpinner $('.info-container .spinner')
+                $UI.hideLoadingScreen(=>
+                  $('.info-container .spinner .text').text ""
+                  $('#overlay .logo-preload .text').text ""
+                )
+                console.log "Rendering complete"
+                $.publish 'event.Portfolio', message: "Rendering complete"
               )
-              log "Rendering complete"
-              $.publish 'event.Portfolio', message: "Rendering complete"
             )
           , 500)
-
-        ),((loaded, count, success) ->
+        each: (loaded, count, success) =>
           log loaded + " of " + count + " project images has " + ((if success then "loaded" else "failed to load")) + "."
           perc = Math.round((100 / count) * loaded)
           $('#overlay .logo-preload .text').show()
@@ -119,7 +115,25 @@ class ImageGrid extends Portfolio.UI
           $('.info-container .spinner .text').show()
           $('.info-container .spinner .text').text "#{perc}"
           $(this).addClass "loaded"
-        ), $.noop, true
+
+  setInfoWaypoints: (element, context) ->
+    self = this
+    $(element).waypoint
+      context: context
+      # offset: 50
+      handler: (direction) ->
+        self.projectInfoOverlay.fadeOut()
+
+        description       = $(this).find('.description').text()
+        self.previousView = self.inView
+        self.inView       = description
+
+        # unless self.previousView is self.inView
+        if direction is 'down'
+          if description.length > 0
+            self.projectInfoOverlay.fadeIn()
+            projectOverlay = self.projectInfoOverlay.find('p')
+            projectOverlay.text description
 
   setupGrid: (callback) ->
     callback = callback or ->
@@ -161,8 +175,8 @@ class ImageGrid extends Portfolio.UI
 
     callback(options)
 
-  buildGrid: (options, callback) ->
-    callback = callback or ->
+  buildGrid: (options, gridCallback) ->
+    gridCallback = gridCallback or ->
 
     calc = () =>
       if Object.keys(options).length is 0
@@ -225,7 +239,8 @@ class ImageGrid extends Portfolio.UI
             $UI.Constants.viewLoaded = true
             clearTimeout = imageGridTimeout if imageGridTimeout
             imageGridTimeout = setTimeout(=>
-              callback()
+              gridCallback()
+              gridCallback = -> # clear reference to existing callback to avoid bugs
             , 200)
 
           getSortData:

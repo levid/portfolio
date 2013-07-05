@@ -22,8 +22,8 @@ Application.Controllers.controller "HomeController", ["$rootScope", "$scope", "$
 
     initAfterViewContentLoadedProxy: () ->
       # Skip the first argument (event object) but log the other args.
-      (_, options) =>
-        $UI.hideLoadingScreen()
+      (_, path) =>
+        if path is "home" then $UI.hideLoadingScreen()
 
     #### The index action
     #

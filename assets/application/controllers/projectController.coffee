@@ -9,16 +9,12 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
   #
   class ProjectsController
     opts:
-      projectInfoOverlay: undefined
-      inView:             undefined
-      previousView:       undefined
       screenshotsArr:     undefined
 
     #### It's always nice to have a constructor to keep things organized
     #
     constructor: () ->
       @initScopedMethods()
-      @projectInfoOverlay = $('.project-info-overlay')
 
       if $rootScope.customParams
         if $rootScope.customParams.action == 'index'
@@ -31,7 +27,6 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       $scope.category = $rootScope.customParams.category
 
       $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
-      $.subscribe('renderAfterViewContentLoaded.Portfolio', @render('renderAfterViewContentLoaded.Portfolio'))
 
       # return this to make this class chainable
       this
@@ -41,10 +36,6 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       (_, options) =>
         if $UI.Constants.sidebarMenuOpen is true then Portfolio.openSidebarMenu() else Portfolio.openSidebar()
 
-    render: () ->
-      # Skip the first argument (event object) but log the other args.
-      (_, path) =>
-        @setInfoWaypoints('.block', '#main')
 
     #### The index action
     #
@@ -163,25 +154,6 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
 
       callback(projectsArr, projectsHtml)
 
-    setInfoWaypoints: (element, context) ->
-      self = this
-      $(element).waypoint
-        context: context
-        # offset: 50
-        handler: (direction) ->
-          self.projectInfoOverlay.fadeOut()
-
-          description       = $(this).find('.description').text()
-          self.previousView = self.inView
-          self.inView       = description
-
-          # unless self.previousView is self.inView
-          if direction is 'down'
-            if description.length > 0
-              self.projectInfoOverlay.fadeIn()
-              projectOverlay = self.projectInfoOverlay.find('p')
-              projectOverlay.text description
-
     #### The new action
     #
     # @param [Object] $scope
@@ -287,6 +259,17 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
             #   handler: (direction) ->
             #     $('.info-container').toggleClass 'sticky'
           , 700)
+
+          $UI.showSpinner $('.info-container').find('.spinner'),
+            lines: 12
+            length: 0
+            width: 3
+            radius: 13
+            color: '#ffffff'
+            speed: 1.6
+            trail: 45
+            shadow: false
+            hwaccel: false
 
         , (error) ->
           log error
