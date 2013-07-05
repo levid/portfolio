@@ -31,6 +31,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       $scope.category = $rootScope.customParams.category
 
       $.subscribe('initAfterViewContentLoaded.Portfolio', @initAfterViewContentLoadedProxy('initAfterViewContentLoaded.Portfolio'))
+      $.subscribe('renderAfterViewContentLoaded.Portfolio', @render('renderAfterViewContentLoaded.Portfolio'))
 
       # return this to make this class chainable
       this
@@ -40,6 +41,10 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
       (_, options) =>
         if $UI.Constants.sidebarMenuOpen is true then Portfolio.openSidebarMenu() else Portfolio.openSidebar()
 
+    render: () ->
+      # Skip the first argument (event object) but log the other args.
+      (_, path) =>
+        @setInfoWaypoints('.block', '#main')
 
     #### The index action
     #
@@ -287,9 +292,6 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
           log error
         )
         $scope.project = projectsArr
-
-      $scope.$on '$viewContentLoaded', =>
-        @setInfoWaypoints('.block', '#main')
 
     #### Get current scope
     #
