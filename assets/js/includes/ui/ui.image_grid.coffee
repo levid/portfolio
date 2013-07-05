@@ -107,27 +107,27 @@ class ImageGrid extends Portfolio.UI
       @innerContentEl.css width: containerWidth
       @thumbnailsEl.css width: containerWidth
 
-      clearTimeout = previewImagesTimeout if previewImagesTimeout
-      previewImagesTimeout = setTimeout(=>
-        $('.thumbnails').waitForImages (=>
-          @buildGrid(options, =>
-            $('#overlay .logo-preload .text').fadeOut()
-            $UI.hideLoadingScreen(=>
-              $UI.hideSpinner $('.info-container .spinner')
-              $('#overlay .logo-preload .text').text ""
-            )
+      $('.thumbnails').waitForImages (=>
+        @buildGrid(options, =>
+          $('#overlay .logo-preload .text').fadeOut()
+          $UI.hideSpinner $('.info-container .spinner')
+          $UI.hideLoadingScreen(=>
+            $('.info-container .spinner .text').text ""
+            $('#overlay .logo-preload .text').text ""
           )
-          log "All preview images have loaded."
-          $.publish 'event.Portfolio', message: "Rendering complete"
+        )
+        log "Rendering complete"
+        $.publish 'event.Portfolio', message: "Rendering complete"
 
-        ),((loaded, count, success) ->
-          log loaded + " of " + count + " preview images has " + ((if success then "loaded" else "failed to load")) + "."
-          perc = Math.round((100 / count) * loaded)
-          $('#overlay .logo-preload .text').show()
-          $('#overlay .logo-preload .text').text "#{perc} %"
-          $(this).addClass "loaded"
-        ), $.noop, true
-      , 1500)
+      ),((loaded, count, success) ->
+        log loaded + " of " + count + " project images has " + ((if success then "loaded" else "failed to load")) + "."
+        perc = Math.round((100 / count) * loaded)
+        $('#overlay .logo-preload .text').show()
+        $('#overlay .logo-preload .text').text "#{perc} %"
+        $('.info-container .spinner .text').show()
+        $('.info-container .spinner .text').text "#{perc}"
+        $(this).addClass "loaded"
+      ), $.noop, true
 
   buildGrid: (options, callback) ->
     callback = callback or ->

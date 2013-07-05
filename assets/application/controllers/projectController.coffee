@@ -300,24 +300,7 @@ Application.Controllers.controller "ProjectsController", ["$rootScope", "$scope"
         $scope.project = projectsArr
 
       $scope.$on '$viewContentLoaded', =>
-        $('.thumbnails').waitForImages (=>
-          @setInfoWaypoints('.block', '#main')
-          log "All screenshots have loaded."
-          $('.info-container .spinner .text').text ""
-          $('#overlay .logo-preload .text').text ""
-          $('#overlay .logo-preload .text').fadeOut()
-          $('.info-container .spinner .text').fadeOut()
-
-        ),((loaded, count, success) ->
-          log loaded + " of " + count + " screenshots has " + ((if success then "loaded" else "failed to load")) + "."
-          perc = Math.round((100 / count) * loaded)
-          $('#overlay .logo-preload .text').show()
-          $('.info-container .spinner .text').show()
-          $('.info-container .spinner .text').text "#{perc}"
-          $('#overlay .logo-preload .text').text "#{perc} %"
-          $(this).addClass "loaded"
-        ), $.noop, true
-
+        @setInfoWaypoints('.block', '#main')
 
     #### Get current scope
     #
