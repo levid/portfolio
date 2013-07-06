@@ -58,7 +58,7 @@ Application.Controllers.controller "ClientsController", ["$rootScope", "$scope",
       columnTimeout = setTimeout(=>
         $('.clients ul').columnize
           columns: 4
-      , 1000)
+      , 700)
 
     #### The new action
     #
