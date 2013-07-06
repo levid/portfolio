@@ -45,19 +45,20 @@ Application.Controllers.controller "ClientsController", ["$rootScope", "$scope",
             startupsArr.push(v)
           else if v.is_startup is false
             clientsArr.push(v)
+
+        $scope.clients = clientsArr
+        $scope.startups = startupsArr
+        $scope.predicate = 'name'
+
       , (error) ->
         console.log error
       )
 
-      $scope.clients = clientsArr
-      $scope.startups = startupsArr
-      $scope.predicate = 'name'
-
+      clearTimeout columnTimeout if columnTimeout
       columnTimeout = setTimeout(=>
         $('.clients ul').columnize
           columns: 4
-        clearTimeout columnTimeout
-      , 700)
+      , 1000)
 
     #### The new action
     #
