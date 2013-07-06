@@ -75,6 +75,7 @@ class Portfolio
     $("[data-behavior='scroll-top']").parent().hide()
     $(document).on 'click', "[data-behavior='scroll-top']", (e) ->
       e.preventDefault()
+      _gaq.push ['_trackEvent', 'Nav', 'Sidebar', 'Scroll To Top Clicked']
       $UI.scrollTop()
 
     @main.on 'scroll', (e) ->

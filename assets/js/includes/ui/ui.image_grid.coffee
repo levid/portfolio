@@ -40,12 +40,14 @@ class ImageGrid extends Portfolio.UI
       $(".sort-by a").removeClass 'active'
       $(this).addClass 'active'
       sortBy = $(e.target).data('option-value')
+      _gaq.push ['_trackEvent', 'Nav', 'Sort By', sortBy]
       $('.thumbnails').isotope
         sortBy: sortBy
 
     $(document).on 'click', ".thumbnails.show-view .project-details-container", (e) ->
       e.preventDefault()
       imagePath = $(this).parent().find('img').attr('src')
+      _gaq.push ['_trackEvent', 'Image', 'Viewed', imagePath]
       img = $("#zoom").find('img')
       $(img).attr('src', imagePath)
       $("#zoom").css
