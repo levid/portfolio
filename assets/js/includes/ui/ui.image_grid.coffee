@@ -108,7 +108,7 @@ class ImageGrid extends Portfolio.UI
                 $.publish 'event.Portfolio', message: "Rendering complete"
               )
             )
-          , 1000)
+          , 1500)
         each: (loaded, count, success) =>
           log loaded + " of " + count + " project images has " + ((if success then "loaded" else "failed to load")) + "."
           perc = Math.round((100 / count) * loaded)
