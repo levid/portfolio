@@ -54,7 +54,7 @@ Application.Controllers.controller "ClientsController", ["$rootScope", "$scope",
         columnTimeout = setTimeout(=>
           $('.clients ul').columnize
             columns: 4
-        , 700)
+        , 300)
 
       , (error) ->
         console.log error
