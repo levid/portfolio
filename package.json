@@ -14,7 +14,7 @@
         "bcrypt": "0.7.5",
         "forever": "latest",
         "nodemailer": "latest",
-        "request": "latest"
+        "request": "latest",
         "forever": "latest"
     },
     "scripts": {
