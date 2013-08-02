@@ -15,9 +15,10 @@
         "forever": "latest",
         "nodemailer": "latest",
         "request": "latest"
+        "forever": "latest"
     },
     "scripts": {
-        "start": "node .app.js",
+        "start": "forever start app.js --prod",
         "debug": "node debug .app.js"
     },
     "main": ".app.js",
