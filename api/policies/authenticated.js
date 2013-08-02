@@ -5,7 +5,7 @@ module.exports = function (req, res, ok) {
 
   // User is allowed, proceed to controller
 
-  console.log(req.param('action'));
+  // console.log(req.param('action'));
   var action = req.param('action');
 
   res.header('Cache-control', 'public');
