@@ -14,11 +14,10 @@
         "bcrypt": "0.7.5",
         "forever": "latest",
         "nodemailer": "latest",
-        "request": "latest",
-        "forever": "latest"
+        "request": "latest"
     },
     "scripts": {
-        "start": "forever start app.js --prod",
+        "start": "node .app.js",
         "debug": "node debug .app.js"
     },
     "main": ".app.js",
