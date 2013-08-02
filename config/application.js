@@ -12,7 +12,7 @@ module.exports = {
 	// In `production` mode, all css and js are bundled up and minified
 	// And your views and templates are cached in-memory.  Gzip is also used.
 	// The downside?  Harder to debug, and the server takes longer to start.
-	environment: 'production',
+	environment: 'development',
 
 	// Logger
 	// Valid `level` configs:
