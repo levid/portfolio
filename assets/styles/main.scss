@@ -17,6 +17,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
+
   }
 }
 
@@ -185,8 +186,9 @@
       bottom: 128px;
       z-index: 800;
       position: fixed;
-      // background-color: #f7f5ed;
-      background-color: rgba(0,0,0,0.9);
+      background-color: #000000;
+      // background-color: rgba(0,0,0,0.9);
+
       // @include background($path + 'patterns/dark_dotted2.png', repeat, top left, transparent);
       height: auto;
       width: auto;
@@ -210,7 +212,9 @@
           margin: -75px 0px 0px -75px;
           left: 50%;
           top: 50%;
+          @include background($path + 'LoaderAnimation.gif', no-repeat, center center, transparent);
           // border: 1px dotted #ffffff;
+
 
           img {
             width: 50px;

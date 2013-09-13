@@ -114,18 +114,18 @@ class UI extends Portfolio
     )
 
   showSpinner: (target, opts) ->
-    opts = opts or
-      lines: 12         # The number of lines to draw
-      length: 0         # The length of each line
-      width: 2          # The line thickness
-      radius: 36        # The radius of the inner circle
-      color: '#ffffff'  # #rgb or #rrggbb
-      speed: 1.6        # Rounds per second
-      trail: 45         # Afterglow percentage
-      shadow: false     # Whether to render a shadow
-      hwaccel: false    # Whether to use hardware acceleration
+    # opts = opts or
+    #   lines: 12         # The number of lines to draw
+    #   length: 0         # The length of each line
+    #   width: 2          # The line thickness
+    #   radius: 36        # The radius of the inner circle
+    #   color: '#ffffff'  # #rgb or #rrggbb
+    #   speed: 1.6        # Rounds per second
+    #   trail: 45         # Afterglow percentage
+    #   shadow: false     # Whether to render a shadow
+    #   hwaccel: false    # Whether to use hardware acceleration
 
-    $(target).spin(opts)
+    # $(target).spin(opts)
 
   hideSpinner: (target) ->
     $(target).spin('stop')
