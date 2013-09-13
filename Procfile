@@ -1,3 +1,3 @@
 # web: forever start app.js --prod
-web: node start.js
+web: node app.js
 # worker: node app.js
