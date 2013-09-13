@@ -74,16 +74,16 @@ class UI extends Portfolio
 
   showLoadingScreen: () ->
     $(@overlayEl).show()
-    @showSpinner $(@overlaySpinnerEl),
-      lines: 15
-      length: 0
-      width: 2
-      radius: 60
-      color: '#ffffff'
-      speed: 1.6
-      trail: 45
-      shadow: false
-      hwaccel: true
+    # @showSpinner $(@overlaySpinnerEl),
+    #   lines: 15
+    #   length: 0
+    #   width: 2
+    #   radius: 60
+    #   color: '#ffffff'
+    #   speed: 1.6
+    #   trail: 45
+    #   shadow: false
+    #   hwaccel: true
 
   hideLoadingScreen: (callback) ->
     callback = callback or ->
@@ -114,18 +114,18 @@ class UI extends Portfolio
     )
 
   showSpinner: (target, opts) ->
-    # opts = opts or
-    #   lines: 12         # The number of lines to draw
-    #   length: 0         # The length of each line
-    #   width: 2          # The line thickness
-    #   radius: 36        # The radius of the inner circle
-    #   color: '#ffffff'  # #rgb or #rrggbb
-    #   speed: 1.6        # Rounds per second
-    #   trail: 45         # Afterglow percentage
-    #   shadow: false     # Whether to render a shadow
-    #   hwaccel: false    # Whether to use hardware acceleration
+    opts = opts or
+      lines: 12         # The number of lines to draw
+      length: 0         # The length of each line
+      width: 2          # The line thickness
+      radius: 36        # The radius of the inner circle
+      color: '#ffffff'  # #rgb or #rrggbb
+      speed: 1.6        # Rounds per second
+      trail: 45         # Afterglow percentage
+      shadow: false     # Whether to render a shadow
+      hwaccel: false    # Whether to use hardware acceleration
 
-    # $(target).spin(opts)
+    $(target).spin(opts)
 
   hideSpinner: (target) ->
     $(target).spin('stop')
