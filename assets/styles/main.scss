@@ -189,7 +189,7 @@
       background-color: #000000;
       // background-color: rgba(0,0,0,0.9);
 
-      // @include background($path + 'patterns/dark_dotted2.png', repeat, top left, transparent);
+      // @include background($path + 'patterns/leaves.jpg', repeat, top left, transparent);
       height: auto;
       width: auto;
       max-height: 100%;
@@ -202,6 +202,8 @@
         top: 0px;
         left: 0px;
         z-index: 0;
+        @include border-radius(50%);
+        overflow: hidden;
 
         .image {
           width: 150px;
@@ -212,7 +214,9 @@
           margin: -75px 0px 0px -75px;
           left: 50%;
           top: 50%;
+          padding: 100px;
           @include background($path + 'LoaderAnimation.gif', no-repeat, center center, transparent);
+          @include border-radius(50%);
           // border: 1px dotted #ffffff;
 
 
@@ -251,6 +255,7 @@
         position: absolute;
         display: inline-block;
         z-index: 10;
+        display: none;
         // background-color: rgba(255,255,255, 0.5);
         // @include border-radius(200px);
       }
