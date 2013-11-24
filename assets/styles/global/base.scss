@@ -1,0 +1,259 @@
+* {
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+  outline: none;
+
+  /* apply a natural box layout model to all elements */
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+a:link,
+a:hover,
+a:active,
+a:visited
+{
+    white-space: normal;
+    background: none;
+    color: #ffffff;
+    cursor: pointer;
+}
+a, button, i
+{
+    outline: none !important;
+    background: none;
+    text-decoration: none;
+
+    @include transition(all .1s linear);
+
+    &:hover {
+      @include transition(all .1s linear);
+    }
+}
+
+input[type=text] {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  min-height: 100%;
+  -webkit-backface-visibility: hidden;
+  // overflow-y: scroll;
+}
+
+body {
+  font-size: 1em;
+  font-family: 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
+  background-color: #000000;
+}
+
+.teal {
+  color: #93ccd9 !important;
+}
+
+.orange {
+  color: lighten(#ff6e42, 10%) !important;
+}
+
+a {
+  &.teal {
+    color: #93ccd9 !important;
+
+    &:hover {
+      color: #ffffff !important;
+    }
+  }
+
+  &.orange {
+    color: lighten(#ff6e42, 10%) !important;
+
+    &:hover {
+      color: #ffffff !important;
+    }
+  }
+}
+
+.small {
+  vertical-align: bottom;
+  font-size: 0.9em;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.border {
+  &.all {
+    border: 8px solid #ffffff;
+  }
+
+  &.top {
+    border-top: 8px solid #ffffff;
+  }
+
+  &.bottom {
+    border-bottom: 8px solid #ffffff;
+  }
+
+  &.left {
+    border-left: 8px solid #ffffff;
+  }
+
+  &.right {
+    border-right: 8px solid #ffffff;
+  }
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.display-inline-block {
+  display: inline-block;
+}
+
+.custom-enter-setup,
+.custom-leave-setup,
+.custom-move-setup {
+  -webkit-transition: 1s linear all;
+  -moz-transition: 1s linear all;
+  -o-transition: 1s linear all;
+  transition: 1s linear all;
+  position:relative;
+}
+
+.sticky {
+  margin: 8px 0px 8px 0px;
+  position: fixed !important;
+  top: 0px !important;
+  z-index: 2;
+}
+
+.push {
+  height: 120px;
+  position: relative;
+}
+
+.custom-tooltip {
+  display: inline;
+  position: relative;
+}
+
+.custom-tooltip:hover:before{
+  border: solid;
+  border-color: #333 transparent;
+  border-width: 6px 6px 0 6px;
+  bottom: 60px;
+  content: "";
+  left: 35%;
+  position: absolute;
+  z-index: 99;
+}
+
+.custom-tooltip:hover:after{
+  background: #333;
+  background: rgba(0,0,0,.8);
+  border-radius: 5px;
+  bottom: 66px;
+  color: #fff;
+  content: attr(title);
+  left: -20%;
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 98;
+  width: auto;
+  font-size: 0.8em;
+}
+
+
+@-webkit-keyframes rotating {
+  from{
+    @include transform-rotate(0deg);
+  }
+  to{
+    @include transform-rotate(360deg);
+  }
+}
+
+.rotating {
+  -webkit-animation: rotating 2s linear infinite;
+}
+
+
+.hexagon {
+  overflow: hidden;
+  visibility: hidden;
+  @include transform-rotate(120deg);
+  cursor: pointer;
+}
+.hexagon-in1 {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  @include transform-rotate(-60deg);
+}
+.hexagon-in2 {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-color: #000000;
+  @include background-size(100% 100%);
+  visibility: visible;
+  @include transform-rotate(-60deg);
+}
+.hexagon-in2:hover {
+  background-color: #000000;
+  @include background-size(100% 100%);
+}
+
+.hexagon {
+  margin: 0px 0px 0px 0px;
+  width: 69px;
+  height: 79px;
+  position: absolute;
+  z-index: 2;
+  @include box-shadow(inset 0px 0px 10px 0px #ffffff);
+}
+
+a {
+  &.btn {
+    &.btn-orange {
+      padding: 10px 10px 8px 10px;
+      background-color: #ff6e42;
+
+      &:hover {
+        color: #ffffff;
+        background-color: rgba(255, 110, 66, 0.5);
+
+        i {
+          color: #ffffff;
+        }
+      }
+    }
+
+    &.btn-teal {
+      padding: 10px 10px 8px 10px;
+      background-color: #668f97;
+
+      &:hover {
+        color: #ffffff;
+        background-color: rgba(102, 143, 151, 0.5);
+
+        i {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
+

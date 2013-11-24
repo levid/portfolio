@@ -1,0 +1,177 @@
+main#main {
+  section.home {
+    padding: 0px;
+
+    .innerContent {
+      color: #ffffff;
+      text-transform: uppercase;
+      margin: 56px 0px 56px 56px;
+
+      a {
+        color: #ffffff;
+      }
+
+      ul.nav {
+        width: auto;
+        margin: 30px 0 0 0;
+        padding: 0px;
+        list-style: none;
+        display: inline-block;
+
+        li {
+          width: auto;
+          display: block;
+
+          &.large {
+            min-width: 392px;
+            width: auto;
+            height: 75px;
+            margin: 0px;
+            padding: 0px;
+            display: block;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+
+            a {
+              width: auto;
+              font-size: 5em;
+              font-family: ProximaNovaSemibold, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
+              font-style: italic;
+              display: block;
+              line-height: 0.9em;
+              text-shadow: 2px 2px 2px rgba(0,0,0, 0.3);
+              position: relative;
+              z-index: 1;
+            }
+
+            .shuffle {
+              margin: -72px 0px 0px 0px;
+              width: auto;
+              font-size: 5em;
+              font-family: ProximaNovaSemibold, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
+              font-style: italic;
+              display: block;
+              line-height: 0.9em;
+              text-shadow: 2px 2px 2px rgba(0,0,0, 0.3);
+              @include transition(all .2s ease-in-out);
+            }
+          }
+
+          &.spacer {
+            margin: 30px 0px 0px 0px;
+          }
+
+          &.filter-by {
+            margin: 20px 0px 30px 0px;
+            padding: 0px;
+            width: auto;
+            height: auto;
+            display: inline-block;
+            position: relative;
+            z-index: 5;
+
+            a {
+              width: auto;
+              height: auto;
+              display: inline-block;
+              position: relative;
+              left: -10px;
+              @include transition(all .1s ease-in-out);
+
+              &:hover {
+                @include transform-scale(scale(.9));
+              }
+
+              .hex {
+                overflow: hidden;
+                visibility: hidden;
+                @include transform-rotate(30deg);
+                cursor: pointer;
+              }
+              .hex-in1 {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                @include transform-rotate(-60deg);
+              }
+              .hex-in2 {
+                width: 100%;
+                height: 100%;
+                background-repeat: no-repeat;
+                background-position: 50%;
+                background-color: rgba(0,0,0,0.7);
+                visibility: visible;
+                @include transform-rotate(-60deg);
+                @include transition(all .1s ease-in-out);
+              }
+              .hex-in2:hover {
+                @include opacity(70);
+                color: #ccc;
+              }
+
+              .hex {
+                margin: 0px 0px 0px 0px;
+                width: 124px;
+                height: 80px;
+                position: relative;
+                z-index: 0;
+                @include box-shadow(inset 0px 0px 10px 0px #ffffff);
+              }
+
+              .all {
+                width: auto;
+                height: auto;
+                font-size: 1.5em;
+                font-family: ProximaNovaSemibold, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
+                position: relative;
+                font-weight: 300;
+                margin: 0px 0px 0px 0px;
+                z-index: 2;
+                display: inline-block;
+                top: 25px;
+                left: 45px;
+                @include transform-rotate(90deg);
+              }
+            }
+          }
+
+          &.small {
+            margin: 0px;
+            padding: 0px;
+            width: auto;
+            height: 33px;
+            display: block;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+
+            a {
+              width: auto;
+              font-size: 2em;
+              font-family: ProximaNovaSemibold, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
+              font-style: italic;
+              display: block;
+              line-height: 1em;
+              text-shadow: 2px 2px 2px rgba(0,0,0, 0.3);
+              position: relative;
+              z-index: 1;
+            }
+
+            .shuffle {
+              margin: -27px 0px 0px 0px;
+              width: auto;
+              font-size: 2em;
+              font-family: ProximaNovaSemibold, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
+              font-style: italic;
+              display: block;
+              line-height: 1em;
+              text-shadow: 2px 2px 2px rgba(0,0,0, 0.3);
+              @include transition(all .2s ease-in-out);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,17 +1,24 @@
 @charset "utf-8";
 
-@import "normalize";
-@import "reset";
-@import "mixins";
-@import "defaults";
-@import "notifications";
-@import "animations";
-@import "fonts";
-@import "main";
-@import "sidebar";
-@import "sections";
-@import "scroller";
-@import "forms";
-@import "themes";
-@import "editor";
-@import "footer";
+@import "global/normalize";
+@import "global/reset";
+@import "global/mixins";
+@import "global/base";
+@import "global/notifications";
+@import "global/animations";
+@import "global/fonts";
+
+@import "ace/editor";
+
+@import "layout/main";
+@import "layout/sidebar";
+@import "layout/sections";
+@import "layout/scroller";
+@import "layout/forms";
+@import "layout/themes";
+@import "layout/footer";
+
+@import "layout/pages/home";
+@import "layout/pages/cv";
+@import "layout/pages/about";
+@import "layout/pages/code";

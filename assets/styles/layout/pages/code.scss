@@ -1,0 +1,41 @@
+main#main {
+  section.code {
+    .text {
+      width: 93%;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .info-container {
+      padding: 0px 0px 30px 0px;
+      background-color: rgba(0,0,0, 0.8);
+
+      .content {
+        p {
+          max-width: 90%;
+          font-family: ProximaNovaLight, 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
+
+          &.large {
+            margin: 20px 0px 10px 0px;
+            font-size: 2em;
+          }
+
+          &.small {
+            line-height: 1.7em;
+            max-width: 800px;
+            font-size: 1.1em;
+            color: lighten(#b1b2b2, 10%);
+          }
+
+        }
+
+      }
+    }
+
+    .divider {
+      margin: 5px 0px 5px 0px;
+      border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
+      position: relative;
+    }
+  }
+}

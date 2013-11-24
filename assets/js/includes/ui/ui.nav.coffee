@@ -112,7 +112,7 @@ class Nav extends Portfolio.UI
         easing: 'easeOutQuint'
 
       @filterNavOpacity($(e.target).parents('ul').find('li.large .shuffle'), $(e.target).parents('li').find('.shuffle'))
-      @highlightLeftNav($(e.target).data('target')).show()
+      @highlightLeftNav($(e.target).parent().data('target')).show()
 
     ).on('mouseleave', @homeNavLinks,  (e) =>
       @lensFlare().hide()
@@ -150,7 +150,7 @@ class Nav extends Portfolio.UI
   smallButtons: () =>
     $(document).on('mouseenter', @smallNavlinks, (e) =>
       @filterNavOpacity($(e.target).parents('ul').find('li.small .shuffle'), $(e.target).parents('li').find('.shuffle'))
-      @highlightLeftNav($(e.target).data('target')).show()
+      @highlightLeftNav($(e.target).parent().data('target')).show()
 
     ).on('mouseleave', @smallNavlinks, (e) =>
       $(e.target).parents('ul').find('li.small .shuffle').each (index) ->
