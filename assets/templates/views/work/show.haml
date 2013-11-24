@@ -73,7 +73,6 @@
         %div{:"ng-repeat" => "image in project.image_paths"}
           .thumb{:"ng-repeat" => "key in notSorted(image)", :"ng-init" => "val = image[key]", :"ng-switch" => '', :on => "key"}
             .image
-
               .block{:"ng-switch-when" => "logo_filename"}
                 .project-details-container{:style => 'opacity: 0'}
                   .content

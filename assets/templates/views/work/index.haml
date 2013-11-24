@@ -59,9 +59,10 @@
             .image{:"ng-click" => "go(path+'/project/'+project.slug)"}
               .project-details-container
                 .content
-                  %h3.name {{project.name}}
-                  / .block
-                  /   %p {{project.description}}
+                  %h3 {{project.name}}
+                  .block{:"ng-show" => 'project.description.length > 0'}
+                    %p {{project.description}}
+
                   / .block
                   /   %table
                   /     %tr

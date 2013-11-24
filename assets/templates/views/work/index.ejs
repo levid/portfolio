@@ -61,9 +61,10 @@ Year
 <div class='image' ng-click="go(path+'/project/'+project.slug)">
 <div class='project-details-container'>
 <div class='content'>
-<h3 class='name'>{{project.name}}</h3>
-<!-- .block -->
-<!-- %p {{project.description}} -->
+<h3>{{project.name}}</h3>
+<div class='block' ng-show='project.description.length &gt; 0'>
+<p>{{project.description}}</p>
+</div>
 <!-- .block -->
 <!-- %table -->
 <!-- %tr -->
