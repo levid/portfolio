@@ -42,6 +42,6 @@ module.exports.adapters = {
 
   mongoProd: {
     module   : 'sails-mongo',
-    url      : 'mongodb://' + process.env.MONGOHQ_USERNAME + ':' + process.env.MONGOHQ_PASSWORD + '@ethan.mongohq.com:10089/app15795196'
+    url      : 'mongodb://' + process.env.MONGO_USERNAME + ':' + process.env.MONGO_PASSWORD + '@lighthouse.3.mongolayer.com:10279,lighthouse.2.mongolayer.com:10280/levid-portfolio?replicaSet=set-55480ef0a2399ff4fa0007d1'
   }
 };
